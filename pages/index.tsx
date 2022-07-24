@@ -27,10 +27,10 @@ const Home: NextPage = () => {
 						container
 						justifyContent="center"
 						alignItems="center">
-						<Grid item xs={6} style={{ maxHeight: '100vh', overflow: 'auto' }}>
+						<Grid item xs={8} style={{ maxHeight: '100vh', overflow: 'auto' }}>
 							<LeftColumn />
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={4}>
 							<RightColumn />
 						</Grid>
 					</Grid>
@@ -43,11 +43,16 @@ const Home: NextPage = () => {
 const RightColumn = () => {
 	return (
 		<div className={styles.rightColumn} >
-			<h2 className={styles.header}>
-				Projects
-			</h2>
 			<p className={styles.description}>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				<a href="//dailyarxiv.jedwards.cc" target="_blank" rel="noreferrer">
+					Daily Arxiv
+				</a> - Description
+			</p>
+
+			<p className={styles.description}>
+				<a href="//cars.jedwards.cc" target="_blank" rel="noreferrer">
+					Smart Cars
+				</a> - Description
 			</p>
 		</div>
 	)
@@ -66,7 +71,7 @@ const LeftColumn = () => {
 				<a href="//www.linkedin.com/in/justinedwards1230/" target="_blank" rel="noreferrer">
 					<LinkedInIcon />
 				</a>
-				<a href="#" target="_blank" rel="noreferrer">
+				<a href="mailto:justinedwards1230@gmail.com" target="_blank" rel="noreferrer">
 					<AlternateEmailIcon />
 				</a>
 			</Box>
