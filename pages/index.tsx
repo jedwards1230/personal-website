@@ -8,12 +8,19 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import Box from '@mui/material/Box'
 import Link from 'next/link'
 import Game from '../components/gameoflife/game'
+import { useState } from 'react';
 
 const Home: NextPage = () => {
+	const [idx, setIdx] = useState(0);
+
+	const reset = () => {
+		setIdx(idx + 1);
+	}
+
 	return (
 		<>
 			<div className={styles.game}>
-				<Game />
+				<Game key={idx} />
 			</div>
 			<div className={styles.container}>
 				<Head>
@@ -27,12 +34,13 @@ const Home: NextPage = () => {
 						container
 						justifyContent="center"
 						alignItems="center">
-						<Grid item xs={8} style={{ maxHeight: '100vh', overflow: 'auto' }}>
+						{/* <Grid item xs={8} style={{ maxHeight: '100vh', overflow: 'auto' }}>
 							<LeftColumn />
 						</Grid>
 						<Grid item xs={4}>
 							<RightColumn />
-						</Grid>
+						</Grid> */}
+						<LeftColumn reset={reset} />
 					</Grid>
 				</main>
 			</div>
@@ -58,11 +66,13 @@ const RightColumn = () => {
 	)
 }
 
-const LeftColumn = () => {
+const LeftColumn = (props: {
+	reset: () => void
+}) => {
 	return (
 		<div className={styles.leftColumn}>
 			<Box>
-				<h1 className={styles.title}>
+				<h1 className={styles.title} onClick={props.reset}>
 					<Link href="/">Justin Edwards</Link>
 				</h1>
 				<a href="//www.github.com/jedwards1230" target="_blank" rel="noreferrer">

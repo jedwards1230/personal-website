@@ -26,6 +26,10 @@
   text-align: center;
 }
 
+.leftColumn a {
+  padding: 0.5rem;
+}
+
 .title a {
   text-decoration: none;
 }
