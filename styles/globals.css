@@ -7,17 +7,6 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-:root {
-  /* Your default theme */
-  --background: white;
-  --foreground: #121212;
-}
-
-[data-theme='dark'] {
-  --background: #121212;
-  --foreground: white;
-}
-
 a {
   color: inherit;
   text-decoration: none;
