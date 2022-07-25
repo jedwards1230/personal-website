@@ -33,6 +33,8 @@ export class GameOfLife {
                     ctx.fillRect(x, y, this.resolution, this.resolution);
                 } else {
                     gridCopy[i][j] = grid[i][j];
+                    ctx.fillStyle = (grid[i][j] === 1) ? this.activeColor : this.inactiveColor;
+                    ctx.fillRect(x, y, this.resolution, this.resolution);
                 }
             }
         }
