@@ -1,12 +1,12 @@
 export class GameOfLife {
     grid?: Grid;
-    activeColor: string;
+    colors: string[];
     inactiveColor: string;
 
     resolution: number = 3;
 
-    public constructor(activeColor: string, inactiveColor: string) {
-        this.activeColor = activeColor;
+    public constructor(colors: string[], inactiveColor: string) {
+        this.colors = colors;
         this.inactiveColor = inactiveColor;
     }
 
@@ -29,11 +29,11 @@ export class GameOfLife {
                     ctx.fillRect(x, y, this.resolution, this.resolution);
                 } else if (grid[i][j] === 0 && neighbors === 3) {
                     gridCopy[i][j] = 1;
-                    ctx.fillStyle = this.activeColor;
+                    ctx.fillStyle = this.colors[neighbors % this.colors.length];
                     ctx.fillRect(x, y, this.resolution, this.resolution);
                 } else {
                     gridCopy[i][j] = grid[i][j];
-                    ctx.fillStyle = (grid[i][j] === 1) ? this.activeColor : this.inactiveColor;
+                    ctx.fillStyle = (grid[i][j] === 1) ? this.colors[neighbors % this.colors.length] : this.inactiveColor;
                     ctx.fillRect(x, y, this.resolution, this.resolution);
                 }
             }

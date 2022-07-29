@@ -1,9 +1,10 @@
-import { blue, blueGrey, deepPurple, grey } from "@mui/material/colors";
+import { blue, deepPurple, purple } from "@mui/material/colors";
 import { useEffect, useRef, useState } from "react";
 import { GameOfLife } from "../../scripts/game";
 
 const Game = () => {
-    const [game, setGame] = useState(new GameOfLife(deepPurple[800], "#121212"));
+    const colors = [blue[900], purple[900], deepPurple[800]];
+    const [game, setGame] = useState(new GameOfLife(colors, "#121212"));
     const animFrame = useRef<number>(0)
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -13,7 +14,7 @@ const Game = () => {
         canvas.height = window.innerHeight;
 
         const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-        game?.draw(ctx);
+        game.draw(ctx);
 
         animFrame.current = requestAnimationFrame(animate)
     }
