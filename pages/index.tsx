@@ -14,9 +14,9 @@ const Home: NextPage = () => {
 	const reset = () => setIdx(idx + 1);
 
 	useEffect(() => {
-        reset()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [size]);
+		reset()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [size]);
 
 	return (
 		<>

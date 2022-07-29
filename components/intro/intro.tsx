@@ -1,4 +1,4 @@
-import { Grid, Box } from "@mui/material"
+import { Grid } from "@mui/material"
 import Link from "next/link"
 import styles from "./Intro.module.css"
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -10,11 +10,18 @@ const Intro = (props: {
     reset: () => void
 }) => {
     return (
-        <Grid container className={styles.intro}>
+        <Grid 
+            container 
+            sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                flexDirection: "column",
+            }}>
             <h1 className={styles.title} onClick={props.reset}>
                 <Link href="/">Justin Edwards</Link>
             </h1>
-            <span className={styles.icons}>
+            <div className={styles.icons}>
                 <a href="//www.github.com/jedwards1230" target="_blank" rel="noreferrer">
                     <GitHubIcon />
                 </a>
@@ -24,7 +31,7 @@ const Intro = (props: {
                 <a href="mailto:justinedwards1230@gmail.com" target="_blank" rel="noreferrer">
                     <AlternateEmailIcon />
                 </a>
-            </span>
+            </div>
         </Grid>
     )
 }
