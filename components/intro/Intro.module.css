@@ -1,0 +1,23 @@
+.intro {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+}
+
+.icons a {
+    padding: 0.25rem 0.5rem;
+}
+
+.title a {
+    text-decoration: none;
+}
+
+.title {
+    margin: 0;
+    line-height: 1.15;
+    padding-bottom: 1rem;
+    font-size: 4rem;
+}

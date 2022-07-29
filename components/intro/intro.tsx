@@ -1,0 +1,32 @@
+import { Grid, Box } from "@mui/material"
+import Link from "next/link"
+import styles from "./Intro.module.css"
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+
+
+const Intro = (props: {
+    reset: () => void
+}) => {
+    return (
+        <Grid container className={styles.intro}>
+            <h1 className={styles.title} onClick={props.reset}>
+                <Link href="/">Justin Edwards</Link>
+            </h1>
+            <span className={styles.icons}>
+                <a href="//www.github.com/jedwards1230" target="_blank" rel="noreferrer">
+                    <GitHubIcon />
+                </a>
+                <a href="//www.linkedin.com/in/justinedwards1230/" target="_blank" rel="noreferrer">
+                    <LinkedInIcon />
+                </a>
+                <a href="mailto:justinedwards1230@gmail.com" target="_blank" rel="noreferrer">
+                    <AlternateEmailIcon />
+                </a>
+            </span>
+        </Grid>
+    )
+}
+
+export default Intro
