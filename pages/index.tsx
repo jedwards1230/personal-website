@@ -9,19 +9,19 @@ import Box from '@mui/material/Box'
 import Link from 'next/link'
 import Game from '../components/gameoflife/game'
 import { useEffect, useState } from 'react';
+import useWindowSize from '../scripts/windowSize';
 
 const Home: NextPage = () => {
 	const [idx, setIdx] = useState(0);
+	const size = useWindowSize();
 
-	const reset = () => {
-		setIdx(idx + 1);
-	}
+	const reset = () => setIdx(idx + 1);
 
 	useEffect(() => {
-        window.addEventListener("resize", () => reset());
-        //return () => window.removeEventListener("resize", () => reset())
+		console.log(size)
+        reset()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [size]);
 
 	return (
 		<>
