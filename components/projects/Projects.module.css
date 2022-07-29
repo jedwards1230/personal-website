@@ -1,0 +1,10 @@
+.title a {
+    text-decoration: none;
+}
+
+.title {
+    margin: 0;
+    line-height: 1.15;
+    padding-bottom: 1rem;
+    font-size: 3rem;
+}

@@ -10,13 +10,15 @@ const Game = () => {
 
     const animate = (time: number = 0) => {
         const canvas = canvasRef.current as HTMLCanvasElement;
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        if (canvas) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
-        const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-        game.draw(ctx);
+            const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+            game.draw(ctx);
 
-        animFrame.current = requestAnimationFrame(animate)
+            animFrame.current = requestAnimationFrame(animate)
+        }
     }
 
     useEffect(() => {
@@ -36,4 +38,4 @@ const Game = () => {
     )
 }
 
-export default Game;
+export default Game
