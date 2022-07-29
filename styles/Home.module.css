@@ -18,11 +18,13 @@
   scroll-snap-type: y mandatory;
   overflow: scroll;
   height: 100vh;
+  width: 100vw;
 }
 
 .scrollChild {
   scroll-snap-align: start;
   min-height: 100vh;
+  width: 100vw;
 }
 
 .child {
