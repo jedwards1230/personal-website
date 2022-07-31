@@ -2,7 +2,7 @@ export class GameOfLife {
     grid?: Grid;
     colors: string[];
     inactiveColor: string;
-    resolution: number = 2;
+    resolution: number = 3;
 
     public constructor(colors: string[], inactiveColor: string) {
         this.colors = colors;
@@ -14,27 +14,28 @@ export class GameOfLife {
         const grid = this.grid!;
         const rows = grid.length;
         const cols = grid[0].length;
+        const resolution = this.resolution;
         const gridCopy = this.makeGrid(rows, cols);
 
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
-                const x = j * this.resolution;
-                const y = i * this.resolution;
+                const x = j * resolution;
+                const y = i * resolution;
                 const neighbors = this.countNeighbors(i, j);
 
                 if (grid[i][j] === 1 && (neighbors < 2 || neighbors > 3)) {
                     gridCopy[i][j] = 0;
                     ctx.fillStyle = this.inactiveColor;
-                    ctx.fillRect(x, y, this.resolution, this.resolution);
+                    ctx.fillRect(x, y, resolution, resolution);
                 } else if (grid[i][j] === 0 && neighbors === 3) {
                     gridCopy[i][j] = 1;
                     ctx.fillStyle = this.colors[neighbors % this.colors.length];
-                    ctx.fillRect(x, y, this.resolution, this.resolution);
+                    ctx.fillRect(x, y, resolution, resolution);
                 } else {
                     gridCopy[i][j] = grid[i][j];
                     if (grid[i][j] === 1 && neighbors !== 3) {
                         ctx.fillStyle = this.colors[neighbors % this.colors.length];
-                        ctx.fillRect(x, y, this.resolution, this.resolution);
+                        ctx.fillRect(x, y, resolution, resolution);
                     }
                 }
             }
@@ -62,9 +63,13 @@ export class GameOfLife {
         return count;
     }
 
+    private round(x: number) {
+        return x + 0.5 << 0;
+    }
+
     public setupCanvas(width: number, height: number) {
-        const rows = Math.round(height / this.resolution);
-        const cols = Math.round(width / this.resolution);
+        const rows = this.round(height / this.resolution);
+        const cols = this.round(width / this.resolution);
         this.grid = this.makeGrid(rows, cols);
         this.randomize(this.grid!);
     }
