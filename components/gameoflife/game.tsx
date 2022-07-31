@@ -17,7 +17,7 @@ const Game = () => {
             const ctx = canvas.getContext("2d", { alpha: false }) as CanvasRenderingContext2D;
 
             ctx.imageSmoothingEnabled = false;
-            game.draw(ctx);
+            game.update(ctx);
 
             animFrame.current = requestAnimationFrame(animate)
         }
