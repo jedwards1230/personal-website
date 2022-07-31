@@ -37,9 +37,9 @@ const Home: NextPage = () => {
 					<PageSection>
 						<Intro reset={reset} />
 					</PageSection>
-					<PageSection>
+					{/* <PageSection>
 						<Projects />
-					</PageSection>
+					</PageSection> */}
 				</main>
 			</div>
 		</>

@@ -32,8 +32,8 @@ export class GameOfLife {
                     ctx.fillRect(x, y, this.resolution, this.resolution);
                 } else {
                     gridCopy[i][j] = grid[i][j];
-                    if (grid[i][j] === 1) {
-                        ctx.fillStyle = (grid[i][j] === 1) ? this.colors[neighbors % this.colors.length] : this.inactiveColor;
+                    if (grid[i][j] === 1 && neighbors !== 3) {
+                        ctx.fillStyle = this.colors[neighbors % this.colors.length];
                         ctx.fillRect(x, y, this.resolution, this.resolution);
                     }
                 }
@@ -42,18 +42,6 @@ export class GameOfLife {
 
         this.grid = gridCopy;
         ctx.restore();
-    }
-
-    public drawMouse(x: number, y: number) {
-        const row = Math.round(y / this.resolution);
-        const col = Math.round(x / this.resolution);
-        this.grid![row][col] = (this.grid![row][col] === 0) ? 1 : 0;
-        if (this.grid![row + 1] !== undefined && this.grid![row + 1][col + 1] !== undefined) {
-            this.grid![row + 1][col + 1] = (this.grid![row + 1][col + 1] === 0) ? 1 : 0;
-        }
-        if (this.grid![row - 1] !== undefined && this.grid![row - 1][col - 1] !== undefined) {
-            this.grid![row - 1][col - 1] = (this.grid![row - 1][col - 1] === 0) ? 1 : 0;
-        }
     }
 
     // count the number of neighbors and wrap around neighbors
@@ -94,8 +82,7 @@ export class GameOfLife {
         const cols = grid[0].length;
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
-                grid[i][j] = Math.floor(Math.random() * 2);
-                //grid[i][j] = (Math.random() * 2) | 0;
+                grid[i][j] = (Math.random() * 2) | 0;
             }
         }
     }
