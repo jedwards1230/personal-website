@@ -5,6 +5,9 @@ import Game from '../components/gameoflife/game'
 import { useEffect, useState } from 'react';
 import useWindowSize from '../scripts/windowSize';
 import Intro from '../components/intro/intro';
+import Sheet from '@mui/joy/Sheet'
+import Projects from '../components/projects/projects';
+import { Box } from '@mui/joy';
 
 const Home: NextPage = () => {
 	const [idx, setIdx] = useState(0);
@@ -23,7 +26,7 @@ const Home: NextPage = () => {
 			<div className={styles.game}>
 				<Game key={idx} />
 			</div>
-			<div className={styles.container}>
+			<div className={styles.scrollParent}>
 				<Head>
 					<title>J. Edwards</title>
 					<meta name="description" content="Personal website for Justin Edwards" />
@@ -31,13 +34,35 @@ const Home: NextPage = () => {
 				</Head>
 
 				<main className={styles.main}>
-					<Intro reset={reset} />
+					<PageSection>
+						<Intro reset={reset} />
+					</PageSection>
+					{/* <PageSection>
+						<Projects />
+					</PageSection> */}
 				</main>
 			</div>
 		</>
 	)
 }
 
-
+const PageSection = (props: { children: React.ReactNode }) => {
+	return (
+		<div className={styles.scrollChild}>
+			<Box
+				sx={{
+					height: "100vh",
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					textAlign: "center",
+					flexDirection: "column",
+					position: "relative",
+				}}>
+				{props.children}
+			</Box>
+		</div>
+	)
+}
 
 export default Home

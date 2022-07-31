@@ -4,19 +4,25 @@ import { GameOfLife } from "../../scripts/game";
 
 const Game = () => {
     const colors = [blue[900], purple[900], deepPurple[800]];
-    const [game, setGame] = useState(new GameOfLife(colors, "#121212"));
+    const [game, setGame] = useState(new GameOfLife(colors, "#000"));
     const animFrame = useRef<number>(0)
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     const animate = (time: number = 0) => {
         const canvas = canvasRef.current as HTMLCanvasElement;
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        if (canvas) {
+            console.time('doSomething')
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
-        const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-        game.draw(ctx);
+            const ctx = canvas.getContext("2d", { alpha: false }) as CanvasRenderingContext2D;
 
-        animFrame.current = requestAnimationFrame(animate)
+            ctx.imageSmoothingEnabled = false;
+            game.draw(ctx);
+
+            console.timeEnd('doSomething')
+            animFrame.current = requestAnimationFrame(animate)
+        }
     }
 
     useEffect(() => {
@@ -36,4 +42,4 @@ const Game = () => {
     )
 }
 
-export default Game;
+export default Game

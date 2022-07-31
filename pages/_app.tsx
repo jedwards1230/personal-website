@@ -1,14 +1,17 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ThemeProvider } from 'next-themes'
-import { NoSsr } from '@mui/material'
+import { CssBaseline, NoSsr } from '@mui/material'
+import { CssVarsProvider } from '@mui/joy'
+import theme from '../styles/theme'
+import '../styles/globals.css'
+
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<NoSsr>
-			<ThemeProvider defaultTheme="system">
+			<CssVarsProvider defaultMode="system" theme={theme}>
+				<CssBaseline />
 				<Component {...pageProps} />
-			</ThemeProvider>
+			</CssVarsProvider>
 		</NoSsr>
 	)
 }
