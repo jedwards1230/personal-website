@@ -11,12 +11,16 @@ const Game = () => {
     const animate = (time: number = 0) => {
         const canvas = canvasRef.current as HTMLCanvasElement;
         if (canvas) {
+            console.time('doSomething')
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+            const ctx = canvas.getContext("2d", { alpha: false }) as CanvasRenderingContext2D;
+
+            ctx.imageSmoothingEnabled = false;
             game.draw(ctx);
 
+            console.timeEnd('doSomething')
             animFrame.current = requestAnimationFrame(animate)
         }
     }

@@ -15,7 +15,7 @@
 
 .scrollParent {
   scroll-snap-type: y mandatory;
-  overflow: scroll;
+  overflow: hidden;
   height: 100vh;
   width: 100vw;
 }

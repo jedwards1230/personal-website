@@ -160,7 +160,7 @@ const muiTheme = extendMuiTheme({
                     secondary: colors.grey[300],
                 },
                 background: {
-                    default: 'rgba(0, 0, 0, 0.0)',
+                    default: '#121212',
                     paper: '#121212'
                 }
             },

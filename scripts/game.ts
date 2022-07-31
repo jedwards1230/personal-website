@@ -2,8 +2,7 @@ export class GameOfLife {
     grid?: Grid;
     colors: string[];
     inactiveColor: string;
-
-    resolution: number = 3;
+    resolution: number = 2;
 
     public constructor(colors: string[], inactiveColor: string) {
         this.colors = colors;
@@ -33,8 +32,10 @@ export class GameOfLife {
                     ctx.fillRect(x, y, this.resolution, this.resolution);
                 } else {
                     gridCopy[i][j] = grid[i][j];
-                    ctx.fillStyle = (grid[i][j] === 1) ? this.colors[neighbors % this.colors.length] : this.inactiveColor;
-                    ctx.fillRect(x, y, this.resolution, this.resolution);
+                    if (grid[i][j] === 1) {
+                        ctx.fillStyle = (grid[i][j] === 1) ? this.colors[neighbors % this.colors.length] : this.inactiveColor;
+                        ctx.fillRect(x, y, this.resolution, this.resolution);
+                    }
                 }
             }
         }
@@ -94,6 +95,7 @@ export class GameOfLife {
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
                 grid[i][j] = Math.floor(Math.random() * 2);
+                //grid[i][j] = (Math.random() * 2) | 0;
             }
         }
     }
