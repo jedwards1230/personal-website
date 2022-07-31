@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material"
 import Link from "next/link"
 import styles from "./Intro.module.css"
+import Sheet from '@mui/joy/Sheet'
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
@@ -10,14 +11,7 @@ const Intro = (props: {
     reset: () => void
 }) => {
     return (
-        <Grid 
-            container 
-            sx={{
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-                flexDirection: "column",
-            }}>
+        <>
             <h1 className={styles.title} onClick={props.reset}>
                 <Link href="/">Justin Edwards</Link>
             </h1>
@@ -32,7 +26,7 @@ const Intro = (props: {
                     <AlternateEmailIcon />
                 </a>
             </div>
-        </Grid>
+        </>
     )
 }
 

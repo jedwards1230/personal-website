@@ -3,20 +3,36 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  color: white;
   overflow: auto;
 }
 
 .main {
-  height: 100%;
-  padding: 4rem 0;
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.scrollParent {
+  scroll-snap-type: y mandatory;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.scrollChild {
+  scroll-snap-align: start;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .game {
   position: absolute;
+  height: 0;
 }
