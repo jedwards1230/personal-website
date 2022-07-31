@@ -7,6 +7,7 @@ import useWindowSize from '../scripts/windowSize';
 import Intro from '../components/intro/intro';
 import Sheet from '@mui/joy/Sheet'
 import Projects from '../components/projects/projects';
+import { Box } from '@mui/joy';
 
 const Home: NextPage = () => {
 	const [idx, setIdx] = useState(0);
@@ -48,7 +49,7 @@ const Home: NextPage = () => {
 const PageSection = (props: { children: React.ReactNode }) => {
 	return (
 		<div className={styles.scrollChild}>
-			<Sheet
+			<Box
 				sx={{
 					height: "100vh",
 					display: "flex",
@@ -59,7 +60,7 @@ const PageSection = (props: { children: React.ReactNode }) => {
 					position: "relative",
 				}}>
 				{props.children}
-			</Sheet>
+			</Box>
 		</div>
 	)
 }
