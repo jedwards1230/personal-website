@@ -1,9 +1,7 @@
-import { CssVarsThemeOptions, extendTheme, useColorScheme } from '@mui/joy/styles';
+import { CssVarsThemeOptions, extendTheme } from '@mui/joy/styles';
 import colors from '@mui/joy/colors';
 import { deepmerge } from '@mui/utils';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useEffect } from 'react';
-
+import { Theme as JoyTheme } from '@mui/joy/styles';
 import type { } from '@mui/material/themeCssVarsAugmentation';
 import {
     experimental_extendTheme as extendMuiTheme,
@@ -33,7 +31,6 @@ import {
     CommonColors,
     TypeBackground,
 } from '@mui/material/styles';
-import { Theme as JoyTheme } from '@mui/joy/styles';
 
 type JoyComponents = CssVarsThemeOptions['components'];
 
@@ -83,18 +80,6 @@ declare module '@mui/material/styles' {
     }
 }
 
-export const useThemeChecker = () => {
-    const { mode, setMode } = useColorScheme();
-    const isDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-    useEffect(() => {
-        setMode(isDarkMode ? 'dark' : 'light');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isDarkMode]);
-
-    return [mode, setMode];
-}
-
 const muiTheme = extendMuiTheme({
     // This is required to point to `var(--joy-*)` because we are using `CssVarsProvider` from Joy UI.
     cssVarPrefix: 'joy',
@@ -123,8 +108,8 @@ const muiTheme = extendMuiTheme({
                 },
                 divider: `rgba(${colors.blue[300]}, 0.9)`,
                 text: {
-                    primary: colors.grey[800],
-                    secondary: colors.grey[600],
+                    primary: colors.grey[100],
+                    secondary: colors.grey[200],
                 },
                 background: {
                     default: '#FFF',
@@ -156,8 +141,8 @@ const muiTheme = extendMuiTheme({
                 },
                 divider: `rgba(${colors.grey[800]}, 0.12)`,
                 text: {
-                    primary: colors.grey[100],
-                    secondary: colors.grey[300],
+                    primary: colors.grey[900],
+                    secondary: colors.grey[800],
                 },
                 background: {
                     default: '#121212',

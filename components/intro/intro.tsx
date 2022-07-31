@@ -1,31 +1,58 @@
-import { Grid } from "@mui/material"
-import Link from "next/link"
-import styles from "./Intro.module.css"
-import Sheet from '@mui/joy/Sheet'
+import NextLink from "next/link"
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import { Link } from "@mui/material";
+import { Box } from "@mui/material";
 
 
 const Intro = (props: {
     reset: () => void
 }) => {
+    const linkIcon = {
+        padding: '0.25rem 0.5rem'
+    }
+
+    const header = {
+        fontSize: '4rem',
+        pb: 1,
+        m: 0,
+    }
+
     return (
         <>
-            <h1 className={styles.title} onClick={props.reset}>
-                <Link href="/">Justin Edwards</Link>
-            </h1>
-            <div className={styles.icons}>
-                <a href="//www.github.com/jedwards1230" target="_blank" rel="noreferrer">
+            <NextLink href="/" passHref>
+                <Link
+                    color='common.white'
+                    onClick={props.reset}
+                    sx={header}>Justin Edwards</Link>
+            </NextLink>
+            <Box sx={{ color: 'common.white' }}>
+                <Link
+                    href="//www.github.com/jedwards1230"
+                    target="_blank"
+                    rel="noreferrer"
+                    color="inherit"
+                    sx={linkIcon}>
                     <GitHubIcon />
-                </a>
-                <a href="//www.linkedin.com/in/justinedwards1230/" target="_blank" rel="noreferrer">
+                </Link>
+                <Link
+                    href="//www.linkedin.com/in/justinedwards1230"
+                    target="_blank"
+                    rel="noreferrer"
+                    color="inherit"
+                    sx={linkIcon}>
                     <LinkedInIcon />
-                </a>
-                <a href="mailto:justinedwards1230@gmail.com" target="_blank" rel="noreferrer">
+                </Link>
+                <Link
+                    href="mailto:justinedwards1230@gmail.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    color="inherit"
+                    sx={linkIcon}>
                     <AlternateEmailIcon />
-                </a>
-            </div>
+                </Link>
+            </Box>
         </>
     )
 }
