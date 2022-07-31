@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import { CssBaseline, NoSsr } from '@mui/material'
 import { CssVarsProvider } from '@mui/joy'
-import theme from '../styles/theme'
+import theme from '../components/theme/theme'
 import '../styles/globals.css'
 
 
