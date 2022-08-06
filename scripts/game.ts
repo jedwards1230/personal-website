@@ -4,11 +4,15 @@ export class GameOfLife {
     inactiveColor: string;
     resolution: number = 3;
 
+    /** Assign initial colors */
+    // ? could probably be refactored into setupCanvas()
     public constructor(colors: string[], inactiveColor: string) {
         this.colors = colors;
         this.inactiveColor = inactiveColor;
     }
 
+    /** Create grid based on canvas size */
+    // This is not in the constructor due to how the react component creates the canvas
     public setupCanvas(width: number, height: number) {
         const rows = Math.round(height / this.resolution);
         const cols = Math.round(width / this.resolution);
@@ -16,18 +20,21 @@ export class GameOfLife {
         this.randomize(this.grid!);
     }
 
+    /** Game loop */
     public update(ctx: CanvasRenderingContext2D) {
         ctx.save();
         const grid = this.grid!;
         const rows = grid.length;
         const cols = grid[0].length;
         const resolution = this.resolution;
+        // new empty grid to store next generation
         const gridCopy = this.makeGrid(rows, cols);
 
         let i = 0;
         while (i < rows) {
             let j = 0;
             while (j < cols) {
+                // canvas coordinates
                 const x = j * resolution;
                 const y = i * resolution;
                 const neighbors = this.countNeighbors(i, j);
@@ -60,7 +67,7 @@ export class GameOfLife {
         ctx.restore();
     }
 
-    // count the number of neighbors including wrap around neighbors
+    /** Count the number of neighbors including wrap around neighbors */ 
     private countNeighbors(row: number, col: number) {
         const grid = this.grid!;
         const rows = grid.length;
@@ -78,7 +85,8 @@ export class GameOfLife {
         return count;
     }
 
-    private makeGrid(rows: number, cols: number) {
+    /** Create empty grid */
+    private makeGrid(rows: number, cols: number): Grid {
         const arr = new Array(rows);
         for (let i = 0; i < rows; i++) {
             arr[i] = new Array(cols);
@@ -86,11 +94,14 @@ export class GameOfLife {
         return arr;
     }
 
+    /** Randomize each cell in grid */
     private randomize(grid: Grid) {
         const rows = grid.length;
         const cols = grid[0].length;
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
+                // random 0 or 1
+                // bitwise quicker than Math.floor()
                 grid[i][j] = (Math.random() * 2) | 0;
             }
         }
