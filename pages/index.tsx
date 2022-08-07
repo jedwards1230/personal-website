@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Game from '../components/gameoflife/game'
+import Game from '../components/gameoflife/gameComponent'
 import { useEffect, useState } from 'react';
 import useWindowSize from '../scripts/windowSize';
 import Intro from '../components/intro/intro';

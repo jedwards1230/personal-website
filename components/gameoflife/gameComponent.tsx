@@ -1,6 +1,6 @@
 import { blue, deepPurple, purple } from "@mui/material/colors";
 import { useEffect, useRef, useState } from "react";
-import { GameOfLife } from "../../scripts/game";
+import { GameOfLife } from "./game";
 
 const Game = () => {
     const colors = [blue[900], purple[900], deepPurple[800]];
