@@ -38,26 +38,27 @@ export class GameOfLife {
                 const x = j * resolution;
                 const y = i * resolution;
                 const neighbors = this.countNeighbors(i, j);
+                const cell = grid[i][j];
 
-                if (grid[i][j] === 1 && (neighbors < 2 || neighbors > 3)) {
-                    // kill 
-                    gridCopy[i][j] = 0;
-                    ctx.fillStyle = this.inactiveColor;
-                    ctx.fillRect(x, y, resolution, resolution);
-                } else if (grid[i][j] === 0 && neighbors === 3) {
+                if (cell === 0 && neighbors === 3) {
                     // bring to life
                     gridCopy[i][j] = 1;
                     ctx.fillStyle = this.colors[neighbors % this.colors.length];
                     ctx.fillRect(x, y, resolution, resolution);
-                } else {
-                    // copy previous state
-                    gridCopy[i][j] = grid[i][j];
-                    if (grid[i][j] === 1 && neighbors !== 3) {
+                } else if (cell === 1 && (neighbors === 2 || neighbors === 3)) {
+                    // keep alive
+                    gridCopy[i][j] = 1;
+                    if (neighbors === 2) {
                         // apply secondary color if neighbor count changed
                         ctx.fillStyle = this.colors[neighbors % this.colors.length];
                         ctx.fillRect(x, y, resolution, resolution);
                     }
-                }
+                } else {
+                    // dead 
+                    gridCopy[i][j] = 0;
+                    ctx.fillStyle = this.inactiveColor;
+                    ctx.fillRect(x, y, resolution, resolution);
+                }  
                 j++;
             }
             i++;
