@@ -30,7 +30,7 @@ const Home: NextPage = () => {
 					<link rel="icon" href="/favicon.ico" />
 				</Head>
 
-				<main className={styles.main}>
+				<main>
 					<PageSection>
 						<Intro reset={reset} />
 					</PageSection>
@@ -46,18 +46,6 @@ const PageSection = (props: { children: React.ReactNode }) => {
 			<div className={styles.pageSection}>
 				{props.children}
 			</div>
-			{/* <Box
-				sx={{
-					height: "100vh",
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
-					textAlign: "center",
-					flexDirection: "column",
-					position: "relative",
-				}}>
-				{props.children}
-			</Box> */}
 		</div>
 	)
 }
