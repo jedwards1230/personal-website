@@ -1,15 +1,10 @@
 export class GameOfLife {
     grid?: Grid;
-    colors: string[];
-    inactiveColor: string;
-    resolution: number = 3;
-
-    /** Assign initial colors */
-    // ? could probably be refactored into setupCanvas()
-    public constructor(colors: string[], inactiveColor: string) {
-        this.colors = colors;
-        this.inactiveColor = inactiveColor;
-    }
+    colors?: string[];
+    inactiveColor?: string;
+    // current limit for 60fps
+    // res = 4 => 55 fps | macbook pro m1 | firefox
+    resolution: number = 4;
 
     /** Create grid based on canvas size */
     // This is not in the constructor due to how the react component creates the canvas
@@ -25,10 +20,13 @@ export class GameOfLife {
         const grid = this.grid!;
         const rows = grid.length;
         const cols = grid[0].length;
+        const colors = this.colors!;
+        const inactiveColor = this.inactiveColor!;
         const resolution = this.resolution;
         // new empty grid to store next generation
         const gridCopy = this.makeGrid(rows, cols);
 
+        //performance.mark('start');
         let i = 0;
         while (i < rows) {
             let j = 0;
@@ -42,29 +40,39 @@ export class GameOfLife {
                 if (cell === 0 && neighbors === 3) {
                     // bring to life
                     gridCopy[i][j] = 1;
-                    ctx.fillStyle = this.colors[0];
+                    ctx.fillStyle = colors[0];
                     ctx.fillRect(x, y, resolution, resolution);
                 } else if (cell === 1 && (neighbors === 2 || neighbors === 3)) {
                     // keep alive
                     gridCopy[i][j] = 1;
-                    ctx.fillStyle = this.colors[neighbors - 2];
+                    ctx.fillStyle = colors[neighbors - 2];
                     ctx.fillRect(x, y, resolution, resolution);
                 } else {
                     // dead 
                     gridCopy[i][j] = 0;
-                    ctx.fillStyle = this.inactiveColor;
+                    ctx.fillStyle = inactiveColor;
                     ctx.fillRect(x, y, resolution, resolution);
                 }
                 j++;
             }
             i++;
         }
+        /* performance.mark('end');
+        performance.measure('update', 'start', 'end');
+        performance.getEntriesByType('measure').forEach(entry => {
+            if (entry.name === 'update') {
+                console.log(`${entry.name}: ${entry.duration}ms`);
+            }
+        })
+
+        performance.clearMarks();
+        performance.clearMeasures(); */
 
         this.grid = gridCopy;
         ctx.restore();
     }
 
-    public updateColors(activeColors: string[], inactiveColor: string) {
+    public setColors(activeColors: string[], inactiveColor: string) {
         this.colors = activeColors;
         this.inactiveColor = inactiveColor;
     }
@@ -91,7 +99,7 @@ export class GameOfLife {
     private initGrid(rows: number, cols: number): Grid {
         const arr = new Array(rows);
         for (let i = 0; i < rows; i++) {
-            arr[i] = Array.from({length: cols}, () => (Math.random() * 2) | 0);
+            arr[i] = Array.from({ length: cols }, () => (Math.random() * 2) | 0);
         }
         return arr;
     }
