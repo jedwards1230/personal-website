@@ -6,11 +6,12 @@ import useThemeChecker from "../themeChecker";
 import { GameOfLife } from "./game";
 
 const Game = () => {
-    const fps = new FPSCounter();
     const mode = useThemeChecker();
-    const [game, setGame] = useState(new GameOfLife());
     const animFrame = useRef<number>(0)
     const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    const fps = new FPSCounter();
+    const game = new GameOfLife()
 
     // get cell colors by mode
     const getColors = () => {
@@ -24,19 +25,18 @@ const Game = () => {
 
     const animate = (time: number = 0) => {
         if (fps.stop) return
-        animFrame.current = requestAnimationFrame(animate)
-
         fps.update(time);
+        
+        animFrame.current = requestAnimationFrame(animate)
         const canvas = canvasRef.current as HTMLCanvasElement;
 
         if (canvas && fps.ready()) {
             fps.step();
+
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-
             const ctx = canvas.getContext("2d", { alpha: false }) as CanvasRenderingContext2D;
 
-            ctx.imageSmoothingEnabled = false;
             game.update(ctx);
 
             fps.log();
