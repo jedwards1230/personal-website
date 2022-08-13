@@ -8,7 +8,7 @@ class FPSCounter {
     elapsed = 0
     now = 0
 
-    logFps = true
+    logFps = false
 
     init(fpsLimit: number) {
         this.fpsLimit = fpsLimit;
