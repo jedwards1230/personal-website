@@ -11,9 +11,10 @@ const Intro = (props: {
     return (
         <>
             <NextLink href="/" passHref>
-                <a className={styles.header} onClick={props.reset}>
-                    Justin Edwards
-                </a>
+                <a 
+                    className={styles.header} 
+                    onClick={props.reset}
+                    >Justin Edwards</a>
             </NextLink>
             <div className={styles.icons}>
                 <a
