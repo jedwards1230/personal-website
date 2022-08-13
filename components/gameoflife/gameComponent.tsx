@@ -1,23 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { blue, deepPurple, pink, purple, yellow } from "@mui/material/colors";
 import { useEffect, useRef, useState } from "react";
+import FPSCounter from "../../scripts/fpscounter";
 import useThemeChecker from "../themeChecker";
 import { GameOfLife } from "./game";
 
 const Game = () => {
-    let stop = false;
-    let frameCount = 0;
-    const fpsLimit = 60;
-    let fpsInterval: number
-    let startTime: number
-    let now: number
-    let then: number
-    let elapsed: number;
-
-    const logFps = true;
-
+    const fps = new FPSCounter();
     const mode = useThemeChecker();
+    const [game, setGame] = useState(new GameOfLife());
+    const animFrame = useRef<number>(0)
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
+    // get cell colors by mode
     const getColors = () => {
         return {
             activeColors: (mode === 'dark')
@@ -27,20 +22,15 @@ const Game = () => {
         }
     }
 
-    const [game, setGame] = useState(new GameOfLife());
-    const animFrame = useRef<number>(0)
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-
     const animate = (time: number = 0) => {
-        if (stop) return
+        if (fps.stop) return
         animFrame.current = requestAnimationFrame(animate)
 
-        now = time;
-        elapsed = now - then;
+        fps.update(time);
         const canvas = canvasRef.current as HTMLCanvasElement;
 
-        if (canvas && elapsed > fpsInterval) {
-            then = now - (elapsed % fpsInterval);
+        if (canvas && fps.ready()) {
+            fps.step();
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
@@ -49,43 +39,33 @@ const Game = () => {
             ctx.imageSmoothingEnabled = false;
             game.update(ctx);
 
-            if (logFps) {
-                const sinceStart = now - startTime;
-                const currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
-                console.log((currentFps | 0) + ' fps');
-            }
+            fps.log();
         }
-
-
     }
 
+    // listen for color mode changes
     useEffect(() => {
         const { activeColors, inactiveColor } = getColors();
         game.setColors(activeColors, inactiveColor);
     }, [mode]);
 
+    // initialize
     useEffect(() => {
+        fps.init(60)
+
         const canvas = canvasRef.current as HTMLCanvasElement;
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
         game.setupCanvas(canvas.width, canvas.height);
 
         const { activeColors, inactiveColor } = getColors();
         game.setColors(activeColors, inactiveColor)
 
-        fpsInterval = 1000 / fpsLimit;
-        then = performance.now();
-        startTime = then;
-
         animate();
-
         return () => cancelAnimationFrame(animFrame.current);
     }, []);
 
-    return (
-        <canvas ref={canvasRef} />
-    )
+    return <canvas ref={canvasRef} />
 }
 
 export default Game
