@@ -7,14 +7,15 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-body {
-  background-color: #fff;
+:root {
+  /* Your default theme */
+  --background: #fff;
+  --foreground: #000;
 }
 
-@media (prefers-dark-mode: true) {
-  body {
-    background-color: #000;
-  }
+[data-theme='dark'] {
+  --background: #000;
+  --foreground: #fff;
 }
 
 a {
