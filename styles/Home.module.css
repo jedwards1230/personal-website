@@ -26,6 +26,16 @@
   width: 100vw;
 }
 
+.pageSection {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
 .child {
   display: flex;
   justify-content: center;

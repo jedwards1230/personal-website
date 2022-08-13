@@ -16,8 +16,7 @@ export class GameOfLife {
     public setupCanvas(width: number, height: number) {
         const rows = Math.round(height / this.resolution);
         const cols = Math.round(width / this.resolution);
-        this.grid = this.makeGrid(rows, cols);
-        this.randomize(this.grid!);
+        this.grid = this.initGrid(rows, cols);
     }
 
     /** Game loop */
@@ -43,22 +42,19 @@ export class GameOfLife {
                 if (cell === 0 && neighbors === 3) {
                     // bring to life
                     gridCopy[i][j] = 1;
-                    ctx.fillStyle = this.colors[neighbors % this.colors.length];
+                    ctx.fillStyle = this.colors[0];
                     ctx.fillRect(x, y, resolution, resolution);
                 } else if (cell === 1 && (neighbors === 2 || neighbors === 3)) {
                     // keep alive
                     gridCopy[i][j] = 1;
-                    if (neighbors === 2) {
-                        // apply secondary color if neighbor count changed
-                        ctx.fillStyle = this.colors[neighbors % this.colors.length];
-                        ctx.fillRect(x, y, resolution, resolution);
-                    }
+                    ctx.fillStyle = this.colors[neighbors - 2];
+                    ctx.fillRect(x, y, resolution, resolution);
                 } else {
                     // dead 
                     gridCopy[i][j] = 0;
                     ctx.fillStyle = this.inactiveColor;
                     ctx.fillRect(x, y, resolution, resolution);
-                }  
+                }
                 j++;
             }
             i++;
@@ -68,7 +64,12 @@ export class GameOfLife {
         ctx.restore();
     }
 
-    /** Count the number of neighbors including wrap around neighbors */ 
+    public updateColors(activeColors: string[], inactiveColor: string) {
+        this.colors = activeColors;
+        this.inactiveColor = inactiveColor;
+    }
+
+    /** Count the number of neighbors including wrap around neighbors */
     private countNeighbors(row: number, col: number) {
         const grid = this.grid!;
         const rows = grid.length;
@@ -86,6 +87,15 @@ export class GameOfLife {
         return count;
     }
 
+    /** Randomize each cell in grid */
+    private initGrid(rows: number, cols: number): Grid {
+        const arr = new Array(rows);
+        for (let i = 0; i < rows; i++) {
+            arr[i] = Array.from({length: cols}, () => (Math.random() * 2) | 0);
+        }
+        return arr;
+    }
+
     /** Create empty grid */
     private makeGrid(rows: number, cols: number): Grid {
         const arr = new Array(rows);
@@ -93,18 +103,5 @@ export class GameOfLife {
             arr[i] = new Array(cols);
         }
         return arr;
-    }
-
-    /** Randomize each cell in grid */
-    private randomize(grid: Grid) {
-        const rows = grid.length;
-        const cols = grid[0].length;
-        for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
-                // random 0 or 1
-                // bitwise quicker than Math.floor()
-                grid[i][j] = (Math.random() * 2) | 0;
-            }
-        }
     }
 }

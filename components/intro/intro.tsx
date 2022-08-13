@@ -2,57 +2,39 @@ import NextLink from "next/link"
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import { Link } from "@mui/material";
-import { Box } from "@mui/material";
+import styles from './Intro.module.css';
 
 
 const Intro = (props: {
     reset: () => void
 }) => {
-    const linkIcon = {
-        padding: '0.25rem 0.5rem'
-    }
-
-    const header = {
-        fontSize: '4rem',
-        pb: 1,
-        m: 0,
-    }
-
     return (
         <>
             <NextLink href="/" passHref>
-                <Link
-                    color='common.white'
-                    onClick={props.reset}
-                    sx={header}>Justin Edwards</Link>
+                <a className={styles.header} onClick={props.reset}>
+                    Justin Edwards
+                </a>
             </NextLink>
-            <Box sx={{ color: 'common.white' }}>
-                <Link
+            <div className={styles.icons}>
+                <a
                     href="//www.github.com/jedwards1230"
                     target="_blank"
-                    rel="noreferrer"
-                    color="inherit"
-                    sx={linkIcon}>
+                    rel="noreferrer">
                     <GitHubIcon />
-                </Link>
-                <Link
+                </a>
+                <a
                     href="//www.linkedin.com/in/justinedwards1230"
                     target="_blank"
-                    rel="noreferrer"
-                    color="inherit"
-                    sx={linkIcon}>
+                    rel="noreferrer">
                     <LinkedInIcon />
-                </Link>
-                <Link
+                </a>
+                <a
                     href="mailto:justinedwards1230@gmail.com"
                     target="_blank"
-                    rel="noreferrer"
-                    color="inherit"
-                    sx={linkIcon}>
+                    rel="noreferrer">
                     <AlternateEmailIcon />
-                </Link>
-            </Box>
+                </a>
+            </div>
         </>
     )
 }
