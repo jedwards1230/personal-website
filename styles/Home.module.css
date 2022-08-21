@@ -1,8 +1,3 @@
-.game {
-  position: absolute;
-  height: 0;
-}
-
 .scrollParent {
   scroll-snap-type: y mandatory;
   overflow: hidden;
