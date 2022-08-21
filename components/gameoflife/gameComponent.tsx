@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
+import { useTheme } from "next-themes";
+import { useEffect, useRef } from "react";
 import FPSCounter from "../../scripts/fpscounter";
-import useThemeChecker from "../themeChecker";
 import { GameOfLife } from "./game";
 import styles from "./Game.module.css";
 
 const Game = () => {
-    const mode = useThemeChecker();
+    const { resolvedTheme } = useTheme()
+
     const animFrame = useRef<number>(0)
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const gridRef = useRef<HTMLCanvasElement>(null);
@@ -46,8 +47,9 @@ const Game = () => {
 
     // listen for color mode changes
     useEffect(() => {
-        game.current.style = mode === 'dark' ? cellColors.dark : cellColors.light
-    }, [mode]);
+        console.log(resolvedTheme)
+        game.current.style = resolvedTheme === 'dark' ? cellColors.dark : cellColors.light
+    }, [resolvedTheme]);
 
     // initialize
     useEffect(() => {
@@ -58,7 +60,7 @@ const Game = () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         game.current.setupCanvas(canvas);
-        game.current.style = mode === 'dark' ? cellColors.dark : cellColors.light
+        game.current.style = resolvedTheme === 'dark' ? cellColors.dark : cellColors.light
 
         // establish grid overlay canvas
         const grid = gridRef.current as HTMLCanvasElement;
