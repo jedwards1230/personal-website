@@ -17,7 +17,7 @@ const Game = () => {
     const cellColors = {
         dark: {
             activeColors: ['#4a148c', '#0d47a1'],
-            inactiveColor: '#000',
+            inactiveColor: '#121212',
             lineColor: '#fff'
         },
         light: {
@@ -51,7 +51,7 @@ const Game = () => {
 
     // initialize
     useEffect(() => {
-        fps.init(60, true)
+        fps.init(60, false)
 
         // establish game canvas
         const canvas = canvasRef.current as HTMLCanvasElement;

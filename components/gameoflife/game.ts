@@ -9,10 +9,8 @@ type Grid = number[][];
 export class GameOfLife {
     grid?: Grid;
     style?: GameStyle;
-
-    // current limit for 60fps
-    // res = 4 => 55 fps | macbook pro m1 | firefox
-    resolution: number = 4;
+    
+    resolution: number = 6;
 
     /** Create grid based on canvas size */
     // This is not in the constructor due to how the react component creates the canvas
