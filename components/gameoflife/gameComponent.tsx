@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
-import FPSCounter from "../../scripts/fpscounter";
 import { GameOfLife } from "./game";
 import styles from "./Game.module.css";
 
@@ -12,7 +11,6 @@ const Game = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const gridRef = useRef<HTMLCanvasElement>(null);
 
-    const fps = new FPSCounter();
     const game = useRef(new GameOfLife());
 
     const cellColors = {
@@ -29,19 +27,12 @@ const Game = () => {
     }
 
     const animate = (time: number = 0) => {
-        if (fps.stop) return
-        fps.update(time);
-
         animFrame.current = requestAnimationFrame(animate)
         const canvas = canvasRef.current as HTMLCanvasElement;
 
-        if (canvas && fps.ready()) {
-            fps.step();
-
+        if (canvas) {
             const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
             game.current.update(ctx);
-
-            fps.log();
         }
     }
 
@@ -53,8 +44,6 @@ const Game = () => {
 
     // initialize
     useEffect(() => {
-        fps.init(60, false)
-
         // establish game canvas
         const canvas = canvasRef.current as HTMLCanvasElement;
         canvas.width = window.innerWidth;
