@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	return (
 		<ThemeProvider disableTransitionOnChange>
-			<GoogleAnalytics />
+			<GoogleAnalytics strategy='lazyOnload' />
 			<Component {...pageProps} />
 		</ThemeProvider>
 	)
