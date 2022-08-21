@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { blue, deepPurple, pink, purple, yellow } from "@mui/material/colors";
 import { useEffect, useRef, useState } from "react";
 import FPSCounter from "../../scripts/fpscounter";
 import useThemeChecker from "../themeChecker";
@@ -10,19 +9,21 @@ const Game = () => {
     const mode = useThemeChecker();
     const animFrame = useRef<number>(0)
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const gridRef = useRef<HTMLCanvasElement>(null);
 
     const fps = new FPSCounter();
-    const game = new GameOfLife()
+    const game = useRef(new GameOfLife());
 
-    // get cell colors by mode
-    const getColors = () => {
-        return {
-            activeColors: (mode === 'dark')
-                ? [purple[900], blue[900]]
-                : [blue[300], purple[300]],
-            inactiveColor: (mode === 'dark')
-                ? '#000'
-                : '#fff',
+    const cellColors = {
+        dark: {
+            activeColors: ['#4a148c', '#0d47a1'],
+            inactiveColor: '#000',
+            lineColor: '#fff'
+        },
+        light: {
+            activeColors: ['#64b5f6', '#ba68c8'],
+            inactiveColor: '#fff',
+            lineColor: '#000'
         }
     }
 
@@ -36,11 +37,8 @@ const Game = () => {
         if (canvas && fps.ready()) {
             fps.step();
 
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const ctx = canvas.getContext("2d", { alpha: false }) as CanvasRenderingContext2D;
-
-            game.update(ctx);
+            const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+            game.current.update(ctx);
 
             fps.log();
         }
@@ -48,30 +46,36 @@ const Game = () => {
 
     // listen for color mode changes
     useEffect(() => {
-        const { activeColors, inactiveColor } = getColors();
-        game.setColors(activeColors, inactiveColor);
+        game.current.style = mode === 'dark' ? cellColors.dark : cellColors.light
     }, [mode]);
 
     // initialize
     useEffect(() => {
-        fps.init(60)
+        fps.init(60, true)
 
+        // establish game canvas
         const canvas = canvasRef.current as HTMLCanvasElement;
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        game.setupCanvas(canvas.width, canvas.height);
+        game.current.setupCanvas(canvas);
+        game.current.style = mode === 'dark' ? cellColors.dark : cellColors.light
 
-        const { activeColors, inactiveColor } = getColors();
-        game.setColors(activeColors, inactiveColor)
+        // establish grid overlay canvas
+        const grid = gridRef.current as HTMLCanvasElement;
+        grid.width = window.innerWidth;
+        grid.height = window.innerHeight;
+        const ctx = grid.getContext("2d") as CanvasRenderingContext2D;
+        game.current.drawOverlay(ctx);
 
         animate();
         return () => cancelAnimationFrame(animFrame.current);
     }, []);
 
     return (
-        <div className={styles.game}>
-            <canvas ref={canvasRef} />
-        </div>
+        <>
+            <canvas className={styles.game} ref={canvasRef} />
+            <canvas className={styles.grid} ref={gridRef} />
+        </>
     )
 }
 
