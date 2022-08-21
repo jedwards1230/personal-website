@@ -10,11 +10,12 @@ class FPSCounter {
 
     logFps = false
 
-    init(fpsLimit: number) {
+    init(fpsLimit: number, log: boolean) {
         this.fpsLimit = fpsLimit;
         this.fpsInterval = 1000 / this.fpsLimit;
         this.then = performance.now();
         this.startTime = this.then;
+        this.logFps = log;
     }
 
     /** Update every animation frame to evaluate */
