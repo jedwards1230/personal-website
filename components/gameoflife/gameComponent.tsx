@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import FPSCounter from "../../scripts/fpscounter";
 import useThemeChecker from "../themeChecker";
 import { GameOfLife } from "./game";
+import styles from "./Game.module.css";
 
 const Game = () => {
     const mode = useThemeChecker();
@@ -19,14 +20,16 @@ const Game = () => {
             activeColors: (mode === 'dark')
                 ? [purple[900], blue[900]]
                 : [blue[300], purple[300]],
-            inactiveColor: (mode === 'dark') ? '#000' : '#fff',
+            inactiveColor: (mode === 'dark')
+                ? '#000'
+                : '#fff',
         }
     }
 
     const animate = (time: number = 0) => {
         if (fps.stop) return
         fps.update(time);
-        
+
         animFrame.current = requestAnimationFrame(animate)
         const canvas = canvasRef.current as HTMLCanvasElement;
 
@@ -65,7 +68,11 @@ const Game = () => {
         return () => cancelAnimationFrame(animFrame.current);
     }, []);
 
-    return <canvas ref={canvasRef} />
+    return (
+        <div className={styles.game}>
+            <canvas ref={canvasRef} />
+        </div>
+    )
 }
 
 export default Game

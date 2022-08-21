@@ -26,7 +26,6 @@ export class GameOfLife {
         // new empty grid to store next generation
         const gridCopy = this.makeGrid(rows, cols);
 
-        //performance.mark('start');
         let i = 0;
         while (i < rows) {
             let j = 0;
@@ -57,16 +56,6 @@ export class GameOfLife {
             }
             i++;
         }
-        /* performance.mark('end');
-        performance.measure('update', 'start', 'end');
-        performance.getEntriesByType('measure').forEach(entry => {
-            if (entry.name === 'update') {
-                console.log(`${entry.name}: ${entry.duration}ms`);
-            }
-        })
-
-        performance.clearMarks();
-        performance.clearMeasures(); */
 
         this.grid = gridCopy;
         ctx.restore();

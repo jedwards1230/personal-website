@@ -20,9 +20,7 @@ const Home: NextPage = () => {
 
 	return (
 		<>
-			<div className={styles.game}>
-				<Game key={idx} />
-			</div>
+			<Game key={idx} />
 			<div className={styles.scrollParent}>
 				<Head>
 					<title>J. Edwards</title>
