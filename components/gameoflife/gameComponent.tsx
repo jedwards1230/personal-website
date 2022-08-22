@@ -6,7 +6,6 @@ import styles from "./Game.module.css";
 
 const Game = () => {
     const { resolvedTheme } = useTheme()
-
     const animFrame = useRef<number>(0)
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const gridRef = useRef<HTMLCanvasElement>(null);
@@ -16,7 +15,7 @@ const Game = () => {
     const cellColors = {
         dark: {
             activeColors: ['#4a148c', '#0d47a1'],
-            inactiveColor: '#121212',
+            inactiveColor: '#050505',
             lineColor: '#fff'
         },
         light: {
@@ -38,7 +37,6 @@ const Game = () => {
 
     // listen for color mode changes
     useEffect(() => {
-        console.log(resolvedTheme)
         game.current.style = resolvedTheme === 'dark' ? cellColors.dark : cellColors.light
     }, [resolvedTheme]);
 
@@ -58,7 +56,7 @@ const Game = () => {
         const ctx = grid.getContext("2d") as CanvasRenderingContext2D;
         game.current.drawOverlay(ctx);
 
-        animate();
+        if (resolvedTheme !== undefined) animate();
         return () => cancelAnimationFrame(animFrame.current);
     }, []);
 
