@@ -3,7 +3,8 @@
     font-size: 4rem;
     font-weight: 500;
     padding-bottom: 1rem;
-    margin: 0;
+    margin: 0 1rem;
+    text-align: center;
     text-decoration: underline;
     text-decoration-color: rgba(0, 0, 0, 0.5);
 }
@@ -13,21 +14,17 @@
 }
 
 .icons {
-    color: rgba(0, 0, 0, 1);
+    fill: var(--foreground)
 }
 
-.icons a {
+.icons svg {
     margin: 0 2rem;
 }
 
-.icon {
-    font-size: 2rem;
-    position: absolute;
-}
-
-.icons a:hover * {
-    font-size: 2.1rem;
-    transition: 0.3s ease-out;
+@media only screen and (hover: none) and (pointer: coarse) {
+    .icons svg {
+        margin: 0.25rem 1rem;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
