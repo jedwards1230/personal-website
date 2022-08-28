@@ -1,10 +1,12 @@
 import NextLink from "next/link"
-import Image from "next/image";
 import styles from './Intro.module.css';
+import { EmailIcon, GithubIcon, LinkedInIcon } from "../icons";
 
-const Intro = (props: {
+type IntroProps = {
     reset: () => void
-}) => {
+}
+
+const Intro = (props: IntroProps) => {
     return (
         <>
             <NextLink href="/" passHref>
@@ -18,34 +20,19 @@ const Intro = (props: {
                     href="//www.github.com/jedwards1230"
                     target="_blank"
                     rel="noreferrer">
-                    <Image
-                        src="/github-brands.svg"
-                        alt='Github Icon'
-                        className={styles.icon}
-                        height={30}
-                        width={30} />
+                    <GithubIcon width={30} height={30} />
                 </a>
                 <a
                     href="//www.linkedin.com/in/justinedwards1230"
                     target="_blank"
                     rel="noreferrer">
-                    <Image
-                        src="/linkedin-brands.svg"
-                        alt='LinkedIn Icon'
-                        className={styles.icon}
-                        height={30}
-                        width={30} />
+                    <LinkedInIcon width={30} height={30} />
                 </a>
                 <a
                     href="mailto:justinedwards1230@gmail.com"
                     target="_blank"
                     rel="noreferrer">
-                    <Image
-                        src="/at-solid.svg"
-                        alt='Email Icon'
-                        className={styles.icon}
-                        height={30}
-                        width={30} />
+                        <EmailIcon width={30} height={30} />
                 </a>
             </div>
         </>

@@ -1,7 +1,11 @@
 import dynamic from 'next/dynamic'
 import React from 'react'
 
-const NoSsr = (props: any) => (
+type NoSsrProps = {
+  children: React.ReactNode
+}
+
+const NoSsr = (props: NoSsrProps) => (
   <>
     {props.children}
   </>
