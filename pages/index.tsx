@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import useWindowSize from '../scripts/windowSize';
 import Intro from '../components/intro/intro';
 
-
 const Home: NextPage = () => {
 	const [idx, setIdx] = useState(0);
 	const size = useWindowSize();
