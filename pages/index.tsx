@@ -21,6 +21,7 @@ const Home: NextPage = () => {
 
 	return (
 		<>
+			<Game key={idx} />
 			<div className={styles.scrollParent}>
 				<Head>
 					<title>J. Edwards</title>
@@ -34,7 +35,6 @@ const Home: NextPage = () => {
 					</PageSection>
 				</main>
 			</div>
-			<Game key={idx} />
 		</>
 	)
 }
