@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "build:rust": "wasm-pack build src-rust --out-dir ../game --out-name game --release",
+    "build:rust": "wasm-pack build rust --out-dir ../game --out-name game --release && rm game/.gitignore",
     "start": "next start -p $PORT",
     "serve": "serve out",
     "lint": "next lint"
