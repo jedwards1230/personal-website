@@ -11,6 +11,7 @@ const Game = () => {
     const gridRef = useRef<HTMLCanvasElement>(null);
 
     const CELL_SIZE = 3;
+    const SPEED_MULTIPLIER = 2;
 
     const height = Math.round(window.innerHeight / CELL_SIZE);
     const width = Math.round(window.innerWidth / CELL_SIZE);
@@ -62,7 +63,9 @@ const Game = () => {
         if (canvas) {
             const ctx = canvas.getContext('2d', { desynchronized: true, alpha: false }) as CanvasRenderingContext2D;
             //const st = performance.now();
-            universe.current.tick(ctx);
+            for (let i = 0; i < SPEED_MULTIPLIER; i++) {
+                universe.current.tick(ctx);
+            }
             //const et = performance.now();
             //console.log(`Took ${et - st}ms to tick.`);
         }
@@ -71,7 +74,7 @@ const Game = () => {
     // listen for color mode changes
     useEffect(() => {
         setStyle()
-        drawGrid(gridRef.current.getContext('2d') as CanvasRenderingContext2D)
+        drawGrid(gridRef.current.getContext('2d', { desynchronized: true }) as CanvasRenderingContext2D)
     }, [resolvedTheme]);
 
     // initialize
@@ -86,7 +89,7 @@ const Game = () => {
         const grid = gridRef.current as HTMLCanvasElement;
         grid.width = window.innerWidth;
         grid.height = window.innerHeight;
-        const ctx = grid.getContext("2d") as CanvasRenderingContext2D;
+        const ctx = grid.getContext("2d", { desynchronized: true }) as CanvasRenderingContext2D;
         drawGrid(ctx);
 
         if (resolvedTheme !== undefined) animate();
