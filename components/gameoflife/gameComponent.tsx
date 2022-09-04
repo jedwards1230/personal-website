@@ -10,7 +10,7 @@ const Game = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const gridRef = useRef<HTMLCanvasElement>(null);
 
-    const CELL_SIZE = 6;
+    const CELL_SIZE = 3;
 
     const height = Math.round(window.innerHeight / CELL_SIZE);
     const width = Math.round(window.innerWidth / CELL_SIZE);
@@ -32,7 +32,8 @@ const Game = () => {
     const drawGrid = (ctx: CanvasRenderingContext2D) => {
         ctx.save();
         ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--grid-line');
-        ctx.globalAlpha = 0.1;
+        ctx.globalAlpha = resolvedTheme === 'dark' ? 0.05 : 0.1;
+        ctx.lineWidth = 0.5;
 
         // Vertical lines.
         for (let i = 0; i <= width; i++) {
@@ -59,17 +60,18 @@ const Game = () => {
         const canvas = canvasRef.current as HTMLCanvasElement;
 
         if (canvas) {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+            const ctx = canvas.getContext('2d', { desynchronized: true, alpha: false }) as CanvasRenderingContext2D;
+            //const st = performance.now();
             universe.current.tick(ctx);
+            //const et = performance.now();
+            //console.log(`Took ${et - st}ms to tick.`);
         }
     }
 
     // listen for color mode changes
     useEffect(() => {
         setStyle()
+        drawGrid(gridRef.current.getContext('2d') as CanvasRenderingContext2D)
     }, [resolvedTheme]);
 
     // initialize
