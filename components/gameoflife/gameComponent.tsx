@@ -11,7 +11,7 @@ const Game = () => {
     const gridRef = useRef<HTMLCanvasElement>(null);
 
     const CELL_SIZE = 3;
-    const SPEED_MULTIPLIER = 2;
+    const SPEED_MULTIPLIER = 3;
 
     const height = Math.round(window.innerHeight / CELL_SIZE);
     const width = Math.round(window.innerWidth / CELL_SIZE);
