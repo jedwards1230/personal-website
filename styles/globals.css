@@ -23,12 +23,12 @@ body {
 }
 
 [data-theme='dark'] {
-  --background: #000;
+  --background: #050505;
   --foreground: #fff;
 
   --primary-cell: #4a148c;
   --secondary-cell: #0d47a1;
-  --inactive-cell: #050505;
+  --inactive-cell: #101010;
   --grid-line: #fff;
 }
 
