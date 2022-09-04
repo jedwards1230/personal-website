@@ -143,7 +143,7 @@ impl Universe {
     }
 
     pub fn tick(&mut self, ctx: web_sys::CanvasRenderingContext2d) {
-        if !self.style.is_some() {
+        if self.style.is_none() {
             return;
         }
 
