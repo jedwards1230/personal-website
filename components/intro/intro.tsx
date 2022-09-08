@@ -9,7 +9,10 @@ type IntroProps = {
 const Intro = (props: IntroProps) => {
     return (
         <>
-            <NextLink href="/" passHref>
+            <NextLink href="/" passHref
+                data-amplify-analytics-on='click'
+                data-amplify-analytics-name='click'
+                data-amplify-analytics-attrs='attr1:attr1_value,attr2:attr2_value'>
                 <a
                     className={styles.header}
                     onClick={props.reset}
@@ -32,7 +35,7 @@ const Intro = (props: IntroProps) => {
                     href="mailto:justinedwards1230@gmail.com"
                     target="_blank"
                     rel="noreferrer">
-                        <EmailIcon width={30} height={30} />
+                    <EmailIcon width={30} height={30} />
                 </a>
             </div>
         </>
