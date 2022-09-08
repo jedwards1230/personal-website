@@ -1,9 +1,9 @@
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from 'next-themes'
-import { GoogleAnalytics, usePageViews } from "nextjs-google-analytics";
 import '../styles/globals.css'
 import { Amplify, Analytics } from 'aws-amplify';
 import config from '../aws-exports';
+import { useState, useEffect } from 'react';
 
 Amplify.configure({
 	...config, ssr: true
@@ -42,30 +42,20 @@ Analytics.autoTrack('event', {
 });
 
 Analytics.autoTrack('session', {
-	// REQUIRED, turn on/off the auto tracking
 	enable: true,
-	// OPTIONAL, the attributes of the event, you can either pass an object or a function 
-	// which allows you to define dynamic attributes
 	attributes: {
 		attr: 'attr'
 	},
-	// when using function
-	// attributes: () => {
-	//    const attr = somewhere();
-	//    return {
-	//        myAttr: attr
-	//    }
-	// },
-	// OPTIONAL, the service provider, by default is the Amazon Pinpoint
 	provider: 'AWSPinpoint'
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-	usePageViews();
+	// fix initial page load flash of unstyled content
+	const [mounted, setMounted] = useState(false)
+	useEffect(() => setMounted(true), [])
 
 	return (
 		<ThemeProvider disableTransitionOnChange>
-			<GoogleAnalytics strategy='lazyOnload' />
 			<Component {...pageProps} />
 		</ThemeProvider>
 	)
