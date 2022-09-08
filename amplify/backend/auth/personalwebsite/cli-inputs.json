@@ -1,0 +1,12 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "personalwebsite_identitypool_739c7878",
+    "allowUnauthenticatedIdentities": true,
+    "authSelections": "identityPoolOnly",
+    "resourceName": "personalwebsite",
+    "sharedId": "739c7878",
+    "serviceName": "Cognito",
+    "useDefault": "manual"
+  }
+}
