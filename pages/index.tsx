@@ -5,6 +5,7 @@ import Game from '../components/gameoflife/gameComponent'
 import { useEffect, useState } from 'react';
 import useWindowSize from '../scripts/windowSize';
 import Intro from '../components/intro/intro';
+import NoSsr from '../scripts/noSsr';
 
 const Home: NextPage = () => {
 	const [idx, setIdx] = useState(0);
@@ -20,7 +21,9 @@ const Home: NextPage = () => {
 
 	return (
 		<>
-			<Game key={idx} />
+			<NoSsr>
+				<Game key={idx} />
+			</NoSsr>
 			<div className={styles.scrollParent}>
 				<Head>
 					<title>J. Edwards</title>
