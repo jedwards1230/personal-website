@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build && next export",
     "build:rust": "wasm-pack build rust --out-dir ../game --out-name game --release && rm game/.gitignore",
-    "start": "next start -p $PORT",
+    "start": "next start",
     "serve": "serve out",
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^3.5.1",
+    "aws-amplify": "^4.3.34",
     "next": "12.2.5",
     "next-themes": "^0.2.0",
     "nextjs-google-analytics": "^2.1.0",
