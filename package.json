@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "build:rust": "wasm-pack build rust --out-dir ../game --out-name game --release && rm game/.gitignore",
-    "start": "next start -p $PORT",
+    "start": "next start",
     "serve": "serve out",
     "lint": "next lint"
   },
