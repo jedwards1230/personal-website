@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
-import styles from "./Game.module.css";
 import { Universe } from "../../game/game";
 
 const Game = () => {
@@ -97,9 +96,9 @@ const Game = () => {
     }, []);
 
     return (
-        <div className={styles.container}>
-            <canvas className={styles.game} ref={canvasRef} />
-            <canvas className={styles.grid} ref={gridRef} />
+        <div>
+            <canvas className='absolute left-0 top-0 -z-20' ref={canvasRef} />
+            <canvas className='absolute left-0 top-0 -z-10 bg-transparent' ref={gridRef} />
         </div>
     )
 }
