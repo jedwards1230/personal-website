@@ -3,21 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --background: #fff;
-  --foreground: #000;
-
-  --primary-cell: #64b5f6;
-  --secondary-cell: #ba68c8;
-  --inactive-cell: #fff;
-  --grid-line: #000;
+	--primary-cell: #64b5f6;
+	--secondary-cell: #ba68c8;
+	--inactive-cell: #fff;
+	--grid-line: #000;
 }
 
-[data-theme='dark'] {
-  --background: #050505;
-  --foreground: #fff;
-
-  --primary-cell: #4a148c;
-  --secondary-cell: #0d47a1;
-  --inactive-cell: #101010;
-  --grid-line: #fff;
+[data-theme="dark"] {
+	--primary-cell: #4a148c;
+	--secondary-cell: #0d47a1;
+	--inactive-cell: #101010;
+	--grid-line: #fff;
 }
