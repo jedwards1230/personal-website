@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import Game from '../components/gameoflife/gameComponent'
+import Game from '../components/gameComponent'
+//import Game from '../components/pixi/game'
 import { useEffect, useState } from 'react';
-import useWindowSize from '../scripts/windowSize';
-import Intro from '../components/intro/intro';
-import NoSsr from '../scripts/noSsr';
+import useWindowSize from '../../scripts/windowSize';
+import Intro from '../components/intro';
+import NoSsr from '../../scripts/noSsr';
 
 const Home: NextPage = () => {
 	const [idx, setIdx] = useState(0);
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
 			<NoSsr>
 				<Game key={idx} />
 			</NoSsr>
-			<div className={styles.scrollParent}>
+			<div className='overflow-hidden snap-y h-screen w-screen'>
 				<Head>
 					<title>J. Edwards</title>
 					<meta name="description" content="Personal website for Justin Edwards" />
@@ -43,8 +43,8 @@ const Home: NextPage = () => {
 
 const PageSection = (props: { children: React.ReactNode }) => {
 	return (
-		<div className={styles.scrollChild}>
-			<div className={styles.pageSection}>
+		<div className='snap-start min-h-screen w-screen'>
+			<div className='h-screen flex flex-col justify-center items-center text-center relative'>
 				{props.children}
 			</div>
 		</div>
