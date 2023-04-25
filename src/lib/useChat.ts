@@ -48,11 +48,15 @@ export default function useChat() {
 
 					for (const jsonString of jsonStrings) {
 						if (jsonString.includes("[DONE]")) break;
-						const parsed = JSON.parse(jsonString);
-						if (!parsed.choices[0].delta.content) continue;
 						try {
+							const parsed = JSON.parse(jsonString);
+							if (!parsed.choices[0].delta.content) continue;
 							aiResponse += parsed.choices[0].delta.content;
 						} catch (error) {
+							console.log(
+								"JSON string:",
+								JSON.stringify(jsonString, null, 2)
+							);
 							console.error("Error parsing JSON:", error);
 						}
 					}
