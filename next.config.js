@@ -5,16 +5,11 @@ const nextConfig = {
 	experimental: {
 		appDir: true,
 	},
-	webpack(config, { isServer }) {
-		config.experiments = { ...config.experiments, asyncWebAssembly: true };
-
-		if (isServer) {
-			config.output.webassemblyModuleFilename =
-				"./../static/wasm/[modulehash].wasm";
-		} else {
-			config.output.webassemblyModuleFilename =
-				"static/wasm/[modulehash].wasm";
-		}
+	webpack(config) {
+		config.module.rules.push({
+			test: /\.md$/,
+			use: "raw-loader",
+		});
 
 		return config;
 	},
