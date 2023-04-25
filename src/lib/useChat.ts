@@ -30,39 +30,48 @@ export default function useChat() {
             }),
         });
 
-        if (response.headers.get('content-type') === 'text/event-stream') {
-            const reader = response.body?.getReader();
-            let accumulatedResponse = '';
+        switch (response.headers.get('content-type')) {
+            case 'text/event-stream':
+                const reader = response.body?.getReader();
+                let accumulatedResponse = '';
 
-            if (reader) {
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-                    if (value) {
-                        const decoded = new TextDecoder().decode(value);
-                        accumulatedResponse += decoded;
-                        console.log('accumulatedResponse', accumulatedResponse);
-                        console.log('decoded', decoded);
+                if (reader) {
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+                        if (value) {
+                            const decoded = new TextDecoder().decode(value);
+                            accumulatedResponse += decoded;
+                            console.log(
+                                'accumulatedResponse',
+                                accumulatedResponse
+                            );
+                            console.log('decoded', decoded);
+                        }
                     }
+                    setMessages((prevMessages) => [
+                        ...prevMessages,
+                        {
+                            role: 'assistant',
+                            content: accumulatedResponse,
+                        },
+                    ]);
                 }
+                break;
+            case 'application/json':
+                const answer = (await response.json()) as ChatResponse;
+                if (!answer || !answer.choices || !answer.choices.length)
+                    return;
                 setMessages((prevMessages) => [
                     ...prevMessages,
                     {
                         role: 'assistant',
-                        content: accumulatedResponse,
+                        content: answer.choices[0].message.content,
                     },
                 ]);
-            }
-        } else {
-            const answer = (await response.json()) as ChatResponse;
-            if (!answer || !answer.choices || !answer.choices.length) return;
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                {
-                    role: 'assistant',
-                    content: answer.choices[0].message.content,
-                },
-            ]);
+                break;
+            default:
+                throw new Error('Unexpected response type');
         }
     };
 
