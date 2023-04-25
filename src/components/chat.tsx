@@ -14,14 +14,19 @@ export default function Chat() {
             setLoading(true);
             setMessage('');
 
-            await sendMessage(message.trim());
-            setLoading(false);
+            try {
+                await sendMessage(message.trim());
+                setLoading(false);
+            } catch (e) {
+                console.error(e);
+                setLoading(false);
+            }
         }
     }
 
     return (
-        <div className="md:w-5xl w-2xl lg:w-7xl max-w-2xl p-4 md:max-w-5xl lg:max-w-7xl">
-            <div className="flex flex-col rounded border bg-white p-4 shadow-lg">
+        <div className="w-full max-w-2xl p-4 md:w-auto md:max-w-5xl lg:max-w-7xl">
+            <div className="flex flex-col gap-2 rounded border bg-white p-4 shadow-lg">
                 {messages.map((msg, index) => (
                     <ChatBubble
                         key={msg.content + msg.role + index}
@@ -76,7 +81,7 @@ function ChatBubble({
             } ${className}`}
         >
             <ReactMarkdown
-                className={`prose mb-2 flex flex-col rounded p-2 [&>*]:my-1 ${
+                className={`prose flex flex-col rounded px-3 py-2 [&>*]:my-1 ${
                     msg.role === 'user'
                         ? 'bg-blue-500 text-right text-white'
                         : 'bg-gray-200 text-left'
