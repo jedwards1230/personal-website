@@ -145,10 +145,10 @@ export default function Game() {
     }, []);
 
     return (
-        <div className="absolute left-0 top-0 -z-50 h-screen w-screen">
-            <canvas className="absolute left-0 top-0 -z-20" ref={canvasRef} />
+        <div className="fixed left-0 top-0 -z-50 h-screen w-screen">
+            <canvas className="fixed left-0 top-0 -z-20" ref={canvasRef} />
             <canvas
-                className="absolute left-0 top-0 -z-10 bg-transparent"
+                className="fixed left-0 top-0 -z-10 bg-transparent"
                 ref={gridRef}
             />
         </div>

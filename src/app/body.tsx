@@ -40,7 +40,7 @@ export default function Body() {
             <Suspense>
                 <Game key={idx} />
             </Suspense>
-            <div className="relative flex h-screen w-screen flex-col items-center justify-center overflow-y-scroll text-center">
+            <div className="flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-16 text-center">
                 <Link
                     href="/"
                     passHref

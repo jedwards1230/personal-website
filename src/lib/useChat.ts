@@ -33,23 +33,36 @@ export default function useChat() {
             }),
         });
 
-        const reader = response.body?.getReader();
-        let accumulatedResponse = '';
+        if (response.headers.get('content-type') === 'text/event-stream') {
+            const reader = response.body?.getReader();
+            let accumulatedResponse = '';
 
-        if (reader) {
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-                if (value) {
-                    const decoded = new TextDecoder().decode(value);
-                    accumulatedResponse += decoded;
+            if (reader) {
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    if (value) {
+                        const decoded = new TextDecoder().decode(value);
+                        accumulatedResponse += decoded;
+                        console.log('accumulatedResponse', accumulatedResponse);
+                        console.log('decoded', decoded);
+                    }
                 }
+                setMessages((prevMessages) => [
+                    ...prevMessages,
+                    {
+                        role: 'assistant',
+                        content: accumulatedResponse,
+                    },
+                ]);
             }
+        } else {
+            const answer = (await response.json()) as ChatResponse;
             setMessages((prevMessages) => [
                 ...prevMessages,
                 {
                     role: 'assistant',
-                    content: accumulatedResponse,
+                    content: answer.choices[0].message.content,
                 },
             ]);
         }

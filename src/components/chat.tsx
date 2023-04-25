@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, Suspense, useEffect, useState } from 'react';
 import useChat from '@/lib/useChat';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -21,7 +21,7 @@ export default function Chat() {
 
     return (
         <div className="md:w-5xl w-2xl lg:w-7xl max-w-2xl p-4 md:max-w-5xl lg:max-w-7xl">
-            <div className="max-h-[400px] overflow-y-scroll rounded bg-white p-4 shadow">
+            <div className=" rounded bg-white p-4 shadow">
                 {messages.map((msg, index) => (
                     <div
                         key={index}
@@ -29,16 +29,18 @@ export default function Chat() {
                             msg.role === 'user' ? 'text-right' : 'text-left'
                         }`}
                     >
-                        <ReactMarkdown
-                            className={`prose inline-block rounded p-2 ${
-                                msg.role === 'user'
-                                    ? 'bg-blue-500 text-white'
-                                    : 'bg-gray-200'
-                            }`}
-                            remarkPlugins={[remarkGfm]}
-                        >
-                            {msg.content}
-                        </ReactMarkdown>
+                        <Suspense fallback={<div>...</div>}>
+                            <ReactMarkdown
+                                className={`prose inline-block rounded p-2 ${
+                                    msg.role === 'user'
+                                        ? 'bg-blue-500 text-white'
+                                        : 'bg-gray-200'
+                                }`}
+                                remarkPlugins={[remarkGfm]}
+                            >
+                                {msg.content}
+                            </ReactMarkdown>
+                        </Suspense>
                     </div>
                 ))}
             </div>
