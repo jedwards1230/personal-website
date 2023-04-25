@@ -1,3 +1,4 @@
+import NoSsr from "scripts/noSsr";
 import Body from "./body";
 
 export const metadata = {
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function Page() {
-	return <Body />;
+	return (
+		<NoSsr>
+			<Body />
+		</NoSsr>
+	);
 }

@@ -1,12 +1,10 @@
 "use client";
 
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
-import { Universe } from "../game/game";
+import { Universe } from "./game";
 
-const Game = () => {
-	const { resolvedTheme } = useTheme();
+export default function Game() {
 	const animFrame = useRef<number>(0);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const gridRef = useRef<HTMLCanvasElement>(null);
@@ -17,7 +15,7 @@ const Game = () => {
 	const height = Math.round(window.innerHeight / CELL_SIZE);
 	const width = Math.round(window.innerWidth / CELL_SIZE);
 
-	const universe = useRef(Universe.new(width, height, CELL_SIZE));
+	const universe = useRef(new Universe(width, height, CELL_SIZE));
 
 	const setStyle = () => {
 		const primaryCell = getComputedStyle(document.body).getPropertyValue(
@@ -30,7 +28,7 @@ const Game = () => {
 			"--inactive-cell"
 		);
 
-		universe.current.set_style(primaryCell, secondaryCell, inactiveCell);
+		universe.current.setStyle(primaryCell, secondaryCell, inactiveCell);
 	};
 
 	const drawGrid = (ctx: CanvasRenderingContext2D) => {
@@ -38,7 +36,7 @@ const Game = () => {
 		ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue(
 			"--grid-line"
 		);
-		ctx.globalAlpha = resolvedTheme === "dark" ? 0.05 : 0.1;
+		//ctx.globalAlpha = resolvedTheme === "dark" ? 0.05 : 0.1;
 		ctx.lineWidth = 0.5;
 
 		// Vertical lines.
@@ -80,14 +78,14 @@ const Game = () => {
 	};
 
 	// listen for color mode changes
-	useEffect(() => {
+	/* useEffect(() => {
 		setStyle();
 		drawGrid(
 			gridRef.current.getContext("2d", {
 				desynchronized: true,
 			}) as CanvasRenderingContext2D
 		);
-	}, [resolvedTheme]);
+	}, [resolvedTheme]); */
 
 	// initialize
 	useEffect(() => {
@@ -106,7 +104,8 @@ const Game = () => {
 		}) as CanvasRenderingContext2D;
 		drawGrid(ctx);
 
-		if (resolvedTheme !== undefined) animate();
+		//if (resolvedTheme !== undefined) animate();
+		animate();
 		return () => cancelAnimationFrame(animFrame.current);
 	}, []);
 
@@ -119,6 +118,4 @@ const Game = () => {
 			/>
 		</div>
 	);
-};
-
-export default Game;
+}
