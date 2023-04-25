@@ -1,4 +1,4 @@
-import { FormEvent, Suspense, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import useChat from '@/lib/useChat';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -21,28 +21,13 @@ export default function Chat() {
 
     return (
         <div className="md:w-5xl w-2xl lg:w-7xl max-w-2xl p-4 md:max-w-5xl lg:max-w-7xl">
-            <div className=" rounded bg-white p-4 shadow">
+            <div className="flex flex-col rounded bg-white p-4 shadow">
                 {messages.map((msg, index) => (
-                    <div
-                        key={index}
-                        className={`mb-2 ${
-                            msg.role === 'user' ? 'text-right' : 'text-left'
-                        }`}
-                    >
-                        <Suspense fallback={<div>...</div>}>
-                            <ReactMarkdown
-                                className={`prose inline-block rounded p-2 ${
-                                    msg.role === 'user'
-                                        ? 'bg-blue-500 text-white'
-                                        : 'bg-gray-200'
-                                }`}
-                                remarkPlugins={[remarkGfm]}
-                            >
-                                {msg.content}
-                            </ReactMarkdown>
-                        </Suspense>
-                    </div>
+                    <ChatBubble key={index} msg={msg} />
                 ))}
+                {loading && (
+                    <ChatBubble msg={{ role: 'assistant', content: '...' }} />
+                )}
             </div>
             <form onSubmit={handleSubmit} className="mt-4">
                 {/* todo: limit to something reasonable */}
@@ -67,6 +52,27 @@ export default function Chat() {
                     )}
                 </button>
             </form>
+        </div>
+    );
+}
+
+function ChatBubble({ msg }: { msg: ChatGPTMessage }) {
+    return (
+        <div
+            className={`flex ${
+                msg.role === 'user' ? 'justify-end' : 'justify-start'
+            }`}
+        >
+            <ReactMarkdown
+                className={`prose mb-2 flex rounded p-2 ${
+                    msg.role === 'user'
+                        ? 'bg-blue-500 text-right text-white'
+                        : 'bg-gray-200 text-left'
+                }`}
+                remarkPlugins={[remarkGfm]}
+            >
+                {msg.content}
+            </ReactMarkdown>
         </div>
     );
 }
