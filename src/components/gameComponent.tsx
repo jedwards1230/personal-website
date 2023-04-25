@@ -33,8 +33,6 @@ export default function Game() {
 			.getPropertyValue("--inactive-cell")
 			.trim();
 
-		console.log(primaryCell, secondaryCell, inactiveCell);
-
 		universe.current.setStyle(primaryCell, secondaryCell, inactiveCell);
 	};
 
