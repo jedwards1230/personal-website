@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 import useWindowSize from '@/lib/windowSize';
@@ -37,9 +37,7 @@ export default function Body() {
 
     return (
         <>
-            <Suspense>
-                <Game key={idx} />
-            </Suspense>
+            <Game key={idx} />
             <div className="flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-16 text-center">
                 <Link
                     href="/"
