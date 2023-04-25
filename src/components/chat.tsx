@@ -14,14 +14,14 @@ export default function Chat() {
 			setLoading(true);
 			setMessage("");
 
-			const streamResponse = await sendMessage(message.trim());
+			await sendMessage(message.trim());
 			setLoading(false);
 		}
 	}
 
 	return (
 		<div className="p-4 max-w-2xl w-2xl">
-			<div className="bg-white p-4 rounded overflow-y-scroll max-h-full shadow">
+			<div className="bg-white max-h-[400px] overflow-y-scroll p-4 rounded shadow">
 				{messages.map((msg, index) => (
 					<div
 						key={index}
@@ -29,20 +29,16 @@ export default function Chat() {
 							msg.role === "user" ? "text-right" : "text-left"
 						}`}
 					>
-						<span
-							className={`inline-block p-2 rounded ${
+						<ReactMarkdown
+							className={`inline-block prose p-2 rounded ${
 								msg.role === "user"
 									? "bg-blue-500 text-white"
 									: "bg-gray-200"
 							}`}
+							remarkPlugins={[remarkGfm]}
 						>
-							<ReactMarkdown
-								className="prose"
-								remarkPlugins={[remarkGfm]}
-							>
-								{msg.content}
-							</ReactMarkdown>
-						</span>
+							{msg.content}
+						</ReactMarkdown>
 					</div>
 				))}
 			</div>
