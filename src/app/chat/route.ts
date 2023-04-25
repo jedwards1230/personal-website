@@ -1,3 +1,9 @@
+import {
+	createParser,
+	ParsedEvent,
+	ReconnectInterval,
+} from "eventsource-parser";
+
 export const runtime = "experimental-edge";
 
 export async function POST(request: Request) {
@@ -30,39 +36,35 @@ export async function POST(request: Request) {
 		body: JSON.stringify(payload),
 	});
 
-	const stream = new ReadableStream<Uint8Array>({
+	const stream = new ReadableStream({
 		async start(controller) {
-			if (!res.body) {
-				controller.error("No response body");
-				return;
-			}
-
-			const reader = res.body.getReader();
-
-			async function processNextChunk() {
-				const { done, value } = await reader.read();
-
-				if (done) {
-					controller.close();
-					return;
-				}
-
-				if (value) {
-					const text = decoder.decode(value);
-					/* if (counter < 2 && text.match(/\n/).length) {
-						counter++;
-						await processNextChunk();
+			function onParse(event: ParsedEvent | ReconnectInterval) {
+				if (event.type === "event") {
+					const data = event.data;
+					if (data === "[DONE]") {
+						controller.close();
 						return;
-					} */
-					const queue = encoder.encode(text);
-					controller.enqueue(queue);
+					}
+					try {
+						const json = JSON.parse(data);
+						const text = json.choices[0].delta?.content || "";
+						if (counter < 2 && (text.match(/\n/) || []).length) {
+							// this is a prefix character (i.e., "\n\n"), do nothing
+							return;
+						}
+						const queue = encoder.encode(text);
+						controller.enqueue(queue);
+						counter++;
+					} catch (e) {
+						controller.error(e);
+					}
 				}
-
-				counter++;
-				await processNextChunk();
 			}
 
-			await processNextChunk();
+			const parser = createParser(onParse);
+			for await (const chunk of res.body as any) {
+				parser.feed(decoder.decode(chunk));
+			}
 		},
 	});
 

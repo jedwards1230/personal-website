@@ -34,49 +34,26 @@ export default function useChat() {
 		});
 
 		const reader = response.body?.getReader();
+		let accumulatedResponse = "";
 
 		if (reader) {
-			let aiResponse = "";
 			while (true) {
 				const { done, value } = await reader.read();
 				if (done) break;
 				if (value) {
 					const decoded = new TextDecoder().decode(value);
-					const cleanDecoded =
-						removeNonPrintableChars(decoded).trim();
-					const jsonStrings = extractJSON(cleanDecoded);
-
-					for (const jsonString of jsonStrings) {
-						if (jsonString.includes("[DONE]")) break;
-						try {
-							const parsed = JSON.parse(jsonString);
-							if (!parsed.choices[0].delta.content) continue;
-							aiResponse += parsed.choices[0].delta.content;
-						} catch (error) {
-							console.log(
-								"JSON string:",
-								JSON.stringify(jsonString, null, 2)
-							);
-							console.error("Error parsing JSON:", error);
-						}
-					}
+					accumulatedResponse += decoded;
 				}
 			}
-
 			setMessages((prevMessages) => [
 				...prevMessages,
-				{ role: "assistant", content: aiResponse },
+				{
+					role: "assistant",
+					content: accumulatedResponse,
+				},
 			]);
 		}
 	};
 
 	return { messages: messages.slice(1), sendMessage };
-}
-
-function removeNonPrintableChars(str: string) {
-	return str.replace(/[\x00-\x1F\x7F-\x9F]/g, "");
-}
-
-function extractJSON(str: string) {
-	return str.split("data:").filter((part) => part.trim().length > 0);
 }
