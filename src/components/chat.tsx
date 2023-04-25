@@ -63,7 +63,7 @@ export default function Chat() {
 
 function ChatBubble({
     msg,
-    className,
+    className = '',
 }: {
     msg: ChatGPTMessage;
     className?: string;
