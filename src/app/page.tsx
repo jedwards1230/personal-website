@@ -1,15 +1,15 @@
-import NoSsr from "@/lib/noSsr";
-import Body from "./body";
+import NoSsr from '@/lib/noSsr';
+import Body from './body';
 
 export const metadata = {
-	title: "J. Edwards",
-	description: "Personal website for Justin Edwards",
+    title: 'J. Edwards',
+    description: 'Personal website for Justin Edwards',
 };
 
 export default function Page() {
-	return (
-		<NoSsr>
-			<Body />
-		</NoSsr>
-	);
+    return (
+        <NoSsr>
+            <Body />
+        </NoSsr>
+    );
 }

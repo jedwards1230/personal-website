@@ -1,21 +1,21 @@
-import DarkModeHandler from "@/components/darkMode";
-import "@/globals.css";
+import DarkModeHandler from '@/components/darkMode';
+import '@/globals.css';
 
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from '@vercel/analytics/react';
 
 export default function RootLayout({
-	children,
+    children,
 }: {
-	children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-	return (
-		<DarkModeHandler>
-			<html lang="en">
-				<body>
-					{children}
-					<Analytics />
-				</body>
-			</html>
-		</DarkModeHandler>
-	);
+    return (
+        <DarkModeHandler>
+            <html lang="en">
+                <body>
+                    {children}
+                    <Analytics />
+                </body>
+            </html>
+        </DarkModeHandler>
+    );
 }
