@@ -2,7 +2,7 @@
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from "react";
-import { Universe } from "./game";
+import { Universe } from "@/lib/game";
 import { useIsDarkMode } from "./darkMode";
 
 export default function Game() {
