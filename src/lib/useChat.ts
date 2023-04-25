@@ -1,16 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import aboutContent from '@/about.md';
-import ruleContent from '@/rules.md';
-
-const combinedContent = `rules: ${ruleContent}\nresume: ${aboutContent}`;
+import context from '@/context.md';
 
 export default function useChat() {
     const [messages, setMessages] = useState<ChatGPTMessage[]>([
         {
             role: 'system',
-            content: combinedContent,
+            content: context,
         },
         {
             role: 'assistant',
@@ -58,6 +55,7 @@ export default function useChat() {
             }
         } else {
             const answer = (await response.json()) as ChatResponse;
+            if (!answer || !answer.choices || !answer.choices.length) return;
             setMessages((prevMessages) => [
                 ...prevMessages,
                 {

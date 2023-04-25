@@ -2,13 +2,19 @@ declare module '*.md';
 
 type ChatGPTAgent = 'user' | 'system' | 'assistant';
 
+interface ChatHistoryEntry {
+    id: number;
+    role: ChatGPTAgent;
+    content: string;
+}
+
 interface ChatGPTMessage {
     role: ChatGPTAgent;
     content: string;
 }
 
 interface OpenAIStreamPayload {
-    model: string;
+    model: 'gpt-3.5-turbo' | 'gpt-4';
     messages: ChatGPTMessage[];
     temperature: number;
     max_tokens: number;
