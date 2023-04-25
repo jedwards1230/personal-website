@@ -2,7 +2,11 @@ justinedwards1230@gmail.com | [LinkedIn](http://www.linkedin.com/in/justinedward
 
 ## Summary
 
-Software developer with a focus in web applications and systems design
+Software developer with a focus in web applications and systems design.
+
+2 cats.
+
+Looking for in my next role: I am looking for a role where I can wear many hats, from system design to the user experience and from database to onSubmit events. I enjoy being challenged in all areas of development.
 
 ## Skills
 
@@ -36,6 +40,10 @@ Software developer with a focus in web applications and systems design
 
 ## Education
 
+**High school diploma, Graduation**, Graduation 05/2015
+
+_River Ridge High School, FL_
+
 **BAS in Technology Development and Management**, Graduation: 05/2022
 
 **Computer Programming Specialist Certificate**, Graduation: 12/2020
@@ -55,3 +63,13 @@ _St. Petersburg College, FL_
 -   Tool for training a neural net to navigate a car through traffic
 -   Designed a machine learning library from scratch
 -   Training and inference is entirely client-side so focus could remain on optimizing performance
+
+## Interests
+
+-   really into ai. i keep up with the news and am excited for its potential
+-   sci fi and fantasy. i love reading and watching movies
+    -   the expanse, star trek, star wars, three body problem, eragon, game of thrones, marvel, etc.
+-   i like to play video games.
+    -   i play a lot of factorio, kerbal space program, rocket league
+-   i go to the gym almost every day
+-   i go to trivia every week
