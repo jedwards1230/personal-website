@@ -1,4 +1,4 @@
-import NoSsr from "scripts/noSsr";
+import NoSsr from "@/lib/noSsr";
 import Body from "./body";
 
 export const metadata = {

@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 
-import useWindowSize from "scripts/windowSize";
+import useWindowSize from "@/lib/windowSize";
 import { EmailIcon, GithubIcon, LinkedInIcon } from "@/components/icons";
 import Game from "@/components/gameComponent";
 
