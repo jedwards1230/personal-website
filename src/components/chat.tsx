@@ -33,12 +33,6 @@ export default function Chat() {
                         msg={msg}
                     />
                 ))}
-                {loading && (
-                    <ChatBubble
-                        className="animate-pulse"
-                        msg={{ role: 'assistant', content: '...' }}
-                    />
-                )}
             </div>
             <form onSubmit={handleSubmit} className="mt-4">
                 {/* todo: limit to something reasonable */}

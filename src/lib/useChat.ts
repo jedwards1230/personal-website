@@ -17,16 +17,19 @@ export default function useChat() {
     ]);
 
     const sendMessage = async (message: string) => {
-        setMessages((prevMessages) => [
-            ...prevMessages,
-            { role: 'user', content: message },
-        ]);
+        const id = Date.now();
+
+        const newMessage: ChatGPTMessage = { role: 'user', content: message };
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
 
         const response = await fetch('/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                messages: [...messages, { role: 'user', content: message }],
+                messages: messages.map(({ role, content }) => ({
+                    role,
+                    content,
+                })),
             }),
         });
 
@@ -42,20 +45,16 @@ export default function useChat() {
                         if (value) {
                             const decoded = new TextDecoder().decode(value);
                             accumulatedResponse += decoded;
-                            console.log(
-                                'accumulatedResponse',
-                                accumulatedResponse
-                            );
-                            console.log('decoded', decoded);
                         }
+                        setMessages((prevMessages) => [
+                            ...prevMessages.filter((m) => m.id !== id),
+                            {
+                                id,
+                                role: 'assistant',
+                                content: accumulatedResponse,
+                            },
+                        ]);
                     }
-                    setMessages((prevMessages) => [
-                        ...prevMessages,
-                        {
-                            role: 'assistant',
-                            content: accumulatedResponse,
-                        },
-                    ]);
                 }
                 break;
             case 'application/json':

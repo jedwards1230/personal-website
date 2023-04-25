@@ -12,11 +12,11 @@ export async function POST(request: Request) {
     };
 
     const payload: OpenAIStreamPayload = {
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4',
         messages,
         temperature: 0.7,
         max_tokens: 1000,
-        stream: false,
+        stream: true,
     };
 
     const encoder = new TextEncoder();
@@ -69,7 +69,11 @@ export async function POST(request: Request) {
             },
         });
 
-        return new Response(stream);
+        return new Response(stream, {
+            headers: {
+                'content-type': 'text/event-stream',
+            },
+        });
     }
 
     const answer = (await res.json()) as ChatResponse;
