@@ -49,11 +49,11 @@ export async function POST(request: Request) {
 
 				if (value) {
 					const text = decoder.decode(value);
-					if (counter < 2 && text.match(/\n/).length) {
+					/* if (counter < 2 && text.match(/\n/).length) {
 						counter++;
 						await processNextChunk();
 						return;
-					}
+					} */
 					const queue = encoder.encode(text);
 					controller.enqueue(queue);
 				}
