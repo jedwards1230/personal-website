@@ -13,13 +13,33 @@ export class Universe {
 	private style: CellStyle | undefined;
 	private paintBackground: boolean;
 
+	private neighborOffsets: number[][] = [
+		[-1, -1],
+		[-1, 0],
+		[-1, 1],
+		[0, -1],
+		[0, 1],
+		[1, -1],
+		[1, 0],
+		[1, 1],
+	];
+
 	constructor(width: number, height: number, resolution: number) {
 		this.width = width;
 		this.height = height;
 		this.resolution = resolution;
 		let size = width * height;
-		this.cells = new Array(size).fill(0);
-		this.prevCells = new Array(size).fill(0);
+
+		this.cells = new Array(size);
+		for (let i = 0; i < size; i++) {
+			this.cells[i] = 0;
+		}
+
+		this.prevCells = new Array(size);
+		for (let i = 0; i < size; i++) {
+			this.prevCells[i] = 0;
+		}
+
 		this.style = undefined;
 		this.paintBackground = true;
 
@@ -38,29 +58,14 @@ export class Universe {
 	}
 
 	private liveNeighborCount(row: number, column: number): number {
-		let neighborIndices = this.getNeighborIndices(row, column);
-		let count = neighborIndices.reduce((sum, idx) => {
-			return sum + (this.cells[idx] > 0 ? 1 : 0);
-		}, 0);
-		return count;
-	}
-
-	private getNeighborIndices(row: number, column: number): number[] {
-		let top = row === 0 ? this.height - 1 : row - 1;
-		let down = row === this.height - 1 ? 0 : row + 1;
-		let left = column === 0 ? this.width - 1 : column - 1;
-		let right = column === this.width - 1 ? 0 : column + 1;
-
-		return [
-			this.getIndex(top, left),
-			this.getIndex(top, column),
-			this.getIndex(top, right),
-			this.getIndex(row, left),
-			this.getIndex(row, right),
-			this.getIndex(down, left),
-			this.getIndex(down, column),
-			this.getIndex(down, right),
-		];
+		let liveCount = 0;
+		for (const [yOffset, xOffset] of this.neighborOffsets) {
+			const newRow = (row + yOffset + this.height) % this.height;
+			const newCol = (column + xOffset + this.width) % this.width;
+			const idx = this.getIndex(newRow, newCol);
+			liveCount += this.cells[idx] > 0 ? 1 : 0;
+		}
+		return liveCount;
 	}
 
 	private paintCell(
@@ -140,21 +145,18 @@ export class Universe {
 				this.width * this.resolution,
 				this.height * this.resolution
 			);
-
-			for (let row = 0; row < this.height; row++) {
-				for (let col = 0; col < this.width; col++) {
-					let idx = this.getIndex(row, col);
-					this.paint(idx, ctx);
-				}
-			}
 			this.paintBackground = false;
-		} else {
-			for (let idx of updateList) {
-				this.paint(idx, ctx);
-			}
 		}
 
-		this.cells = this.prevCells.slice();
+		for (let idx of updateList) {
+			this.paint(idx, ctx);
+		}
+
+		// Update only changed cells
+		for (let idx of updateList) {
+			this.cells[idx] = this.prevCells[idx];
+		}
+
 		ctx.restore();
 	}
 
