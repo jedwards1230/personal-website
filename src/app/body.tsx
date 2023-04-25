@@ -38,11 +38,11 @@ export default function Body() {
     return (
         <>
             <Game key={idx} />
-            <div className="flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-16 text-center">
+            <div className="flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-4 text-center sm:py-8 md:py-16">
                 <Link
                     href="/"
                     passHref
-                    className="mx-4 my-0 pb-4 text-center text-7xl font-medium text-black underline decoration-black/50 hover:decoration-black/100 dark:text-white dark:decoration-white/50 dark:hover:decoration-white/100"
+                    className="mx-4 my-0 text-center text-5xl font-medium text-black underline decoration-black/50 hover:decoration-black/100 dark:text-white dark:decoration-white/50 dark:hover:decoration-white/100 md:pb-4 md:text-7xl"
                     onClick={reset}
                 >
                     Justin Edwards
