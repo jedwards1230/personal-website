@@ -21,12 +21,18 @@ export default function Chat() {
 
     return (
         <div className="md:w-5xl w-2xl lg:w-7xl max-w-2xl p-4 md:max-w-5xl lg:max-w-7xl">
-            <div className="flex flex-col rounded bg-white p-4 shadow">
+            <div className="flex flex-col rounded border bg-white p-4 shadow-lg">
                 {messages.map((msg, index) => (
-                    <ChatBubble key={index} msg={msg} />
+                    <ChatBubble
+                        key={msg.content + msg.role + index}
+                        msg={msg}
+                    />
                 ))}
                 {loading && (
-                    <ChatBubble msg={{ role: 'assistant', content: '...' }} />
+                    <ChatBubble
+                        className="animate-pulse"
+                        msg={{ role: 'assistant', content: '...' }}
+                    />
                 )}
             </div>
             <form onSubmit={handleSubmit} className="mt-4">
@@ -35,7 +41,7 @@ export default function Chat() {
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full rounded border p-2"
+                    className="w-full rounded border p-2 shadow-lg"
                     placeholder="Type your message"
                 />
                 <button
@@ -56,15 +62,21 @@ export default function Chat() {
     );
 }
 
-function ChatBubble({ msg }: { msg: ChatGPTMessage }) {
+function ChatBubble({
+    msg,
+    className,
+}: {
+    msg: ChatGPTMessage;
+    className?: string;
+}) {
     return (
         <div
             className={`flex ${
                 msg.role === 'user' ? 'justify-end' : 'justify-start'
-            }`}
+            } ${className}`}
         >
             <ReactMarkdown
-                className={`prose mb-2 flex rounded p-2 ${
+                className={`prose mb-2 flex flex-col rounded p-2 [&>*]:my-1 ${
                     msg.role === 'user'
                         ? 'bg-blue-500 text-right text-white'
                         : 'bg-gray-200 text-left'
