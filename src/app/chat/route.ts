@@ -14,12 +14,9 @@ export async function POST(request: Request) {
     const payload: OpenAIStreamPayload = {
         model: 'gpt-3.5-turbo',
         messages,
-        temperature: 0.7,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-        max_tokens: 1000,
-        stream: true,
+        temperature: 0.4,
+        max_tokens: 500,
+        stream: false,
     };
 
     const encoder = new TextEncoder();
@@ -36,37 +33,50 @@ export async function POST(request: Request) {
         body: JSON.stringify(payload),
     });
 
-    const stream = new ReadableStream({
-        async start(controller) {
-            function onParse(event: ParsedEvent | ReconnectInterval) {
-                if (event.type === 'event') {
-                    const data = event.data;
-                    if (data === '[DONE]') {
-                        controller.close();
-                        return;
-                    }
-                    try {
-                        const json = JSON.parse(data);
-                        const text = json.choices[0].delta?.content || '';
-                        if (counter < 2 && (text.match(/\n/) || []).length) {
-                            // this is a prefix character (i.e., "\n\n"), do nothing
+    if (res.headers.get('content-type') === 'text/event-stream') {
+        const stream = new ReadableStream({
+            async start(controller) {
+                function onParse(event: ParsedEvent | ReconnectInterval) {
+                    if (event.type === 'event') {
+                        const data = event.data;
+                        if (data === '[DONE]') {
+                            controller.close();
                             return;
                         }
-                        const queue = encoder.encode(text);
-                        controller.enqueue(queue);
-                        counter++;
-                    } catch (e) {
-                        controller.error(e);
+                        try {
+                            const json = JSON.parse(data);
+                            const text = json.choices[0].delta?.content || '';
+                            if (
+                                counter < 2 &&
+                                (text.match(/\n/) || []).length
+                            ) {
+                                // this is a prefix character (i.e., "\n\n"), do nothing
+                                return;
+                            }
+                            const queue = encoder.encode(text);
+                            controller.enqueue(queue);
+                            counter++;
+                        } catch (e) {
+                            controller.error(e);
+                        }
                     }
                 }
-            }
 
-            const parser = createParser(onParse);
-            for await (const chunk of res.body as any) {
-                parser.feed(decoder.decode(chunk));
-            }
+                const parser = createParser(onParse);
+                for await (const chunk of res.body as any) {
+                    parser.feed(decoder.decode(chunk));
+                }
+            },
+        });
+
+        return new Response(stream);
+    }
+
+    const answer = (await res.json()) as ChatResponse;
+
+    return new Response(JSON.stringify(answer), {
+        headers: {
+            'content-type': 'application/json',
         },
     });
-
-    return new Response(stream);
 }
