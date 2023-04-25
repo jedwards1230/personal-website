@@ -145,7 +145,7 @@ export default function Game() {
 	}, []);
 
 	return (
-		<div>
+		<div className="h-screen w-screen absolute left-0 top-0 -z-50">
 			<canvas className="absolute left-0 top-0 -z-20" ref={canvasRef} />
 			<canvas
 				className="absolute left-0 top-0 -z-10 bg-transparent"
