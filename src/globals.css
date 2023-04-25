@@ -9,7 +9,7 @@
 	--grid-line: #000;
 }
 
-[data-theme="dark"] {
+.dark {
 	--primary-cell: #4a148c;
 	--secondary-cell: #0d47a1;
 	--inactive-cell: #101010;

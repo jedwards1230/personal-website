@@ -38,54 +38,29 @@ export class Universe {
 	}
 
 	private liveNeighborCount(row: number, column: number): number {
+		let neighborIndices = this.getNeighborIndices(row, column);
+		let count = neighborIndices.reduce((sum, idx) => {
+			return sum + (this.cells[idx] > 0 ? 1 : 0);
+		}, 0);
+		return count;
+	}
+
+	private getNeighborIndices(row: number, column: number): number[] {
 		let top = row === 0 ? this.height - 1 : row - 1;
 		let down = row === this.height - 1 ? 0 : row + 1;
 		let left = column === 0 ? this.width - 1 : column - 1;
 		let right = column === this.width - 1 ? 0 : column + 1;
 
-		let count = 0;
-
-		let nw = this.getIndex(top, left);
-		if (this.cells[nw] > 0) {
-			count++;
-		}
-
-		let n = this.getIndex(top, column);
-		if (this.cells[n] > 0) {
-			count++;
-		}
-
-		let ne = this.getIndex(top, right);
-		if (this.cells[ne] > 0) {
-			count++;
-		}
-
-		let w = this.getIndex(row, left);
-		if (this.cells[w] > 0) {
-			count++;
-		}
-
-		let e = this.getIndex(row, right);
-		if (this.cells[e] > 0) {
-			count++;
-		}
-
-		let sw = this.getIndex(down, left);
-		if (this.cells[sw] > 0) {
-			count++;
-		}
-
-		let s = this.getIndex(down, column);
-		if (this.cells[s] > 0) {
-			count++;
-		}
-
-		let se = this.getIndex(down, right);
-		if (this.cells[se] > 0) {
-			count++;
-		}
-
-		return count;
+		return [
+			this.getIndex(top, left),
+			this.getIndex(top, column),
+			this.getIndex(top, right),
+			this.getIndex(row, left),
+			this.getIndex(row, right),
+			this.getIndex(down, left),
+			this.getIndex(down, column),
+			this.getIndex(down, right),
+		];
 	}
 
 	private paintCell(

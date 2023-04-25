@@ -3,11 +3,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from "react";
 import { Universe } from "./game";
+import { useIsDarkMode } from "./darkMode";
 
 export default function Game() {
 	const animFrame = useRef<number>(0);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const gridRef = useRef<HTMLCanvasElement>(null);
+
+	const isDarkMode = useIsDarkMode();
 
 	const CELL_SIZE = 4;
 	const SPEED_MULTIPLIER = 1;
@@ -18,15 +21,19 @@ export default function Game() {
 	const universe = useRef(new Universe(width, height, CELL_SIZE));
 
 	const setStyle = () => {
-		const primaryCell = getComputedStyle(document.body).getPropertyValue(
-			"--primary-cell"
-		);
-		const secondaryCell = getComputedStyle(document.body).getPropertyValue(
-			"--secondary-cell"
-		);
-		const inactiveCell = getComputedStyle(document.body).getPropertyValue(
-			"--inactive-cell"
-		);
+		const computedStyles = getComputedStyle(document.documentElement);
+
+		const primaryCell = computedStyles
+			.getPropertyValue("--primary-cell")
+			.trim();
+		const secondaryCell = computedStyles
+			.getPropertyValue("--secondary-cell")
+			.trim();
+		const inactiveCell = computedStyles
+			.getPropertyValue("--inactive-cell")
+			.trim();
+
+		console.log(primaryCell, secondaryCell, inactiveCell);
 
 		universe.current.setStyle(primaryCell, secondaryCell, inactiveCell);
 	};
@@ -36,27 +43,50 @@ export default function Game() {
 		ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue(
 			"--grid-line"
 		);
-		//ctx.globalAlpha = resolvedTheme === "dark" ? 0.05 : 0.1;
+		ctx.globalAlpha = isDarkMode ? 0.05 : 0.1;
 		ctx.lineWidth = 0.5;
 
-		// Vertical lines.
-		for (let i = 0; i <= width; i++) {
-			ctx.beginPath();
-			ctx.moveTo(i * CELL_SIZE, 0);
-			ctx.lineTo(i * CELL_SIZE, CELL_SIZE * height + 1);
-			ctx.stroke();
-		}
-
-		// Horizontal lines.
-		for (let j = 0; j <= height; j++) {
-			ctx.beginPath();
-			ctx.moveTo(0, j * CELL_SIZE);
-			ctx.lineTo(CELL_SIZE * width + 1, j * CELL_SIZE);
-			ctx.stroke();
-		}
-
-		ctx.globalAlpha = 1.0;
+		drawLines(ctx, width, height, CELL_SIZE);
 		ctx.restore();
+	};
+
+	const drawLines = (
+		ctx: CanvasRenderingContext2D,
+		width: number,
+		height: number,
+		cell_size: number
+	) => {
+		for (let i = 0; i <= width; i++) {
+			drawLine(
+				ctx,
+				i * cell_size,
+				0,
+				i * cell_size,
+				cell_size * height + 1
+			);
+		}
+		for (let j = 0; j <= height; j++) {
+			drawLine(
+				ctx,
+				0,
+				j * cell_size,
+				cell_size * width + 1,
+				j * cell_size
+			);
+		}
+	};
+
+	const drawLine = (
+		ctx: CanvasRenderingContext2D,
+		x1: number,
+		y1: number,
+		x2: number,
+		y2: number
+	) => {
+		ctx.beginPath();
+		ctx.moveTo(x1, y1);
+		ctx.lineTo(x2, y2);
+		ctx.stroke();
 	};
 
 	const animate = (time: number = 0) => {
@@ -77,15 +107,23 @@ export default function Game() {
 		}
 	};
 
-	// listen for color mode changes
-	/* useEffect(() => {
-		setStyle();
-		drawGrid(
-			gridRef.current.getContext("2d", {
-				desynchronized: true,
-			}) as CanvasRenderingContext2D
-		);
-	}, [resolvedTheme]); */
+	useEffect(() => {
+		const handleDarkMode = (e: MediaQueryListEvent) => {
+			setStyle();
+			drawGrid(
+				gridRef.current.getContext("2d", {
+					desynchronized: true,
+				}) as CanvasRenderingContext2D
+			);
+		};
+
+		const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+		darkModeQuery.addEventListener("change", handleDarkMode);
+
+		return () => {
+			darkModeQuery.removeEventListener("change", handleDarkMode);
+		};
+	}, []);
 
 	// initialize
 	useEffect(() => {
@@ -104,7 +142,6 @@ export default function Game() {
 		}) as CanvasRenderingContext2D;
 		drawGrid(ctx);
 
-		//if (resolvedTheme !== undefined) animate();
 		animate();
 		return () => cancelAnimationFrame(animFrame.current);
 	}, []);
