@@ -2,6 +2,19 @@ declare module '*.md';
 
 type ChatGPTAgent = 'user' | 'system' | 'assistant';
 
+type EmbedResponse = {
+    object: string;
+    data: { embedding: number[]; object: string; index: number }[];
+    model: string;
+    usage: { prompt_tokens: number; total_tokens: number };
+};
+
+type EmbeddedDocument = {
+    title: string;
+    body: string;
+    similarity: number;
+};
+
 interface ChatHistoryEntry {
     id: number;
     role: ChatGPTAgent;

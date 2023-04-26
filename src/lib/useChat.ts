@@ -1,20 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import context from '@/context.md';
+import { initialState } from './gpt';
 
 export default function useChat() {
-    const [messages, setMessages] = useState<ChatGPTMessage[]>([
-        {
-            role: 'system',
-            content: context,
-        },
-        {
-            role: 'assistant',
-            content:
-                "Hello, I am Justin's personal assistant. How can I help you?",
-        },
-    ]);
+    const [messages, setMessages] = useState(initialState);
 
     const sendMessage = async (message: string) => {
         const id = Date.now();
@@ -26,10 +16,13 @@ export default function useChat() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                messages: messages.map(({ role, content }) => ({
-                    role,
-                    content,
-                })),
+                messages: [
+                    ...messages.map(({ role, content }) => ({
+                        role,
+                        content,
+                    })),
+                    newMessage,
+                ],
             }),
         });
 
