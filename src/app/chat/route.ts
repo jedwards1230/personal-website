@@ -4,6 +4,13 @@ import {
     ReconnectInterval,
 } from 'eventsource-parser';
 
+import {
+    getChat,
+    getEmbedding,
+    searchSimilarDocuments,
+    updateContext,
+} from '@/lib/gpt';
+
 export const runtime = 'experimental-edge';
 
 export async function POST(request: Request) {
@@ -11,29 +18,37 @@ export async function POST(request: Request) {
         messages: ChatGPTMessage[];
     };
 
-    const payload: OpenAIStreamPayload = {
-        model: 'gpt-4',
-        messages,
-        temperature: 0.7,
-        max_tokens: 1000,
-        stream: true,
-    };
+    // Get the last user message from the messages array
+    const lastUserMessage = messages
+        .filter((message) => message.role === 'user')
+        .pop()?.content;
 
-    const encoder = new TextEncoder();
-    const decoder = new TextDecoder();
+    if (!lastUserMessage) {
+        return new Response('No user message found', { status: 400 });
+    }
 
-    let counter = 0;
+    // Get the embedding vector for the last user message
+    const queryEmbedding = await getEmbedding(lastUserMessage, false);
 
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${process.env.OPENAI_KEY}`,
-        },
-        method: 'POST',
-        body: JSON.stringify(payload),
-    });
+    let data: EmbeddedDocument[];
+    try {
+        data = await searchSimilarDocuments(queryEmbedding);
+    } catch (error) {
+        console.log('error', error);
+    }
+
+    const payload = data ? updateContext(messages, data[0].body) : messages;
+
+    console.log('payload', payload);
+
+    const res = await getChat(payload);
 
     if (res.headers.get('content-type') === 'text/event-stream') {
+        const encoder = new TextEncoder();
+        const decoder = new TextDecoder();
+
+        let counter = 0;
+
         const stream = new ReadableStream({
             async start(controller) {
                 function onParse(event: ParsedEvent | ReconnectInterval) {
