@@ -75,7 +75,7 @@ function ChatBubble({
             } ${className}`}
         >
             <ReactMarkdown
-                className={`prose flex flex-col rounded px-3 py-2 [&>*]:my-1 ${
+                className={`prose flex flex-col overflow-x-scroll rounded px-3 py-2 [&>*]:my-1 ${
                     msg.role === 'user'
                         ? 'bg-blue-500 text-right text-white'
                         : 'bg-gray-200 text-left'
