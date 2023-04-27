@@ -6,10 +6,14 @@ import { getInitialState } from './gpt';
 export default function useChat() {
     const [messages, setMessages] = useState<ChatGPTMessage[]>([]);
 
+    const resetChat = async () => {
+        const initialMessages = await getInitialState();
+        setMessages(initialMessages);
+    };
+
     useEffect(() => {
-        getInitialState().then((initialMessages) => {
-            setMessages(initialMessages);
-        });
+        resetChat();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const sendMessage = async (message: string) => {
@@ -73,5 +77,5 @@ export default function useChat() {
         }
     };
 
-    return { messages: messages.slice(1), sendMessage };
+    return { messages: messages.slice(1), sendMessage, resetChat };
 }
