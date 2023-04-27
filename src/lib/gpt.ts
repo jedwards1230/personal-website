@@ -6,7 +6,24 @@ const headers = {
     Authorization: `Bearer ${process.env.OPENAI_KEY}`,
 };
 
-export async function getEmbedding(body: string, raw: boolean = false) {
+export const initialState: ChatGPTMessage[] = [
+    {
+        role: 'system',
+        content: context,
+    },
+    {
+        role: 'assistant',
+        content:
+            'Hello! I am an interactive resume for Justin Edwards, a software developer with a focus on web applications and systems design. Feel free to ask me about his skills, experience, education, or anything else related to his professional background. Here are some recommended questions you might want to ask me:\n' +
+            "- What are Justin's technical skills?\n" +
+            '- Can you provide information about his work experience?\n' +
+            '- What is his educational background?\n' +
+            '- What is he looking for in his next role?\n' +
+            "Remember, I am a chatbot and not a human, but I'll do my best to provide you with the information you need.\n",
+    },
+];
+
+export async function getEmbedding(body: string) {
     const embedding = await fetch('https://api.openai.com/v1/embeddings', {
         headers,
         method: 'POST',
@@ -25,7 +42,7 @@ export async function getChat(messages: ChatGPTMessage[], stream = true) {
     const payload: OpenAIStreamPayload = {
         model: 'gpt-3.5-turbo',
         messages,
-        temperature: 0.3,
+        temperature: 0.1,
         max_tokens: 1000,
         stream,
     };
@@ -38,17 +55,6 @@ export async function getChat(messages: ChatGPTMessage[], stream = true) {
 
     return res;
 }
-
-export const initialState: ChatGPTMessage[] = [
-    {
-        role: 'system',
-        content: context,
-    },
-    {
-        role: 'assistant',
-        content: "Hello, I am Justin's personal assistant. How can I help you?",
-    },
-];
 
 // extract first message from messages (system message)
 // add the data to the system message
