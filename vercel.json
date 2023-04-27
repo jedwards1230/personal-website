@@ -7,10 +7,6 @@
         {
             "path": "/search?repo=go-kerbal&owner=jedwards1230",
             "schedule": "0 5 * * 0"
-        },
-        {
-            "path": "/search?repo=dailyarxiv&owner=jedwards1230",
-            "schedule": "0 5 * * 0"
         }
     ]
 }
