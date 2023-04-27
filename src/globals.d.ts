@@ -41,10 +41,7 @@ interface ChatResponse {
     created: number;
     choices: {
         index: number;
-        message: {
-            role: string;
-            content: string;
-        };
+        message: ChatGPTMessage;
         finish_reason: string;
     }[];
     usage: {

@@ -27,8 +27,18 @@ export async function POST(request: Request) {
         return new Response('No user message found', { status: 400 });
     }
 
+    const lastAssistantMessage = messages
+        .filter((message) => message.role === 'assistant')
+        .pop()?.content;
+
+    if (!lastAssistantMessage) {
+        return new Response('No assistant message found', { status: 400 });
+    }
+
     // Get the embedding vector for the last user message
-    const queryEmbedding = await getEmbedding(lastUserMessage, false);
+    const queryEmbedding = await getEmbedding(
+        `assistant: ${lastAssistantMessage}\n\nuser: ${lastUserMessage}`
+    );
 
     let data: EmbeddedDocument[];
     try {
@@ -37,9 +47,11 @@ export async function POST(request: Request) {
         console.log('error', error);
     }
 
-    const payload = data ? updateContext(messages, data[0].body) : messages;
+    const bodies = data.map((document) => document.body);
 
-    console.log('payload', payload);
+    const payload = data
+        ? updateContext(messages, bodies.join('\n'))
+        : messages;
 
     const res = await getChat(payload);
 
