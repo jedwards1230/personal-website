@@ -26,7 +26,7 @@ export default function Chat() {
 
     return (
         <div className="w-full max-w-2xl p-4 md:w-auto md:max-w-5xl lg:max-w-7xl">
-            <div className="flex flex-col gap-2 rounded border bg-white p-4 shadow-lg">
+            <div className="flex flex-col gap-2 rounded border bg-white p-4 shadow-lg dark:border-none dark:bg-transparent dark:px-0">
                 {messages.map((msg, index) => (
                     <ChatBubble
                         key={msg.content + msg.role + index}
@@ -46,7 +46,7 @@ export default function Chat() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="mt-2 w-full rounded bg-blue-500 p-2 text-white"
+                    className="mt-2 w-full rounded bg-blue-500 p-2 text-white hover:bg-blue-600"
                 >
                     {loading ? (
                         <div className="animate-pulse font-bold tracking-widest">
