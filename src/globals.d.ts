@@ -1,5 +1,3 @@
-declare module '*.md';
-
 type ChatGPTAgent = 'user' | 'system' | 'assistant';
 
 type EmbedResponse = {

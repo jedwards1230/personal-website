@@ -1,10 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-import { initialState } from './gpt';
+import { useEffect, useState } from 'react';
+import { getInitialState } from './gpt';
 
 export default function useChat() {
-    const [messages, setMessages] = useState(initialState);
+    const [messages, setMessages] = useState<ChatGPTMessage[]>([]);
+
+    useEffect(() => {
+        getInitialState().then((initialMessages) => {
+            setMessages(initialMessages);
+        });
+    }, []);
 
     const sendMessage = async (message: string) => {
         const id = Date.now();
