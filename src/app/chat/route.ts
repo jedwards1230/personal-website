@@ -47,7 +47,7 @@ export async function POST(request: Request) {
         console.log('error', error);
     }
 
-    const bodies = data.map((document) => document.body);
+    const bodies = data.map((document) => JSON.stringify(document));
 
     const payload = data
         ? updateContext(messages, bodies.join('\n'))
