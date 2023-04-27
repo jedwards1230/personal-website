@@ -1,4 +1,3 @@
-import context from '@/context.md';
 import supabase from './supabase';
 
 const headers = {
@@ -6,22 +5,25 @@ const headers = {
     Authorization: `Bearer ${process.env.OPENAI_KEY}`,
 };
 
-export const initialState: ChatGPTMessage[] = [
-    {
-        role: 'system',
-        content: context,
-    },
-    {
-        role: 'assistant',
-        content:
-            'Hello! I am an interactive resume for Justin Edwards. Feel free to ask me about his skills, experience, education, or anything else related to his professional background. Here are some recommended questions you might want to ask me:\n' +
-            "- What are Justin's technical skills?\n" +
-            '- Can you provide information about his work experience?\n' +
-            '- What is his educational background?\n' +
-            '- What is he looking for in his next role?\n\n' +
-            "Remember, I am a chatbot and not a human, but I'll do my best to provide you with the information you need.\n",
-    },
-];
+let context: string;
+
+export async function getInitialState() {
+    const contextEntry = await getContextByTitle('base');
+    const introEntry = await getContextByTitle('intro');
+    context = contextEntry.body;
+    const initialState: ChatGPTMessage[] = [
+        {
+            role: 'system',
+            content: contextEntry.body,
+        },
+        {
+            role: 'assistant',
+            content: introEntry.body,
+        },
+    ];
+
+    return initialState;
+}
 
 export async function getEmbedding(body: string) {
     const embedding = await fetch('https://api.openai.com/v1/embeddings', {
@@ -64,6 +66,19 @@ export function updateContext(messages: ChatGPTMessage[], documents?: string) {
         ? `${context}\n\n# Context\n\n${documents}`
         : context;
     return [systemMessage, ...messages.slice(1)];
+}
+
+export async function getContextByTitle(title: 'base' | 'intro') {
+    const { data, error } = await supabase
+        .from('context')
+        .select('*')
+        .eq('title', title);
+
+    if (error) {
+        throw error;
+    }
+
+    return data[0];
 }
 
 export async function searchSimilarDocuments(
