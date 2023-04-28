@@ -16,28 +16,24 @@ export default function useChat() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const sendMessage = async (message: string) => {
-        const id = Date.now();
-
-        const newMessage: ChatGPTMessage = { role: 'user', content: message };
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-
+    const sendServerRequest = async (messages: ChatGPTMessage[]) => {
         const response = await fetch('/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                messages: [
-                    ...messages.map(({ role, content }) => ({
-                        role,
-                        content,
-                    })),
-                    newMessage,
-                ],
+                messages: messages.map((m) => ({
+                    role: m.role,
+                    content: m.content,
+                })),
             }),
         });
 
+        if (!response.ok) throw new Error('Unexpected response');
+
         switch (response.headers.get('content-type')) {
             case 'text/event-stream':
+                const id = Date.now();
+
                 const reader = response.body?.getReader();
                 let accumulatedResponse = '';
 
@@ -75,6 +71,14 @@ export default function useChat() {
             default:
                 throw new Error('Unexpected response type');
         }
+    };
+
+    const sendMessage = async (message: string) => {
+        const newMessage: ChatGPTMessage = { role: 'user', content: message };
+        const newMessages = [...messages, newMessage];
+        setMessages(newMessages);
+
+        await sendServerRequest(newMessages);
     };
 
     return { messages: messages.slice(1), sendMessage, resetChat };
