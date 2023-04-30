@@ -1,4 +1,3 @@
-import NoSsr from '@/lib/noSsr';
 import Body from './body';
 
 export const metadata = {
@@ -7,9 +6,5 @@ export const metadata = {
 };
 
 export default function Page() {
-    return (
-        <NoSsr>
-            <Body />
-        </NoSsr>
-    );
+    return <Body />;
 }

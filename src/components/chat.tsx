@@ -47,7 +47,7 @@ export default function Chat() {
                             handleSubmit(e);
                         }
                     }}
-                    className="w-full rounded border p-2 shadow-lg focus:outline-none"
+                    className="w-full rounded border px-4 py-4 shadow-lg focus:outline-none"
                     placeholder="Type your message"
                 />
                 <div className="flex gap-2">
