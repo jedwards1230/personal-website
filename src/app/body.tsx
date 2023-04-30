@@ -7,6 +7,7 @@ import useWindowSize from '@/lib/windowSize';
 import { EmailIcon, GithubIcon, LinkedInIcon } from '@/components/icons';
 import Game from '@/components/gameComponent';
 import Chat from '@/components/chat';
+import NoSsr from '@/lib/noSsr';
 
 const links = [
     {
@@ -40,7 +41,9 @@ export default function Body() {
 
     return (
         <>
-            <Game key={idx} />
+            <NoSsr>
+                <Game key={idx} />
+            </NoSsr>
             <div className="flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-4 text-center sm:py-8 md:py-16">
                 <Link
                     href="/"

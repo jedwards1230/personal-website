@@ -13,24 +13,36 @@ import {
 
 export const runtime = 'experimental-edge';
 
+function getLastMessage(
+    messages: ChatGPTMessage[],
+    role: 'user' | 'assistant'
+): string | undefined {
+    return messages.filter((message) => message.role === role).pop()?.content;
+}
+
+async function handleSimilarDocuments(
+    queryEmbedding: number[]
+): Promise<EmbeddedDocument[] | undefined> {
+    try {
+        return await searchSimilarDocuments(queryEmbedding);
+    } catch (error) {
+        console.error('Error searching for similar documents:', error);
+        return undefined;
+    }
+}
+
 export async function POST(request: Request) {
     const { messages } = (await request.json()) as {
         messages: ChatGPTMessage[];
     };
 
     // Get the last user message from the messages array
-    const lastUserMessage = messages
-        .filter((message) => message.role === 'user')
-        .pop()?.content;
-
+    const lastUserMessage = getLastMessage(messages, 'user');
     if (!lastUserMessage) {
         return new Response('No user message found', { status: 400 });
     }
 
-    const lastAssistantMessage = messages
-        .filter((message) => message.role === 'assistant')
-        .pop()?.content;
-
+    const lastAssistantMessage = getLastMessage(messages, 'assistant');
     if (!lastAssistantMessage) {
         return new Response('No assistant message found', { status: 400 });
     }
@@ -40,17 +52,12 @@ export async function POST(request: Request) {
         `assistant: ${lastAssistantMessage}\n\nuser: ${lastUserMessage}`
     );
 
-    let data: EmbeddedDocument[];
-    try {
-        data = await searchSimilarDocuments(queryEmbedding);
-    } catch (error) {
-        console.log('error', error);
-    }
+    const data: EmbeddedDocument[] = await handleSimilarDocuments(
+        queryEmbedding
+    );
 
     const bodies = data.map((document) => JSON.stringify(document));
-
     const payload = data ? updateContext(messages, bodies) : messages;
-
     const res = await getChat(payload);
 
     if (res.headers.get('content-type') === 'text/event-stream') {
