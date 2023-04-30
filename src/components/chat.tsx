@@ -54,7 +54,8 @@ export default function Chat() {
                     <button
                         onClick={resetChat}
                         title="Reset chat"
-                        className="rounded bg-purple-500 p-2 text-white transition-colors hover:bg-purple-600"
+                        disabled={loading}
+                        className="rounded bg-purple-500 p-2 text-white transition-colors hover:bg-purple-600 disabled:cursor-not-allowed disabled:bg-gray-400"
                     >
                         <ResetIcon width={24} height={24} />
                     </button>

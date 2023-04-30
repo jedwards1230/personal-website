@@ -60,10 +60,16 @@ export async function getChat(messages: ChatGPTMessage[], stream = true) {
 
 // extract first message from messages (system message)
 // add the data to the system message
-export function updateContext(messages: ChatGPTMessage[], documents?: string) {
+export function updateContext(
+    messages: ChatGPTMessage[],
+    documents?: string[]
+) {
     const systemMessage = messages[0];
     systemMessage.content = documents
-        ? `${context}\n\n# Context\n\n${documents}`
+        ? `${context}\n\n# Context\n\n${documents
+              .map((d) => `\`\`\`${d}\`\`\`\n`)
+              .join('\n')}\n\n
+              Use bulleted lists and tables wherever possible`
         : context;
     return [systemMessage, ...messages.slice(1)];
 }
