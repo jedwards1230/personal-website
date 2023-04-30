@@ -49,9 +49,7 @@ export async function POST(request: Request) {
 
     const bodies = data.map((document) => JSON.stringify(document));
 
-    const payload = data
-        ? updateContext(messages, bodies.join('\n'))
-        : messages;
+    const payload = data ? updateContext(messages, bodies) : messages;
 
     const res = await getChat(payload);
 
