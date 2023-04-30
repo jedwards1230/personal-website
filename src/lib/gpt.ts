@@ -44,7 +44,7 @@ export async function getChat(messages: ChatGPTMessage[], stream = true) {
     const payload: OpenAIStreamPayload = {
         model: 'gpt-3.5-turbo',
         messages,
-        temperature: 0.1,
+        temperature: 0.3,
         max_tokens: 1000,
         stream,
     };
