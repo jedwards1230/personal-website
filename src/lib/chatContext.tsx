@@ -1,20 +1,35 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { getInitialState } from './gpt';
+import React, { createContext, useState, useEffect } from 'react';
+import { getInitialState } from './gpt'; // Import the sendMessage function
 
-export default function useChat() {
+type ChatState = {
+    messages: ChatGPTMessage[];
+    resetChat: () => void;
+    sendMessage: (text: string) => Promise<void>;
+};
+
+const initialState: ChatState = {
+    messages: [],
+    resetChat: () => {},
+    sendMessage: async (text: string) => {},
+};
+
+const ChatContext = createContext<ChatState>(initialState);
+
+export const useChat = () => React.useContext(ChatContext);
+
+export function ChatContextProvider({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     const [messages, setMessages] = useState<ChatGPTMessage[]>([]);
 
     const resetChat = async () => {
         const initialMessages = await getInitialState();
         setMessages(initialMessages);
     };
-
-    useEffect(() => {
-        resetChat();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const sendServerRequest = async (messages: ChatGPTMessage[]) => {
         const response = await fetch('/chat', {
@@ -81,5 +96,16 @@ export default function useChat() {
         await sendServerRequest(newMessages);
     };
 
-    return { messages: messages.slice(1), sendMessage, resetChat };
+    useEffect(() => {
+        resetChat();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return (
+        <ChatContext.Provider value={{ messages, resetChat, sendMessage }}>
+            {children}
+        </ChatContext.Provider>
+    );
 }
+
+export default ChatContext;

@@ -1,5 +1,7 @@
+'use client';
+
 import { FormEvent, useState } from 'react';
-import useChat from '@/lib/useChat';
+import { useChat } from '@/lib/chatContext';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ResetIcon } from './icons';
@@ -28,12 +30,15 @@ export default function Chat() {
     return (
         <div className="w-full max-w-2xl p-4 md:w-auto md:max-w-5xl lg:max-w-7xl">
             <div className="flex flex-col gap-2 rounded border bg-white p-4 shadow-lg dark:border-none dark:bg-transparent dark:px-0">
-                {messages.map((msg, index) => (
-                    <ChatBubble
-                        key={msg.content + msg.role + index}
-                        msg={msg}
-                    />
-                ))}
+                {messages.map((msg, index) => {
+                    if (index === 0) return null;
+                    return (
+                        <ChatBubble
+                            key={msg.content + msg.role + index}
+                            msg={msg}
+                        />
+                    );
+                })}
             </div>
             <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-2">
                 {/* todo: limit to something reasonable */}
