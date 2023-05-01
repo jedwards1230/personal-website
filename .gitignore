@@ -19,7 +19,8 @@
 # misc
 .DS_Store
 *.pem
-
+__pycache__
+.mypy_cache/
 next-env.d.ts
 
 # debug

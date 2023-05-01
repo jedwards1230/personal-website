@@ -43,7 +43,7 @@ async function storeEmbedding(title: string, body: string) {
     const embedding = await getEmbedding(title + '\n\n' + body);
 
     // Store the vector in Postgres
-    const { data, error } = await supabase.from('documents').upsert(
+    const { data, error } = await supabase.from('embeddings').upsert(
         {
             title,
             body,
