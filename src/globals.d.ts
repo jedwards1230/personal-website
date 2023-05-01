@@ -7,11 +7,13 @@ type EmbedResponse = {
     usage: { prompt_tokens: number; total_tokens: number };
 };
 
-type EmbeddedDocument = {
+interface EmbeddedDocument {
+    id: number;
     title: string;
     body: string;
+    category: string;
     similarity: number;
-};
+}
 
 interface ChatHistoryEntry {
     id: number;
