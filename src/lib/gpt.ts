@@ -5,12 +5,9 @@ const headers = {
     Authorization: `Bearer ${process.env.OPENAI_KEY}`,
 };
 
-let context: string;
-
 export async function getInitialState() {
     const contextEntry = await getContextByTitle('base');
     const introEntry = await getContextByTitle('intro');
-    context = contextEntry.body;
     const initialState: ChatGPTMessage[] = [
         {
             role: 'system',
@@ -60,17 +57,17 @@ export async function getChat(messages: ChatGPTMessage[], stream = true) {
 
 // extract first message from messages (system message)
 // add the data to the system message
-export function updateContext(
+export async function updateContext(
     messages: ChatGPTMessage[],
     documents?: string[]
 ) {
+    const contextEntry = await getContextByTitle('base');
     const systemMessage = messages[0];
     systemMessage.content = documents
-        ? `${context}\n\n# Context\n\n${documents
-              .map((d) => `\`\`\`${d}\`\`\`\n`)
-              .join('\n')}\n\n
-              Use bulleted lists and tables wherever possible`
-        : context;
+        ? `${contextEntry.body} \n # Context\n ${documents.join('\n')}
+              Prioritize tables and strctured data. Use bulleted lists and headers to organize the information.`
+        : contextEntry.body;
+
     return [systemMessage, ...messages.slice(1)];
 }
 

@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     );
 
     const bodies = data.map((document) => JSON.stringify(document));
-    const payload = data ? updateContext(messages, bodies) : messages;
+    const payload = data ? await updateContext(messages, bodies) : messages;
     const res = await getChat(payload);
 
     if (res.headers.get('content-type') === 'text/event-stream') {
