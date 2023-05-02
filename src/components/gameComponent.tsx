@@ -37,11 +37,12 @@ export default function Game() {
     };
 
     const drawGrid = (ctx: CanvasRenderingContext2D) => {
+        return;
         ctx.save();
         ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue(
             '--grid-line'
         );
-        ctx.globalAlpha = isDarkMode ? 0.05 : 0.1;
+        ctx.globalAlpha = isDarkMode ? 0.03 : 0.1;
         ctx.lineWidth = 0.5;
 
         drawLines(ctx, width, height, CELL_SIZE);
