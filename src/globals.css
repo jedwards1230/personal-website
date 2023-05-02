@@ -5,7 +5,7 @@
 :root {
     --primary-cell: #64b5f6;
     --secondary-cell: #ba68c8;
-    --inactive-cell: #fff;
+    --inactive-cell: #f6f4f4;
     --grid-line: #000;
 }
 
@@ -13,5 +13,5 @@
     --primary-cell: #4a148c;
     --secondary-cell: #0d47a1;
     --inactive-cell: #101010;
-    --grid-line: #fff;
+    --grid-line: #ffffff80;
 }
