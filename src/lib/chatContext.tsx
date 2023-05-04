@@ -21,14 +21,18 @@ export const useChat = () => React.useContext(ChatContext);
 
 export function ChatContextProvider({
     children,
+    initialState,
 }: {
     children: React.ReactNode;
+    initialState: ChatGPTMessage[];
 }) {
-    const [messages, setMessages] = useState<ChatGPTMessage[]>([]);
+    const [messages, setMessages] = useState<ChatGPTMessage[]>(
+        initialState || []
+    );
 
     const resetChat = async () => {
-        const initialMessages = await getInitialState();
-        setMessages(initialMessages);
+        if (!initialState) initialState = await getInitialState();
+        setMessages(initialState);
     };
 
     const sendServerRequest = async (messages: ChatGPTMessage[]) => {
