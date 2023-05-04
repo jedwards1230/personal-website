@@ -1,10 +1,14 @@
 'use client';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-import Game from '@/components/gameComponent';
 import useWindowSize from '@/lib/windowSize';
+
+const Game = dynamic(() => import('@/components/gameComponent'), {
+    ssr: false,
+});
 
 export default function Header() {
     const [idx, setIdx] = useState(0);
