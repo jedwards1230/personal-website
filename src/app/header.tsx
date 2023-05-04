@@ -4,7 +4,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-import useWindowSize from '@/lib/windowSize';
+import useWindowSize from '@/lib/useWindowSize';
 
 const Game = dynamic(() => import('@/components/gameComponent'), {
     ssr: false,
