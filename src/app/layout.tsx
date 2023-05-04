@@ -1,6 +1,5 @@
 import DarkModeHandler from '@/components/darkMode';
 import '@/globals.css';
-import { ChatContextProvider } from '@/lib/chatContext';
 
 import { Analytics } from '@vercel/analytics/react';
 
@@ -11,14 +10,12 @@ export default function RootLayout({
 }) {
     return (
         <DarkModeHandler>
-            <ChatContextProvider>
-                <html lang="en">
-                    <body>
-                        {children}
-                        <Analytics />
-                    </body>
-                </html>
-            </ChatContextProvider>
+            <html lang="en">
+                <body className="flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-4 text-center sm:py-8 md:py-16">
+                    {children}
+                    <Analytics />
+                </body>
+            </html>
         </DarkModeHandler>
     );
 }
