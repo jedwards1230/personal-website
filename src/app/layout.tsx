@@ -10,7 +10,7 @@ export default function RootLayout({
 }) {
     return (
         <DarkModeHandler>
-            <html lang="en">
+            <html lang="en" className="dark">
                 <body className="flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-4 text-center sm:py-8 md:py-16">
                     {children}
                     <Analytics />
