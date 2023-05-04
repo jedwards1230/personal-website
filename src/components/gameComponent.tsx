@@ -2,16 +2,18 @@
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from 'react';
-import { Universe } from '@/lib/game';
-import { useIsDarkMode } from '@/lib/useIsDarkMode';
 import { motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
+
+import { Universe } from '@/lib/game';
 
 export default function Game() {
     const animFrame = useRef<number>(0);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const gridRef = useRef<HTMLCanvasElement>(null);
 
-    const isDarkMode = useIsDarkMode();
+    const { resolvedTheme } = useTheme();
+    const isDarkMode = resolvedTheme === 'dark';
 
     const CELL_SIZE = 4;
     const SPEED_MULTIPLIER = 1;
