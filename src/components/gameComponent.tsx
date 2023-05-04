@@ -15,8 +15,10 @@ export default function Game() {
     const CELL_SIZE = 4;
     const SPEED_MULTIPLIER = 1;
 
-    const height = Math.round(window?.innerHeight / CELL_SIZE || 0);
-    const width = Math.round(window?.innerWidth / CELL_SIZE || 0);
+    const height =
+        window !== undefined ? Math.round(window.innerHeight / CELL_SIZE) : 1;
+    const width =
+        window !== undefined ? Math.round(window.innerWidth / CELL_SIZE) : 1;
 
     const universe = useRef(new Universe(width, height, CELL_SIZE));
 
@@ -116,26 +118,30 @@ export default function Game() {
             );
         };
 
-        const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        darkModeQuery.addEventListener('change', handleDarkMode);
+        if (window !== undefined) {
+            const darkModeQuery = window.matchMedia(
+                '(prefers-color-scheme: dark)'
+            );
+            darkModeQuery.addEventListener('change', handleDarkMode);
 
-        return () => {
-            darkModeQuery.removeEventListener('change', handleDarkMode);
-        };
+            return () => {
+                darkModeQuery.removeEventListener('change', handleDarkMode);
+            };
+        }
     }, []);
 
     // initialize
     useEffect(() => {
         // establish game canvas
         const canvas = canvasRef.current as HTMLCanvasElement;
-        canvas.width = window?.innerWidth || 0;
-        canvas.height = window?.innerHeight || 0;
+        canvas.width = window !== undefined ? window.innerWidth : 1;
+        canvas.height = window !== undefined ? window.innerHeight : 1;
         setStyle();
 
         // establish grid overlay canvas
         const grid = gridRef.current as HTMLCanvasElement;
-        grid.width = window?.innerWidth || 0;
-        grid.height = window?.innerHeight || 0;
+        grid.width = window !== undefined ? window.innerWidth : 1;
+        grid.height = window !== undefined ? window.innerHeight : 1;
         const ctx = grid.getContext('2d', {
             desynchronized: true,
         }) as CanvasRenderingContext2D;

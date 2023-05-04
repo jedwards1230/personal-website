@@ -1,4 +1,6 @@
-import Body from './body';
+import Chat from '@/components/chat';
+import IconLinks from '@/components/iconLinks';
+import Header from './header';
 
 export const metadata = {
     title: 'J. Edwards',
@@ -7,6 +9,13 @@ export const metadata = {
 
 export const runtime = 'experimental-edge';
 
-export default function Page() {
-    return <Body />;
+export default async function Page() {
+    return (
+        <>
+            <Header />
+            {/* @ts-expect-error Async Server Component */}
+            <Chat />
+            <IconLinks />
+        </>
+    );
 }
