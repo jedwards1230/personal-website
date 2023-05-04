@@ -14,7 +14,7 @@ export default function ChatBubble({
             <motion.div
                 key={`chat-bubble-${msg.content}`}
                 layout
-                className={`flex w-[90%]  ${
+                className={`flex w-[90%] ${
                     msg.role === 'user'
                         ? 'ml-8 justify-end'
                         : 'mr-8 justify-start'

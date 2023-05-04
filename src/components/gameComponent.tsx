@@ -3,7 +3,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from 'react';
 import { Universe } from '@/lib/game';
-import { useIsDarkMode } from './darkMode';
+import { useIsDarkMode } from '@/lib/useIsDarkMode';
+import { motion } from 'framer-motion';
 
 export default function Game() {
     const animFrame = useRef<number>(0);
@@ -153,8 +154,16 @@ export default function Game() {
 
     return (
         <div className="fixed left-0 top-0 -z-50 h-screen w-screen">
-            <canvas className="fixed left-0 top-0 -z-20" ref={canvasRef} />
-            <canvas
+            <motion.canvas
+                layout
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="fixed left-0 top-0 -z-20"
+                ref={canvasRef}
+            />
+            <motion.canvas
+                layout
                 className="fixed left-0 top-0 -z-10 bg-transparent"
                 ref={gridRef}
             />
