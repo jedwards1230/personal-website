@@ -1,3 +1,5 @@
+const { PHASE_PRODUCTION_BUILD } = require('next/constants');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
@@ -15,4 +17,19 @@ const nextConfig = {
     },
 };
 
-module.exports = nextConfig;
+const removeConsole = (phase) => {
+    if (phase === PHASE_PRODUCTION_BUILD) {
+        return {
+            ...nextConfig,
+            compiler: {
+                removeConsole: true,
+            },
+        };
+    }
+
+    return {
+        ...nextConfig,
+    };
+};
+
+module.exports = removeConsole(process.env.PHASE);
