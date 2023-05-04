@@ -14,10 +14,8 @@ export default function ChatBubble({
             <motion.div
                 key={`chat-bubble-${msg.content}`}
                 layout
-                className={`flex w-[90%] ${
-                    msg.role === 'user'
-                        ? 'ml-8 justify-end'
-                        : 'mr-8 justify-start'
+                className={`flex ${
+                    msg.role === 'user' ? 'justify-end' : 'justify-start'
                 } ${className}`}
             >
                 <ReactMarkdown
