@@ -30,7 +30,6 @@ export default function ChatInterface() {
         <>
             <ChatHistory />
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                {/* todo: limit to something reasonable */}
                 <input
                     type="text"
                     value={message}
@@ -41,7 +40,8 @@ export default function ChatInterface() {
                             handleSubmit(e);
                         }
                     }}
-                    className="w-full rounded border px-4 py-4 shadow-lg focus:outline-none dark:bg-gray-200"
+                    maxLength={100}
+                    className="prose w-full rounded border px-4 py-4 shadow-lg focus:outline-none dark:bg-gray-200"
                     placeholder="Type your message"
                 />
                 <Buttons loading={loading} resetChat={resetChat} />
