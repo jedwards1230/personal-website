@@ -1,7 +1,7 @@
-import DarkModeHandler from '@/components/darkMode';
 import '@/globals.css';
 
 import { Analytics } from '@vercel/analytics/react';
+import { Providers } from './providers';
 
 export default function RootLayout({
     children,
@@ -9,13 +9,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <DarkModeHandler>
-            <html lang="en" className="dark">
-                <body className="flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-4 text-center sm:py-8 md:py-16">
-                    {children}
-                    <Analytics />
-                </body>
-            </html>
-        </DarkModeHandler>
+        <html
+            suppressHydrationWarning={true}
+            lang="en"
+            className="bg-white dark:bg-black"
+        >
+            <body className="flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-4 text-center sm:py-8 md:py-16">
+                <Providers>{children}</Providers>
+                <Analytics />
+            </body>
+        </html>
     );
 }

@@ -41,7 +41,7 @@ export default function ChatInterface() {
                             handleSubmit(e);
                         }
                     }}
-                    className="w-full rounded border px-4 py-4 shadow-lg focus:outline-none"
+                    className="w-full rounded border px-4 py-4 shadow-lg focus:outline-none dark:bg-gray-200"
                     placeholder="Type your message"
                 />
                 <Buttons loading={loading} resetChat={resetChat} />
