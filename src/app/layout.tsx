@@ -3,6 +3,16 @@ import '@/globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { Providers } from './providers';
 
+export const metadata = {
+    viewport: {
+        width: 'device-width',
+        minimumScale: 1,
+        initialScale: 1,
+        maximumScale: 1,
+        userScalable: false,
+    },
+};
+
 export default function RootLayout({
     children,
 }: {
