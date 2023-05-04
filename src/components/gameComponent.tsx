@@ -15,8 +15,8 @@ export default function Game() {
     const CELL_SIZE = 4;
     const SPEED_MULTIPLIER = 1;
 
-    const height = Math.round(window.innerHeight / CELL_SIZE);
-    const width = Math.round(window.innerWidth / CELL_SIZE);
+    const height = Math.round(window?.innerHeight / CELL_SIZE || 0);
+    const width = Math.round(window?.innerWidth / CELL_SIZE || 0);
 
     const universe = useRef(new Universe(width, height, CELL_SIZE));
 
@@ -128,14 +128,14 @@ export default function Game() {
     useEffect(() => {
         // establish game canvas
         const canvas = canvasRef.current as HTMLCanvasElement;
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window?.innerWidth || 0;
+        canvas.height = window?.innerHeight || 0;
         setStyle();
 
         // establish grid overlay canvas
         const grid = gridRef.current as HTMLCanvasElement;
-        grid.width = window.innerWidth;
-        grid.height = window.innerHeight;
+        grid.width = window?.innerWidth || 0;
+        grid.height = window?.innerHeight || 0;
         const ctx = grid.getContext('2d', {
             desynchronized: true,
         }) as CanvasRenderingContext2D;
