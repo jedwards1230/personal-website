@@ -1,6 +1,8 @@
 import { getEmbedding } from '@/lib/gpt';
 import supabase from '@/lib/supabase';
 
+export const runtime = 'edge';
+
 async function fetchGitHubContent(
     owner: string,
     repo: string,
