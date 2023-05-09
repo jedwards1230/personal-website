@@ -11,7 +11,7 @@ import {
     updateContext,
 } from '@/lib/gpt';
 
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 function getLastMessage(
     messages: ChatGPTMessage[],

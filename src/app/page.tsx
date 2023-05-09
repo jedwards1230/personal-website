@@ -7,7 +7,7 @@ export const metadata = {
     description: 'Personal website for Justin Edwards',
 };
 
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 export default async function Page() {
     return (
