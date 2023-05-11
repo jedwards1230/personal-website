@@ -7,12 +7,14 @@ type ChatState = {
     messages: ChatGPTMessage[];
     resetChat: () => void;
     sendMessage: (text: string) => Promise<void>;
+    suggestions: string[];
 };
 
 const initialState: ChatState = {
     messages: [],
     resetChat: () => {},
     sendMessage: async (text: string) => {},
+    suggestions: ['Work history', 'Education', 'Hobbies'],
 };
 
 const ChatContext = createContext<ChatState>(initialState);
@@ -21,18 +23,17 @@ export const useChat = () => React.useContext(ChatContext);
 
 export function ChatContextProvider({
     children,
-    initialState,
+    initialChat,
 }: {
     children: React.ReactNode;
-    initialState: ChatGPTMessage[];
+    initialChat: ChatGPTMessage[];
 }) {
-    const [messages, setMessages] = useState<ChatGPTMessage[]>(
-        initialState || []
-    );
+    const [messages, setMessages] = useState<ChatGPTMessage[]>(initialChat);
+    const [suggestions, setSuggestions] = useState(initialState.suggestions);
 
     const resetChat = async () => {
-        if (!initialState) initialState = await getInitialState();
-        setMessages(initialState);
+        if (!initialChat) initialChat = await getInitialState();
+        setMessages(initialChat);
     };
 
     const sendServerRequest = async (messages: ChatGPTMessage[]) => {
@@ -106,7 +107,9 @@ export function ChatContextProvider({
     }, []);
 
     return (
-        <ChatContext.Provider value={{ messages, resetChat, sendMessage }}>
+        <ChatContext.Provider
+            value={{ messages, resetChat, sendMessage, suggestions }}
+        >
             {children}
         </ChatContext.Provider>
     );

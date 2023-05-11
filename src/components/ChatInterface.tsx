@@ -4,6 +4,7 @@ import { useChat } from '@/lib/chatContext';
 import { useState, FormEvent } from 'react';
 import { ResetIcon } from './icons';
 import ChatHistory from './ChatHistory';
+import ChatSuggestions from './ChatSuggestions';
 
 export default function ChatInterface() {
     const [loading, setLoading] = useState(false);
@@ -12,12 +13,13 @@ export default function ChatInterface() {
 
     async function handleSubmit(e: FormEvent | KeyboardEvent) {
         e.preventDefault();
-        if (message.trim()) {
+        const trimmed = message.trim();
+        if (trimmed) {
             setLoading(true);
             setMessage('');
 
             try {
-                await sendMessage(message.trim());
+                await sendMessage(trimmed);
                 setLoading(false);
             } catch (e) {
                 console.error(e);
@@ -30,6 +32,7 @@ export default function ChatInterface() {
         <>
             <ChatHistory />
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <ChatSuggestions setMessage={setMessage} />
                 <input
                     type="text"
                     value={message}
@@ -63,13 +66,13 @@ function Buttons({
                 title="Reset chat"
                 onClick={resetChat}
                 disabled={loading}
-                className="rounded bg-purple-500 p-2 text-white shadow-md transition-colors hover:bg-purple-600"
+                className="rounded bg-purple-500 p-3 text-white shadow-md transition-colors hover:bg-purple-600"
             >
                 <ResetIcon width={24} height={24} />
             </button>
             <button
                 title='Send message (or press "Enter")'
-                className="w-full rounded bg-blue-500 p-2 text-white shadow-md transition-colors hover:bg-blue-600"
+                className="w-full rounded bg-blue-500 p-3 text-white shadow-md transition-colors hover:bg-blue-400 dark:hover:bg-blue-600"
             >
                 Send
             </button>
