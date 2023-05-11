@@ -11,7 +11,7 @@ export default function ChatSuggestions({
 
     if (suggestions.length === 0) return null;
     return (
-        <div className="flex justify-end gap-6">
+        <div className="flex justify-end gap-x-6">
             {suggestions.map((suggestion) => (
                 <button
                     key={suggestion}
