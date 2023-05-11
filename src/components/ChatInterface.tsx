@@ -31,7 +31,10 @@ export default function ChatInterface() {
     return (
         <>
             <ChatHistory />
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form
+                onSubmit={handleSubmit}
+                className="flex w-full flex-col gap-y-4"
+            >
                 <ChatSuggestions setMessage={setMessage} />
                 <input
                     type="text"
@@ -44,7 +47,7 @@ export default function ChatInterface() {
                         }
                     }}
                     maxLength={100}
-                    className="prose w-full rounded border px-4 py-4 shadow-lg focus:outline-none dark:bg-gray-200"
+                    className="prose flex w-full self-center rounded border p-3 shadow-lg outline-none transition-all focus:p-4 focus:outline-none dark:bg-gray-200"
                     placeholder="Type your message"
                 />
                 <Buttons loading={loading} resetChat={resetChat} />
