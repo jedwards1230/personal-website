@@ -23,10 +23,10 @@ export default function ChatBubble({
             >
                 <ReactMarkdown
                     className={clsx(
-                        'prose flex flex-col overflow-x-scroll rounded px-3 py-2 prose-a:text-blue-600 [&>*]:my-1',
+                        'prose prose-neutral flex flex-col overflow-x-scroll rounded border px-3 py-2 prose-a:text-blue-600 [&>*]:my-1',
                         msg.role === 'user'
-                            ? 'bg-blue-500 text-right text-white'
-                            : 'bg-gray-200 text-left'
+                            ? 'bg-blue-500 text-right text-white dark:border-blue-400'
+                            : 'bg-gray-100 text-left dark:border-gray-100 dark:bg-gray-200 dark:prose-ul:decoration-red-500'
                     )}
                     remarkPlugins={[remarkGfm]}
                 >

@@ -12,13 +12,8 @@ interface EmbeddedDocument {
     title: string;
     body: string;
     category: string;
+    src: string;
     similarity: number;
-}
-
-interface ChatHistoryEntry {
-    id: number;
-    role: ChatGPTAgent;
-    content: string;
 }
 
 interface ChatGPTMessage {
