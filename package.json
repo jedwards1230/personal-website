@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "dev": "next dev --turbo",
+        "dev": "next dev",
         "build": "next build",
         "start": "next start",
         "serve": "serve out",
@@ -14,17 +14,17 @@
         "@supabase/supabase-js": "^2.24.0",
         "@tailwindcss/typography": "^0.5.9",
         "@vercel/analytics": "^1.0.1",
-        "client-only": "^0.0.1",
         "clsx": "^1.2.1",
         "encoding": "^0.1.13",
-        "eventsource-parser": "^1.0.0",
         "framer-motion": "^10.12.16",
+        "langchain": "^0.0.88",
         "next": "13.4.4",
         "next-themes": "^0.2.1",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-markdown": "^8.0.7",
-        "remark-gfm": "^3.0.1"
+        "remark-gfm": "^3.0.1",
+        "typeorm": "^0.3.16"
     },
     "devDependencies": {
         "@types/node": "^20.2.5",

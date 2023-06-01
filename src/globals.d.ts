@@ -17,7 +17,6 @@ interface EmbeddedDocument {
 }
 
 interface ChatGPTMessage {
-    id?: number;
     role: ChatGPTAgent;
     content: string;
 }

@@ -1,103 +1,40 @@
-import {
-    createParser,
-    ParsedEvent,
-    ReconnectInterval,
-} from 'eventsource-parser';
-
-import {
-    getChat,
-    getEmbedding,
-    searchSimilarDocuments,
-    updateContext,
-} from '@/lib/gpt';
+import { getEmbedding, searchSimilarDocuments } from '@/lib/gpt';
+import { createResponseChain } from '@/lib/responseChain';
 
 export const runtime = 'edge';
 
-function getLastMessage(
-    messages: ChatGPTMessage[],
-    role: 'user' | 'assistant'
-): string | undefined {
-    return messages.filter((message) => message.role === role).pop()?.content;
-}
-
-async function handleSimilarDocuments(
-    queryEmbedding: number[]
-): Promise<EmbeddedDocument[] | undefined> {
-    try {
-        return await searchSimilarDocuments(queryEmbedding);
-    } catch (error) {
-        console.error('Error searching for similar documents:', error);
-        return undefined;
-    }
-}
-
 export async function POST(request: Request) {
-    const { messages } = (await request.json()) as {
+    const req: {
         messages: ChatGPTMessage[];
-    };
+        query: string;
+    } = await request.json();
+    const { messages, query } = req;
 
-    // Get the last user message from the messages array
-    const lastUserMessage = getLastMessage(messages, 'user');
-    if (!lastUserMessage) {
-        return new Response('No user message found', { status: 400 });
-    }
-
-    const lastAssistantMessage = getLastMessage(messages, 'assistant');
-    if (!lastAssistantMessage) {
-        return new Response('No assistant message found', { status: 400 });
-    }
-
-    // Get the embedding vector for the last user message
-    const queryEmbedding = await getEmbedding(
-        `assistant: ${lastAssistantMessage}\n\nuser: ${lastUserMessage}`
-    );
-
-    const data: EmbeddedDocument[] = await handleSimilarDocuments(
-        queryEmbedding
-    );
-
-    const bodies = data.map((document) => JSON.stringify(document));
-    const payload = data ? await updateContext(messages, bodies) : messages;
-    const res = await getChat(payload);
-
-    if (res.headers.get('content-type') === 'text/event-stream') {
-        const encoder = new TextEncoder();
-        const decoder = new TextDecoder();
-
-        let counter = 0;
+    try {
+        const queryEmbedding = await getEmbedding(JSON.stringify(messages));
+        const data = await searchSimilarDocuments(queryEmbedding);
+        const docs = data.map((document) => JSON.stringify(document));
+        const prompt = `# Context\n ${docs.join(
+            '\n'
+        )}\n\n# Query\n${query}\n\n# Response\n`;
 
         const stream = new ReadableStream({
             async start(controller) {
-                function onParse(event: ParsedEvent | ReconnectInterval) {
-                    if (event.type === 'event') {
-                        const data = event.data;
-                        if (data === '[DONE]') {
-                            controller.close();
-                            return;
-                        }
-                        try {
-                            const json = JSON.parse(data);
-                            const text = json.choices[0].delta?.content || '';
-                            if (
-                                counter < 2 &&
-                                (text.match(/\n/) || []).length
-                            ) {
-                                // this is a prefix character (i.e., "\n\n"), do nothing
-                                return;
-                            }
-                            const queue = encoder.encode(text);
-                            controller.enqueue(queue);
-                            counter++;
-                        } catch (e) {
-                            controller.error(e);
-                        }
-                    }
-                }
+                const encoder = new TextEncoder();
 
-                const parser = createParser(onParse);
-                for await (const chunk of res.body as any) {
-                    parser.feed(decoder.decode(chunk));
-                }
+                const callback = (token: string) => {
+                    const queue = encoder.encode(token);
+                    controller.enqueue(queue);
+                };
+
+                const resolveChain = await createResponseChain(
+                    callback,
+                    messages
+                );
+
+                await resolveChain.call({ input: prompt });
+
+                controller.close();
             },
         });
 
@@ -106,13 +43,7 @@ export async function POST(request: Request) {
                 'content-type': 'text/event-stream',
             },
         });
+    } catch (error) {
+        console.error('Error searching for similar documents:', error);
     }
-
-    const answer = (await res.json()) as ChatResponse;
-
-    return new Response(JSON.stringify(answer), {
-        headers: {
-            'content-type': 'application/json',
-        },
-    });
 }
