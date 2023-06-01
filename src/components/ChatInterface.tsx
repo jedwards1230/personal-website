@@ -7,23 +7,19 @@ import ChatHistory from './ChatHistory';
 import ChatSuggestions from './ChatSuggestions';
 
 export default function ChatInterface() {
-    const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
-    const { sendMessage, resetChat } = useChat();
+    const { sendMessage, reset, loading } = useChat();
 
-    async function handleSubmit(e: FormEvent | KeyboardEvent) {
+    function handleSubmit(e: FormEvent | KeyboardEvent) {
         e.preventDefault();
         const trimmed = message.trim();
         if (trimmed) {
-            setLoading(true);
             setMessage('');
 
             try {
-                await sendMessage(trimmed);
-                setLoading(false);
+                sendMessage(trimmed);
             } catch (e) {
                 console.error(e);
-                setLoading(false);
             }
         }
     }
@@ -35,7 +31,7 @@ export default function ChatInterface() {
                 onSubmit={handleSubmit}
                 className="flex w-full flex-col gap-y-4"
             >
-                <ChatSuggestions setMessage={setMessage} />
+                <ChatSuggestions />
                 <input
                     type="text"
                     value={message}
@@ -50,7 +46,7 @@ export default function ChatInterface() {
                     className="prose flex w-full self-center rounded border p-3 shadow-lg outline-none transition-all focus:p-4 focus:outline-none dark:bg-gray-200"
                     placeholder="Type your message"
                 />
-                <Buttons loading={loading} resetChat={resetChat} />
+                <Buttons loading={loading} resetChat={reset} />
             </form>
         </>
     );

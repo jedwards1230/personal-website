@@ -10,6 +10,7 @@ export default function ChatBubble({
     msg: ChatGPTMessage;
     className?: string;
 }) {
+    if (msg.content === '') return null;
     return (
         <AnimatePresence>
             <motion.div

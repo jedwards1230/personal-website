@@ -1,60 +1,125 @@
 'use client';
 
-import React, { createContext, useState, useEffect } from 'react';
-import { getInitialState } from './gpt'; // Import the sendMessage function
+import React, { createContext, useCallback, useReducer } from 'react';
 
-type ChatState = {
+type State = {
+    /** Loading state */
+    loading: boolean;
     messages: ChatGPTMessage[];
-    resetChat: () => void;
-    sendMessage: (text: string) => Promise<void>;
+    /** Suggestions for the search bar */
     suggestions: string[];
+    sendMessage: (newInput: string, updateUrl?: boolean) => void;
+    reset: () => void;
 };
 
-const initialState: ChatState = {
+type Action =
+    | { type: 'ADD_MESSAGE'; payload: ChatGPTMessage }
+    | { type: 'RESET' }
+    | { type: 'SET_LOADING'; payload: boolean }
+    | {
+          type: 'UPDATE_MESSAGE';
+          payload: {
+              id: number;
+              content: string;
+          };
+      };
+
+const initialState: State = {
+    loading: false,
     messages: [],
-    resetChat: () => {},
-    sendMessage: async (text: string) => {},
     suggestions: ['Work history', 'Education', 'Hobbies'],
+    sendMessage: () => {
+        console.log('sendMessage not implemented');
+    },
+    reset: () => {
+        console.log('reset not implemented');
+    },
 };
 
-const ChatContext = createContext<ChatState>(initialState);
+const ChatContext = createContext<State>(initialState);
 
 export const useChat = () => React.useContext(ChatContext);
 
-export function ChatContextProvider({
+const reducer = (state: State, action: Action): State => {
+    switch (action.type) {
+        case 'RESET':
+            return initialState;
+        case 'SET_LOADING':
+            return { ...state, loading: action.payload };
+        case 'ADD_MESSAGE':
+            return {
+                ...state,
+                messages: [...state.messages, action.payload],
+            };
+        case 'UPDATE_MESSAGE':
+            return {
+                ...state,
+                messages: state.messages.map((message, index) => {
+                    if (index === action.payload.id) {
+                        return {
+                            ...message,
+                            content: action.payload.content,
+                        };
+                    }
+                    return message;
+                }),
+            };
+        default:
+            return state;
+    }
+};
+
+export function ChatProvider({
     children,
     initialChat,
 }: {
     children: React.ReactNode;
-    initialChat: ChatGPTMessage[];
+    initialChat?: ChatGPTMessage[];
 }) {
-    const [messages, setMessages] = useState<ChatGPTMessage[]>(initialChat);
-    const [suggestions, setSuggestions] = useState(initialState.suggestions);
+    const [state, dispatch] = useReducer(reducer, {
+        ...initialState,
+        messages: initialChat || [],
+    });
 
-    const resetChat = async () => {
-        if (!initialChat) initialChat = await getInitialState();
-        setMessages(initialChat);
-    };
+    const sendMessage = useCallback(
+        async (newInput: string) => {
+            const newQuery = newInput.trim();
+            if (newQuery === '') return;
 
-    const sendServerRequest = async (messages: ChatGPTMessage[]) => {
-        const response = await fetch('/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                messages: messages.map((m) => ({
-                    role: m.role,
-                    content: m.content,
-                })),
-            }),
-        });
+            dispatch({ type: 'SET_LOADING', payload: true });
 
-        if (!response.ok) throw new Error('Unexpected response');
+            dispatch({
+                type: 'ADD_MESSAGE',
+                payload: {
+                    content: newInput,
+                    role: 'user',
+                },
+            });
 
-        switch (response.headers.get('content-type')) {
-            case 'text/event-stream':
-                const id = Date.now();
+            dispatch({
+                type: 'ADD_MESSAGE',
+                payload: {
+                    content: '',
+                    role: 'assistant',
+                },
+            });
 
-                const reader = response.body?.getReader();
+            const id = state.messages.length + 1;
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        query: newQuery,
+                        messages: state.messages,
+                    }),
+                });
+
+                if (!response.body) {
+                    throw new Error('No response body');
+                }
+
+                const reader = response.body.getReader();
                 let accumulatedResponse = '';
 
                 if (reader) {
@@ -64,51 +129,45 @@ export function ChatContextProvider({
                         if (value) {
                             const decoded = new TextDecoder().decode(value);
                             accumulatedResponse += decoded;
+                            dispatch({
+                                type: 'UPDATE_MESSAGE',
+                                payload: {
+                                    content: accumulatedResponse,
+                                    id,
+                                },
+                            });
                         }
-                        setMessages((prevMessages) => [
-                            ...prevMessages.filter((m) => m.id !== id),
-                            {
-                                id,
-                                role: 'assistant',
-                                content: accumulatedResponse,
-                            },
-                        ]);
                     }
                 }
-                break;
-            case 'application/json':
-                const answer = (await response.json()) as ChatResponse;
-                if (!answer || !answer.choices || !answer.choices.length)
-                    return;
-                setMessages((prevMessages) => [
-                    ...prevMessages,
-                    {
+            } catch (error) {
+                console.error(error);
+                dispatch({
+                    type: 'ADD_MESSAGE',
+                    payload: {
+                        content: `Error: ${error}`,
                         role: 'assistant',
-                        content: answer.choices[0].message.content,
                     },
-                ]);
-                break;
-            default:
-                throw new Error('Unexpected response type');
-        }
-    };
+                });
+            } finally {
+                dispatch({ type: 'SET_LOADING', payload: false });
+            }
+        },
+        [state.messages]
+    );
 
-    const sendMessage = async (message: string) => {
-        const newMessage: ChatGPTMessage = { role: 'user', content: message };
-        const newMessages = [...messages, newMessage];
-        setMessages(newMessages);
-
-        await sendServerRequest(newMessages);
-    };
-
-    useEffect(() => {
-        resetChat();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    const reset = useCallback(() => {
+        dispatch({ type: 'RESET' });
     }, []);
 
     return (
         <ChatContext.Provider
-            value={{ messages, resetChat, sendMessage, suggestions }}
+            value={{
+                loading: state.loading,
+                messages: state.messages,
+                suggestions: state.suggestions,
+                sendMessage,
+                reset,
+            }}
         >
             {children}
         </ChatContext.Provider>
