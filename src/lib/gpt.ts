@@ -1,9 +1,6 @@
-import supabase from './supabase';
+import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 
-const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${process.env.OPENAI_KEY}`,
-};
+import supabase from './supabase';
 
 export async function getInitialState() {
     const contextEntry = await getContextByTitle('base');
@@ -23,34 +20,8 @@ export async function getInitialState() {
 }
 
 export async function getEmbedding(body: string) {
-    const embedding = await fetch('https://api.openai.com/v1/embeddings', {
-        headers,
-        method: 'POST',
-        body: JSON.stringify({
-            model: 'text-embedding-ada-002',
-            input: body,
-        }),
-    });
-
-    const jsonData: EmbedResponse = await embedding.json();
-
-    return jsonData.data[0].embedding;
-}
-
-export async function getChat(messages: ChatGPTMessage[], stream = true) {
-    const payload: OpenAIStreamPayload = {
-        model: 'gpt-3.5-turbo',
-        messages,
-        temperature: 0.3,
-        max_tokens: 1000,
-        stream,
-    };
-
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        headers,
-        method: 'POST',
-        body: JSON.stringify(payload),
-    });
+    const embeddings = new OpenAIEmbeddings();
+    const res = await embeddings.embedQuery(body);
 
     return res;
 }
@@ -98,44 +69,4 @@ export async function searchSimilarDocuments(
     }
 
     return data;
-}
-
-export async function reviewDocuments(
-    documents: EmbeddedDocument[],
-    query: string
-) {
-    const messages: ChatGPTMessage[] = [
-        {
-            role: 'system',
-            content: `
-                Based on the query, consolidate the documents into a list of facts, organized by topic
-                
-                # Query
-
-                ${query}
-
-                # Documents
-
-                ${documents.map((document) => document.body).join('\n\n')}
-                `,
-        },
-    ];
-
-    const payload: OpenAIStreamPayload = {
-        model: 'gpt-3.5-turbo',
-        messages,
-        temperature: 0.3,
-        max_tokens: 1000,
-        stream: false,
-    };
-
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        headers,
-        method: 'POST',
-        body: JSON.stringify(payload),
-    });
-
-    const answer = (await res.json()) as ChatResponse;
-
-    return answer;
 }
