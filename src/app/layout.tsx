@@ -24,7 +24,7 @@ export default function RootLayout({
             lang="en"
             className="bg-white dark:bg-black"
         >
-            <body className="flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-4 text-center sm:py-8 md:py-16">
+            <body className="container flex h-full w-full flex-col items-center justify-center overflow-y-scroll py-4 text-center sm:py-8 md:py-16">
                 <Providers>{children}</Providers>
                 <Analytics />
             </body>
