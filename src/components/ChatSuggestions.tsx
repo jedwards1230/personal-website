@@ -15,7 +15,7 @@ export default function ChatSuggestions() {
                     onClick={() => {
                         sendMessage(suggestion);
                     }}
-                    className="prose prose-neutral rounded-lg border border-gray-300 bg-white px-3 py-1 text-sm shadow-lg transition-colors hover:bg-gray-200 focus:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                    className="prose prose-neutral rounded-lg border border-gray-300 bg-white px-3 py-1 text-sm shadow-lg transition-colors hover:bg-gray-200 focus:outline-none dark:border-neutral-500 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700"
                 >
                     {suggestion}
                 </button>
