@@ -41,7 +41,7 @@ export default function ChatInterface() {
                         }
                     }}
                     maxLength={100}
-                    className="flex w-full self-center rounded border p-3 shadow-lg outline-none transition-all focus:p-4 focus:outline-none dark:bg-neutral-800 dark:text-neutral-200"
+                    className="flex w-full self-center rounded border p-3 shadow-lg outline-none transition-all focus:p-4 focus:outline-none dark:border-neutral-500 dark:bg-neutral-800 dark:text-neutral-200"
                     placeholder="Type your message"
                 />
                 <Buttons />
