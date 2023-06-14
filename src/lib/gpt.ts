@@ -56,8 +56,9 @@ export async function getContextByTitle(title: 'base' | 'intro') {
 }
 
 export async function searchSimilarDocuments(
-    queryEmbedding: number[]
+    messages: ChatGPTMessage[]
 ): Promise<EmbeddedDocument[]> {
+    const queryEmbedding = await getEmbedding(JSON.stringify(messages));
     const { data, error } = await supabase.rpc('match_documents', {
         query_embedding: queryEmbedding,
         match_threshold: 0.5, // Adjust the similarity threshold as needed

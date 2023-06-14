@@ -13,7 +13,6 @@ export default async function Page() {
     return (
         <>
             <Header />
-            {/* @ts-expect-error Async Server Component */}
             <Chat />
             <IconLinks />
         </>

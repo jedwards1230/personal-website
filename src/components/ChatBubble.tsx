@@ -82,13 +82,13 @@ export default function ChatBubble({
             ),
             hr: ({ node, ...props }) => <hr {...props} className="my-2" />,
             li: ({ node, index, ordered, checked, ...props }) => (
-                <li {...props} className="list-disc" />
+                <li {...props} className="ml-1" />
             ),
             ol: ({ node, depth, ordered, ...props }) => (
-                <ol {...props} className="list-decimal" />
+                <ol {...props} className="ml-4 list-outside list-decimal" />
             ),
             ul: ({ node, depth, ordered, ...props }) => (
-                <ul {...props} className="list-inside list-disc" />
+                <ul {...props} className="ml-4 list-outside list-disc" />
             ),
             a: ({ node, ...props }) => (
                 <a

@@ -1,4 +1,4 @@
-import { getEmbedding, searchSimilarDocuments } from '@/lib/gpt';
+import { searchSimilarDocuments } from '@/lib/gpt';
 import { createResponseChain } from '@/lib/responseChain';
 
 export const runtime = 'edge';
@@ -11,8 +11,7 @@ export async function POST(request: Request) {
     const { messages, query } = req;
 
     try {
-        const queryEmbedding = await getEmbedding(JSON.stringify(messages));
-        const data = await searchSimilarDocuments(queryEmbedding);
+        const data = await searchSimilarDocuments(messages);
         const docs = data.map((document) => JSON.stringify(document));
         const prompt = `# Context\n ${docs.join(
             '\n'
@@ -27,10 +26,7 @@ export async function POST(request: Request) {
                     controller.enqueue(queue);
                 };
 
-                const resolveChain = await createResponseChain(
-                    callback,
-                    messages
-                );
+                const resolveChain = createResponseChain(callback, messages);
 
                 await resolveChain.call({ input: prompt });
 
