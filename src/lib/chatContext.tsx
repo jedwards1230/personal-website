@@ -9,12 +9,12 @@ type State = {
     /** Suggestions for the search bar */
     suggestions: string[];
     sendMessage: (newInput: string, updateUrl?: boolean) => void;
-    reset: () => void;
+    reset: (initial: ChatGPTMessage[]) => void;
 };
 
 type Action =
     | { type: 'ADD_MESSAGE'; payload: ChatGPTMessage }
-    | { type: 'RESET' }
+    | { type: 'RESET'; payload: ChatGPTMessage[] }
     | { type: 'SET_LOADING'; payload: boolean }
     | {
           type: 'UPDATE_MESSAGE';
@@ -43,7 +43,10 @@ export const useChat = () => React.useContext(ChatContext);
 const reducer = (state: State, action: Action): State => {
     switch (action.type) {
         case 'RESET':
-            return initialState;
+            return {
+                ...initialState,
+                messages: action.payload,
+            };
         case 'SET_LOADING':
             return { ...state, loading: action.payload };
         case 'ADD_MESSAGE':
@@ -155,9 +158,9 @@ export function ChatProvider({
         [state.messages]
     );
 
-    const reset = useCallback(() => {
-        dispatch({ type: 'RESET' });
-    }, []);
+    const reset = (initial: ChatGPTMessage[]) => {
+        dispatch({ type: 'RESET', payload: initial });
+    };
 
     return (
         <ChatContext.Provider

@@ -4,12 +4,12 @@ import { useChat } from '@/lib/chatContext';
 import { ResetIcon } from './icons';
 
 export default function Buttons() {
-    const { reset, loading } = useChat();
+    const { reset, loading, messages } = useChat();
     return (
         <div className="flex gap-2">
             <button
                 title="Reset chat"
-                onClick={reset}
+                onClick={() => reset([messages[0], messages[1]])}
                 disabled={loading}
                 className="rounded bg-purple-500 p-3 text-white shadow-md transition-colors hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-500"
             >
