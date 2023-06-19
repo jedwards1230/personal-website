@@ -93,6 +93,7 @@ export default function ChatBubble({
             a: ({ node, ...props }) => (
                 <a
                     {...props}
+                    target="_blank"
                     className={clsx(
                         'hover:underline',
                         role === 'user' ? 'text-semibold' : 'text-blue-500'
@@ -143,7 +144,7 @@ export default function ChatBubble({
                         'flex flex-col overflow-x-scroll rounded border px-3 py-2 [&>*]:my-1',
                         msg.role === 'user'
                             ? 'bg-blue-500 text-right text-white dark:border-blue-500 dark:bg-blue-600 dark:text-neutral-200'
-                            : 'bg-neutral-100 text-left dark:border-neutral-500 dark:bg-neutral-800 dark:prose-ul:decoration-red-500'
+                            : 'border-neutral-300 bg-neutral-50 text-left dark:border-neutral-500 dark:bg-neutral-800 dark:prose-ul:decoration-red-500'
                     )}
                     remarkPlugins={[remarkGfm]}
                     components={getComponents(msg.role)}

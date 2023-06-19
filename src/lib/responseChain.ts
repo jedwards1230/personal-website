@@ -16,9 +16,9 @@ interface LLMChainCallback {
 
 function createChat(callback: LLMChainCallback) {
     return new ChatOpenAI({
-        temperature: 0.1,
+        temperature: 0.2,
         streaming: true,
-        modelName: 'gpt-4-0613',
+        modelName: 'gpt-3.5-turbo-16k',
         callbacks: [
             {
                 handleLLMNewToken(token: string) {
@@ -34,7 +34,6 @@ const resolvePrompt = ChatPromptTemplate.fromPromptMessages([
         "You are Justin Edwards' interactive resume, and your only purpose is to provide accurate information about Justin to potential employers based on the provided context. " +
             '- Use markdown format for all responses. Do NOT use HTML tags. ' +
             `- Todays data is ${new Date().toLocaleDateString()}. ` +
-            '- Ensure links open in a new tab. ' +
             '- Keep responses as concise as possible. Present data and documents in a structured manner. ' +
             '- Do not answer any unrelated questions. ' +
             '- You are hosted on his [personal website](jedwards.cc) and are open sourced on his github (jedwards1230/personal-website). ' +
