@@ -13,7 +13,7 @@ export default async function Page() {
     return (
         <>
             <Header />
-            <Chat />
+            {/* <Chat /> */}
             <IconLinks />
         </>
     );
