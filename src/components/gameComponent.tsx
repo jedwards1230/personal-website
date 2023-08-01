@@ -3,7 +3,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
 
 import { Universe } from '@/lib/game';
 
@@ -12,8 +11,6 @@ export default function Game() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const gridRef = useRef<HTMLCanvasElement>(null);
 
-    const { resolvedTheme } = useTheme();
-    const isDarkMode = resolvedTheme === 'dark';
 
     const CELL_SIZE = 4;
     const SPEED_MULTIPLIER = 1;
@@ -41,58 +38,6 @@ export default function Game() {
         universe.current.setStyle(primaryCell, secondaryCell, inactiveCell);
     };
 
-    const drawGrid = (ctx: CanvasRenderingContext2D) => {
-        return;
-        ctx.save();
-        ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue(
-            '--grid-line'
-        );
-        ctx.globalAlpha = isDarkMode ? 0.03 : 0.1;
-        ctx.lineWidth = 0.5;
-
-        drawLines(ctx, width, height, CELL_SIZE);
-        ctx.restore();
-    };
-
-    const drawLines = (
-        ctx: CanvasRenderingContext2D,
-        width: number,
-        height: number,
-        cell_size: number
-    ) => {
-        for (let i = 0; i <= width; i++) {
-            drawLine(
-                ctx,
-                i * cell_size,
-                0,
-                i * cell_size,
-                cell_size * height + 1
-            );
-        }
-        for (let j = 0; j <= height; j++) {
-            drawLine(
-                ctx,
-                0,
-                j * cell_size,
-                cell_size * width + 1,
-                j * cell_size
-            );
-        }
-    };
-
-    const drawLine = (
-        ctx: CanvasRenderingContext2D,
-        x1: number,
-        y1: number,
-        x2: number,
-        y2: number
-    ) => {
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke();
-    };
-
     const animate = (time: number = 0) => {
         animFrame.current = requestAnimationFrame(animate);
         const canvas = canvasRef.current as HTMLCanvasElement;
@@ -114,11 +59,6 @@ export default function Game() {
     useEffect(() => {
         const handleDarkMode = (e: MediaQueryListEvent) => {
             setStyle();
-            drawGrid(
-                gridRef.current.getContext('2d', {
-                    desynchronized: true,
-                }) as CanvasRenderingContext2D
-            );
         };
 
         if (window !== undefined) {
@@ -145,10 +85,6 @@ export default function Game() {
         const grid = gridRef.current as HTMLCanvasElement;
         grid.width = window !== undefined ? window.innerWidth : 1;
         grid.height = window !== undefined ? window.innerHeight : 1;
-        const ctx = grid.getContext('2d', {
-            desynchronized: true,
-        }) as CanvasRenderingContext2D;
-        drawGrid(ctx);
 
         animate();
         return () => cancelAnimationFrame(animFrame.current);
