@@ -3,6 +3,7 @@ import '@/globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { Providers } from './providers';
 
+export const runtime = 'edge';
 export const metadata = {
     viewport: {
         width: 'device-width',
