@@ -4,9 +4,9 @@ const { PHASE_PRODUCTION_BUILD } = require('next/constants');
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
-    runtime: 'edge',
     experimental: {
         appDir: true,
+        runtime: 'edge',
     },
     webpack(config) {
         config.module.rules.push({
