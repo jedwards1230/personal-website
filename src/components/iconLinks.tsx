@@ -13,7 +13,7 @@ const links = [
     },
     {
         title: 'Email',
-        href: 'mailto:justinedwards1230@gmail.com',
+        href: 'mailto:justin@jedwards.cc',
         icon: <EmailIcon width={30} height={30} />,
     },
 ];
