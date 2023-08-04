@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import va from '@vercel/analytics';
 import { useEffect, useState } from 'react';
 
 import useWindowSize from '@/lib/useWindowSize';
@@ -30,7 +31,10 @@ export default function Header() {
                 title="Click to reset Game of Life"
                 passHref
                 className="mx-4 my-0 text-center text-5xl font-medium text-black underline decoration-black/50 hover:decoration-black/100 dark:text-white dark:decoration-white/50 dark:hover:decoration-white/100 md:pb-4 md:text-7xl"
-                onClick={reset}
+                onClick={() => {
+                    reset();
+                    va.track('Reset Animation');
+                }}
             >
                 Justin Edwards
             </Link>
