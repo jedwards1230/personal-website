@@ -24,7 +24,7 @@ const links = [
 
 export default function IconLinks() {
     return (
-        <div className="mt-2 flex w-48 justify-between fill-black dark:fill-white">
+        <div className="mt-4 md:mt-2 flex w-48 justify-between fill-black dark:fill-white">
             {links.map((link, i) => (
                 <a
                     key={i}
