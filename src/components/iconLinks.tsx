@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import va from '@vercel/analytics';
 
@@ -24,12 +24,12 @@ const links = [
 
 export default function IconLinks() {
     return (
-        <div className="mt-4 md:mt-2 flex w-48 justify-between fill-black dark:fill-white">
+        <div className="mt-4 flex w-48 justify-between fill-black dark:fill-white md:mt-2">
             {links.map((link, i) => (
                 <a
                     key={i}
                     title={link.title}
-                    onClick={() => va.track('Social', {link: link.title})}
+                    onClick={() => va.track('Social', { link: link.title })}
                     className="transform transition duration-200 ease-in-out hover:scale-125"
                     href={link.href}
                     target="_blank"
