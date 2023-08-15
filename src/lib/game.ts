@@ -71,7 +71,7 @@ export class Universe {
     private paintCell(
         ctx: CanvasRenderingContext2D,
         row: number,
-        col: number
+        col: number,
     ): void {
         let res = this.resolution;
         ctx.fillRect(col * res, row * res, res, res);
@@ -143,7 +143,7 @@ export class Universe {
                 0,
                 0,
                 this.width * this.resolution,
-                this.height * this.resolution
+                this.height * this.resolution,
             );
             this.paintBackground = false;
         }
@@ -163,7 +163,7 @@ export class Universe {
     public setStyle(
         primaryColor: string,
         secondaryColor: string,
-        inactiveColor: string
+        inactiveColor: string,
     ): void {
         this.style = {
             primaryColor: primaryColor,
