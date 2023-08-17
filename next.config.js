@@ -1,4 +1,5 @@
 const { PHASE_PRODUCTION_BUILD } = require('next/constants');
+const withMDX = require('@next/mdx')();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -6,6 +7,7 @@ const nextConfig = {
     swcMinify: true,
     experimental: {
         appDir: true,
+        mdxRs: true,
     },
     webpack(config) {
         config.module.rules.push({
@@ -32,4 +34,4 @@ const removeConsole = (phase) => {
     };
 };
 
-module.exports = removeConsole(process.env.PHASE);
+module.exports = withMDX(removeConsole(process.env.PHASE));
