@@ -1,4 +1,5 @@
 import type { MDXComponents } from 'mdx/types';
+import va from '@vercel/analytics';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
     return {
@@ -8,6 +9,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                    va.track('Outbound Link', {
+                        path: href,
+                    });
+                }}
             >
                 {children}
             </a>
@@ -41,7 +47,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             <h6 className="py-1 text-sm font-bold">{children}</h6>
         ),
         hr: () => <hr className="my-4 w-3/4" />,
-        img: ({ src, alt }) => <img className="rounded" src={src} alt={alt} />,
         li: ({ children }) => <li className="text-base">{children}</li>,
         ol: ({ children }) => (
             <ol className="list-inside list-decimal">{children}</ol>
