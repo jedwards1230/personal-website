@@ -1,6 +1,4 @@
-//import Chat from '@/components/Chat';
-import IconLinks from '@/components/iconLinks';
-import Header from './header';
+import Home from '@/components/Home';
 
 export const metadata = {
     title: 'J. Edwards',
@@ -10,11 +8,5 @@ export const metadata = {
 export const runtime = 'edge';
 
 export default async function Page() {
-    return (
-        <>
-            <Header />
-            {/* <Chat /> */}
-            <IconLinks />
-        </>
-    );
+    return <Home />;
 }
