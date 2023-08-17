@@ -46,7 +46,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         h6: ({ children }) => (
             <h6 className="py-1 text-sm font-bold">{children}</h6>
         ),
-        hr: () => <hr className="my-4 w-3/4" />,
+        hr: () => (
+            <hr className="my-1.5 w-full border-neutral-300 dark:border-neutral-500" />
+        ),
         li: ({ children }) => <li className="text-base">{children}</li>,
         ol: ({ children }) => (
             <ol className="list-inside list-decimal">{children}</ol>
