@@ -2,8 +2,6 @@ import type { Metadata } from 'next/types';
 
 import Home from '@/components/Home';
 
-export const runtime = 'edge';
-
 const APP_NAME = 'J. Edwards Personal Website';
 const APP_DEFAULT_TITLE = 'J. Edwards';
 const APP_TITLE_TEMPLATE = 'J. Edwards | %s';
