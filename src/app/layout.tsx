@@ -1,6 +1,4 @@
 import '@/globals.css';
-
-import { Analytics } from '@vercel/analytics/react';
 import { Providers } from './providers';
 
 export default function RootLayout({
@@ -18,12 +16,11 @@ export default function RootLayout({
                 <script
                     defer
                     data-domain="jedwards.cc"
-                    src="https://plausible.io/js/script.outbound-links.js"
+                    src="https://plausible.io/js/script.tagged-events.outbound-links.js"
                 ></script>
             </head>
             <body className="flex h-full w-full overflow-hidden">
                 <Providers>{children}</Providers>
-                <Analytics />
             </body>
         </html>
     );
