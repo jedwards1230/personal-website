@@ -36,7 +36,7 @@ export default function Home() {
             {/* Details Panel */}
             <div
                 className={clsx(
-                    'absolute flex h-full flex-col overflow-y-scroll border-neutral-400 bg-neutral-100/90 px-2 pb-1 pt-2 transition-all dark:border-neutral-600 dark:bg-neutral-900/90 sm:static sm:bg-neutral-50 sm:pr-12 dark:sm:bg-neutral-900',
+                    'absolute flex h-full flex-col overflow-y-scroll border-neutral-400 bg-neutral-50/50 px-2 pb-1 pt-2 backdrop-blur-xl transition-all dark:border-neutral-600 dark:bg-neutral-900/50 sm:static sm:bg-neutral-50/20 sm:pr-12 sm:backdrop-blur-lg dark:sm:bg-neutral-900/20',
                     open
                         ? 'right-0 w-full sm:w-1/2 sm:border-l lg:w-1/3'
                         : '-right-48 w-0 translate-x-full',
