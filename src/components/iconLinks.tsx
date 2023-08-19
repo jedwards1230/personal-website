@@ -1,7 +1,5 @@
 'use client';
 
-import va from '@vercel/analytics';
-
 import { GithubIcon, LinkedInIcon, EmailIcon } from './icons';
 
 const links = [
@@ -29,7 +27,6 @@ export default function IconLinks() {
                 <a
                     key={i}
                     title={link.title}
-                    onClick={() => va.track('Social', { link: link.title })}
                     className="transform transition duration-200 ease-in-out hover:scale-125"
                     href={link.href}
                     target="_blank"
