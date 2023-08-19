@@ -1,15 +1,31 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import clsx from 'clsx';
 
 import IconLinks from './iconLinks';
-import Header from './header';
 import Details from '@/app/details.mdx';
+import useWindowSize from '@/lib/useWindowSize';
+
+const Game = dynamic(() => import('@/components/gameComponent'), {
+    ssr: false,
+});
 
 export default function Home() {
     const [mounted, setMounted] = useState(false);
     const [open, setOpen] = useState(true);
+    const [idx, setIdx] = useState(0);
+    const size = useWindowSize();
+
+    // reset the game when the window size changes
+    const reset = () => setIdx(idx + 1);
+
+    useEffect(() => {
+        reset();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [size]);
 
     useEffect(() => {
         setMounted(true);
@@ -29,7 +45,16 @@ export default function Home() {
                     open ? 'w-full sm:w-1/2 lg:w-2/3' : 'w-full',
                 )}
             >
-                <Header />
+                <Game key={idx} />
+                <Link
+                    href="/"
+                    title="Click to reset Game of Life"
+                    passHref
+                    className="plausible-event-name=Reset+Animation mx-4 my-0 select-none text-center text-5xl font-medium text-black underline decoration-black/50 hover:decoration-black/100 dark:text-white dark:decoration-white/50 dark:hover:decoration-white/100 md:pb-4"
+                    onClick={reset}
+                >
+                    Justin Edwards
+                </Link>
                 <IconLinks />
             </div>
 
