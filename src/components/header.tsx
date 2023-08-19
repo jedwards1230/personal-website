@@ -30,7 +30,7 @@ export default function Header() {
                 href="/"
                 title="Click to reset Game of Life"
                 passHref
-                className="mx-4 my-0 text-center text-5xl font-medium text-black underline decoration-black/50 hover:decoration-black/100 dark:text-white dark:decoration-white/50 dark:hover:decoration-white/100 md:pb-4 md:text-7xl"
+                className="mx-4 my-0 select-none text-center text-5xl font-medium text-black underline decoration-black/50 hover:decoration-black/100 dark:text-white dark:decoration-white/50 dark:hover:decoration-white/100 md:pb-4"
                 onClick={() => {
                     reset();
                     va.track('Reset Animation');
