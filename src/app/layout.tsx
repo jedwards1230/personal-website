@@ -18,7 +18,7 @@ export default function RootLayout({
                 <script
                     defer
                     data-domain="jedwards.cc"
-                    src="https://plausible.io/js/script.js"
+                    src="https://plausible.io/js/script.outbound-links.js"
                 ></script>
             </head>
             <body className="flex h-full w-full overflow-hidden">
