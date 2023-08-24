@@ -2,6 +2,8 @@
 
 Landing page with all my links
 
+![Screenshot](./screenshot.png)
+
 ## Technologies
 
 The website is built using the following technologies:
