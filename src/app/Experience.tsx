@@ -4,8 +4,10 @@ import Section from '@/components/Section';
 import TagList from '@/components/Tag';
 import { NewTab } from './Icons';
 import { experience } from './data';
+import { usePlausible } from 'next-plausible';
 
 export default function Experience() {
+    const plausible = usePlausible();
     return (
         <Section id="experience">
             <div className="group/list flex flex-col gap-4">
@@ -44,6 +46,7 @@ export default function Experience() {
             </div>
             <Link
                 href="/Justin Edwards - Resume.pdf"
+                onClick={() => plausible('Resume Download')}
                 target="_blank"
                 className="inline-flex justify-center gap-2 pt-6 text-lg hover:underline"
             >

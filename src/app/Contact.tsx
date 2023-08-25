@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react';
 import Section from '@/components/Section';
 import { createContact } from '@/lib/prisma';
 import clsx from 'clsx';
+import { usePlausible } from 'next-plausible';
 
 export default function Contact() {
+    const plausible = usePlausible();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -17,6 +19,7 @@ export default function Contact() {
         event.preventDefault();
         try {
             await createContact(name, email, message);
+            plausible('Contact Form Submission');
             setSuccess(true);
             setName('');
             setEmail('');
