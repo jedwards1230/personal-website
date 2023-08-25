@@ -7,3 +7,11 @@ type Experience = {
     description: string[];
     tags: string[];
 };
+
+type Project = {
+    title: string;
+    description: string;
+    href: string;
+    tags: string[];
+    preview: string;
+};
