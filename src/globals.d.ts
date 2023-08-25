@@ -9,9 +9,12 @@ type Experience = {
 };
 
 type Project = {
+    year: number;
+    client: string;
     title: string;
     description: string;
-    href: string;
+    href?: string;
+    hrefTitle?: string;
     tags: string[];
-    preview: string;
+    img?: string;
 };

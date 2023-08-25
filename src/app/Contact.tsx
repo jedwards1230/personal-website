@@ -37,7 +37,7 @@ export default function Contact() {
     return (
         <Section id="contact">
             <form
-                className="flex w-full select-none flex-col gap-2 pb-16"
+                className="flex w-full select-none flex-col gap-2 pb-20"
                 onSubmit={handleSubmit}
             >
                 <p

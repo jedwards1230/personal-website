@@ -3,13 +3,13 @@ import Image from 'next/image';
 
 import Section from '@/components/Section';
 import TagList from '@/components/Tag';
-import { projects } from './data';
+import { personalProjects } from './data';
 
 export default function Projects() {
     return (
         <Section id="projects">
             <div className="group/list flex flex-col gap-4">
-                {projects.map((p, i) => {
+                {personalProjects.map((p, i) => {
                     return (
                         <Link
                             href={p.href}
@@ -21,7 +21,7 @@ export default function Projects() {
                             <Image
                                 width={800}
                                 height={400}
-                                src={p.preview}
+                                src={p.img}
                                 alt={'Preview ' + p.title + '.png'}
                                 className="col-span-12 aspect-video w-full select-none bg-neutral-100 lg:col-span-4"
                             />
@@ -38,6 +38,9 @@ export default function Projects() {
                     );
                 })}
             </div>
+            <Link href="/projects" className="pt-4 hover:underline">
+                View All Projects
+            </Link>
         </Section>
     );
 }
