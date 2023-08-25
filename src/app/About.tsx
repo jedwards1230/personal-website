@@ -23,8 +23,8 @@ export default function About() {
                     <strong className="text-neutral-50">SQL</strong> to lead
                     large-scale projects and drive innovation, such as
                     integrating{' '}
-                    <strong className="text-neutral-50">IBM Watson</strong>'s
-                    NLP capabilities into patient applications.
+                    <strong className="text-neutral-50">IBM Watson</strong>
+                    &apos;s NLP capabilities into patient applications.
                 </p>
                 <p>
                     As I set my sights on the future, my aim is to push myself
