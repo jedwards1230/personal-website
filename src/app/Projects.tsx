@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import Section from '@/components/Section';
 
 export default function Projects() {
     const projects = [
@@ -33,9 +34,8 @@ export default function Projects() {
         },
     ];
     return (
-        <div id="projects">
-            <div className="text-xl font-medium md:hidden">Projects</div>
-            <div className="group/list flex flex-col gap-2 pb-16">
+        <Section id="projects">
+            <div className="group/list flex flex-col gap-4">
                 {projects.map((p, i) => {
                     return (
                         <div
@@ -66,6 +66,6 @@ export default function Projects() {
                     );
                 })}
             </div>
-        </div>
+        </Section>
     );
 }

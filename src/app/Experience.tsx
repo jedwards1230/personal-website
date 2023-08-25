@@ -1,3 +1,5 @@
+import Section from '@/components/Section';
+
 export default function Experience() {
     const experience = [
         {
@@ -48,9 +50,8 @@ export default function Experience() {
         },
     ];
     return (
-        <div id="experience">
-            <div className="text-xl font-medium md:hidden">Experience</div>
-            <div className="group/list flex flex-col gap-2">
+        <Section id="experience">
+            <div className="group/list flex flex-col gap-4">
                 {experience.map((e, i) => {
                     return (
                         <div
@@ -95,6 +96,6 @@ export default function Experience() {
                     );
                 })}
             </div>
-        </div>
+        </Section>
     );
 }
