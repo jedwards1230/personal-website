@@ -78,12 +78,12 @@ export default function Experience() {
                                 </ul>
 
                                 {/* Skills */}
-                                <div className="text-xs flex flex-wrap gap-2 pt-1">
+                                <div className="flex flex-wrap gap-2 pt-1 text-xs">
                                     {e.tags.map((t, i) => {
                                         return (
                                             <span
                                                 key={'experience-' + i}
-                                                className="rounded-full bg-blue-200 px-2.5 py-1 text-blue-700 dark:text-blue-800"
+                                                className="rounded-full bg-blue-200 px-2.5 py-1 font-medium text-blue-700 dark:text-blue-900"
                                             >
                                                 {t}
                                             </span>

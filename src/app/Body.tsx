@@ -34,7 +34,7 @@ export default function Body() {
                             Full Stack Software Developer
                         </div>
                     </div>
-                    <div className="hidden flex-col pb-24 text-neutral-400 transition-all md:flex">
+                    <div className="hidden select-none flex-col pb-24 text-neutral-400 transition-all md:flex">
                         {sections.map((s, i) => {
                             return (
                                 <a

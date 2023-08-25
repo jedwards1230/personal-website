@@ -47,8 +47,8 @@ export default function Projects() {
                                 width={800}
                                 height={400}
                                 src={p.preview}
-                                alt={'Preview ' + p.title}
-                                className="col-span-12 aspect-video w-full bg-neutral-100 lg:col-span-4"
+                                alt={'Preview ' + p.title + '.png'}
+                                className="col-span-12 aspect-video w-full select-none bg-neutral-100 lg:col-span-4"
                             />
                             {/* Title */}
                             <Link
