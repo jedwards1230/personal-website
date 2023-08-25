@@ -54,7 +54,29 @@ export const professionalProjects: Project[] = [
             'IBM Watson',
             'AWS',
             'Playwright',
+            'Figma',
         ],
+    },
+    {
+        year: 2022,
+        client: 'Atlantis Health',
+        title: 'Learning Modules',
+        description: 'Linear Learning Modules for Patients',
+        tags: ['TypeScript', 'React', 'TailwindCSS', 'Playwright', 'Figma'],
+    },
+    {
+        year: 2023,
+        client: 'Atlantis Health',
+        title: 'Email Templates',
+        description: 'Email Templates for Patient Outreach',
+        tags: ['HTML', 'CSS', 'Figma'],
+    },
+    {
+        year: 2023,
+        client: 'Atlantis Health',
+        title: 'Static Pages',
+        description: 'Static Pages for Patient Outreach, Marketing, and Sales',
+        tags: ['HTML', 'TailwindCSS', 'Typescript', 'Figma'],
     },
     {
         year: 2023,
@@ -68,6 +90,7 @@ export const professionalProjects: Project[] = [
             'TailwindCSS',
             'AWS',
             'Playwright',
+            'Figma',
         ],
     },
 ];

@@ -12,7 +12,7 @@ export default function Experience() {
                 {experience.map((e, i) => {
                     return (
                         <div
-                            className="group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-100 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800"
+                            className="group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-200/50 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800"
                             key={'experience-' + i}
                         >
                             {/* Period */}
@@ -45,7 +45,7 @@ export default function Experience() {
             <Link
                 href="/Justin Edwards - Resume.pdf"
                 target="_blank"
-                className="inline-flex gap-2 pt-4 hover:underline"
+                className="inline-flex justify-center gap-2 pt-6 text-lg hover:underline"
             >
                 View Full Resume <NewTab />
             </Link>

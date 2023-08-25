@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { personalProjects, professionalProjects } from '../data';
 import TagList from '@/components/Tag';
+import { NewTab } from '../Icons';
 
 export default function Page() {
     const sortedProjects = [...personalProjects, ...professionalProjects].sort(
@@ -19,60 +20,57 @@ export default function Page() {
     );
 
     return (
-        <div className="flex h-full w-full flex-col gap-12 px-4 pt-8 md:px-24 md:pt-16 lg:px-32">
-            <div className="grid w-full grid-cols-12 text-center">
-                <Link href="/" className="col-span-3 hover:underline">
+        <div className="flex h-full min-h-screen w-full flex-col gap-8 px-4 pt-8 sm:px-8 md:gap-12 md:px-16 md:pt-16 lg:px-32">
+            <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50 py-2 text-center">
+                <Link
+                    href="/"
+                    className="col-span-3 flex items-center pl-2 hover:underline"
+                >
                     Go Home
                 </Link>
                 <h2 className="col-span-6 text-2xl">Projects</h2>
             </div>
-            <table className="w-full table-fixed border-collapse text-left">
-                <thead>
-                    <tr>
-                        <th className="w-1/12">Year</th>
-                        <th className="w-3/12 md:w-2/12">Title</th>
-                        <th className="w-3/12 md:w-1/12">Made For</th>
-                        <th className="hidden md:block md:w-5/12">Tags</th>
-                        <th className="w-1/12 lg:w-3/12">Link</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sortedProjects.map((p, i) => {
-                        return (
-                            <tr className="border-y" key={i}>
-                                <td className="py-2 text-sm text-neutral-500 dark:text-neutral-400">
-                                    {p.year}
-                                </td>
-                                <td className="">{p.title}</td>
-                                <td className="pr-1 text-sm text-neutral-500 dark:text-neutral-400">
-                                    {p.client}
-                                </td>
-                                <td className="hidden py-2 md:block">
-                                    <TagList tags={p.tags} />
-                                </td>
-                                <td>
-                                    {p.href && p.hrefTitle ? (
-                                        <Link
-                                            target="_blank"
-                                            className="text-sm text-neutral-500 hover:text-neutral-950 hover:underline dark:text-neutral-400 hover:dark:text-neutral-50"
-                                            href={p.href}
-                                        >
-                                            <span className="hidden lg:block">
-                                                {p.hrefTitle}
-                                            </span>
-                                            <span className="lg:hidden">
-                                                Source
-                                            </span>
-                                        </Link>
-                                    ) : (
-                                        ''
-                                    )}
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+            <div className="space-y-2 pb-8">
+                {sortedProjects.map((p, i) => {
+                    return (
+                        <div key={i} className="flex flex-col p-2">
+                            <div className="flex flex-col justify-between md:flex-row md:items-center">
+                                {/* Title */}
+                                {p.href && p.hrefTitle ? (
+                                    <Link
+                                        target="_blank"
+                                        className="group flex gap-2 text-lg font-semibold hover:underline"
+                                        href={p.href}
+                                    >
+                                        {p.title}
+                                        <span className="text-neutral-500 group-hover:text-neutral-950 dark:text-neutral-400 group-hover:dark:text-neutral-50">
+                                            <NewTab />
+                                        </span>
+                                    </Link>
+                                ) : (
+                                    <h3 className="text-lg font-semibold">
+                                        {p.title}
+                                    </h3>
+                                )}
+
+                                {/* Client - Year */}
+                                <p className="text-neutral-500 dark:text-neutral-400">
+                                    {p.client} - {p.year}
+                                </p>
+                            </div>
+                            <div className="flex flex-col justify-between md:flex-row">
+                                {/* Description */}
+                                <p>{p.description}</p>
+                                {/* Tags */}
+                                <TagList
+                                    tags={p.tags}
+                                    className="md:justify-end"
+                                />
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 }

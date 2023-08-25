@@ -3,20 +3,14 @@ import Section from '@/components/Section';
 export default function About() {
     return (
         <Section id="about">
-            <div className="space-y-4 text-neutral-800 dark:text-neutral-300 md:pt-16">
+            <div className="space-y-4 text-neutral-800 dark:text-neutral-300">
                 <p>
                     My career began in 2015 as an Entertainment Technician, and
                     after seven years of diverse roles, I have grown into my
                     current role as a Full Stack Software Developer at{' '}
-                    <a
-                        href="https://atlantishealth.com/us/"
-                        target="_blank"
-                        referrerPolicy="no-referrer"
-                    >
-                        <strong className="text-neutral-950 dark:text-neutral-50">
-                            Atlantis Health
-                        </strong>
-                    </a>
+                    <strong className="text-neutral-950 dark:text-neutral-50">
+                        Atlantis Health
+                    </strong>
                     . Here, I use my skills in{' '}
                     <strong className="text-neutral-950 dark:text-neutral-50">
                         TypeScript
