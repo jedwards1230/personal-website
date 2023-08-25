@@ -20,12 +20,12 @@ const links = [
 
 export default function IconLinks() {
     return (
-        <div className="flex w-48 justify-between fill-black dark:fill-white">
+        <div className="flex w-48 justify-between ">
             {links.map((link, i) => (
                 <a
                     key={i}
                     title={link.title}
-                    className="transform transition duration-200 ease-in-out"
+                    className="fill-neutral-600 transition-colors hover:fill-neutral-950 dark:fill-neutral-400 dark:hover:fill-neutral-50"
                     href={link.href}
                     target="_blank"
                     rel="noreferrer"

@@ -11,7 +11,7 @@ export default function RootLayout({
         <html
             suppressHydrationWarning={true}
             lang="en"
-            className="h-full w-full bg-neutral-50 dark:bg-neutral-950"
+            className="h-full w-full scroll-smooth bg-neutral-50 dark:bg-neutral-950"
         >
             <head>
                 <PlausibleProvider
