@@ -1,7 +1,8 @@
+import Section from '@/components/Section';
+
 export default function About() {
     return (
-        <div id="about">
-            <div className="text-xl font-medium md:hidden">About</div>
+        <Section id="about">
             <div className="space-y-4 dark:text-neutral-300 md:pt-16">
                 <p>
                     My career began in 2015 as an Entertainment Technician, and
@@ -42,6 +43,6 @@ export default function About() {
                     software development.
                 </p>
             </div>
-        </div>
+        </Section>
     );
 }
