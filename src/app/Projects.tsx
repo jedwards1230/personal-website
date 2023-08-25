@@ -14,7 +14,7 @@ export default function Projects() {
                         <Link
                             href={p.href}
                             target="_blank"
-                            className="group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-100 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800"
+                            className="group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-200/50 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800"
                             key={'projects-' + i}
                         >
                             {/* Preview */}
@@ -38,7 +38,10 @@ export default function Projects() {
                     );
                 })}
             </div>
-            <Link href="/projects" className="pt-4 hover:underline">
+            <Link
+                href="/projects"
+                className="pt-6 text-center text-lg hover:underline"
+            >
                 View All Projects
             </Link>
         </Section>
