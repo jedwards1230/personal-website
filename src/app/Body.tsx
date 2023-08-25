@@ -29,7 +29,7 @@ export default function Body() {
                 <div className="flex flex-col gap-36">
                     <div>
                         <div className="text-4xl">Justin Edwards</div>
-                        <div className="text-2xl text-neutral-600">
+                        <div className="text-2xl text-neutral-600 dark:text-neutral-500">
                             Full Stack Software Developer
                         </div>
                     </div>

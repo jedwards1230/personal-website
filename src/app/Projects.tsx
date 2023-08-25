@@ -48,7 +48,7 @@ export default function Projects() {
                                 height={400}
                                 src={p.preview}
                                 alt={'Preview ' + p.title}
-                                className="col-span-12 aspect-video w-full whitespace-nowrap bg-neutral-100 text-sm lg:col-span-4"
+                                className="col-span-12 aspect-video w-full bg-neutral-100 lg:col-span-4"
                             />
                             {/* Title */}
                             <Link
