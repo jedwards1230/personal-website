@@ -1,14 +1,17 @@
 const { PHASE_PRODUCTION_BUILD } = require('next/constants');
-const withMDX = require('@next/mdx')();
+const { withPlausibleProxy } = require('next-plausible');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
-    output: 'export',
-    experimental: {
-        appDir: true,
-        mdxRs: true,
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'raw.githubusercontent.com',
+            },
+        ],
     },
 };
 
@@ -27,4 +30,4 @@ const removeConsole = (phase) => {
     };
 };
 
-module.exports = withMDX(removeConsole(process.env.PHASE));
+module.exports = withPlausibleProxy()(removeConsole(process.env.PHASE));
