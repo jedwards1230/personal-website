@@ -1,35 +1,74 @@
-export const projects: Project[] = [
+export const personalProjects: Project[] = [
     {
+        year: 2023,
+        client: 'Personal',
         title: 'ChatUI',
         description: 'UI for managing chats with LLMs',
         href: 'https://github.com/jedwards1230/chat',
+        hrefTitle: 'github.com/jedwards1230/chat',
         tags: ['TypeScript', 'NextJS', 'TailwindCSS', 'OpenAI API', 'Supabase'],
-        preview:
-            'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-0.png',
+        img: 'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-0.png',
     },
     {
+        year: 2023,
+        client: 'Personal',
         title: 'SearchAI',
         description: 'AI assisted search engine',
         href: 'https://github.com/jedwards1230/search',
+        hrefTitle: 'github.com/jedwards1230/search',
         tags: ['TypeScript', 'NextJS', 'TailwindCSS', 'OpenAI API', 'Supabase'],
-        preview:
-            'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
+        img: 'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
     },
     {
+        year: 2022,
+        client: 'Personal',
         title: 'go-kerbal',
         description: 'CLI for managing Kerbal Space Program mods',
         href: 'https://github.com/jedwards1230/go-kerbal',
+        hrefTitle: 'github.com/jedwards1230/go-kerbal',
         tags: ['Go', 'CLI'],
-        preview:
-            'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
+        img: 'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
     },
     {
+        year: 2023,
+        client: 'Personal',
         title: 'Personal Website',
         description: 'My corner of the internet',
         href: 'https://github.com/jedwards1230/personal-website',
+        hrefTitle: 'github.com/jedwards1230/personal-website',
         tags: ['TypeScript', 'NextJS', 'TailwindCSS'],
-        preview:
-            'https://raw.githubusercontent.com/jedwards1230/personal-website/main/screenshot.png',
+        img: 'https://raw.githubusercontent.com/jedwards1230/personal-website/main/screenshot.png',
+    },
+];
+
+export const professionalProjects: Project[] = [
+    {
+        year: 2022,
+        client: 'Atlantis Health',
+        title: 'Adele',
+        description: 'AI Powered Medication Assistant',
+        tags: [
+            'TypeScript',
+            'NextJS',
+            'TailwindCSS',
+            'IBM Watson',
+            'AWS',
+            'Playwright',
+        ],
+    },
+    {
+        year: 2023,
+        client: 'Atlantis Health',
+        title: 'Patient Portal',
+        description: 'Patient Portal for managing treatment',
+        tags: [
+            'TypeScript',
+            'Python',
+            'NextJS',
+            'TailwindCSS',
+            'AWS',
+            'Playwright',
+        ],
     },
 ];
 
