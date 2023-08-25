@@ -93,6 +93,43 @@ export const professionalProjects: Project[] = [
             'Figma',
         ],
     },
+
+    {
+        year: 2022,
+        client: 'Personal',
+        title: 'Cars',
+        description: 'A small game for learning ML basics',
+        href: 'https://github.com/jedwards1230/cars',
+        hrefTitle: 'github.com/jedwards1230/cars',
+        tags: ['TypeScript', 'NextJS', 'TailwindCSS'],
+    },
+    {
+        year: 2022,
+        client: 'Personal',
+        title: 'nnjs',
+        description: 'A small library for learning ML basics',
+        href: 'https://github.com/jedwards1230/nnjs',
+        hrefTitle: 'github.com/jedwards1230/nnjs',
+        tags: ['TypeScript'],
+    },
+    {
+        year: 2022,
+        client: 'Personal',
+        title: 'Leetcode Timer',
+        description: 'Firefox extension for timing LeetCode problems',
+        href: 'https://github.com/jedwards1230/leetcode-timer',
+        hrefTitle: 'github.com/jedwards1230/leetcode-timer',
+        tags: ['TypeScript', 'HTML', 'CSS', 'Webpack', 'Browser Extensions'],
+    },
+    {
+        year: 2022,
+        client: 'Personal',
+        title: 'Daily arXiv',
+        description: 'Quickly browse ArXiv by date and subject',
+        href: 'https://github.com/jedwards1230/dailyarxiv',
+        hrefTitle: 'github.com/jedwards1230/dailyarxiv',
+        tags: ['TypeScript', 'NextJS', 'TailwindCSS'],
+    },
 ];
 
 export const experience: Experience[] = [
