@@ -1,6 +1,6 @@
 import type { Metadata } from 'next/types';
 
-import Home from '@/components/Home';
+import Body from './Body';
 
 const APP_NAME = 'J. Edwards Personal Website';
 const APP_DEFAULT_TITLE = 'J. Edwards';
@@ -16,6 +16,6 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
 };
 
-export default async function Page() {
-    return <Home />;
+export default function Page() {
+    return <Body />;
 }

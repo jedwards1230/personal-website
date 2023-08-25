@@ -1,5 +1,6 @@
 import '@/globals.css';
 import { Providers } from './providers';
+import PlausibleProvider from 'next-plausible';
 
 export default function RootLayout({
     children,
@@ -10,16 +11,15 @@ export default function RootLayout({
         <html
             suppressHydrationWarning={true}
             lang="en"
-            className="h-full w-full bg-white dark:bg-black"
+            className="h-full w-full bg-neutral-50 dark:bg-neutral-950"
         >
             <head>
-                <script
-                    defer
-                    data-domain="jedwards.cc"
-                    src="https://plausible.io/js/script.tagged-events.outbound-links.js"
-                ></script>
+                <PlausibleProvider
+                    domain="jedwards.cc"
+                    trackOutboundLinks={true}
+                />
             </head>
-            <body className="flex h-full w-full overflow-hidden">
+            <body className="h-full w-full">
                 <Providers>{children}</Providers>
             </body>
         </html>
