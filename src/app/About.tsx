@@ -3,7 +3,7 @@ import Section from '@/components/Section';
 export default function About() {
     return (
         <Section id="about">
-            <div className="space-y-4 dark:text-neutral-300 md:pt-16">
+            <div className="space-y-4 text-neutral-800 dark:text-neutral-300 md:pt-16">
                 <p>
                     My career began in 2015 as an Entertainment Technician, and
                     after seven years of diverse roles, I have grown into my
@@ -13,18 +13,31 @@ export default function About() {
                         target="_blank"
                         referrerPolicy="no-referrer"
                     >
-                        <strong className="text-neutral-50">
+                        <strong className="text-neutral-950 dark:text-neutral-50">
                             Atlantis Health
                         </strong>
                     </a>
                     . Here, I use my skills in{' '}
-                    <strong className="text-neutral-50">TypeScript</strong>,{' '}
-                    <strong className="text-neutral-50">NextJs</strong>,{' '}
-                    <strong className="text-neutral-50">Python</strong>, and{' '}
-                    <strong className="text-neutral-50">SQL</strong> to lead
-                    large-scale projects and drive innovation, such as
+                    <strong className="text-neutral-950 dark:text-neutral-50">
+                        TypeScript
+                    </strong>
+                    ,{' '}
+                    <strong className="text-neutral-950 dark:text-neutral-50">
+                        NextJs
+                    </strong>
+                    ,{' '}
+                    <strong className="text-neutral-950 dark:text-neutral-50">
+                        Python
+                    </strong>
+                    , and{' '}
+                    <strong className="text-neutral-950 dark:text-neutral-50">
+                        SQL
+                    </strong>{' '}
+                    to lead large-scale projects and drive innovation, such as
                     integrating{' '}
-                    <strong className="text-neutral-50">IBM Watson</strong>
+                    <strong className="text-neutral-950 dark:text-neutral-50">
+                        IBM Watson
+                    </strong>
                     &apos;s NLP capabilities into patient applications.
                 </p>
                 <p>

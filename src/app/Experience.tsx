@@ -1,4 +1,7 @@
+import Link from 'next/link';
+
 import Section from '@/components/Section';
+import { NewTab } from './Icons';
 
 export default function Experience() {
     const experience: Experience[] = [
@@ -98,6 +101,13 @@ export default function Experience() {
                     );
                 })}
             </div>
+            <Link
+                href="/Justin Edwards - Resume.pdf"
+                target="_blank"
+                className="inline-flex gap-2 pt-4 hover:underline"
+            >
+                View Full Resume <NewTab />
+            </Link>
         </Section>
     );
 }
