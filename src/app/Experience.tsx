@@ -22,6 +22,7 @@ export default function Experience() {
                 'AWS',
                 'TailwindCSS',
                 'IBM Watson',
+                'Asana',
             ],
         },
         {
@@ -35,7 +36,7 @@ export default function Experience() {
                 'Coordinated with Software Potential to manage customer information and licensing',
                 'Supported users in troubleshooting software issues, creating helpful knowledge base articles, improving user satisfaction and engagement',
             ],
-            tags: ['Bug Reports', 'Asana', 'Software Potential'],
+            tags: ['Bug Reports', 'Salesforce', 'Software Potential'],
         },
         {
             title: 'Entertainment Technician',
