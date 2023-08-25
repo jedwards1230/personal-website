@@ -1,7 +1,7 @@
 import Section from '@/components/Section';
 
 export default function Experience() {
-    const experience = [
+    const experience: Experience[] = [
         {
             title: 'Full Stack Developer',
             company: 'Atlantis Health',
@@ -50,6 +50,7 @@ export default function Experience() {
             tags: ['Leadership', 'Project Planning', 'Troubleshooting'],
         },
     ];
+
     return (
         <Section id="experience">
             <div className="group/list flex flex-col gap-4">
