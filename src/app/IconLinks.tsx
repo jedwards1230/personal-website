@@ -1,6 +1,4 @@
-'use client';
-
-import { GithubIcon, LinkedInIcon, EmailIcon } from './icons';
+import { GithubIcon, LinkedInIcon, EmailIcon } from './Icons';
 
 const links = [
     {
@@ -22,12 +20,12 @@ const links = [
 
 export default function IconLinks() {
     return (
-        <div className="mt-4 flex w-48 justify-between fill-black dark:fill-white md:mt-2">
+        <div className="flex w-48 justify-between fill-black dark:fill-white">
             {links.map((link, i) => (
                 <a
                     key={i}
                     title={link.title}
-                    className="transform transition duration-200 ease-in-out hover:scale-125"
+                    className="transform transition duration-200 ease-in-out"
                     href={link.href}
                     target="_blank"
                     rel="noreferrer"
