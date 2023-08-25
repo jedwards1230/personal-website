@@ -6,7 +6,7 @@ export default function Section({
     id: Section;
 }) {
     return (
-        <div id={id}>
+        <div className="flex flex-col" id={id}>
             <div className="text-xl font-medium md:hidden">
                 {id.charAt(0).toUpperCase() + id.slice(1)}
             </div>
