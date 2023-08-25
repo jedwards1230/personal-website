@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -33,16 +34,17 @@ export default function Body() {
                             Full Stack Software Developer
                         </div>
                     </div>
-                    <div className="hidden flex-col pb-24 text-neutral-400 md:flex">
+                    <div className="hidden flex-col pb-24 text-neutral-400 transition-all md:flex">
                         {sections.map((s, i) => {
                             return (
                                 <a
                                     key={'section-' + i}
-                                    className={
+                                    className={clsx(
+                                        'transition-all hover:text-neutral-800 hover:dark:text-neutral-200',
                                         currentSection === s
-                                            ? 'text-neutral-950 dark:text-neutral-50'
-                                            : ''
-                                    }
+                                            ? 'text-lg text-neutral-950 dark:text-neutral-50'
+                                            : '',
+                                    )}
                                     href={'#' + s}
                                 >
                                     {s.charAt(0).toUpperCase() + s.slice(1)}
