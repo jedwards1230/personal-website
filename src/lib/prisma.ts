@@ -18,3 +18,10 @@ export async function createContact(
     });
     return contact;
 }
+
+export async function createExperience(data: Experience) {
+    const experience = await prisma.experience.create({
+        data,
+    });
+    return experience;
+}

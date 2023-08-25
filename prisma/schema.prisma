@@ -14,3 +14,12 @@ model Contact {
   message   String
   createdAt DateTime @default(now())
 }
+
+model Experience {
+  id          Int      @id @default(autoincrement())
+  title       String
+  company     String
+  period      String
+  description String[]
+  tags        String[]
+}
