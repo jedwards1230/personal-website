@@ -21,7 +21,7 @@ export default function Page() {
 
     return (
         <div className="flex h-full min-h-screen w-full flex-col gap-8 px-4 pt-8 sm:px-8 md:gap-12 md:px-16 md:pt-16 lg:px-32">
-            <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50/50 py-2 text-center backdrop-blur">
+            <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50/50 py-2 text-center backdrop-blur dark:bg-neutral-900/30">
                 <Link
                     href="/"
                     className="col-span-3 flex items-center pl-2 hover:underline"
