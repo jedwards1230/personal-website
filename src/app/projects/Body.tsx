@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { personalProjects, professionalProjects } from '../data';
+import { showcaseProjects, professionalProjects } from '../data';
 import TagList, { FilterTag } from '@/components/Tag';
 import { NewTab } from '../Icons';
 
@@ -24,7 +24,7 @@ export default function Body() {
         setTagFilter([...tagFilter, tag]);
     };
 
-    const sortedProjects = [...personalProjects, ...professionalProjects]
+    const sortedProjects = [...showcaseProjects, ...professionalProjects]
         .sort((a, b) => {
             // sort by year, most recent first
             if (a.year > b.year) return -1;
@@ -146,11 +146,17 @@ function Project({
 
                 {/* Client - Year */}
                 <p className="text-neutral-500 dark:text-neutral-400">
-                    <button onClick={() => handleClientClick(project.client)}>
+                    <button
+                        className="md:hover:underline"
+                        onClick={() => handleClientClick(project.client)}
+                    >
                         {project.client}
                     </button>{' '}
                     -{' '}
-                    <button onClick={() => handleYearClick(project.year)}>
+                    <button
+                        className="md:hover:underline"
+                        onClick={() => handleYearClick(project.year)}
+                    >
                         {project.year}
                     </button>
                 </p>

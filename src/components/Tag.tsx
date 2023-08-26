@@ -7,7 +7,7 @@ function SkillTag({ tag, onClick }: { tag: string; onClick?: () => void }) {
             onClick={onClick}
             className={clsx(
                 'rounded-full bg-blue-200 px-2.5 py-1 font-medium text-blue-700 dark:text-blue-900',
-                onClick && 'cursor-pointer',
+                onClick && 'cursor-pointer md:hover:underline',
             )}
         >
             {tag}
@@ -30,7 +30,9 @@ export default function TagList({
                 <SkillTag
                     tag={t}
                     key={'experience-' + i}
-                    onClick={() => handleTagClick(t)}
+                    onClick={
+                        handleTagClick ? () => handleTagClick(t) : undefined
+                    }
                 />
             ))}
         </div>
