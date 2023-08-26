@@ -29,7 +29,9 @@ export default function Body() {
             // sort by year, most recent first
             if (a.year > b.year) return -1;
             if (a.year < b.year) return 1;
-            if (a.year === b.year) {
+            if (a.month > b.month) return -1;
+            if (a.month < b.month) return 1;
+            if (a.year === b.year && a.month === b.month) {
                 // sort to put personal projects last within their year
                 if (a.client === 'Personal') return 1;
                 if (b.client === 'Personal') return -1;
