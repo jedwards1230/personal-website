@@ -1,4 +1,4 @@
-export const personalProjects: Project[] = [
+export const showcaseProjects: Project[] = [
     {
         year: 2023,
         client: 'Personal',
@@ -6,7 +6,14 @@ export const personalProjects: Project[] = [
         description: 'UI for managing chats with LLMs',
         href: 'https://github.com/jedwards1230/chat',
         hrefTitle: 'github.com/jedwards1230/chat',
-        tags: ['TypeScript', 'NextJS', 'TailwindCSS', 'OpenAI API', 'Supabase'],
+        tags: [
+            'TypeScript',
+            'NextJS',
+            'TailwindCSS',
+            'OpenAI API',
+            'Supabase',
+            'Oauth',
+        ],
         img: 'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-0.png',
     },
     {

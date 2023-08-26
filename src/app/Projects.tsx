@@ -3,13 +3,13 @@ import Image from 'next/image';
 
 import Section from '@/components/Section';
 import TagList from '@/components/Tag';
-import { personalProjects } from './data';
+import { showcaseProjects } from './data';
 
 export default function Projects() {
     return (
         <Section id="projects">
             <div className="group/list flex flex-col gap-4">
-                {personalProjects.map((p, i) => {
+                {showcaseProjects.map((p, i) => {
                     return (
                         <Link
                             href={p.href}
