@@ -76,7 +76,7 @@ export const professionalProjects: Project[] = [
         client: 'Atlantis Health',
         title: 'Static Pages',
         description: 'Static Pages for Patient Outreach, Marketing, and Sales',
-        tags: ['HTML', 'TailwindCSS', 'Typescript', 'Figma'],
+        tags: ['HTML', 'TailwindCSS', 'TypeScript', 'Figma'],
     },
     {
         year: 2023,
