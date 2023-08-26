@@ -27,7 +27,14 @@ export const showcaseProjects: Project[] = [
         description: 'AI assisted search engine',
         href: 'https://github.com/jedwards1230/search',
         hrefTitle: 'github.com/jedwards1230/search',
-        tags: ['TypeScript', 'NextJS', 'TailwindCSS', 'OpenAI API', 'Supabase'],
+        tags: [
+            'TypeScript',
+            'NextJS',
+            'TailwindCSS',
+            'OpenAI API',
+            'Langchain',
+            'Supabase',
+        ],
         img: 'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
     },
     {
