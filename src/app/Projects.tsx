@@ -3,9 +3,16 @@ import Image from 'next/image';
 
 import Section from '@/components/Section';
 import TagList from '@/components/Tag';
-import { showcaseProjects } from './data';
+import { projects } from '@/data';
+import { useMemo } from 'react';
 
 export default function Projects() {
+    const showcaseProjects = useMemo(() => {
+        return projects.filter(
+            (p) => p.showcase && p.showcase === true && p.img,
+        );
+    }, []);
+
     return (
         <Section id="projects">
             <div className="group/list flex flex-col gap-4">

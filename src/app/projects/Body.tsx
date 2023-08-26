@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { showcaseProjects, professionalProjects } from '../data';
+import { projects } from '@/data';
 import TagList, { FilterTag } from '@/components/Tag';
 import { NewTab } from '../Icons';
 
@@ -24,7 +24,7 @@ export default function Body() {
         setTagFilter([...tagFilter, tag]);
     };
 
-    const sortedProjects = [...showcaseProjects, ...professionalProjects]
+    const sortedProjects = projects
         .sort((a, b) => {
             // sort by year, most recent first
             if (a.year > b.year) return -1;
@@ -131,7 +131,7 @@ function Project({
         <div className="flex flex-col p-2">
             <div className="flex flex-col justify-between md:flex-row md:items-center">
                 {/* Title */}
-                {project.href && project.hrefTitle ? (
+                {project.href ? (
                     <Link
                         target="_blank"
                         className="group flex gap-2 text-lg font-semibold hover:underline"
