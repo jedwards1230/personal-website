@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Section from '@/components/Section';
 import TagList from '@/components/Tag';
 import { NewTab } from './Icons';
-import { experience } from './data';
+import { experience } from '../data';
 import { usePlausible } from 'next-plausible';
 
 export default function Experience() {

@@ -1,4 +1,4 @@
-export const showcaseProjects: Project[] = [
+export const projects: Project[] = [
     {
         id: '1',
         year: 2023,
@@ -7,7 +7,6 @@ export const showcaseProjects: Project[] = [
         title: 'ChatUI',
         description: 'UI for managing chats with LLMs',
         href: 'https://github.com/jedwards1230/chat',
-        hrefTitle: 'github.com/jedwards1230/chat',
         tags: [
             'TypeScript',
             'NextJS',
@@ -16,6 +15,7 @@ export const showcaseProjects: Project[] = [
             'Supabase',
             'Oauth',
         ],
+        showcase: true,
         img: 'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-0.png',
     },
     {
@@ -26,7 +26,6 @@ export const showcaseProjects: Project[] = [
         title: 'SearchAI',
         description: 'AI assisted search engine',
         href: 'https://github.com/jedwards1230/search',
-        hrefTitle: 'github.com/jedwards1230/search',
         tags: [
             'TypeScript',
             'NextJS',
@@ -35,6 +34,7 @@ export const showcaseProjects: Project[] = [
             'Langchain',
             'Supabase',
         ],
+        showcase: true,
         img: 'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
     },
     {
@@ -45,8 +45,8 @@ export const showcaseProjects: Project[] = [
         title: 'go-kerbal',
         description: 'CLI for managing Kerbal Space Program mods',
         href: 'https://github.com/jedwards1230/go-kerbal',
-        hrefTitle: 'github.com/jedwards1230/go-kerbal',
         tags: ['Go', 'CLI'],
+        showcase: true,
         img: 'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
     },
     {
@@ -57,13 +57,10 @@ export const showcaseProjects: Project[] = [
         title: 'Personal Website',
         description: 'My corner of the internet',
         href: 'https://github.com/jedwards1230/personal-website',
-        hrefTitle: 'github.com/jedwards1230/personal-website',
         tags: ['TypeScript', 'NextJS', 'TailwindCSS'],
+        showcase: true,
         img: 'https://raw.githubusercontent.com/jedwards1230/personal-website/main/screenshot.png',
     },
-];
-
-export const professionalProjects: Project[] = [
     {
         id: '5',
         year: 2022,
@@ -134,7 +131,6 @@ export const professionalProjects: Project[] = [
         title: 'Cars',
         description: 'A small game for learning ML basics',
         href: 'https://github.com/jedwards1230/cars',
-        hrefTitle: 'github.com/jedwards1230/cars',
         tags: ['TypeScript', 'NextJS', 'TailwindCSS'],
     },
     {
@@ -145,7 +141,6 @@ export const professionalProjects: Project[] = [
         title: 'nnjs',
         description: 'A small library for learning ML basics',
         href: 'https://github.com/jedwards1230/nnjs',
-        hrefTitle: 'github.com/jedwards1230/nnjs',
         tags: ['TypeScript'],
     },
     {
@@ -156,7 +151,6 @@ export const professionalProjects: Project[] = [
         title: 'Leetcode Timer',
         description: 'Firefox extension for timing LeetCode problems',
         href: 'https://github.com/jedwards1230/leetcode-timer',
-        hrefTitle: 'github.com/jedwards1230/leetcode-timer',
         tags: ['TypeScript', 'HTML', 'CSS', 'Webpack', 'Browser Extensions'],
     },
     {
@@ -167,7 +161,6 @@ export const professionalProjects: Project[] = [
         title: 'Daily arXiv',
         description: 'Quickly browse ArXiv by date and subject',
         href: 'https://github.com/jedwards1230/dailyarxiv',
-        hrefTitle: 'github.com/jedwards1230/dailyarxiv',
         tags: ['TypeScript', 'NextJS', 'TailwindCSS'],
     },
 ];

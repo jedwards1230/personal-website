@@ -16,7 +16,7 @@ type Project = {
     title: string;
     description: string;
     href?: string;
-    hrefTitle?: string;
     tags: string[];
+    showcase?: boolean;
     img?: string;
 };
