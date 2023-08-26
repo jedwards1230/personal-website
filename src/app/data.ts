@@ -1,6 +1,8 @@
 export const showcaseProjects: Project[] = [
     {
+        id: '1',
         year: 2023,
+        month: 8,
         client: 'Personal',
         title: 'ChatUI',
         description: 'UI for managing chats with LLMs',
@@ -17,7 +19,9 @@ export const showcaseProjects: Project[] = [
         img: 'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-0.png',
     },
     {
+        id: '2',
         year: 2023,
+        month: 6,
         client: 'Personal',
         title: 'SearchAI',
         description: 'AI assisted search engine',
@@ -27,7 +31,9 @@ export const showcaseProjects: Project[] = [
         img: 'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
     },
     {
+        id: '3',
         year: 2022,
+        month: 5,
         client: 'Personal',
         title: 'go-kerbal',
         description: 'CLI for managing Kerbal Space Program mods',
@@ -37,7 +43,9 @@ export const showcaseProjects: Project[] = [
         img: 'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
     },
     {
+        id: '4',
         year: 2023,
+        month: 8,
         client: 'Personal',
         title: 'Personal Website',
         description: 'My corner of the internet',
@@ -50,7 +58,9 @@ export const showcaseProjects: Project[] = [
 
 export const professionalProjects: Project[] = [
     {
+        id: '5',
         year: 2022,
+        month: 12,
         client: 'Atlantis Health',
         title: 'Adele',
         description: 'AI Powered Medication Assistant',
@@ -65,28 +75,36 @@ export const professionalProjects: Project[] = [
         ],
     },
     {
+        id: '6',
         year: 2022,
+        month: 11,
         client: 'Atlantis Health',
         title: 'Learning Modules',
         description: 'Linear Learning Modules for Patients',
         tags: ['TypeScript', 'React', 'TailwindCSS', 'Playwright', 'Figma'],
     },
     {
+        id: '7',
         year: 2023,
+        month: 7,
         client: 'Atlantis Health',
         title: 'Email Templates',
         description: 'Email Templates for Patient Outreach',
         tags: ['HTML', 'CSS', 'Figma'],
     },
     {
+        id: '8',
         year: 2023,
+        month: 8,
         client: 'Atlantis Health',
         title: 'Static Pages',
         description: 'Static Pages for Patient Outreach, Marketing, and Sales',
         tags: ['HTML', 'TailwindCSS', 'TypeScript', 'Figma'],
     },
     {
+        id: '9',
         year: 2023,
+        month: 6,
         client: 'Atlantis Health',
         title: 'Patient Portal',
         description: 'Patient Portal for managing treatment',
@@ -102,7 +120,9 @@ export const professionalProjects: Project[] = [
     },
 
     {
+        id: '10',
         year: 2022,
+        month: 8,
         client: 'Personal',
         title: 'Cars',
         description: 'A small game for learning ML basics',
@@ -111,7 +131,9 @@ export const professionalProjects: Project[] = [
         tags: ['TypeScript', 'NextJS', 'TailwindCSS'],
     },
     {
+        id: '11',
         year: 2022,
+        month: 8,
         client: 'Personal',
         title: 'nnjs',
         description: 'A small library for learning ML basics',
@@ -120,7 +142,9 @@ export const professionalProjects: Project[] = [
         tags: ['TypeScript'],
     },
     {
+        id: '12',
         year: 2022,
+        month: 8,
         client: 'Personal',
         title: 'Leetcode Timer',
         description: 'Firefox extension for timing LeetCode problems',
@@ -129,7 +153,9 @@ export const professionalProjects: Project[] = [
         tags: ['TypeScript', 'HTML', 'CSS', 'Webpack', 'Browser Extensions'],
     },
     {
+        id: '13',
         year: 2022,
+        month: 8,
         client: 'Personal',
         title: 'Daily arXiv',
         description: 'Quickly browse ArXiv by date and subject',

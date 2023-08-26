@@ -9,7 +9,9 @@ type Experience = {
 };
 
 type Project = {
+    id: string;
     year: number;
+    month: number;
     client: string;
     title: string;
     description: string;
