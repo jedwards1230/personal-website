@@ -14,7 +14,7 @@ export default function Experience() {
                 {experience.map((e, i) => {
                     return (
                         <div
-                            className="group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-200/50 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800"
+                            className="group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all hover:shadow-sm dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-200/50 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800"
                             key={'experience-' + i}
                         >
                             {/* Period */}
@@ -48,7 +48,7 @@ export default function Experience() {
                 href="/Justin Edwards - Resume.pdf"
                 onClick={() => plausible('Resume Download')}
                 target="_blank"
-                className="inline-flex justify-center gap-2 pt-6 text-lg hover:underline"
+                className="inline-flex justify-center gap-2 pt-6 text-lg hover:underline md:pt-8"
             >
                 View Full Resume <NewTab />
             </Link>
