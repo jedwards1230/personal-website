@@ -47,7 +47,7 @@ export default function Projects() {
             </div>
             <Link
                 href="/projects"
-                className="pt-6 text-center text-lg hover:underline md:pt-8"
+                className="pt-8 text-center text-lg hover:underline"
             >
                 View All Projects
             </Link>
