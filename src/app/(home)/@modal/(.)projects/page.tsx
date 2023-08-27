@@ -2,13 +2,10 @@
 
 import { useEffect } from 'react';
 
-import ProjectList from '@/app/(projects)/projects/ProjectList';
 import Modal from '@/components/Modal';
+import ProjectList from '@/components/ProjectList';
 
 export default function Page() {
-    // on mount, get <main> element and disable scrolling
-    // on unmount, enable scrolling
-
     useEffect(() => {
         const main = document.querySelector('main');
         if (main) {
