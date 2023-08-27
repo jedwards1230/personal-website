@@ -24,7 +24,6 @@ export default function Body() {
     const [currentSection, setCurrentSection] = useState<Section>('about');
 
     useEffect(() => {
-        console.log({ pathname });
         if (pathname === '/') {
             setIsFrozen(false);
         } else {
