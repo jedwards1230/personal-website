@@ -1,9 +1,9 @@
 import type { Metadata } from 'next/types';
 
-import About from './About';
-import Contact from './Contact';
-import Experience from './Experience';
-import Projects from './Projects';
+import About from '../About';
+import Contact from '../Contact';
+import Experience from '../Experience';
+import Projects from '../Projects';
 
 const APP_NAME = 'J. Edwards Personal Website';
 const APP_DEFAULT_TITLE = 'J. Edwards';
