@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { projects } from '@/data';
 import TagList, { FilterTag } from '@/components/Tag';
-import { NewTab } from '../app/Icons';
+import { ArrowLeft, NewTab } from '../app/Icons';
 
 export default function ProjectList() {
     const [companyFilter, setCompanyFilter] = useState<string[]>([]);
@@ -67,9 +67,10 @@ export default function ProjectList() {
                 <Link
                     href="/"
                     scroll={false}
-                    className="col-span-4 flex items-center pl-2 hover:underline"
+                    className="col-span-4 flex items-center gap-2 pl-2 transition-all hover:gap-4 hover:underline"
                 >
-                    Go Home
+                    <ArrowLeft />
+                    Home
                 </Link>
                 <h2 className="col-span-4 text-2xl">Projects</h2>
             </div>
