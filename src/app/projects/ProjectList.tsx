@@ -66,6 +66,7 @@ export default function Body() {
             <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50/50 pb-4 pt-4 text-center backdrop-blur dark:bg-neutral-950/30 md:pb-2">
                 <Link
                     href="/"
+                    scroll={false}
                     className="col-span-4 flex items-center pl-2 hover:underline"
                 >
                     Go Home
