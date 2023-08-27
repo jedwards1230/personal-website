@@ -20,7 +20,7 @@ export default function RootLayout({
                         </div>
                         <IconLinks />
                     </nav>
-                    <div className="ml-auto flex w-full flex-col gap-12 md:z-10 md:w-1/2 md:gap-24">
+                    <div className="ml-auto flex h-full w-full flex-col gap-12 md:z-10 md:w-1/2 md:gap-24">
                         {children}
                     </div>
                 </main>
