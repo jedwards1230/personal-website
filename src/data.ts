@@ -122,7 +122,6 @@ export const projects: Project[] = [
             'Figma',
         ],
     },
-
     {
         id: '10',
         year: 2022,
@@ -131,7 +130,7 @@ export const projects: Project[] = [
         title: 'Cars',
         description: 'A small game for learning ML basics',
         href: 'https://github.com/jedwards1230/cars',
-        tags: ['TypeScript', 'NextJS', 'TailwindCSS'],
+        tags: ['TypeScript', 'NextJS', 'Material UI', 'Machine Learning'],
     },
     {
         id: '11',
@@ -141,7 +140,7 @@ export const projects: Project[] = [
         title: 'nnjs',
         description: 'A small library for learning ML basics',
         href: 'https://github.com/jedwards1230/nnjs',
-        tags: ['TypeScript'],
+        tags: ['TypeScript', 'Machine Learning'],
     },
     {
         id: '12',
