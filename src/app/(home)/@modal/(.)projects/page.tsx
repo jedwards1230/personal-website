@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-import ProjectList from '@/app/projects/ProjectList';
+import ProjectList from '@/app/(projects)/projects/ProjectList';
 import Modal from '@/components/Modal';
 
 export default function Page() {

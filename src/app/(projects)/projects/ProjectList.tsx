@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { projects } from '@/data';
 import TagList, { FilterTag } from '@/components/Tag';
-import { NewTab } from '../Icons';
+import { NewTab } from '../../Icons';
 
 export default function Body() {
     const [companyFilter, setCompanyFilter] = useState<string[]>([]);
