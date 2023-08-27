@@ -4,8 +4,10 @@ import PlausibleProvider from 'next-plausible';
 
 export default function RootLayout({
     children,
+    modal,
 }: {
     children: React.ReactNode;
+    modal: React.ReactNode;
 }) {
     return (
         <html
@@ -19,8 +21,15 @@ export default function RootLayout({
                     trackOutboundLinks={true}
                 />
             </head>
-            <body className="h-full w-full">
-                <Providers>{children}</Providers>
+            <body className="overflow-none relative h-full w-full">
+                <Providers>
+                    <div className="h-full w-full overflow-y-scroll">
+                        {children}
+                    </div>
+                    <div className="h-full w-full overflow-y-scroll">
+                        {modal}
+                    </div>
+                </Providers>
             </body>
         </html>
     );

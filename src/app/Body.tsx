@@ -2,6 +2,7 @@
 
 import clsx from 'clsx';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { useInView } from 'react-intersection-observer';
 
 import IconLinks from './IconLinks';
@@ -13,14 +14,26 @@ import Projects from './Projects';
 const sections = ['about', 'experience', 'projects', 'contact'];
 
 export default function Body() {
+    const pathname = usePathname();
     const [refProjects, inViewProjects] = useInView({ threshold: 0.25 });
     const [refExperience, inViewExperience] = useInView({ threshold: 0.25 });
     const [refAbout, inViewAbout] = useInView({ threshold: 0.25 });
     const [refContact, inViewContact] = useInView({ threshold: 0.25 });
 
+    const [isFrozen, setIsFrozen] = useState(false);
     const [currentSection, setCurrentSection] = useState<Section>('about');
 
     useEffect(() => {
+        console.log({ pathname });
+        if (pathname === '/') {
+            setIsFrozen(false);
+        } else {
+            setIsFrozen(true);
+        }
+    }, [pathname]);
+
+    useEffect(() => {
+        if (isFrozen) return;
         // start/end sections first
         if (inViewAbout) setCurrentSection('about');
         else if (inViewContact) setCurrentSection('contact');
@@ -33,6 +46,7 @@ export default function Body() {
         inViewContact,
         inViewExperience,
         inViewProjects,
+        isFrozen,
     ]);
 
     const scrollToSection = (id: string) => {
@@ -43,7 +57,7 @@ export default function Body() {
     };
 
     return (
-        <div className="max-w-screen flex w-full flex-col justify-end px-4 pt-8 sm:px-8 md:h-screen md:max-h-screen md:flex-row md:px-16 md:pt-0 lg:px-32">
+        <main className="max-w-screen flex w-full flex-col justify-end px-4 pt-8 sm:px-8 md:h-full md:flex-row md:px-16 md:pt-0 lg:px-32">
             <nav className="flex w-full flex-col justify-between gap-4 pb-12 md:fixed md:left-16 md:top-0 md:h-screen md:w-1/3 md:pb-12 md:pt-16 lg:left-32 lg:w-1/2">
                 <div className="flex flex-col gap-12 transition-all lg:gap-36">
                     <div>
@@ -87,6 +101,6 @@ export default function Body() {
                     <Contact />
                 </div>
             </main>
-        </div>
+        </main>
     );
 }
