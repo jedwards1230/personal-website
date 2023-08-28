@@ -32,7 +32,7 @@ export default function ProjectCard({
                         height={400}
                         src={project.img}
                         alt={project.title}
-                        className="aspect-video w-1/2 rounded-lg border shadow-sm"
+                        className="aspect-video w-full rounded-lg border shadow-sm sm:w-1/2"
                     />
                 )}
 
