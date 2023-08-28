@@ -1,12 +1,16 @@
+'use client';
+
+import { useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import Section from '@/components/Section';
 import TagList from '@/components/Tag';
 import { projects } from '@/data';
-import { useMemo } from 'react';
+import { useNavigation } from './NavigationProvider';
 
 export default function Projects() {
+    const { setCurrentProject } = useNavigation();
     const showcaseProjects = useMemo(() => {
         return projects.filter(
             (p) => p.showcase && p.showcase === true && p.img,
@@ -18,10 +22,9 @@ export default function Projects() {
             <div className="group/list flex flex-col gap-4">
                 {showcaseProjects.map((p, i) => {
                     return (
-                        <Link
-                            href={p.href}
-                            target="_blank"
-                            className="group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-200/50 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800"
+                        <div
+                            onClick={() => setCurrentProject(p.id)}
+                            className="group grid w-full cursor-pointer grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-200/50 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800"
                             key={'projects-' + i}
                         >
                             {/* Preview */}
@@ -41,12 +44,13 @@ export default function Projects() {
                                 <div>{p.description}</div>
                                 <TagList tags={p.tags} />
                             </div>
-                        </Link>
+                        </div>
                     );
                 })}
             </div>
             <Link
                 href="/projects"
+                scroll={false}
                 className="pt-8 text-center text-lg hover:underline"
             >
                 View All Projects

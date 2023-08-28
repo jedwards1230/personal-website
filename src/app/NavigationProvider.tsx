@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { usePathname } from 'next/navigation';
+import ProjectCard from '@/components/ProjectCard';
+import Modal from '@/components/Modal';
+import { projects } from '@/data';
 
 const NavigationContext = createContext({
     refProjects: null,
@@ -8,9 +11,10 @@ const NavigationContext = createContext({
     refAbout: null,
     refContact: null,
     currentSection: 'about',
-    setCurrentSection: (section: string) => {},
+    setCurrentSection: (section: Section) => {},
     isFrozen: false,
     setIsFrozen: (isFrozen: boolean) => {},
+    setCurrentProject: (project: string | null) => {},
 });
 
 export const NavigationProvider = ({
@@ -26,14 +30,16 @@ export const NavigationProvider = ({
 
     const [isFrozen, setIsFrozen] = useState(false);
     const [currentSection, setCurrentSection] = useState('about');
+    const [currentProject, setCurrentProject] = useState<string | null>(null);
+    const project = projects.find((project) => project.id === currentProject);
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (pathname === '/') {
             setIsFrozen(false);
         } else {
             setIsFrozen(true);
         }
-    }, [pathname]);
+    }, [pathname]); */
 
     useEffect(() => {
         if (isFrozen) return;
@@ -60,9 +66,15 @@ export const NavigationProvider = ({
                 setCurrentSection,
                 isFrozen,
                 setIsFrozen,
+                setCurrentProject,
             }}
         >
             {children}
+            {currentProject && (
+                <Modal>
+                    <ProjectCard project={project} modal={true} />
+                </Modal>
+            )}
         </NavigationContext.Provider>
     );
 };
