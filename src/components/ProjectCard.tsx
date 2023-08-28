@@ -36,7 +36,7 @@ export default function ProjectCard({
                     />
                 )}
 
-                <div className="ml-4 flex w-1/2 flex-col gap-2 py-2">
+                <div className="ml-4 flex w-full flex-col gap-2 py-2">
                     {/* Description */}
                     <p className="text-neutral-700 dark:text-neutral-300">
                         {project.description}
