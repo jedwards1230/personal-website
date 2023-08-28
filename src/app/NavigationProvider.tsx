@@ -71,7 +71,7 @@ export const NavigationProvider = ({
         >
             {children}
             {currentProject && (
-                <Modal>
+                <Modal zIndex={20} size="sm">
                     <ProjectCard project={project} modal={true} />
                 </Modal>
             )}

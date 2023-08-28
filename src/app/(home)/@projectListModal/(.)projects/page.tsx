@@ -3,7 +3,7 @@ import ProjectList from '@/components/ProjectList';
 
 export default function Page() {
     return (
-        <Modal>
+        <Modal intercept={true}>
             <ProjectList modal={true} />
         </Modal>
     );
