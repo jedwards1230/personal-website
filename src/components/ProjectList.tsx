@@ -5,9 +5,11 @@ import { useState } from 'react';
 
 import { projects } from '@/data';
 import TagList, { FilterTag } from '@/components/Tag';
-import { ArrowLeft, NewTab } from '../app/Icons';
+import { NewTab } from '../app/Icons';
+import BackButton from './BackButton';
+import { useNavigation } from '@/app/NavigationProvider';
 
-export default function ProjectList() {
+export default function ProjectList({ modal = false }: { modal?: boolean }) {
     const [companyFilter, setCompanyFilter] = useState<string[]>([]);
     const [yearFilter, setYearFilter] = useState<number[]>([]);
     const [tagFilter, setTagFilter] = useState<string[]>([]);
@@ -63,15 +65,8 @@ export default function ProjectList() {
 
     return (
         <>
-            <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50/50 pb-4 pt-4 text-center backdrop-blur dark:bg-neutral-950/30 md:pb-2">
-                <Link
-                    href="/"
-                    scroll={false}
-                    className="col-span-4 flex items-center gap-2 pl-2 transition-all hover:gap-4 hover:underline"
-                >
-                    <ArrowLeft />
-                    Home
-                </Link>
+            <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50/50 pb-4 pt-4 text-center backdrop-blur dark:bg-neutral-950/50 md:pb-2">
+                <BackButton modal={modal} intercept={true} />
                 <h2 className="col-span-4 text-2xl">Projects</h2>
             </div>
             <div>
@@ -79,7 +74,7 @@ export default function ProjectList() {
                     Select details to filter
                 </div>
                 {/* Filters */}
-                <div className="flex h-8 flex-wrap justify-center gap-2 pt-1">
+                <div className="flex flex-wrap justify-center gap-2 pt-1">
                     {companyFilter.map((c, i) => (
                         <FilterTag
                             key={'company-' + i}
@@ -111,10 +106,10 @@ export default function ProjectList() {
                     ))}
                 </div>
             </div>
-            <div className="flex flex-col gap-4 pb-8">
+            <div className="flex flex-col gap-4 pb-8 pt-4">
                 {/* Projects */}
                 {sortedProjects.map((p, i) => (
-                    <Project
+                    <ProjectListItem
                         key={'project-' + i}
                         project={p}
                         handleClientClick={handleCompanyClick}
@@ -127,7 +122,7 @@ export default function ProjectList() {
     );
 }
 
-function Project({
+function ProjectListItem({
     project,
     handleClientClick,
     handleYearClick,
@@ -138,13 +133,19 @@ function Project({
     handleYearClick: (year: number) => void;
     handleTagClick: (tag: string) => void;
 }) {
+    const { setCurrentProject } = useNavigation();
+
     return (
-        <div className="flex flex-col p-2">
+        <div
+            className="flex cursor-pointer flex-col rounded border border-transparent p-2 focus:bg-neutral-300/30 hover:sm:border-neutral-300 hover:sm:shadow-sm hover:dark:sm:border-neutral-700"
+            onClick={() => setCurrentProject(project.id)}
+        >
             <div className="flex flex-col justify-between md:flex-row md:items-center">
                 {/* Title */}
                 {project.href ? (
                     <Link
                         target="_blank"
+                        scroll={false}
                         className="group flex gap-2 text-lg font-semibold hover:underline"
                         href={project.href}
                     >
@@ -161,14 +162,20 @@ function Project({
                 <p className="text-neutral-500 dark:text-neutral-400">
                     <button
                         className="md:hover:underline"
-                        onClick={() => handleClientClick(project.client)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleClientClick(project.client);
+                        }}
                     >
                         {project.client}
                     </button>{' '}
                     -{' '}
                     <button
                         className="md:hover:underline"
-                        onClick={() => handleYearClick(project.year)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleYearClick(project.year);
+                        }}
                     >
                         {project.year}
                     </button>

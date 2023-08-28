@@ -1,10 +1,15 @@
+'use client';
+
 import { Close } from '@/app/Icons';
 import clsx from 'clsx';
 
 function SkillTag({ tag, onClick }: { tag: string; onClick?: () => void }) {
     return (
         <span
-            onClick={onClick}
+            onClick={(e) => {
+                e.stopPropagation();
+                onClick && onClick();
+            }}
             className={clsx(
                 'rounded-full bg-blue-200 px-2.5 py-1 font-medium text-blue-700 dark:text-blue-900',
                 onClick && 'cursor-pointer md:hover:underline',
