@@ -25,7 +25,7 @@ export default function ProjectCard({
                     {project.client}
                 </div>
             </div>
-            <div className="flex w-full gap-2 md:gap-4">
+            <div className="flex w-full flex-col gap-2 sm:flex-row md:gap-4">
                 {project.img && (
                     <Image
                         width={800}
