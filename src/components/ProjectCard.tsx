@@ -18,14 +18,11 @@ export default function ProjectCard({
             {/* Title - Client - Year */}
             <div className="mb-3 grid grid-cols-12">
                 <BackButton modal={modal} />
-                <h2 className="col-span-4 flex w-full justify-center text-xl font-bold text-neutral-900 dark:text-neutral-100">
+                <h2 className="col-span-4 flex w-full justify-center whitespace-nowrap text-xl font-bold text-neutral-900 dark:text-neutral-100">
                     {project.title}
                 </h2>
-                <div className="col-span-4 flex w-full items-center justify-end text-sm text-neutral-500 dark:text-neutral-400">
-                    {project.client}
-                </div>
             </div>
-            <div className="flex w-full flex-col gap-2 sm:flex-row md:gap-4">
+            <div className="mb-2 flex w-full flex-col gap-2 sm:flex-row md:gap-4">
                 {project.img && (
                     <Image
                         width={800}
@@ -41,12 +38,12 @@ export default function ProjectCard({
                     <p className="text-neutral-700 dark:text-neutral-300">
                         {project.description}
                     </p>
-                    <p className="text-sm">
-                        Last Modified: {project.month}/{project.year}
-                    </p>
-
-                    {/* Tags */}
-                    <TagList tags={project.tags} />
+                    <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                        <p>Made For: {project.client}</p>
+                        <p>
+                            Last Modified: {project.month}/{project.year}
+                        </p>
+                    </div>
 
                     {/* Project Link */}
                     {project.href && (
@@ -54,13 +51,23 @@ export default function ProjectCard({
                             href={project.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-neutral-600 hover:underline dark:text-neutral-400"
+                            className="text-neutral-600 hover:underline dark:text-neutral-300"
                         >
                             View Project
                         </Link>
                     )}
+
+                    {/* Tags */}
+                    <TagList tags={project.tags} />
                 </div>
             </div>
+            {project.info && (
+                <div className="flex flex-col gap-2">
+                    {project.info.map((p) => (
+                        <p key={'project-info-' + project.title}>{p}</p>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

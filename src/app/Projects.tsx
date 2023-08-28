@@ -8,6 +8,9 @@ import Section from '@/components/Section';
 import TagList from '@/components/Tag';
 import { projects } from '@/data';
 import { useNavigation } from './NavigationProvider';
+import clsx from 'clsx';
+
+const PROJECT_CARD_ENABLED = false;
 
 export default function Projects() {
     const { setCurrentProject } = useNavigation();
@@ -23,8 +26,15 @@ export default function Projects() {
                 {showcaseProjects.map((p, i) => {
                     return (
                         <div
-                            onClick={() => setCurrentProject(p.id)}
-                            className="group grid w-full cursor-pointer grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-200/50 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800"
+                            onClick={
+                                PROJECT_CARD_ENABLED
+                                    ? () => setCurrentProject(p.id)
+                                    : undefined
+                            }
+                            className={clsx(
+                                'group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-200/50 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800',
+                                PROJECT_CARD_ENABLED && 'cursor-pointer',
+                            )}
                             key={'projects-' + i}
                         >
                             {/* Preview */}

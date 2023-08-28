@@ -8,6 +8,9 @@ import TagList, { FilterTag } from '@/components/Tag';
 import { NewTab } from '../app/Icons';
 import BackButton from './BackButton';
 import { useNavigation } from '@/app/NavigationProvider';
+import clsx from 'clsx';
+
+const PROJECT_CARD_ENABLED = false;
 
 export default function ProjectList({ modal = false }: { modal?: boolean }) {
     const [companyFilter, setCompanyFilter] = useState<string[]>([]);
@@ -65,7 +68,7 @@ export default function ProjectList({ modal = false }: { modal?: boolean }) {
 
     return (
         <>
-            <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50/50 pb-4 pt-4 text-center backdrop-blur dark:bg-neutral-950/50 md:pb-2">
+            <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50/80 pb-4 pt-4 text-center backdrop-blur dark:bg-neutral-950/90 md:pb-2">
                 <BackButton modal={modal} intercept={true} />
                 <h2 className="col-span-4 text-2xl">Projects</h2>
             </div>
@@ -137,8 +140,16 @@ function ProjectListItem({
 
     return (
         <div
-            className="flex cursor-pointer flex-col rounded border border-transparent p-2 focus:bg-neutral-300/30 hover:sm:border-neutral-300 hover:sm:shadow-sm hover:dark:sm:border-neutral-700"
-            onClick={() => setCurrentProject(project.id)}
+            className={clsx(
+                'flex flex-col p-2 focus:bg-neutral-300/30 hover:dark:sm:border-neutral-700',
+                PROJECT_CARD_ENABLED &&
+                    'cursor-pointer rounded border border-transparent hover:sm:border-neutral-300 hover:sm:shadow-sm',
+            )}
+            onClick={
+                PROJECT_CARD_ENABLED
+                    ? () => setCurrentProject(project.id)
+                    : undefined
+            }
         >
             <div className="flex flex-col justify-between md:flex-row md:items-center">
                 {/* Title */}
