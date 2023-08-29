@@ -3,6 +3,7 @@ import type { Metadata } from 'next/types';
 
 import '@/globals.css';
 import { Providers } from './providers';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const APP_NAME = 'J. Edwards Personal Website';
 const APP_DEFAULT_TITLE = 'J. Edwards';
@@ -27,7 +28,7 @@ export default function RootLayout({
         <html
             suppressHydrationWarning={true}
             lang="en"
-            className="select-none scroll-smooth bg-neutral-50 selection:bg-neutral-300 selection:text-neutral-900 dark:bg-neutral-950 dark:selection:bg-neutral-400 dark:selection:text-neutral-900 sm:select-auto"
+            className="select-none scroll-smooth selection:bg-neutral-300 selection:text-neutral-900 dark:selection:bg-neutral-400 dark:selection:text-neutral-900 sm:select-auto"
         >
             <head>
                 <PlausibleProvider
@@ -35,8 +36,13 @@ export default function RootLayout({
                     trackOutboundLinks={true}
                 />
             </head>
-            <body className="relative h-full w-full">
-                <Providers>{children}</Providers>
+            <body className="relative h-full w-full bg-neutral-50 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50">
+                <Providers>
+                    <div className="fixed bottom-12 right-8 hidden md:block">
+                        <ThemeToggle />
+                    </div>
+                    {children}
+                </Providers>
             </body>
         </html>
     );

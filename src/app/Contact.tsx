@@ -6,6 +6,9 @@ import Section from '@/components/Section';
 import { createContact } from '@/lib/prisma';
 import clsx from 'clsx';
 import { usePlausible } from 'next-plausible';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function Contact() {
     const plausible = usePlausible();
@@ -53,40 +56,43 @@ export default function Contact() {
                 </p>
                 {success && <p className="text-green-500">Message sent!</p>}
                 {error && <p className="text-red-500">{error}</p>}
-                <label
+                <div
                     className={clsx(
-                        'grid grid-cols-12',
+                        'flex items-center justify-between',
                         success || error ? 'pt-1' : 'pt-2',
                     )}
                 >
-                    Name:
-                    <input
-                        className="col-span-8 col-start-5 rounded border border-transparent px-1 py-0.5 focus:border-neutral-300 focus:outline-none dark:bg-neutral-800"
+                    <Label htmlFor="name">Name:</Label>
+                    <Input
+                        className="w-2/3"
                         type="text"
+                        id="name"
                         value={name}
                         onChange={(event) => setName(event.target.value)}
                     />
-                </label>
-                <label className="grid grid-cols-12">
-                    Email:
-                    <input
-                        className="col-span-8 col-start-5 rounded border border-transparent px-1 py-0.5 focus:border-neutral-300 focus:outline-none dark:bg-neutral-800"
+                </div>
+                <div className="flex items-center justify-between">
+                    <Label htmlFor="email">Email:</Label>
+                    <Input
+                        className="w-2/3"
                         type="email"
+                        id="email"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                     />
-                </label>
-                <label className="grid grid-cols-12">
-                    Message:
-                    <textarea
-                        className="col-span-8 col-start-5 rounded border border-transparent px-1 py-0.5 focus:border-neutral-300 focus:outline-none dark:bg-neutral-800"
+                </div>
+                <div className="flex items-center justify-between">
+                    <Label htmlFor="message">Message:</Label>
+                    <Textarea
+                        className="w-2/3"
                         value={message}
+                        id="message"
                         rows={5}
                         onChange={(event) => setMessage(event.target.value)}
                         required
                     />
-                </label>
-                <button className="pt-2 hover:underline" type="submit">
+                </div>
+                <button className="pt-4 hover:underline" type="submit">
                     Send
                 </button>
             </form>
