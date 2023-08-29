@@ -10,7 +10,7 @@ export default function Experience() {
                 {experience.map((e, i) => {
                     return (
                         <div
-                            className="group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all hover:shadow-sm dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-200/50 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800"
+                            className="group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all hover:shadow-sm dark:text-neutral-400 hover:md:bg-neutral-200/50 hover:md:!opacity-100 group-hover/list:md:opacity-50 hover:md:dark:bg-neutral-800 lg:gap-4"
                             key={'experience-' + i}
                         >
                             {/* Period */}
