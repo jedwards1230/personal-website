@@ -56,7 +56,7 @@ export function FilterTag({
     return (
         <button
             onClick={() => onClick(tag)}
-            className="flex items-center gap-1 rounded-full border border-neutral-600 px-2.5 py-1 text-sm font-medium text-neutral-950 hover:bg-neutral-300 dark:text-neutral-50 dark:hover:bg-neutral-500"
+            className="text-foreground border-border flex items-center gap-1 rounded-full border px-2.5 py-1 text-sm font-medium hover:bg-neutral-300 dark:hover:bg-neutral-500"
         >
             <Close /> {tag}
         </button>

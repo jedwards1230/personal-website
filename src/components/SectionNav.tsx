@@ -22,9 +22,8 @@ export default function SectionNav() {
                         key={'section-' + i}
                         className={clsx(
                             'cursor-pointer transition-all hover:text-neutral-800 hover:dark:text-neutral-200',
-                            currentSection === s
-                                ? 'pl-2 text-xl text-neutral-950 dark:text-neutral-50'
-                                : '',
+                            currentSection === s &&
+                                'text-foreground pl-2 text-xl',
                         )}
                         onClick={() => scrollToSection(s)}
                     >
