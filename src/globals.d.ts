@@ -8,6 +8,7 @@ type Experience = {
     summary: string;
     description: string[];
     tags: string[];
+    extraTags?: string[];
 };
 
 type Project = {

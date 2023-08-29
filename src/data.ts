@@ -472,12 +472,27 @@ export const experiences: Experience[] = [
         company: 'Freelance',
         period: '03/2015 - 05/2022',
         summary:
-            'Leadership and technical support for live events, ensuring seamless productions and resolution of on-site challenges.',
+            'Provided versatile technical and leadership roles in live event productions, offering solutions to on-site challenges and ensuring seamless performances.',
         description: [
-            'Directed and trained crews for events, resolving technical issues effectively.',
+            'Worked in various roles including stagehand, shop assistant, stage manager, lighting designer, and team lead across different event companies.',
+            'Gained hands-on experience with new technologies and skills in entertainment tech, customer service, networking, electrical, carpentry, and more while working with new people and clients at each event.',
+            'Directed and trained crews for events, resolving technical issues effectively and ensuring smooth performances.',
+            'Contributed to various aspects of production, including set design, painting, electrics, building props and sets, operating the fly system during shows, focusing and gelling lights, light design, and programming/operating the lighting board.',
             'Guided problem-solving initiatives during productions to ensure smooth events.',
-            'Contributed to various aspects of production, including set design, painting, and electrics.',
         ],
-        tags: ['Leadership', 'Project Planning', 'Troubleshooting'],
+        tags: [
+            'Leadership',
+            'Project Planning',
+            'Troubleshooting',
+            'Hands-on Technical',
+        ],
+        extraTags: [
+            'Networking',
+            'Electrical',
+            'Carpentry',
+            'Lighting Design',
+            'Stage Management',
+            'Customer Service',
+        ],
     },
 ];
