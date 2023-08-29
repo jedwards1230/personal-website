@@ -22,6 +22,11 @@ export default function ExperienceCard({
         ),
     );
 
+    const tags = [
+        ...(relevantTags.length > 0 ? relevantTags : experience.tags),
+        ...(experience.extraTags ? experience.extraTags : []),
+    ];
+
     return (
         <div className="flex w-full flex-col pb-4 sm:px-4">
             {/* Title - Client - Year */}
@@ -44,13 +49,7 @@ export default function ExperienceCard({
                     </div>
 
                     {/* Tags */}
-                    <TagList
-                        tags={
-                            relevantTags.length > 0
-                                ? relevantTags
-                                : experience.tags
-                        }
-                    />
+                    <TagList tags={tags} />
                 </div>
             </div>
             <ul className="list-inside list-disc space-y-2">
