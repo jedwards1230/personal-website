@@ -67,7 +67,7 @@ export default function Modal({
                 zIndex === 10 &&
                     'z-10 bg-neutral-950/60 dark:bg-neutral-800/50 md:py-8',
                 zIndex === 20 &&
-                    'z-20 bg-neutral-950/70 py-8 dark:bg-neutral-900/80 md:py-16',
+                    'z-20 bg-neutral-950/70 pb-16 pt-8 dark:bg-neutral-900/80 md:px-8 md:pb-16 md:pt-16',
             )}
         >
             <div

@@ -21,7 +21,7 @@ type Project = {
     /** Short description of the project */
     description: string;
     /** Additional info about the project */
-    info?: string[];
+    info?: string;
     /** Link to the project */
     href?: string;
     /** Tags for the project */

@@ -10,8 +10,6 @@ import BackButton from './BackButton';
 import { useNavigation } from '@/app/NavigationProvider';
 import clsx from 'clsx';
 
-const PROJECT_CARD_ENABLED = false;
-
 export default function ProjectList({ modal = false }: { modal?: boolean }) {
     const [companyFilter, setCompanyFilter] = useState<string[]>([]);
     const [yearFilter, setYearFilter] = useState<number[]>([]);
@@ -142,18 +140,16 @@ function ProjectListItem({
         <div
             className={clsx(
                 'flex flex-col p-2 focus:bg-neutral-300/30 hover:dark:sm:border-neutral-700',
-                PROJECT_CARD_ENABLED &&
+                project.info &&
                     'cursor-pointer rounded border border-transparent hover:sm:border-neutral-300 hover:sm:shadow-sm',
             )}
             onClick={
-                PROJECT_CARD_ENABLED
-                    ? () => setCurrentProject(project.id)
-                    : undefined
+                project.info ? () => setCurrentProject(project.id) : undefined
             }
         >
             <div className="flex flex-col justify-between md:flex-row md:items-center">
                 {/* Title */}
-                {project.href ? (
+                {project.href && !project.info ? (
                     <Link
                         target="_blank"
                         scroll={false}
