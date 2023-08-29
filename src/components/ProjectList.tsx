@@ -66,7 +66,7 @@ export default function ProjectList({ modal = false }: { modal?: boolean }) {
 
     return (
         <>
-            <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50/80 pb-4 pt-4 text-center backdrop-blur dark:bg-neutral-950/90 md:pb-2">
+            <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50 pb-4 pt-4 text-center dark:bg-neutral-950 md:pb-2">
                 <BackButton modal={modal} intercept={true} />
                 <h2 className="col-span-4 text-2xl">Projects</h2>
             </div>
