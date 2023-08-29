@@ -187,7 +187,7 @@ function ProjectListItem({
                 )}
 
                 {/* Client - Year */}
-                <p className="text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">
                     {handleYearClick && handleClientClick ? (
                         <>
                             <button
@@ -207,7 +207,7 @@ function ProjectListItem({
                                     handleYearClick(project.year);
                                 }}
                             >
-                                {project.year}
+                                {project.month}/{project.year}
                             </button>
                         </>
                     ) : (
