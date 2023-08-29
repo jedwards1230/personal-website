@@ -212,7 +212,7 @@ function ProjectListItem({
                         </>
                     ) : (
                         <>
-                            {project.client} - {project.year}
+                            {project.client} - {project.month}/{project.year}
                         </>
                     )}
                 </p>
