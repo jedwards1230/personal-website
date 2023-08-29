@@ -13,13 +13,19 @@ export default function BackButton({
     modal?: boolean;
     intercept?: boolean;
 }) {
-    const { setCurrentProject } = useNavigation();
+    const {
+        currentProject,
+        setCurrentProject,
+        currentExperience,
+        setCurrentExperience,
+    } = useNavigation();
     const router = useRouter();
     return modal ? (
         <div
             onClick={() => {
                 if (intercept) router.back();
-                else setCurrentProject(null);
+                else if (currentProject) setCurrentProject(null);
+                else if (currentExperience) setCurrentExperience(null);
             }}
             className="col-span-4 flex cursor-pointer items-center gap-2 pl-2 transition-all hover:gap-4 hover:underline"
         >

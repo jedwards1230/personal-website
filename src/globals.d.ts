@@ -1,9 +1,11 @@
 type Section = 'about' | 'experience' | 'projects' | 'contact';
 
 type Experience = {
+    id: number;
     title: string;
     company: string;
     period: string;
+    summary: string;
     description: string[];
     tags: string[];
 };
@@ -21,7 +23,7 @@ type Project = {
     /** Short description of the project */
     description: string;
     /** Additional info about the project */
-    info?: string;
+    info: string;
     /** Link to the project */
     href?: string;
     /** Tags for the project */

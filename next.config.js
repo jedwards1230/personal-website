@@ -28,9 +28,7 @@ const removeConsole = (phase) => {
         };
     }
 
-    return {
-        ...nextConfig,
-    };
+    return nextConfig;
 };
 
 module.exports = withPlausibleProxy()(removeConsole(process.env.PHASE));

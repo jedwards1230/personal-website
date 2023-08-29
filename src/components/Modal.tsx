@@ -18,14 +18,27 @@ export default function Modal({
     intercept?: boolean;
 }) {
     const router = useRouter();
-    const { setCurrentProject } = useNavigation();
+    const {
+        currentProject,
+        setCurrentProject,
+        currentExperience,
+        setCurrentExperience,
+    } = useNavigation();
     const overlay = useRef(null);
     const wrapper = useRef(null);
 
     const onDismiss = useCallback(() => {
         if (intercept) router.back();
-        else setCurrentProject(null);
-    }, [intercept, router, setCurrentProject]);
+        else if (currentProject) setCurrentProject(null);
+        else if (currentExperience) setCurrentExperience(null);
+    }, [
+        currentExperience,
+        currentProject,
+        intercept,
+        router,
+        setCurrentExperience,
+        setCurrentProject,
+    ]);
 
     const onClick: MouseEventHandler = useCallback(
         (e) => {
@@ -63,7 +76,7 @@ export default function Modal({
             ref={overlay}
             onClick={onClick}
             className={clsx(
-                'fixed left-0 top-0 flex h-screen w-screen flex-col items-center overflow-hidden',
+                'fixed left-0 top-0 flex h-screen w-screen flex-col items-center justify-center overflow-hidden',
                 zIndex === 10 &&
                     'z-10 bg-neutral-950/60 dark:bg-neutral-800/50 md:py-8',
                 zIndex === 20 &&
@@ -73,7 +86,7 @@ export default function Modal({
             <div
                 ref={wrapper}
                 className={clsx(
-                    'w-full overflow-y-scroll overscroll-none rounded bg-neutral-50 px-6 transition-all dark:border dark:border-neutral-700 dark:bg-neutral-950',
+                    'w-full overflow-y-scroll overscroll-none rounded border border-transparent bg-neutral-50 px-6 transition-all dark:border-y-neutral-700 dark:bg-neutral-950 dark:sm:border-neutral-700',
                     size === 'sm' && 'md:w-2/3 lg:w-1/2',
                     size === 'lg' && 'md:w-4/5 lg:w-2/3',
                 )}
