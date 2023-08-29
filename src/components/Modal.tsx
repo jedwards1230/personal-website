@@ -74,7 +74,7 @@ export default function Modal({
             ref={overlay}
             onClick={onClick}
             className={clsx(
-                'fixed left-0 right-0 top-0 flex h-screen w-screen flex-col items-center justify-center overflow-hidden',
+                'fixed left-0 right-0 top-0 flex h-screen w-screen flex-col items-center justify-center overflow-hidden backdrop-blur-sm animate-in fade-in-25',
                 zIndex === 10 &&
                     'z-10 bg-neutral-900/60 dark:bg-neutral-800/50 md:py-8',
                 zIndex === 20 &&
@@ -84,7 +84,7 @@ export default function Modal({
             <div
                 ref={wrapper}
                 className={clsx(
-                    'dark:border-y-border dark:sm:border-border bg-background w-full overflow-y-scroll overscroll-none rounded border border-transparent px-6 transition-all',
+                    'w-full overflow-y-scroll overscroll-none rounded border border-transparent bg-background px-6 transition-all animate-in fade-in-25 dark:border-y-border dark:sm:border-border',
                     size === 'sm' && 'md:w-2/3 lg:w-1/2',
                     size === 'lg' && 'md:w-4/5 lg:w-2/3',
                 )}
