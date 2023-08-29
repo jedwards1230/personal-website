@@ -5,8 +5,10 @@ import Section from '@/components/Section';
 import TagList from '@/components/Tag';
 import { experiences } from '../data';
 import { useNavigation } from './NavigationProvider';
+import { usePlausible } from 'next-plausible';
 
 export default function Experience() {
+    const plausible = usePlausible();
     const { setCurrentExperience } = useNavigation();
 
     return (
@@ -17,7 +19,15 @@ export default function Experience() {
                         <div
                             className="group grid w-full cursor-pointer grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all hover:scale-105 hover:bg-neutral-200/50 hover:shadow-sm dark:text-neutral-400 hover:dark:bg-neutral-800 hover:md:!opacity-100 group-hover/list:md:opacity-50 lg:gap-4"
                             key={'experience-' + i}
-                            onClick={() => setCurrentExperience(e.id)}
+                            onClick={() => {
+                                setCurrentExperience(e.id);
+                                plausible('View Experience', {
+                                    props: {
+                                        experience: e.title,
+                                        company: e.company,
+                                    },
+                                });
+                            }}
                         >
                             {/* Period */}
                             <time className="col-span-12 whitespace-nowrap text-sm lg:col-span-4">

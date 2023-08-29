@@ -8,6 +8,7 @@ import { NewTab } from '../app/Icons';
 import BackButton from './BackButton';
 import { useNavigation } from '@/app/NavigationProvider';
 import clsx from 'clsx';
+import { usePlausible } from 'next-plausible';
 
 export default function ProjectList({
     projects,
@@ -155,6 +156,7 @@ function ProjectListItem({
     handleYearClick?: (year: number) => void;
     handleTagClick?: (tag: string) => void;
 }) {
+    const plausible = usePlausible();
     const { setCurrentProject } = useNavigation();
 
     return (
@@ -165,7 +167,16 @@ function ProjectListItem({
                     'cursor-pointer rounded border border-transparent hover:sm:border-neutral-300 hover:sm:shadow-sm',
             )}
             onClick={
-                project.info ? () => setCurrentProject(project.id) : undefined
+                project.info
+                    ? () => {
+                          setCurrentProject(project.id);
+                          plausible('View Project', {
+                              props: {
+                                  project: project.title,
+                              },
+                          });
+                      }
+                    : undefined
             }
         >
             <div className="flex flex-col justify-between md:flex-row md:items-center">
