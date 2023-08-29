@@ -51,7 +51,10 @@ export default function Modal({
 
     const onKeyDown = useCallback(
         (e: KeyboardEvent) => {
-            if (e.key === 'Escape') onDismiss();
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                onDismiss();
+            }
         },
         [onDismiss],
     );
@@ -63,12 +66,7 @@ export default function Modal({
 
     useEffect(() => {
         document.body.classList.add('overflow-hidden');
-        // disable scroll. freeze in place.
-        document.body.style.top = `-${window.scrollY}px`;
-        return () => {
-            document.body.classList.remove('overflow-hidden');
-            document.body.style.removeProperty('top');
-        };
+        return () => document.body.classList.remove('overflow-hidden');
     }, []);
 
     return (
@@ -76,7 +74,7 @@ export default function Modal({
             ref={overlay}
             onClick={onClick}
             className={clsx(
-                'fixed left-0 top-0 flex h-screen w-screen flex-col items-center justify-center overflow-hidden',
+                'fixed left-0 right-0 top-0 flex h-screen w-screen flex-col items-center justify-center overflow-hidden',
                 zIndex === 10 &&
                     'z-10 bg-neutral-950/60 dark:bg-neutral-800/50 md:py-8',
                 zIndex === 20 &&
