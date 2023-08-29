@@ -53,7 +53,7 @@ export const NavigationProvider = ({
         >
             {children}
             {currentProject && (
-                <Modal zIndex={20} size="sm">
+                <Modal zIndex={20}>
                     <ProjectCard project={project} modal={true} />
                 </Modal>
             )}

@@ -10,8 +10,6 @@ import { projects } from '@/data';
 import { useNavigation } from './NavigationProvider';
 import clsx from 'clsx';
 
-const PROJECT_CARD_ENABLED = false;
-
 export default function Projects() {
     const { setCurrentProject } = useNavigation();
     const showcaseProjects = useMemo(() => {
@@ -27,13 +25,13 @@ export default function Projects() {
                     return (
                         <div
                             onClick={
-                                PROJECT_CARD_ENABLED
+                                p.info
                                     ? () => setCurrentProject(p.id)
                                     : undefined
                             }
                             className={clsx(
-                                'group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 lg:gap-4 hover:lg:bg-neutral-200/50 hover:lg:!opacity-100 group-hover/list:lg:opacity-50 hover:lg:dark:bg-neutral-800',
-                                PROJECT_CARD_ENABLED && 'cursor-pointer',
+                                'group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 md:hover:bg-neutral-200/50 md:hover:!opacity-100 md:group-hover/list:opacity-50 md:hover:dark:bg-neutral-800 lg:gap-4',
+                                p.info && 'cursor-pointer',
                             )}
                             key={'projects-' + i}
                         >
@@ -61,7 +59,7 @@ export default function Projects() {
             <Link
                 href="/projects"
                 scroll={false}
-                className="pt-8 text-center text-lg hover:underline"
+                className="select-none pt-8 text-center text-lg hover:underline"
             >
                 View All Projects
             </Link>

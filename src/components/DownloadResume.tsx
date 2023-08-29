@@ -11,7 +11,7 @@ export default function DownloadResume() {
             href="/Justin Edwards - Resume.pdf"
             onClick={() => plausible('Resume Download')}
             target="_blank"
-            className="inline-flex justify-center gap-2 pt-8 text-lg hover:underline"
+            className="inline-flex select-none justify-center gap-2 pt-8 text-lg hover:underline"
         >
             View Full Resume <NewTab />
         </Link>
