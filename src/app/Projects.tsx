@@ -30,8 +30,8 @@ export default function Projects() {
                                     : undefined
                             }
                             className={clsx(
-                                'group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all dark:text-neutral-400 md:hover:bg-neutral-200/50 md:hover:!opacity-100 md:group-hover/list:opacity-50 md:hover:dark:bg-neutral-800 lg:gap-4',
-                                p.info && 'cursor-pointer',
+                                'group grid w-full grid-cols-12 gap-1 rounded p-2 text-neutral-500 transition-all hover:bg-neutral-200/50 dark:text-neutral-400 hover:dark:bg-neutral-800 md:hover:!opacity-100 md:group-hover/list:opacity-50 lg:gap-4',
+                                p.info && 'cursor-pointer hover:scale-105',
                             )}
                             key={'projects-' + i}
                         >

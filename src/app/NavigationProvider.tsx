@@ -5,7 +5,8 @@ import { useInView } from 'react-intersection-observer';
 
 import ProjectCard from '@/components/ProjectCard';
 import Modal from '@/components/Modal';
-import { projects } from '@/data';
+import { experiences, projects } from '@/data';
+import ExperienceCard from '@/components/ExperienceCard';
 
 const NavigationContext = createContext({
     refProjects: null,
@@ -14,7 +15,10 @@ const NavigationContext = createContext({
     refContact: null,
     currentSection: 'about',
     setCurrentSection: (section: Section) => {},
+    currentProject: null,
     setCurrentProject: (project: string | null) => {},
+    currentExperience: null,
+    setCurrentExperience: (experience: number | null) => {},
 });
 
 export const NavigationProvider = ({
@@ -23,7 +27,13 @@ export const NavigationProvider = ({
     children: React.ReactNode;
 }) => {
     const [currentSection, setCurrentSection] = useState('about');
+    const [currentExperience, setCurrentExperience] = useState<number | null>(
+        null,
+    );
     const [currentProject, setCurrentProject] = useState<string | null>(null);
+    const experience = experiences.find(
+        (experience) => experience.id === currentExperience,
+    );
     const project = projects.find((project) => project.id === currentProject);
 
     // Intersection Observer
@@ -48,10 +58,18 @@ export const NavigationProvider = ({
                 refContact,
                 currentSection,
                 setCurrentSection,
+                currentProject,
                 setCurrentProject,
+                currentExperience,
+                setCurrentExperience,
             }}
         >
             {children}
+            {currentExperience && (
+                <Modal>
+                    <ExperienceCard experience={experience} modal={true} />
+                </Modal>
+            )}
             {currentProject && (
                 <Modal zIndex={20}>
                     <ProjectCard project={project} modal={true} />
