@@ -9,8 +9,10 @@ import TagList from '@/components/Tag';
 import { projects } from '@/data';
 import { useNavigation } from './NavigationProvider';
 import clsx from 'clsx';
+import { usePlausible } from 'next-plausible';
 
 export default function Projects() {
+    const plausible = usePlausible();
     const { setCurrentProject } = useNavigation();
     const showcaseProjects = useMemo(() => {
         return projects.filter(
@@ -26,7 +28,15 @@ export default function Projects() {
                         <div
                             onClick={
                                 p.info
-                                    ? () => setCurrentProject(p.id)
+                                    ? () => {
+                                          setCurrentProject(p.id);
+                                          plausible('View Project', {
+                                              props: {
+                                                  project: p.title,
+                                                  showCase: true,
+                                              },
+                                          });
+                                      }
                                     : undefined
                             }
                             className={clsx(
@@ -59,6 +69,7 @@ export default function Projects() {
             <Link
                 href="/projects"
                 scroll={false}
+                onClick={() => plausible('View All Projects')}
                 className="select-none pt-8 text-center text-lg hover:underline"
             >
                 View All Projects
