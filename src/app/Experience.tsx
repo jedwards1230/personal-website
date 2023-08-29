@@ -36,7 +36,7 @@ export default function Experience() {
 
                             <div className="col-span-12 flex flex-col gap-1 lg:col-span-8">
                                 {/* Title */}
-                                <div className="font-medium text-neutral-950 dark:text-neutral-50">
+                                <div className="text-foreground font-medium">
                                     {e.title} - {e.company}
                                 </div>
 

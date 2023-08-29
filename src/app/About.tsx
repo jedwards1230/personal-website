@@ -8,30 +8,15 @@ export default function About() {
                     My career began in 2015 as an Entertainment Technician, and
                     after seven years of diverse roles, I have grown into my
                     current role as a Full Stack Software Developer at{' '}
-                    <strong className="text-neutral-950 dark:text-neutral-50">
-                        Atlantis Health
-                    </strong>
+                    <strong className="text-foreground">Atlantis Health</strong>
                     . Here, I use my skills in{' '}
-                    <strong className="text-neutral-950 dark:text-neutral-50">
-                        TypeScript
-                    </strong>
-                    ,{' '}
-                    <strong className="text-neutral-950 dark:text-neutral-50">
-                        NextJs
-                    </strong>
-                    ,{' '}
-                    <strong className="text-neutral-950 dark:text-neutral-50">
-                        Python
-                    </strong>
-                    , and{' '}
-                    <strong className="text-neutral-950 dark:text-neutral-50">
-                        SQL
-                    </strong>{' '}
-                    to lead large-scale projects and drive innovation, such as
+                    <strong className="text-foreground">TypeScript</strong>,{' '}
+                    <strong className="text-foreground">NextJs</strong>,{' '}
+                    <strong className="text-foreground">Python</strong>, and{' '}
+                    <strong className="text-foreground">SQL</strong> to lead
+                    large-scale projects and drive innovation, such as
                     integrating{' '}
-                    <strong className="text-neutral-950 dark:text-neutral-50">
-                        IBM Watson
-                    </strong>
+                    <strong className="text-foreground">IBM Watson</strong>
                     &apos;s NLP capabilities into patient applications.
                 </p>
                 <p>

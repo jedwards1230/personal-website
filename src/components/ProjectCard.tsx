@@ -16,7 +16,7 @@ export default function ProjectCard({
     return (
         <div className="flex w-full flex-col pb-4 sm:px-4">
             {/* Title - Client - Year */}
-            <div className="sticky top-0 grid grid-cols-12 bg-neutral-50 py-4 dark:bg-neutral-950">
+            <div className="bg-background sticky top-0 grid grid-cols-12 py-4">
                 <BackButton modal={modal} />
             </div>
             <div className="mb-4 flex w-full flex-col gap-2 sm:flex-row md:gap-4">

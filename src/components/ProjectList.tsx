@@ -76,7 +76,7 @@ export default function ProjectList({
         <>
             {!inline && (
                 <>
-                    <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-neutral-50 pb-4 pt-4 text-center dark:bg-neutral-950 md:pb-2">
+                    <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-background pb-4 pt-4 text-center md:pb-2">
                         <BackButton modal={modal} intercept={true} />
                         <h2 className="col-span-4 text-2xl">Projects</h2>
                     </div>
@@ -125,7 +125,7 @@ export default function ProjectList({
                     </div>
                 </>
             )}
-            <div className="flex flex-col gap-4 pb-8 pt-4">
+            <div className="flex flex-col gap-2 pb-8 pt-4">
                 {/* Projects */}
                 {sortedProjects.map((p, i) =>
                     inline ? (
@@ -162,9 +162,7 @@ function ProjectListItem({
     return (
         <div
             className={clsx(
-                'flex flex-col p-2 focus:bg-neutral-300/30 hover:dark:border-neutral-700',
-                project.info &&
-                    'cursor-pointer rounded border border-transparent hover:sm:border-neutral-300 hover:sm:shadow-sm',
+                'flex cursor-pointer flex-col rounded border border-transparent p-2 hover:border-border focus:bg-neutral-300/30 hover:sm:shadow-sm',
             )}
             onClick={
                 project.info
@@ -189,7 +187,7 @@ function ProjectListItem({
                         href={project.href}
                     >
                         {project.title}
-                        <span className="text-neutral-500 group-hover:text-neutral-950 dark:text-neutral-400 group-hover:dark:text-neutral-50">
+                        <span className="text-neutral-500 group-hover:text-foreground dark:text-neutral-400">
                             <NewTab />
                         </span>
                     </Link>

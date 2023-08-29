@@ -36,7 +36,7 @@ export default function RootLayout({
                     trackOutboundLinks={true}
                 />
             </head>
-            <body className="relative h-full w-full bg-neutral-50 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50">
+            <body className="relative h-full w-full">
                 <Providers>
                     <div className="fixed bottom-12 right-8 hidden md:block">
                         <ThemeToggle />

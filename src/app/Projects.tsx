@@ -51,11 +51,11 @@ export default function Projects() {
                                 height={400}
                                 src={p.img}
                                 alt={'Preview ' + p.title + '.png'}
-                                className="col-span-12 aspect-video w-full select-none rounded border bg-neutral-100 shadow-sm lg:col-span-4"
+                                className="border-border col-span-12 aspect-video w-full select-none rounded border bg-neutral-100 shadow-sm lg:col-span-4"
                             />
                             {/* Title */}
                             <div className="col-span-12 flex flex-col gap-1 lg:col-span-8">
-                                <div className="font-medium text-neutral-950 dark:text-neutral-50">
+                                <div className="text-foreground font-medium">
                                     {p.title}
                                 </div>
                                 {/* Description */}
