@@ -2,63 +2,35 @@
 
 import clsx from 'clsx';
 
-import { Close } from '@/app/Icons';
-
-function SkillTag({ tag, onClick }: { tag: string; onClick?: () => void }) {
-    return (
-        <span
-            onClick={(e) => {
-                if (!onClick) return;
-                e.stopPropagation();
-                onClick();
-            }}
-            className={clsx(
-                'rounded-full bg-blue-200 px-2.5 py-1 font-medium text-blue-700 dark:text-blue-900',
-                onClick && 'cursor-pointer md:hover:underline',
-            )}
-        >
-            {tag}
-        </span>
-    );
-}
+import { Badge } from './ui/badge';
 
 export default function TagList({
     tags,
     className,
-    handleTagClick,
+    onClick,
 }: {
     tags: string[];
     className?: string;
-    handleTagClick?: (tag: string) => void;
+    onClick?: (tag: string) => void;
 }) {
     return (
         <div className={clsx('flex flex-wrap gap-2 pt-1 text-xs', className)}>
-            {tags.map((t, i) => (
-                <SkillTag
-                    tag={t}
-                    key={'experience-' + i}
-                    onClick={
-                        handleTagClick ? () => handleTagClick(t) : undefined
-                    }
-                />
-            ))}
+            {tags.map((t, i) =>
+                onClick ? (
+                    <Badge
+                        key={'experience-' + i}
+                        variant="primaryLink"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onClick(t);
+                        }}
+                    >
+                        {t}
+                    </Badge>
+                ) : (
+                    <Badge key={'experience-' + i}>{t}</Badge>
+                ),
+            )}
         </div>
-    );
-}
-
-export function FilterTag({
-    tag,
-    onClick,
-}: {
-    tag: string;
-    onClick: (tag: string) => void;
-}) {
-    return (
-        <button
-            onClick={() => onClick(tag)}
-            className="text-foreground border-border flex items-center gap-1 rounded-full border px-2.5 py-1 text-sm font-medium hover:bg-neutral-300 dark:hover:bg-neutral-500"
-        >
-            <Close /> {tag}
-        </button>
     );
 }
