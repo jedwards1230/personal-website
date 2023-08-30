@@ -2,7 +2,7 @@
 
 import DownloadResume from '@/components/DownloadResume';
 import Section from '@/components/Section';
-import TagList from '@/components/Tag';
+import TagList from '@/components/TagList';
 import { experiences } from '../data';
 import { useNavigation } from './NavigationProvider';
 import { usePlausible } from 'next-plausible';

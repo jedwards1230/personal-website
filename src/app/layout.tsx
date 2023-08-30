@@ -38,7 +38,7 @@ export default function RootLayout({
             </head>
             <body className="relative h-full w-full">
                 <Providers>
-                    <div className="fixed bottom-12 right-8 z-50 hidden md:block">
+                    <div className="fixed bottom-8 right-8 z-10 sm:bottom-12 md:block">
                         <ThemeToggle />
                     </div>
                     {children}

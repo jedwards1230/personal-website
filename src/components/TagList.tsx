@@ -1,5 +1,3 @@
-'use client';
-
 import clsx from 'clsx';
 
 import { Badge } from './ui/badge';

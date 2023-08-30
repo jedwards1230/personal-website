@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import TagList from '@/components/Tag';
+import TagList from '@/components/TagList';
 import { Close, NewTab } from '../app/Icons';
 import BackButton from './BackButton';
 import { useNavigation } from '@/app/NavigationProvider';
