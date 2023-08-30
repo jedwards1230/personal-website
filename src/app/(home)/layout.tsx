@@ -2,6 +2,8 @@ import '@/globals.css';
 import SectionNav from '@/components/SectionNav';
 import IconLinks from '../IconLinks';
 
+export const runtime = 'edge';
+
 export default function RootLayout({
     children,
     projectListModal,
