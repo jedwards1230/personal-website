@@ -3,12 +3,13 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import TagList, { FilterTag } from '@/components/Tag';
-import { NewTab } from '../app/Icons';
+import TagList from '@/components/Tag';
+import { Close, NewTab } from '../app/Icons';
 import BackButton from './BackButton';
 import { useNavigation } from '@/app/NavigationProvider';
 import clsx from 'clsx';
 import { usePlausible } from 'next-plausible';
+import { Badge } from './ui/badge';
 
 export default function ProjectList({
     projects,
@@ -233,9 +234,23 @@ function ProjectListItem({
                 <TagList
                     tags={project.tags}
                     className="md:justify-end"
-                    handleTagClick={handleTagClick}
+                    onClick={handleTagClick}
                 />
             </div>
         </div>
+    );
+}
+
+function FilterTag({
+    tag,
+    onClick,
+}: {
+    tag: string;
+    onClick: (tag: string) => void;
+}) {
+    return (
+        <Badge onClick={() => onClick(tag)} variant="secondary">
+            <Close /> {tag}
+        </Badge>
     );
 }

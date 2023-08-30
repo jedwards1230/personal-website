@@ -11,15 +11,15 @@ export default function RootLayout({
 }) {
     return (
         <>
-            <main className="max-w-screen flex w-full flex-col justify-end px-4 pt-8 sm:px-8 md:h-full md:flex-row md:px-16 md:pt-0 lg:px-32">
-                <nav className="flex w-full flex-col justify-between gap-4 pb-12 md:fixed md:left-16 md:top-0 md:h-screen md:w-1/3 md:pt-16 lg:left-32 lg:w-1/2">
+            <main className="max-w-screen flex w-full flex-col justify-between px-4 pt-8 sm:px-8 md:h-full md:flex-row md:gap-4 md:px-16 md:pt-0 lg:px-32">
+                <nav className="inset-0 flex flex-col justify-between gap-4 overflow-hidden pb-12 md:sticky md:h-screen md:pt-16 lg:left-32">
                     <div className="flex flex-col gap-12 transition-all lg:gap-36">
                         <Header />
                         <SectionNav />
                     </div>
                     <IconLinks />
                 </nav>
-                <div className="ml-auto flex h-full w-full flex-col gap-12 md:z-10 md:w-1/2 md:gap-24">
+                <div className="ml-auto flex h-full w-full flex-col gap-12 md:z-10 md:w-2/3 md:gap-24 lg:w-1/2">
                     {children}
                 </div>
             </main>
