@@ -5,7 +5,7 @@ import { NavigationProvider } from './NavigationProvider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
-        <ThemeProvider attribute="class">
+        <ThemeProvider attribute="class" defaultTheme="system">
             <NavigationProvider>{children}</NavigationProvider>
         </ThemeProvider>
     );

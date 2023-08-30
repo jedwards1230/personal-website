@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import TagList from './Tag';
+import TagList from './TagList';
 import BackButton from './BackButton';
 import Markdown from './Markdown';
 import clsx from 'clsx';
@@ -16,7 +16,7 @@ export default function ProjectCard({
     return (
         <div className="flex w-full flex-col pb-4 sm:px-4">
             {/* Title - Client - Year */}
-            <div className="bg-background sticky top-0 grid grid-cols-12 py-4">
+            <div className="sticky top-0 grid grid-cols-12 bg-background py-4">
                 <BackButton modal={modal} />
             </div>
             <div className="mb-4 flex w-full flex-col gap-2 sm:flex-row md:gap-4">

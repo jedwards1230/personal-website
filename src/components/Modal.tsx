@@ -76,9 +76,9 @@ export default function Modal({
             className={clsx(
                 'fixed left-0 right-0 top-0 flex h-screen w-screen flex-col items-center justify-center overflow-hidden backdrop-blur-sm animate-in fade-in-25',
                 zIndex === 10 &&
-                    'z-10 bg-neutral-900/60 dark:bg-neutral-800/50 md:py-8',
+                    'z-20 bg-neutral-900/60 dark:bg-neutral-800/50 md:py-8',
                 zIndex === 20 &&
-                    'z-20 bg-neutral-900/70 pb-16 pt-8 dark:bg-neutral-900/60 md:px-8 md:pb-12 md:pt-16',
+                    'z-30 bg-neutral-900/70 pb-16 pt-8 dark:bg-neutral-900/60 md:px-8 md:pb-12 md:pt-16',
             )}
         >
             <div
