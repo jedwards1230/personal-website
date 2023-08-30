@@ -1,8 +1,10 @@
 'use client';
 
+import { HoverCardContent } from '@radix-ui/react-hover-card';
+import Link from 'next/link';
+
 import { HoverCard, HoverCardTrigger } from '@/components/ui/hover-card';
 import { GithubIcon, LinkedInIcon, EmailIcon } from './Icons';
-import { HoverCardContent } from '@radix-ui/react-hover-card';
 
 const links = [
     {
@@ -31,7 +33,7 @@ export default function IconLinks() {
             {links.map((link, i) => (
                 <HoverCard key={'icon-link-' + i} openDelay={0} closeDelay={0}>
                     <HoverCardTrigger asChild>
-                        <a
+                        <Link
                             title={link.title}
                             className="fill-neutral-600 transition-colors hover:fill-neutral-950 dark:fill-neutral-400 dark:hover:fill-neutral-50"
                             href={link.href}
@@ -39,7 +41,7 @@ export default function IconLinks() {
                             rel="noreferrer"
                         >
                             {link.icon}
-                        </a>
+                        </Link>
                     </HoverCardTrigger>
                     <HoverCardContent side="top" className="pb-4">
                         <div className="rounded border border-border p-2 text-sm">
