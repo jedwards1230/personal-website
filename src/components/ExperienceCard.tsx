@@ -52,7 +52,7 @@ export default function ExperienceCard({
                     <TagList tags={tags} />
                 </div>
             </div>
-            <ul className="list-inside list-disc space-y-2">
+            <ul className="list-inside list-disc space-y-1">
                 {experience.description.map((i) => (
                     <li key={'description-item-' + i}>{i}</li>
                 ))}
