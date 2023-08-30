@@ -36,9 +36,9 @@ export default function RootLayout({
                     trackOutboundLinks={true}
                 />
             </head>
-            <body className="relative h-full w-full">
+            <body className="max-w-10xl relative mx-auto h-full w-full">
                 <Providers>
-                    <div className="fixed bottom-8 right-8 z-10 sm:bottom-12 md:block">
+                    <div className="fixed bottom-8 right-8 z-10 sm:bottom-12">
                         <ThemeToggle />
                     </div>
                     {children}
