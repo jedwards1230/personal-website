@@ -28,6 +28,7 @@ export default function Section({
 
     return (
         <section
+            aria-label={id.charAt(0).toUpperCase() + id.slice(1) + ' section'}
             ref={ref}
             className="flex h-full flex-col sm:min-h-screen sm:pt-16"
             id={id}

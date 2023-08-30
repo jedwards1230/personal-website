@@ -1,7 +1,7 @@
 'use client';
 
 import { useNavigation } from '@/app/NavigationProvider';
-import clsx from 'clsx';
+import { Button } from './ui/button';
 
 const sections = ['about', 'experience', 'projects', 'contact'];
 
@@ -15,20 +15,21 @@ export default function SectionNav() {
     };
 
     return (
-        <div className="hidden select-none flex-col gap-1 pb-24 text-neutral-400 transition-all md:flex">
+        <div className="hidden select-none flex-col gap-1.5 pb-24 text-secondary-foreground transition-all md:flex md:items-start md:justify-start">
             {sections.map((s, i) => {
+                const size =
+                    currentSection === s ? 'navLinkActive' : 'navLinkInactive';
+                const variant =
+                    currentSection === s ? 'navActive' : 'navInactive';
                 return (
-                    <div
+                    <Button
+                        size={size}
                         key={'section-' + i}
-                        className={clsx(
-                            'cursor-pointer transition-all hover:text-neutral-800 hover:dark:text-neutral-200',
-                            currentSection === s &&
-                                'text-foreground pl-2 text-xl',
-                        )}
+                        variant={variant}
                         onClick={() => scrollToSection(s)}
                     >
                         {s.charAt(0).toUpperCase() + s.slice(1)}
-                    </div>
+                    </Button>
                 );
             })}
         </div>

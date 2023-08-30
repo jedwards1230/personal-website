@@ -33,8 +33,13 @@ export default function RootLayout({
 function Header() {
     return (
         <div>
-            <div className="text-4xl">Justin Edwards</div>
-            <div className="text-2xl text-neutral-600 dark:text-neutral-500">
+            <div className="text-4xl" aria-label="Name">
+                Justin Edwards
+            </div>
+            <div
+                className="text-2xl text-neutral-600 dark:text-neutral-500"
+                aria-label="Title"
+            >
                 Full Stack Software Developer
             </div>
         </div>
