@@ -16,6 +16,14 @@ const nextConfig = {
             },
         ],
     },
+    async rewrites() {
+        return [
+            {
+                source: '/resume',
+                destination: '/Justin Edwards - Resume.pdf',
+            },
+        ];
+    },
 };
 
 const removeConsole = (phase) => {
