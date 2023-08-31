@@ -5,8 +5,8 @@ export default function About() {
         <Section id="about">
             <div className="space-y-4 text-neutral-800 dark:text-neutral-300">
                 <p>
-                    My career began in 2015 as an Entertainment Technician, and
-                    after seven years of diverse roles, I have grown into my
+                    Hi! My career began in 2015 as an Entertainment Technician,
+                    and after seven years of diverse roles, I have grown into my
                     current role as a Full Stack Software Developer at{' '}
                     <strong className="text-foreground">Atlantis Health</strong>
                     . Here, I use my skills in{' '}

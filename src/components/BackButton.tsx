@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { ArrowLeft } from '@/app/Icons';
+import { ArrowLeft } from '@/components/Icons';
 import { useNavigation } from '@/app/NavigationProvider';
 import { useRouter } from 'next/navigation';
 

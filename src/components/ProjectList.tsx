@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import TagList from '@/components/TagList';
-import { Close, NewTab } from '../app/Icons';
+import { Close, NewTab } from './Icons';
 import BackButton from './BackButton';
 import { useNavigation } from '@/app/NavigationProvider';
 import clsx from 'clsx';

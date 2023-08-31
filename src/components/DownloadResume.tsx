@@ -1,6 +1,6 @@
 'use client';
 
-import { NewTab } from '@/app/Icons';
+import { NewTab } from '@/components/Icons';
 import { usePlausible } from 'next-plausible';
 import Link from 'next/link';
 
