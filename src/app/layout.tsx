@@ -17,6 +17,17 @@ export const metadata: Metadata = {
         template: APP_TITLE_TEMPLATE,
     },
     description: APP_DESCRIPTION,
+    openGraph: {
+        url: '/og',
+        images: ['/og'],
+        type: 'website',
+        siteName: APP_NAME,
+        title: {
+            default: APP_DEFAULT_TITLE,
+            template: APP_TITLE_TEMPLATE,
+        },
+        description: APP_DESCRIPTION,
+    },
 };
 
 export default function RootLayout({
@@ -36,7 +47,7 @@ export default function RootLayout({
                     trackOutboundLinks={true}
                 />
             </head>
-            <body className="max-w-10xl relative mx-auto h-full w-full">
+            <body className="relative mx-auto h-full w-full max-w-10xl">
                 <Providers>
                     <div className="fixed bottom-8 right-8 z-10 sm:bottom-12">
                         <ThemeToggle />
