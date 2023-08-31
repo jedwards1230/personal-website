@@ -428,7 +428,7 @@ export const experiences: Experience[] = [
         id: 1,
         title: 'Full Stack Developer',
         company: 'Atlantis Health',
-        period: '08/2021 - Present',
+        period: '08/2022 - Present',
         summary:
             'Full-stack application development for healthcare companies, employing agile methodologies for enhanced team collaboration and effective task prioritization.',
         description: [
