@@ -1,6 +1,5 @@
-import '@/globals.css';
 import SectionNav from '@/components/SectionNav';
-import IconLinks from '../IconLinks';
+import IconLinks from '@/components/IconLinks';
 
 export const runtime = 'edge';
 
