@@ -28,6 +28,14 @@ export const metadata: Metadata = {
         },
         description: APP_DESCRIPTION,
     },
+    twitter: {
+        card: 'summary',
+        title: {
+            default: APP_DEFAULT_TITLE,
+            template: APP_TITLE_TEMPLATE,
+        },
+        description: APP_DESCRIPTION,
+    },
 };
 
 export default function RootLayout({
