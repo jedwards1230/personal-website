@@ -110,7 +110,7 @@ This was inspired by the [KSP CKAN](https://github.com/KSP-CKAN/CKAN) project an
 - Ensure mod conflicts are resolved
         `,
         href: 'https://github.com/jedwards1230/go-kerbal',
-        tags: ['Go', 'CLI'],
+        tags: ['Go', 'CLI', 'BubbleTea'],
         showcase: true,
         img: 'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
     },
@@ -146,7 +146,7 @@ I also wanted a reliable place to store information about all of my work.
     - Store messages left by visitors
         `,
         href: 'https://github.com/jedwards1230/personal-website',
-        tags: ['TypeScript', 'NextJS', 'TailwindCSS'],
+        tags: ['TypeScript', 'NextJS', 'TailwindCSS', 'shadcn/ui'],
         showcase: true,
         img: 'https://raw.githubusercontent.com/jedwards1230/personal-website/main/screenshot.png',
     },
