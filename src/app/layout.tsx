@@ -11,6 +11,7 @@ const APP_TITLE_TEMPLATE = 'J. Edwards | %s';
 const APP_DESCRIPTION = 'Personal website for Justin Edwards';
 
 export const metadata: Metadata = {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_URL),
     applicationName: APP_NAME,
     title: {
         default: APP_DEFAULT_TITLE,
