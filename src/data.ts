@@ -286,6 +286,7 @@ Provide patients with a way to learn about their condition and treatment options
         client: 'Sanofi',
         title: 'Patient Portal',
         favorite: true,
+        img: '/patientPortalPreview.png',
         tags: [
             'TypeScript',
             'Python',
