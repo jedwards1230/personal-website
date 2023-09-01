@@ -100,7 +100,7 @@ It also means I pay per request rather than per month, which is cheaper for me.
         title: 'Adele',
         showcase: true,
         favorite: true,
-        images: ['/adelePreview.png'],
+        images: ['/adelePreview1.png', '/adelePreview2.png'],
         tags: [
             'TypeScript',
             'NextJS',
