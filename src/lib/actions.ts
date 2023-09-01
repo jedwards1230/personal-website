@@ -26,7 +26,7 @@ export async function createExperience(data: Experience) {
     return experience;
 }
 
-export async function getPageViews() {
+export async function getPageViews(): Promise<number> {
     const url = new URL('https://plausible.io/api/v1/stats/aggregate');
     url.searchParams.set('site_id', 'jedwards.cc');
     url.searchParams.set('period', '7d');
