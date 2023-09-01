@@ -25,3 +25,19 @@ export async function createExperience(data: Experience) {
     });
     return experience;
 }
+
+export async function getPageViews() {
+    const url = new URL('https://plausible.io/api/v1/stats/aggregate');
+    url.searchParams.set('site_id', 'jedwards.cc');
+    url.searchParams.set('period', '7d');
+    //url.searchParams.set('filters', 'visit:city!=4151316');
+
+    const res = await fetch(url, {
+        headers: {
+            Authorization:
+                'Bearer ***REMOVED***',
+        },
+    }).then((res) => res.json());
+
+    return res.results.visitors.value || 0;
+}

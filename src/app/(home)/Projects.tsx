@@ -8,7 +8,7 @@ import { usePlausible } from 'next-plausible';
 import Section from '@/components/Section';
 import TagList from '@/components/TagList';
 import { projects } from '@/data';
-import { useNavigation } from './NavigationProvider';
+import { useNavigation } from '../NavigationProvider';
 
 export default function Projects() {
     const plausible = usePlausible();
