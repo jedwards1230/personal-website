@@ -183,7 +183,6 @@ This was inspired by the [KSP CKAN](https://github.com/KSP-CKAN/CKAN) project an
         company: 'Personal',
         title: 'SearchAI',
         href: 'https://github.com/jedwards1230/search',
-        favorite: true,
         img: 'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
         tags: [
             'TypeScript',
