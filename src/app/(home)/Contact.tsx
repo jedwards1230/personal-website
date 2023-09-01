@@ -10,18 +10,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
-export default function Contact() {
+export default function Contact({ pageViews }: { pageViews: number }) {
     const plausible = usePlausible();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
-    const [pageViews, setPageViews] = useState(0);
-
-    useEffect(() => {
-        getPageViews().then((views) => setPageViews(views));
-    }, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
