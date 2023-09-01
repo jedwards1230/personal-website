@@ -5,7 +5,7 @@ export default function ImageCard({ project }: { project: Project }) {
         <Image
             width={1920}
             height={1080}
-            src={project.img}
+            src={project.images[0]}
             alt={project.title}
             className="select-none"
         />

@@ -5,10 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePlausible } from 'next-plausible';
 
-import TagList from './TagList';
-import BackButton from './BackButton';
-import Markdown from './Markdown';
-import { Star } from './Icons';
+import TagList from '../TagList';
+import BackButton from '../BackButton';
+import Markdown from '../Markdown';
+import { Star } from '../Icons';
 import { useNavigation } from '@/app/NavigationProvider';
 
 export default function ProjectCard({
@@ -37,11 +37,11 @@ export default function ProjectCard({
                 <BackButton modal={modal} />
             </div>
             <div className="mb-4 flex w-full flex-col gap-2 sm:flex-row md:gap-4">
-                {project.img && (
+                {project.images && (
                     <Image
                         width={800}
                         height={400}
-                        src={project.img}
+                        src={project.images[0]}
                         alt={project.title}
                         onClick={openImageModal}
                         className="aspect-video w-full min-w-[50%] cursor-pointer select-none rounded-lg border border-foreground shadow-sm transition-all sm:w-1/2 hover:sm:scale-[101%]"
@@ -51,12 +51,14 @@ export default function ProjectCard({
                 <div
                     className={clsx(
                         'flex w-full flex-col gap-2 py-2',
-                        project.img && 'sm:ml-4',
+                        project.images && 'sm:ml-4',
                     )}
                 >
                     {/* Details */}
                     <div
-                        className={clsx(!project.img && 'flex justify-between')}
+                        className={clsx(
+                            !project.images && 'flex justify-between',
+                        )}
                     >
                         <div>
                             <p className="flex items-center gap-2 text-xl font-medium">

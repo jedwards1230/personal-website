@@ -8,7 +8,7 @@ export const projects: Project[] = [
         title: 'Patient Portal',
         showcase: true,
         favorite: true,
-        img: '/patientPortalPreview.png',
+        images: ['/patientPortalPreview.png'],
         tags: [
             'TypeScript',
             'Python',
@@ -56,7 +56,9 @@ Provide patients with a way to learn about their condition and treatment options
         href: 'https://github.com/jedwards1230/chat',
         showcase: true,
         favorite: true,
-        img: 'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-0.png',
+        images: [
+            'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-0.png',
+        ],
         tags: [
             'TypeScript',
             'NextJS',
@@ -98,7 +100,7 @@ It also means I pay per request rather than per month, which is cheaper for me.
         title: 'Adele',
         showcase: true,
         favorite: true,
-        img: '/adelePreview.png',
+        images: ['/adelePreview.png'],
         tags: [
             'TypeScript',
             'NextJS',
@@ -150,7 +152,9 @@ Chat with AI powered virtual assistant
         href: 'https://github.com/jedwards1230/go-kerbal',
         showcase: true,
         favorite: true,
-        img: 'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
+        images: [
+            'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
+        ],
         tags: ['Go', 'CLI', 'BubbleTea'],
         description: 'CLI for managing Kerbal Space Program mods',
         info: `
@@ -183,7 +187,9 @@ This was inspired by the [KSP CKAN](https://github.com/KSP-CKAN/CKAN) project an
         company: 'Personal',
         title: 'SearchAI',
         href: 'https://github.com/jedwards1230/search',
-        img: 'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
+        images: [
+            'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
+        ],
         tags: [
             'TypeScript',
             'NextJS',
@@ -296,7 +302,9 @@ Provide patients with a way to learn about their condition and treatment options
         company: 'Personal',
         title: 'Personal Website',
         href: 'https://github.com/jedwards1230/personal-website',
-        img: 'https://raw.githubusercontent.com/jedwards1230/personal-website/main/screenshot.png',
+        images: [
+            'https://raw.githubusercontent.com/jedwards1230/personal-website/main/screenshot.png',
+        ],
         tags: ['TypeScript', 'NextJS', 'TailwindCSS', 'shadcn/ui'],
         description: 'My corner of the internet',
         info: `
@@ -407,7 +415,9 @@ I wanted to learn how to build browser extensions and Leetcode did not have buil
         `,
         href: 'https://github.com/jedwards1230/leetcode-timer',
         tags: ['TypeScript', 'HTML', 'CSS', 'Webpack', 'Browser Extensions'],
-        img: 'https://raw.githubusercontent.com/jedwards1230/leetcode-timer/main/screenshot.png',
+        images: [
+            'https://raw.githubusercontent.com/jedwards1230/leetcode-timer/main/screenshot.png',
+        ],
     },
     {
         id: '13',
