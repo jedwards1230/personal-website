@@ -1,5 +1,6 @@
 import SectionNav from '@/components/SectionNav';
 import IconLinks from '@/components/IconLinks';
+import TagList from '@/components/TagList';
 
 export const runtime = 'edge';
 
@@ -14,7 +15,7 @@ export default function RootLayout({
         <>
             <main className="max-w-screen flex w-full flex-col justify-between px-4 pt-8 sm:gap-4 sm:px-8 md:h-full md:flex-row md:px-16 md:pt-0 lg:px-32">
                 <nav className="inset-0 flex flex-col justify-between gap-4 overflow-hidden pb-12 md:sticky md:h-screen md:pt-16 lg:left-32">
-                    <div className="flex flex-col gap-12 transition-all lg:gap-36">
+                    <div className="flex flex-col gap-12 transition-all lg:gap-32">
                         <Header />
                         <SectionNav />
                     </div>
@@ -36,11 +37,12 @@ function Header() {
                 Justin Edwards
             </div>
             <div
-                className="text-2xl text-neutral-600 dark:text-neutral-500"
+                className="pb-1 text-2xl text-neutral-600 dark:text-neutral-500"
                 aria-label="Title"
             >
                 Full Stack Developer
             </div>
+            <TagList tags={['Typescript', 'NextJS', 'PostgreSQL', 'AWS']} />
         </div>
     );
 }
