@@ -14,9 +14,7 @@ export default function Projects() {
     const plausible = usePlausible();
     const { setCurrentProject } = useNavigation();
     const showcaseProjects = useMemo(() => {
-        return projects.filter(
-            (p) => p.showcase && p.showcase === true && p.img,
-        );
+        return projects.filter((p) => p.showcase === true);
     }, []);
 
     return (
@@ -40,7 +38,7 @@ export default function Projects() {
                         <Image
                             width={800}
                             height={400}
-                            src={p.img}
+                            src={p.images[0]}
                             alt={'Preview ' + p.title + '.png'}
                             className="col-span-12 w-full select-none rounded border border-border bg-neutral-100 shadow-sm lg:col-span-4"
                         />

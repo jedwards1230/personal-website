@@ -1,7 +1,7 @@
-import TagList from './TagList';
-import BackButton from './BackButton';
+import TagList from '../TagList';
+import BackButton from '../BackButton';
 import { projects } from '@/data';
-import ProjectList from './ProjectList';
+import ProjectList from '../ProjectList';
 
 export default function ExperienceCard({
     experience,

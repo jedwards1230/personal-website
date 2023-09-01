@@ -35,8 +35,6 @@ type Project = {
     showcase?: boolean;
     /** Highlight for visitors */
     favorite?: boolean;
-    /** Image to display for the project */
-    img?: string;
     /** List of images to display for the project */
-    imgList?: string[];
+    images?: string[];
 };

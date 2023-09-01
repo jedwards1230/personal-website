@@ -3,11 +3,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import ProjectCard from '@/components/ProjectCard';
+import ProjectCard from '@/components/cards/ProjectCard';
 import Modal from '@/components/Modal';
 import { experiences, projects } from '@/data';
-import ExperienceCard from '@/components/ExperienceCard';
-import ImageCard from '@/components/ImageCard';
+import ExperienceCard from '@/components/cards/ExperienceCard';
+import ImageCard from '@/components/cards/ImageCard';
 
 const NavigationContext = createContext({
     refProjects: null,
