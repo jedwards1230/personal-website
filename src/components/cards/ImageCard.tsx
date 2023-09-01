@@ -52,7 +52,7 @@ export default function ImageCard({ project }: { project: Project }) {
                 height={1080}
                 src={project.images[idx]}
                 alt={project.title}
-                className="select-none transition-all"
+                className="aspect-video select-none"
             />
         </div>
     );

@@ -58,6 +58,7 @@ Provide patients with a way to learn about their condition and treatment options
         favorite: true,
         images: [
             'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-0.png',
+            'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-1.png',
         ],
         tags: [
             'TypeScript',
@@ -154,6 +155,10 @@ Chat with AI powered virtual assistant
         favorite: true,
         images: [
             'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
+            'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/modInfo.png',
+            'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/queue.png',
+            'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/options.png',
+            'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/logs.png',
         ],
         tags: ['Go', 'CLI', 'BubbleTea'],
         description: 'CLI for managing Kerbal Space Program mods',
@@ -189,6 +194,7 @@ This was inspired by the [KSP CKAN](https://github.com/KSP-CKAN/CKAN) project an
         href: 'https://github.com/jedwards1230/search',
         images: [
             'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
+            'https://raw.githubusercontent.com/jedwards1230/search/main/results.png',
         ],
         tags: [
             'TypeScript',
