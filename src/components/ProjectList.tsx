@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import TagList from '@/components/TagList';
-import { Close, Star } from './Icons';
+import { Close, Photo, Star } from './Icons';
 import BackButton from './BackButton';
 import { useNavigation } from '@/app/NavigationProvider';
 import clsx from 'clsx';
@@ -226,6 +226,7 @@ function ProjectListItem({
                     <span className="text-lg font-semibold">
                         {project.title}
                     </span>
+                    {project.images && <Photo />}
                     {project.favorite && <Star />}
                 </div>
 
