@@ -33,6 +33,8 @@ type Project = {
     tags: string[];
     /** Whether to showcase the project on the home page */
     showcase?: boolean;
+    /** Highlight for visitors */
+    favorite?: boolean;
     /** Image to display for the project */
     img?: string;
     /** List of images to display for the project */

@@ -5,6 +5,18 @@ export const projects: Project[] = [
         month: 8,
         company: 'Personal',
         title: 'ChatUI',
+        href: 'https://github.com/jedwards1230/chat',
+        showcase: true,
+        favorite: true,
+        img: 'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-0.png',
+        tags: [
+            'TypeScript',
+            'NextJS',
+            'TailwindCSS',
+            'OpenAI API',
+            'Supabase',
+            'Oauth',
+        ],
         description: 'UI for managing chats with LLMs',
         info: `
 # Goals
@@ -28,17 +40,6 @@ It also means I pay per request rather than per month, which is cheaper for me.
 - Progressive Web App
 - Chat personalities
     - Save system messages and function preferences per personality`,
-        href: 'https://github.com/jedwards1230/chat',
-        tags: [
-            'TypeScript',
-            'NextJS',
-            'TailwindCSS',
-            'OpenAI API',
-            'Supabase',
-            'Oauth',
-        ],
-        showcase: true,
-        img: 'https://raw.githubusercontent.com/jedwards1230/chat/main/screenshots/screenshot-0.png',
     },
     {
         id: '2',
@@ -46,6 +47,18 @@ It also means I pay per request rather than per month, which is cheaper for me.
         month: 6,
         company: 'Personal',
         title: 'SearchAI',
+        href: 'https://github.com/jedwards1230/search',
+        showcase: true,
+        favorite: true,
+        img: 'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
+        tags: [
+            'TypeScript',
+            'NextJS',
+            'TailwindCSS',
+            'OpenAI API',
+            'Langchain',
+            'Supabase',
+        ],
         description: 'AI assisted search engine',
         info: `
 # Goals
@@ -68,17 +81,6 @@ Inspired by the original [Phind](https://phind.com/), I wanted to build a replic
 - Progressive Web App
 - Dark Mode
 `,
-        href: 'https://github.com/jedwards1230/search',
-        tags: [
-            'TypeScript',
-            'NextJS',
-            'TailwindCSS',
-            'OpenAI API',
-            'Langchain',
-            'Supabase',
-        ],
-        showcase: true,
-        img: 'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
     },
     {
         id: '3',
@@ -86,6 +88,11 @@ Inspired by the original [Phind](https://phind.com/), I wanted to build a replic
         month: 5,
         company: 'Personal',
         title: 'go-kerbal',
+        href: 'https://github.com/jedwards1230/go-kerbal',
+        showcase: true,
+        favorite: true,
+        img: 'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
+        tags: ['Go', 'CLI', 'BubbleTea'],
         description: 'CLI for managing Kerbal Space Program mods',
         info: `
 # Goals
@@ -109,10 +116,6 @@ This was inspired by the [KSP CKAN](https://github.com/KSP-CKAN/CKAN) project an
 - Ensure mod dependencies are met
 - Ensure mod conflicts are resolved
         `,
-        href: 'https://github.com/jedwards1230/go-kerbal',
-        tags: ['Go', 'CLI', 'BubbleTea'],
-        showcase: true,
-        img: 'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
     },
     {
         id: '4',
@@ -120,6 +123,10 @@ This was inspired by the [KSP CKAN](https://github.com/KSP-CKAN/CKAN) project an
         month: 8,
         company: 'Personal',
         title: 'Personal Website',
+        href: 'https://github.com/jedwards1230/personal-website',
+        showcase: true,
+        img: 'https://raw.githubusercontent.com/jedwards1230/personal-website/main/screenshot.png',
+        tags: ['TypeScript', 'NextJS', 'TailwindCSS', 'shadcn/ui'],
         description: 'My corner of the internet',
         info: `
 # Goals
@@ -145,10 +152,6 @@ I also wanted a reliable place to store information about all of my work.
 - Postgres
     - Store messages left by visitors
         `,
-        href: 'https://github.com/jedwards1230/personal-website',
-        tags: ['TypeScript', 'NextJS', 'TailwindCSS', 'shadcn/ui'],
-        showcase: true,
-        img: 'https://raw.githubusercontent.com/jedwards1230/personal-website/main/screenshot.png',
     },
     {
         id: '5',
@@ -157,6 +160,17 @@ I also wanted a reliable place to store information about all of my work.
         company: 'Atlantis Health',
         client: 'Sanofi',
         title: 'Adele',
+        favorite: true,
+        img: '/adelePreview.png',
+        tags: [
+            'TypeScript',
+            'NextJS',
+            'TailwindCSS',
+            'IBM Watson',
+            'AWS',
+            'Playwright',
+            'Figma',
+        ],
         description: 'AI Powered Medication Assistant',
         info: `
 # Goals
@@ -189,16 +203,6 @@ Chat with AI powered virtual assistant
 - Learn about your condition
 - Learn about your medication
 `,
-        tags: [
-            'TypeScript',
-            'NextJS',
-            'TailwindCSS',
-            'IBM Watson',
-            'AWS',
-            'Playwright',
-            'Figma',
-        ],
-        img: '/adelePreview.png',
     },
     {
         id: '6',
@@ -207,6 +211,7 @@ Chat with AI powered virtual assistant
         company: 'Atlantis Health',
         client: 'Novartis',
         title: 'Learning Modules',
+        tags: ['TypeScript', 'React', 'TailwindCSS', 'Playwright', 'Figma'],
         description: 'Linear Learning Modules for Patients',
         info: `
 # Goals
@@ -223,7 +228,6 @@ Giving patients the tools they need to have a productive conversation with their
 - Animated pages
 - Export list of questions and symptoms to PDF
         `,
-        tags: ['TypeScript', 'React', 'TailwindCSS', 'Playwright', 'Figma'],
     },
     {
         id: '7',
@@ -232,6 +236,7 @@ Giving patients the tools they need to have a productive conversation with their
         company: 'Atlantis Health',
         client: 'Jazz Pharmaceuticals',
         title: 'Email Templates',
+        tags: ['HTML', 'CSS', 'Figma'],
         description: 'Email Templates for Patient Outreach',
         info: `
 # Goals
@@ -248,7 +253,6 @@ Provide patients with a way to learn about their condition and treatment options
 - Customizable Templates
 - Backwards Compatible to HTML3
         `,
-        tags: ['HTML', 'CSS', 'Figma'],
     },
     {
         id: '8',
@@ -281,6 +285,16 @@ Provide patients with a way to learn about their condition and treatment options
         company: 'Atlantis Health',
         client: 'Sanofi',
         title: 'Patient Portal',
+        favorite: true,
+        tags: [
+            'TypeScript',
+            'Python',
+            'NextJS',
+            'TailwindCSS',
+            'AWS',
+            'Playwright',
+            'Figma',
+        ],
         description: 'Patient Portal for managing treatment',
         info: `
 # Goals
@@ -309,15 +323,6 @@ Provide patients with a way to learn about their condition and treatment options
 
 - Articles and information curated by medical professionals
         `,
-        tags: [
-            'TypeScript',
-            'Python',
-            'NextJS',
-            'TailwindCSS',
-            'AWS',
-            'Playwright',
-            'Figma',
-        ],
     },
     {
         id: '10',
