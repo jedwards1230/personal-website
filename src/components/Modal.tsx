@@ -11,16 +11,19 @@ export default function Modal({
     size = 'lg',
     zIndex = 10,
     intercept = false,
+    img = false,
 }: {
     children: React.ReactNode;
-    size?: 'sm' | 'lg';
-    zIndex?: 10 | 20;
+    size?: 'sm' | 'lg' | 'xl';
+    zIndex?: 10 | 20 | 30;
     intercept?: boolean;
+    img?: boolean;
 }) {
     const router = useRouter();
     const {
         currentProject,
         setCurrentProject,
+        setImageOpen,
         currentExperience,
         setCurrentExperience,
     } = useNavigation();
@@ -29,15 +32,18 @@ export default function Modal({
 
     const onDismiss = useCallback(() => {
         if (intercept) router.back();
+        else if (img) setImageOpen(false);
         else if (currentProject) setCurrentProject(null);
         else if (currentExperience) setCurrentExperience(null);
     }, [
         currentExperience,
         currentProject,
+        img,
         intercept,
         router,
         setCurrentExperience,
         setCurrentProject,
+        setImageOpen,
     ]);
 
     const onClick: MouseEventHandler = useCallback(
@@ -78,13 +84,16 @@ export default function Modal({
                 zIndex === 10 &&
                     'z-20 bg-neutral-900/60 dark:bg-neutral-800/50 md:py-8',
                 zIndex === 20 &&
-                    'z-30 bg-neutral-900/70 pb-16 pt-8 dark:bg-neutral-900/60 md:px-8 md:pb-12 md:pt-16',
+                    'z-30 bg-neutral-900/70 pb-4 dark:bg-neutral-900/60 sm:pb-16 sm:pt-8 md:px-8 md:pb-12 md:pt-16',
+                zIndex === 30 &&
+                    'z-40 bg-neutral-900/80 pb-16 pt-8 dark:bg-neutral-900/70 md:px-8 md:pb-12 md:pt-16',
             )}
         >
             <div
                 ref={wrapper}
                 className={clsx(
-                    'mx-auto w-full max-w-7xl overflow-y-scroll overscroll-none rounded border border-transparent bg-background px-6 transition-all animate-in fade-in-25 dark:border-y-border dark:sm:border-border',
+                    'mx-auto w-full max-w-7xl overflow-y-scroll overscroll-none rounded border border-transparent bg-background transition-all animate-in fade-in-25 dark:sm:border-border dark:sm:border-y-border',
+                    !img && 'px-6',
                     size === 'sm' && 'md:w-2/3 lg:w-1/2',
                     size === 'lg' && 'md:w-4/5 lg:w-2/3',
                 )}
