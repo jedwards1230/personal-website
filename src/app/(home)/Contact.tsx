@@ -109,7 +109,7 @@ export default function Contact() {
                     aria-label="Page Views"
                     className="text-center text-xs text-neutral-600 dark:text-neutral-500"
                 >
-                    {pageViews} {pageViews === 1 ? 'view' : 'views'} this week
+                    {pageViews} {pageViews === 1 ? 'visit' : 'visits'} this week
                 </div>
             </div>
         </Section>
