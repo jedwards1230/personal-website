@@ -238,6 +238,11 @@ Inspired by the original [Phind](https://phind.com/), I wanted to build a replic
         company: 'Atlantis Health',
         client: 'Novartis',
         title: 'Learning Modules',
+        images: [
+            '/learningModulesPreview1.png',
+            '/learningModulesPreview2.png',
+            '/learningModulesPreview3.png',
+        ],
         tags: ['TypeScript', 'React', 'TailwindCSS', 'Playwright', 'Figma'],
         description: 'Linear Learning Modules for Patients',
         info: `
