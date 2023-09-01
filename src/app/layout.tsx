@@ -48,7 +48,7 @@ export default function RootLayout({
         <html
             suppressHydrationWarning={true}
             lang="en"
-            className="background-background select-none scroll-smooth text-foreground selection:bg-neutral-300 selection:text-neutral-900 dark:selection:bg-neutral-400 dark:selection:text-neutral-900 sm:select-auto"
+            className="background-background select-none scroll-smooth text-base text-foreground selection:bg-neutral-300 selection:text-neutral-900 dark:selection:bg-neutral-400 dark:selection:text-neutral-900 sm:select-auto"
         >
             <head>
                 <PlausibleProvider
