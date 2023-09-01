@@ -20,29 +20,41 @@ export default function ProjectList({
     inline?: boolean;
     modal?: boolean;
 }) {
+    const plausible = usePlausible();
     const [companyFilter, setCompanyFilter] = useState<string[]>([]);
     const [clientFilter, setClientFilter] = useState<string[]>([]);
     const [yearFilter, setYearFilter] = useState<number[]>([]);
     const [tagFilter, setTagFilter] = useState<string[]>([]);
 
+    const analyze = (prop: string) =>
+        plausible('Filter', {
+            props: {
+                prop,
+            },
+        });
+
     const handleCompanyClick = (company: string) => {
         if (companyFilter.includes(company)) return;
         setCompanyFilter([...companyFilter, company]);
+        analyze(company);
     };
 
     const handleClientClick = (client: string) => {
         if (clientFilter.includes(client)) return;
         setClientFilter([...clientFilter, client]);
+        analyze(client);
     };
 
     const handleYearClick = (year: number) => {
         if (yearFilter.includes(year)) return;
         setYearFilter([...yearFilter, year]);
+        analyze(year.toString());
     };
 
     const handleTagClick = (tag: string) => {
         if (tagFilter.includes(tag)) return;
         setTagFilter([...tagFilter, tag]);
+        analyze(tag);
     };
 
     const sortedProjects = projects
