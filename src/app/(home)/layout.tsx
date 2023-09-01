@@ -1,6 +1,7 @@
 import SectionNav from '@/components/SectionNav';
 import IconLinks from '@/components/IconLinks';
 import TagList from '@/components/TagList';
+import { title } from '@/data';
 
 export const runtime = 'edge';
 
@@ -34,15 +35,15 @@ function Header() {
     return (
         <div>
             <div className="text-4xl" aria-label="Name">
-                Justin Edwards
+                {title.name}
             </div>
             <div
                 className="pb-1 text-2xl text-neutral-600 dark:text-neutral-500"
                 aria-label="Title"
             >
-                Full Stack Developer
+                {title.title}
             </div>
-            <TagList tags={['Typescript', 'NextJS', 'PostgreSQL', 'AWS']} />
+            <TagList tags={title.tags} />
         </div>
     );
 }
