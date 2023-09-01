@@ -43,7 +43,8 @@ export default function ProjectCard({
                         <div>
                             <p className="text-xl ">{project.title}</p>
                             <p className="text-lg text-neutral-600 dark:text-neutral-300">
-                                {project.client}
+                                {project.company}{' '}
+                                {project.client ? '- ' + project.client : ''}
                             </p>
                         </div>
                         <div className="text-neutral-500 dark:text-neutral-400">
