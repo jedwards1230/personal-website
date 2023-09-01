@@ -8,7 +8,7 @@ export const projects: Project[] = [
         title: 'Patient Portal',
         showcase: true,
         favorite: true,
-        images: ['/patientPortalPreview.png'],
+        images: ['/patientPortalPreview1.png', '/patientPortalPreview2.png'],
         tags: [
             'TypeScript',
             'Python',
