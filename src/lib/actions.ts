@@ -34,8 +34,7 @@ export async function getPageViews() {
 
     const res = await fetch(url, {
         headers: {
-            Authorization:
-                'Bearer ***REMOVED***',
+            Authorization: 'Bearer ' + process.env.PLAUSIBLE_API_KEY,
         },
     }).then((res) => res.json());
 
