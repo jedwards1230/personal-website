@@ -1,10 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 
 import TagList from '@/components/TagList';
-import { Close, NewTab } from './Icons';
+import { Close, Star } from './Icons';
 import BackButton from './BackButton';
 import { useNavigation } from '@/app/NavigationProvider';
 import clsx from 'clsx';
@@ -65,6 +64,9 @@ export default function ProjectList({
             // sort by month, most recent first
             if (a.month > b.month) return -1;
             if (a.month < b.month) return 1;
+            // sort by favorite
+            if (a.favorite && !b.favorite) return -1;
+            if (!a.favorite && b.favorite) return 1;
             // sort by company
             if (a.company > b.company) return 1;
             if (a.company < b.company) return -1;
@@ -220,21 +222,12 @@ function ProjectListItem({
         >
             <div className="flex flex-col justify-between md:flex-row md:items-center">
                 {/* Title */}
-                {project.href && !project.info ? (
-                    <Link
-                        target="_blank"
-                        scroll={false}
-                        className="group flex gap-2 text-lg font-semibold hover:underline"
-                        href={project.href}
-                    >
+                <div className="flex items-center gap-2">
+                    <span className="text-lg font-semibold">
                         {project.title}
-                        <span className="text-neutral-500 group-hover:text-foreground dark:text-neutral-400">
-                            <NewTab />
-                        </span>
-                    </Link>
-                ) : (
-                    <h3 className="text-lg font-semibold">{project.title}</h3>
-                )}
+                    </span>
+                    {project.favorite && <Star />}
+                </div>
 
                 {/* Client - Year */}
                 <p className="text-sm text-neutral-500 dark:text-neutral-400">

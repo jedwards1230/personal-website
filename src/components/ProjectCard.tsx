@@ -5,6 +5,7 @@ import TagList from './TagList';
 import BackButton from './BackButton';
 import Markdown from './Markdown';
 import clsx from 'clsx';
+import { Star } from './Icons';
 
 export default function ProjectCard({
     project,
@@ -41,7 +42,9 @@ export default function ProjectCard({
                         className={clsx(!project.img && 'flex justify-between')}
                     >
                         <div>
-                            <p className="text-xl ">{project.title}</p>
+                            <p className="flex items-center gap-2 text-xl font-medium">
+                                {project.title} {project.favorite && <Star />}
+                            </p>
                             <p className="text-lg text-neutral-600 dark:text-neutral-300">
                                 {project.company}{' '}
                                 {project.client ? '- ' + project.client : ''}
