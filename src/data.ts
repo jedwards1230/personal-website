@@ -198,6 +198,7 @@ Chat with AI powered virtual assistant
             'Playwright',
             'Figma',
         ],
+        img: '/adelePreview.png',
     },
     {
         id: '6',

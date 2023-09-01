@@ -27,7 +27,7 @@ export default function BackButton({
                 else if (currentProject) setCurrentProject(null);
                 else if (currentExperience) setCurrentExperience(null);
             }}
-            className="group col-span-4 flex cursor-pointer items-center gap-2 pl-2 hover:underline"
+            className="group col-span-4 flex cursor-pointer select-none items-center gap-2 pl-2 hover:underline"
         >
             <span className="transition-all duration-150 group-hover:-translate-x-1">
                 <ArrowLeft />

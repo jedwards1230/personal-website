@@ -103,10 +103,12 @@ export default function ProjectList({
                 <>
                     <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-background pb-4 pt-4 text-center md:pb-2">
                         <BackButton modal={modal} intercept={true} />
-                        <h2 className="col-span-4 text-2xl">Projects</h2>
+                        <h2 className="col-span-4 select-none text-2xl">
+                            Projects
+                        </h2>
                     </div>
                     <div>
-                        <div className="flex w-full justify-center text-neutral-400">
+                        <div className="flex w-full select-none justify-center text-neutral-400">
                             Select details to filter
                         </div>
                         {/* Filters */}
