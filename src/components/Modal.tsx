@@ -84,7 +84,7 @@ export default function Modal({
             <div
                 ref={wrapper}
                 className={clsx(
-                    'w-full overflow-y-scroll overscroll-none rounded border border-transparent bg-background px-6 transition-all animate-in fade-in-25 dark:border-y-border dark:sm:border-border',
+                    'mx-auto w-full max-w-7xl overflow-y-scroll overscroll-none rounded border border-transparent bg-background px-6 transition-all animate-in fade-in-25 dark:border-y-border dark:sm:border-border',
                     size === 'sm' && 'md:w-2/3 lg:w-1/2',
                     size === 'lg' && 'md:w-4/5 lg:w-2/3',
                 )}
