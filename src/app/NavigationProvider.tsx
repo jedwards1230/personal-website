@@ -17,7 +17,7 @@ const NavigationContext = createContext({
     currentSection: 'about',
     setCurrentSection: (section: Section) => {},
     currentProject: null,
-    setCurrentProject: (project: string | null) => {},
+    setCurrentProject: (project: number | null) => {},
     setImageOpen: (open: boolean) => {},
     currentExperience: null,
     setCurrentExperience: (experience: number | null) => {},
@@ -32,7 +32,7 @@ export const NavigationProvider = ({
     const [currentExperience, setCurrentExperience] = useState<number | null>(
         null,
     );
-    const [currentProject, setCurrentProject] = useState<string | null>(null);
+    const [currentProject, setCurrentProject] = useState<number | null>(null);
     const [imageOpen, setImageOpen] = useState(false);
     const experience = experiences.find(
         (experience) => experience.id === currentExperience,
