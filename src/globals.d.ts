@@ -12,7 +12,7 @@ type Experience = {
 };
 
 type Project = {
-    id: string;
+    id: number;
     /** Year of completion */
     year: number;
     /** Month of completion */

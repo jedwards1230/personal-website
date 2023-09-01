@@ -1,6 +1,6 @@
 export const projects: Project[] = [
     {
-        id: '1',
+        id: 1,
         year: 2023,
         month: 6,
         company: 'Atlantis Health',
@@ -48,7 +48,7 @@ Provide patients with a way to learn about their condition and treatment options
         `,
     },
     {
-        id: '2',
+        id: 2,
         year: 2023,
         month: 8,
         company: 'Personal',
@@ -93,7 +93,7 @@ It also means I pay per request rather than per month, which is cheaper for me.
     - Save system messages and function preferences per personality`,
     },
     {
-        id: '3',
+        id: 3,
         year: 2022,
         month: 12,
         company: 'Atlantis Health',
@@ -145,7 +145,7 @@ Chat with AI powered virtual assistant
 `,
     },
     {
-        id: '4',
+        id: 4,
         year: 2022,
         month: 5,
         company: 'Personal',
@@ -186,7 +186,7 @@ This was inspired by the [KSP CKAN](https://github.com/KSP-CKAN/CKAN) project an
         `,
     },
     {
-        id: '5',
+        id: 5,
         year: 2023,
         month: 6,
         company: 'Personal',
@@ -228,7 +228,7 @@ Inspired by the original [Phind](https://phind.com/), I wanted to build a replic
 `,
     },
     {
-        id: '6',
+        id: 6,
         year: 2022,
         month: 11,
         company: 'Atlantis Health',
@@ -253,7 +253,7 @@ Giving patients the tools they need to have a productive conversation with their
         `,
     },
     {
-        id: '7',
+        id: 7,
         year: 2023,
         month: 7,
         company: 'Atlantis Health',
@@ -278,7 +278,7 @@ Provide patients with a way to learn about their condition and treatment options
         `,
     },
     {
-        id: '8',
+        id: 8,
         year: 2023,
         month: 8,
         company: 'Atlantis Health',
@@ -302,7 +302,7 @@ Provide patients with a way to learn about their condition and treatment options
         tags: ['HTML', 'TailwindCSS', 'TypeScript', 'Figma'],
     },
     {
-        id: '9',
+        id: 9,
         year: 2023,
         month: 8,
         company: 'Personal',
@@ -339,7 +339,7 @@ I also wanted a reliable place to store information about all of my work.
         `,
     },
     {
-        id: '10',
+        id: 10,
         year: 2022,
         month: 8,
         company: 'Personal',
@@ -372,7 +372,7 @@ I wanted to build intuition for how neural networks work and build a 2D game.
         tags: ['TypeScript', 'NextJS', 'Material UI', 'Machine Learning'],
     },
     {
-        id: '11',
+        id: 11,
         year: 2022,
         month: 8,
         company: 'Personal',
@@ -399,7 +399,7 @@ I wanted to build intuition for how neural networks work.
         tags: ['TypeScript', 'Machine Learning'],
     },
     {
-        id: '12',
+        id: 12,
         year: 2022,
         month: 8,
         company: 'Personal',
@@ -426,7 +426,7 @@ I wanted to learn how to build browser extensions and Leetcode did not have buil
         ],
     },
     {
-        id: '13',
+        id: 13,
         year: 2022,
         month: 8,
         company: 'Personal',
@@ -450,76 +450,9 @@ I wanted to learn NextJS and I wanted a good way to keep up with the latest pape
     },
 ];
 
-export const experiences: Experience[] = [
-    {
-        id: 1,
-        title: 'Full Stack Developer',
-        company: 'Atlantis Health',
-        period: '08/2022 - Present',
-        summary:
-            'Full-stack application development for healthcare companies, employing agile methodologies for enhanced team collaboration and effective task prioritization.',
-        description: [
-            'Delivered full-stack applications for healthcare giants like Sanofi, Jazz Pharmaceuticals, and Novartis, utilizing agile methodologies and scrum for efficient team collaboration and task management.',
-            'Spearheaded the development of a 25-page NextJs website, including a dashboard, account management, and static content, demonstrating proficiency in handling large-scale projects.',
-            "Integrated IBM Watson's NLP capabilities into a patient treatment support application, leveraging RESTFul APIs, NextJs, and Tailwind CSS, leading to extended user engagement.",
-            "Boosted legacy app's performance by 80% and introduced user authentication, personalization, reminders, and SMS features using Python, NextJs, Tailwind CSS, GraphQL, and MySQL.",
-            'Accelerated CI/CD deploy times on AWS infrastructure by 200% and optimized development workflow through code-reviews and Python and Node.js automation scripts.',
-            'Promoted effective teamwork with cross-functional teams using Asana, planning, and retrospective meetings, resulting in ahead-of-schedule project completion with minimal issues.',
-        ],
-        tags: [
-            'TypeScript',
-            'NextJs',
-            'Python',
-            'SQL',
-            'AWS',
-            'TailwindCSS',
-            'IBM Watson',
-            'Asana',
-        ],
-    },
-    {
-        id: 2,
-        title: 'Product Support Specialist',
-        company: 'VantagePoint AI',
-        period: '01/2021 - 11/2021',
-        summary:
-            'Provision of vital technical support for AI-based stock market prediction software, contributing to product stability and an improved user experience.',
-        description: [
-            'Acquired thorough knowledge of a software platform that uses AI to forecast stock market fluctuations.',
-            'Identified and reported software bugs to the development team, enhancing product stability and user experience.',
-            'Addressed Salesforce support tickets with exceptional customer service, maintaining timely and accurate records.',
-            'Collaborated with Software Potential to manage customer information and licensing.',
-            'Assisted users in troubleshooting software issues and created helpful knowledge base articles, which improved user satisfaction and engagement.',
-        ],
-        tags: ['Bug Reports', 'Salesforce', 'Software Potential'],
-    },
-    {
-        id: 3,
-        title: 'Entertainment Technician',
-        company: 'Freelance',
-        period: '03/2015 - 05/2022',
-        summary:
-            'Provided versatile technical and leadership roles in live event productions, offering solutions to on-site challenges and ensuring seamless performances.',
-        description: [
-            'Worked in various roles including stagehand, shop assistant, stage manager, lighting designer, and team lead across different event companies.',
-            'Gained hands-on experience with new technologies and skills in entertainment tech, customer service, networking, electrical, carpentry, and more while working with new people and clients at each event.',
-            'Directed and trained crews for events, resolving technical issues effectively and ensuring smooth performances.',
-            'Contributed to various aspects of production, including set design, painting, electrics, building props and sets, operating the fly system during shows, focusing and gelling lights, light design, and programming/operating the lighting board.',
-            'Guided problem-solving initiatives during productions to ensure smooth events.',
-        ],
-        tags: [
-            'Leadership',
-            'Project Planning',
-            'Troubleshooting',
-            'Hands-on Technical',
-        ],
-        extraTags: [
-            'Networking',
-            'Electrical',
-            'Carpentry',
-            'Lighting Design',
-            'Stage Management',
-            'Customer Service',
-        ],
-    },
-];
+// check if any ids are duplicated
+const ids = projects.map((project) => project.id);
+const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
+if (duplicates.length > 0) {
+    throw new Error(`Duplicate ids found: ${duplicates.join(', ')}`);
+}
