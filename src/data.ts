@@ -3,7 +3,7 @@ export const projects: Project[] = [
         id: '1',
         year: 2023,
         month: 8,
-        client: 'Personal',
+        company: 'Personal',
         title: 'ChatUI',
         description: 'UI for managing chats with LLMs',
         info: `
@@ -44,7 +44,7 @@ It also means I pay per request rather than per month, which is cheaper for me.
         id: '2',
         year: 2023,
         month: 6,
-        client: 'Personal',
+        company: 'Personal',
         title: 'SearchAI',
         description: 'AI assisted search engine',
         info: `
@@ -84,7 +84,7 @@ Inspired by the original [Phind](https://phind.com/), I wanted to build a replic
         id: '3',
         year: 2022,
         month: 5,
-        client: 'Personal',
+        company: 'Personal',
         title: 'go-kerbal',
         description: 'CLI for managing Kerbal Space Program mods',
         info: `
@@ -118,7 +118,7 @@ This was inspired by the [KSP CKAN](https://github.com/KSP-CKAN/CKAN) project an
         id: '4',
         year: 2023,
         month: 8,
-        client: 'Personal',
+        company: 'Personal',
         title: 'Personal Website',
         description: 'My corner of the internet',
         info: `
@@ -154,7 +154,8 @@ I also wanted a reliable place to store information about all of my work.
         id: '5',
         year: 2022,
         month: 12,
-        client: 'Atlantis Health',
+        company: 'Atlantis Health',
+        client: 'Sanofi',
         title: 'Adele',
         description: 'AI Powered Medication Assistant',
         info: `
@@ -202,7 +203,8 @@ Chat with AI powered virtual assistant
         id: '6',
         year: 2022,
         month: 11,
-        client: 'Atlantis Health',
+        company: 'Atlantis Health',
+        client: 'Novartis',
         title: 'Learning Modules',
         description: 'Linear Learning Modules for Patients',
         info: `
@@ -226,7 +228,8 @@ Giving patients the tools they need to have a productive conversation with their
         id: '7',
         year: 2023,
         month: 7,
-        client: 'Atlantis Health',
+        company: 'Atlantis Health',
+        client: 'Jazz Pharmaceuticals',
         title: 'Email Templates',
         description: 'Email Templates for Patient Outreach',
         info: `
@@ -250,7 +253,8 @@ Provide patients with a way to learn about their condition and treatment options
         id: '8',
         year: 2023,
         month: 8,
-        client: 'Atlantis Health',
+        company: 'Atlantis Health',
+        client: 'Bristol Myers Squibb',
         title: 'Static Pages',
         description: 'Static Pages for Patient Outreach, Marketing, and Sales',
         info: `
@@ -273,7 +277,8 @@ Provide patients with a way to learn about their condition and treatment options
         id: '9',
         year: 2023,
         month: 6,
-        client: 'Atlantis Health',
+        company: 'Atlantis Health',
+        client: 'Sanofi',
         title: 'Patient Portal',
         description: 'Patient Portal for managing treatment',
         info: `
@@ -317,7 +322,7 @@ Provide patients with a way to learn about their condition and treatment options
         id: '10',
         year: 2022,
         month: 8,
-        client: 'Personal',
+        company: 'Personal',
         title: 'Cars',
         description: 'A small game for learning ML basics',
         info: `
@@ -350,7 +355,7 @@ I wanted to build intuition for how neural networks work and build a 2D game.
         id: '11',
         year: 2022,
         month: 8,
-        client: 'Personal',
+        company: 'Personal',
         title: 'nnjs',
         description: 'A small library for learning ML basics',
         info: `
@@ -377,7 +382,7 @@ I wanted to build intuition for how neural networks work.
         id: '12',
         year: 2022,
         month: 8,
-        client: 'Personal',
+        company: 'Personal',
         title: 'Leetcode Timer',
         description: 'Firefox extension for timing LeetCode problems',
         info: `
@@ -402,7 +407,7 @@ I wanted to learn how to build browser extensions and Leetcode did not have buil
         id: '13',
         year: 2022,
         month: 8,
-        client: 'Personal',
+        company: 'Personal',
         title: 'Daily arXiv',
         description: 'Quickly browse ArXiv by date and subject',
         info: `

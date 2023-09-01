@@ -11,7 +11,7 @@ export default function ExperienceCard({
     modal?: boolean;
 }) {
     const relevantProjects = projects.filter(
-        (p) => p.client === experience.company,
+        (p) => p.company === experience.company,
     );
 
     const relevantTags = Array.from(

@@ -17,8 +17,10 @@ type Project = {
     year: number;
     /** Month of completion */
     month: number;
+    /** Where I worked when I built the project */
+    company: string;
     /** Who the project was built for */
-    client: string;
+    client?: string;
     /** Title of the project */
     title: string;
     /** Short description of the project */

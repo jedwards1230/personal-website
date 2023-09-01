@@ -21,12 +21,18 @@ export default function ProjectList({
     modal?: boolean;
 }) {
     const [companyFilter, setCompanyFilter] = useState<string[]>([]);
+    const [clientFilter, setClientFilter] = useState<string[]>([]);
     const [yearFilter, setYearFilter] = useState<number[]>([]);
     const [tagFilter, setTagFilter] = useState<string[]>([]);
 
     const handleCompanyClick = (company: string) => {
         if (companyFilter.includes(company)) return;
         setCompanyFilter([...companyFilter, company]);
+    };
+
+    const handleClientClick = (client: string) => {
+        if (clientFilter.includes(client)) return;
+        setClientFilter([...clientFilter, client]);
     };
 
     const handleYearClick = (year: number) => {
@@ -47,6 +53,9 @@ export default function ProjectList({
             // sort by month, most recent first
             if (a.month > b.month) return -1;
             if (a.month < b.month) return 1;
+            // sort by company
+            if (a.company > b.company) return 1;
+            if (a.company < b.company) return -1;
             // sort by client
             if (a.client > b.client) return 1;
             if (a.client < b.client) return -1;
@@ -57,7 +66,10 @@ export default function ProjectList({
         })
         .filter((p) => {
             // filter by company
-            if (companyFilter.length > 0 && !companyFilter.includes(p.client))
+            if (companyFilter.length > 0 && !companyFilter.includes(p.company))
+                return false;
+            // filter by client
+            if (clientFilter.length > 0 && !clientFilter.includes(p.client))
                 return false;
             // filter by year
             if (yearFilter.length > 0 && !yearFilter.includes(p.year))
@@ -100,6 +112,17 @@ export default function ProjectList({
                                     }
                                 />
                             ))}
+                            {clientFilter.map((c, i) => (
+                                <FilterTag
+                                    key={'client-' + i}
+                                    tag={c}
+                                    onClick={() =>
+                                        setClientFilter(
+                                            clientFilter.filter((f) => f !== c),
+                                        )
+                                    }
+                                />
+                            ))}
                             {yearFilter.map((y, i) => (
                                 <FilterTag
                                     key={'year-' + i}
@@ -135,7 +158,8 @@ export default function ProjectList({
                         <ProjectListItem
                             key={'project-' + i}
                             project={p}
-                            handleClientClick={handleCompanyClick}
+                            handleCompanyClick={handleCompanyClick}
+                            handleClientClick={handleClientClick}
                             handleYearClick={handleYearClick}
                             handleTagClick={handleTagClick}
                         />
@@ -148,11 +172,13 @@ export default function ProjectList({
 
 function ProjectListItem({
     project,
+    handleCompanyClick,
     handleClientClick,
     handleYearClick,
     handleTagClick,
 }: {
     project: Project;
+    handleCompanyClick?: (company: string) => void;
     handleClientClick?: (company: string) => void;
     handleYearClick?: (year: number) => void;
     handleTagClick?: (tag: string) => void;
@@ -200,14 +226,28 @@ function ProjectListItem({
                 <p className="text-sm text-neutral-500 dark:text-neutral-400">
                     {handleYearClick && handleClientClick ? (
                         <>
+                            {project.client && (
+                                <>
+                                    <button
+                                        className="md:hover:underline"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleClientClick(project.client);
+                                        }}
+                                    >
+                                        {project.client}
+                                    </button>{' '}
+                                    -{' '}
+                                </>
+                            )}
                             <button
                                 className="md:hover:underline"
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    handleClientClick(project.client);
+                                    handleCompanyClick(project.company);
                                 }}
                             >
-                                {project.client}
+                                {project.company}
                             </button>{' '}
                             -{' '}
                             <button
@@ -222,7 +262,8 @@ function ProjectListItem({
                         </>
                     ) : (
                         <>
-                            {project.client} - {project.month}/{project.year}
+                            {project.client ? project.client + ' - ' : ''}{' '}
+                            {project.company} - {project.month}/{project.year}
                         </>
                     )}
                 </p>
