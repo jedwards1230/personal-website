@@ -7,6 +7,7 @@ import ProjectCard from '@/components/ProjectCard';
 import Modal from '@/components/Modal';
 import { experiences, projects } from '@/data';
 import ExperienceCard from '@/components/ExperienceCard';
+import ImageCard from '@/components/ImageCard';
 
 const NavigationContext = createContext({
     refProjects: null,
@@ -17,6 +18,7 @@ const NavigationContext = createContext({
     setCurrentSection: (section: Section) => {},
     currentProject: null,
     setCurrentProject: (project: string | null) => {},
+    setImageOpen: (open: boolean) => {},
     currentExperience: null,
     setCurrentExperience: (experience: number | null) => {},
 });
@@ -31,6 +33,7 @@ export const NavigationProvider = ({
         null,
     );
     const [currentProject, setCurrentProject] = useState<string | null>(null);
+    const [imageOpen, setImageOpen] = useState(false);
     const experience = experiences.find(
         (experience) => experience.id === currentExperience,
     );
@@ -60,6 +63,7 @@ export const NavigationProvider = ({
                 setCurrentSection,
                 currentProject,
                 setCurrentProject,
+                setImageOpen,
                 currentExperience,
                 setCurrentExperience,
             }}
@@ -73,6 +77,11 @@ export const NavigationProvider = ({
             {currentProject && (
                 <Modal zIndex={20}>
                     <ProjectCard project={project} modal={true} />
+                </Modal>
+            )}
+            {imageOpen && (
+                <Modal zIndex={30} img={true} size="xl">
+                    <ImageCard project={project} />
                 </Modal>
             )}
         </NavigationContext.Provider>

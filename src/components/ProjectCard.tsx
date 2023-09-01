@@ -1,11 +1,15 @@
+'use client';
+
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePlausible } from 'next-plausible';
 
 import TagList from './TagList';
 import BackButton from './BackButton';
 import Markdown from './Markdown';
-import clsx from 'clsx';
 import { Star } from './Icons';
+import { useNavigation } from '@/app/NavigationProvider';
 
 export default function ProjectCard({
     project,
@@ -14,6 +18,18 @@ export default function ProjectCard({
     project: Project;
     modal?: boolean;
 }) {
+    const plausible = usePlausible();
+    const { setImageOpen } = useNavigation();
+
+    const openImageModal = () => {
+        setImageOpen(true);
+        plausible('View Project Image', {
+            props: {
+                project: project.title,
+            },
+        });
+    };
+
     return (
         <div className="flex w-full flex-col pb-4 sm:px-4">
             {/* Title - Client - Year */}
@@ -27,7 +43,8 @@ export default function ProjectCard({
                         height={400}
                         src={project.img}
                         alt={project.title}
-                        className="aspect-video w-full min-w-[50%] select-none rounded-lg border shadow-sm sm:w-1/2"
+                        onClick={openImageModal}
+                        className="aspect-video w-full min-w-[50%] cursor-pointer select-none rounded-lg border border-foreground shadow-sm transition-all sm:w-1/2 hover:sm:scale-[101%]"
                     />
                 )}
 

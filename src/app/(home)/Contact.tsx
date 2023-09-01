@@ -20,10 +20,7 @@ export default function Contact() {
     const [pageViews, setPageViews] = useState(0);
 
     useEffect(() => {
-        getPageViews().then((views) => {
-            console.log(views);
-            setPageViews(views);
-        });
+        getPageViews().then((views) => setPageViews(views));
     }, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

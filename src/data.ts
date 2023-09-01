@@ -2,6 +2,54 @@ export const projects: Project[] = [
     {
         id: '1',
         year: 2023,
+        month: 6,
+        company: 'Atlantis Health',
+        client: 'Sanofi',
+        title: 'Patient Portal',
+        showcase: true,
+        favorite: true,
+        img: '/patientPortalPreview.png',
+        tags: [
+            'TypeScript',
+            'Python',
+            'NextJS',
+            'TailwindCSS',
+            'AWS',
+            'Playwright',
+            'Figma',
+        ],
+        description: 'Patient Portal for managing treatment',
+        info: `
+# Goals
+
+Build a patient portal for managing treatment.
+
+# Motivations
+
+Encourage patients to take an active role in their treatment.
+
+- Track symptoms
+- Track medication
+- Track treatment
+- Track progress
+
+Connect with Health Care Providers
+
+- Manage correspondence and appointments
+- Manage prescriptions
+
+Help patients live a healthier life
+
+- Recipe list curated by medical professionals
+
+Provide patients with a way to learn about their condition and treatment options.
+
+- Articles and information curated by medical professionals
+        `,
+    },
+    {
+        id: '2',
+        year: 2023,
         month: 8,
         company: 'Personal',
         title: 'ChatUI',
@@ -42,124 +90,13 @@ It also means I pay per request rather than per month, which is cheaper for me.
     - Save system messages and function preferences per personality`,
     },
     {
-        id: '2',
-        year: 2023,
-        month: 6,
-        company: 'Personal',
-        title: 'SearchAI',
-        href: 'https://github.com/jedwards1230/search',
-        showcase: true,
-        favorite: true,
-        img: 'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
-        tags: [
-            'TypeScript',
-            'NextJS',
-            'TailwindCSS',
-            'OpenAI API',
-            'Langchain',
-            'Supabase',
-        ],
-        description: 'AI assisted search engine',
-        info: `
-# Goals
-
-Build a search engine leveraging the OpenAI API.
-
-# Motivations
-
-Inspired by the original [Phind](https://phind.com/), I wanted to build a replica that used my own API key.
-
-# Features
-
-- Use search results to built context for chat with LLM
-- Summarize data form each source
-- Advanced web scraping for more relevant results
-- Edge Functions
-- Supabase (pgvector)
-- OpenAI API
-- Langchain
-- Progressive Web App
-- Dark Mode
-`,
-    },
-    {
         id: '3',
-        year: 2022,
-        month: 5,
-        company: 'Personal',
-        title: 'go-kerbal',
-        href: 'https://github.com/jedwards1230/go-kerbal',
-        showcase: true,
-        favorite: true,
-        img: 'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
-        tags: ['Go', 'CLI', 'BubbleTea'],
-        description: 'CLI for managing Kerbal Space Program mods',
-        info: `
-# Goals
-
-Build a CLI for managing Kerbal Space Program mods.
-
-# Motivations
-
-I wanted to learn Go and I wanted to make it easier to manage mods for Kerbal Space Program.
-
-This was inspired by the [KSP CKAN](https://github.com/KSP-CKAN/CKAN) project and uses their metadata.
-
-# Features
-
-- Install mods
-- Uninstall mods
-- Update mods
-- List mods
-- Search mods
-- List installed mods
-- Ensure mod dependencies are met
-- Ensure mod conflicts are resolved
-        `,
-    },
-    {
-        id: '4',
-        year: 2023,
-        month: 8,
-        company: 'Personal',
-        title: 'Personal Website',
-        href: 'https://github.com/jedwards1230/personal-website',
-        showcase: true,
-        img: 'https://raw.githubusercontent.com/jedwards1230/personal-website/main/screenshot.png',
-        tags: ['TypeScript', 'NextJS', 'TailwindCSS', 'shadcn/ui'],
-        description: 'My corner of the internet',
-        info: `
-# Goals
-
-Build a personal website to showcase my projects and experience.
-
-# Motivations
-
-I wanted to make use of the latest web technologies and build something I could be proud of.
-
-I also wanted a reliable place to store information about all of my work.
-
-# Features
-
-- NextJS
-    - /app directory for server-side rendering
-    - Intercepted Routes
-    - Edge Functions
-- TypeScript
-- Intersection Observer
-- TailwindCSS
-    - Dark Mode
-- Postgres
-    - Store messages left by visitors
-        `,
-    },
-    {
-        id: '5',
         year: 2022,
         month: 12,
         company: 'Atlantis Health',
         client: 'Sanofi',
         title: 'Adele',
+        showcase: true,
         favorite: true,
         img: '/adelePreview.png',
         tags: [
@@ -202,6 +139,81 @@ Chat with AI powered virtual assistant
 - Disucss treatment options
 - Learn about your condition
 - Learn about your medication
+`,
+    },
+    {
+        id: '4',
+        year: 2022,
+        month: 5,
+        company: 'Personal',
+        title: 'go-kerbal',
+        href: 'https://github.com/jedwards1230/go-kerbal',
+        showcase: true,
+        favorite: true,
+        img: 'https://raw.githubusercontent.com/jedwards1230/go-kerbal/main/extras/screenshots/main.png',
+        tags: ['Go', 'CLI', 'BubbleTea'],
+        description: 'CLI for managing Kerbal Space Program mods',
+        info: `
+# Goals
+
+Build a CLI for managing Kerbal Space Program mods.
+
+# Motivations
+
+I wanted to learn Go and I wanted to make it easier to manage mods for Kerbal Space Program.
+
+This was inspired by the [KSP CKAN](https://github.com/KSP-CKAN/CKAN) project and uses their metadata.
+
+# Features
+
+- Install mods
+- Uninstall mods
+- Update mods
+- List mods
+- Search mods
+- List installed mods
+- Ensure mod dependencies are met
+- Ensure mod conflicts are resolved
+        `,
+    },
+    {
+        id: '5',
+        year: 2023,
+        month: 6,
+        company: 'Personal',
+        title: 'SearchAI',
+        href: 'https://github.com/jedwards1230/search',
+        favorite: true,
+        img: 'https://raw.githubusercontent.com/jedwards1230/search/main/home.png',
+        tags: [
+            'TypeScript',
+            'NextJS',
+            'TailwindCSS',
+            'OpenAI API',
+            'Langchain',
+            'Supabase',
+        ],
+        description: 'AI assisted search engine',
+        info: `
+# Goals
+
+Build a search engine leveraging the OpenAI API.
+
+# Motivations
+
+Inspired by the original [Phind](https://phind.com/), I wanted to build a replica that used my own API key.
+
+# Features
+
+- Use search results to built context for chat with LLM
+- Summarize data form each source
+- Advanced web scraping for more relevant results
+- Edge Functions
+- Supabase (pgvector)
+- OpenAI API
+- Langchain
+- Progressive Web App
+- Dark Mode
 `,
     },
     {
@@ -279,50 +291,38 @@ Provide patients with a way to learn about their condition and treatment options
         tags: ['HTML', 'TailwindCSS', 'TypeScript', 'Figma'],
     },
     {
-        id: '9',
+        id: '4',
         year: 2023,
-        month: 6,
-        company: 'Atlantis Health',
-        client: 'Sanofi',
-        title: 'Patient Portal',
-        favorite: true,
-        img: '/patientPortalPreview.png',
-        tags: [
-            'TypeScript',
-            'Python',
-            'NextJS',
-            'TailwindCSS',
-            'AWS',
-            'Playwright',
-            'Figma',
-        ],
-        description: 'Patient Portal for managing treatment',
+        month: 8,
+        company: 'Personal',
+        title: 'Personal Website',
+        href: 'https://github.com/jedwards1230/personal-website',
+        img: 'https://raw.githubusercontent.com/jedwards1230/personal-website/main/screenshot.png',
+        tags: ['TypeScript', 'NextJS', 'TailwindCSS', 'shadcn/ui'],
+        description: 'My corner of the internet',
         info: `
 # Goals
 
-Build a patient portal for managing treatment.
+Build a personal website to showcase my projects and experience.
 
 # Motivations
 
-Encourage patients to take an active role in their treatment.
+I wanted to make use of the latest web technologies and build something I could be proud of.
 
-- Track symptoms
-- Track medication
-- Track treatment
-- Track progress
+I also wanted a reliable place to store information about all of my work.
 
-Connect with Health Care Providers
+# Features
 
-- Manage correspondence and appointments
-- Manage prescriptions
-
-Help patients live a healthier life
-
-- Recipe list curated by medical professionals
-
-Provide patients with a way to learn about their condition and treatment options.
-
-- Articles and information curated by medical professionals
+- NextJS
+    - /app directory for server-side rendering
+    - Intercepted Routes
+    - Edge Functions
+- TypeScript
+- Intersection Observer
+- TailwindCSS
+    - Dark Mode
+- Postgres
+    - Store messages left by visitors
         `,
     },
     {
