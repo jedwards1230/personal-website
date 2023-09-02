@@ -13,8 +13,8 @@ export async function GET() {
             </div>
         ),
         {
-            width: 1000,
-            height: 600,
+            width: 900,
+            height: 500,
         },
     );
 }
