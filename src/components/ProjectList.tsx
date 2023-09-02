@@ -1,14 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-
-import TagList from '@/components/TagList';
-import { Close, Photo, Star } from './Icons';
-import BackButton from './BackButton';
-import { useNavigation } from '@/app/NavigationProvider';
 import clsx from 'clsx';
 import { usePlausible } from 'next-plausible';
-import { Badge } from './ui/badge';
+
+import TagList from '@/components/TagList';
+import { Photo, Star } from './Icons';
+import BackButton from './BackButton';
+import { useNavigation } from '@/app/NavigationProvider';
+import { useFilter } from '@/FilterProvider';
+import Filters from './Filters';
+import FilterPopover from './FilterPopover';
 
 export default function ProjectList({
     projects,
@@ -19,42 +20,13 @@ export default function ProjectList({
     inline?: boolean;
     modal?: boolean;
 }) {
-    const plausible = usePlausible();
-    const [companyFilter, setCompanyFilter] = useState<string[]>([]);
-    const [clientFilter, setClientFilter] = useState<string[]>([]);
-    const [yearFilter, setYearFilter] = useState<number[]>([]);
-    const [tagFilter, setTagFilter] = useState<string[]>([]);
-
-    const analyze = (prop: string) =>
-        plausible('Filter', {
-            props: {
-                prop,
-            },
-        });
-
-    const handleCompanyClick = (company: string) => {
-        if (companyFilter.includes(company)) return;
-        setCompanyFilter([...companyFilter, company]);
-        analyze(company);
-    };
-
-    const handleClientClick = (client: string) => {
-        if (clientFilter.includes(client)) return;
-        setClientFilter([...clientFilter, client]);
-        analyze(client);
-    };
-
-    const handleYearClick = (year: number) => {
-        if (yearFilter.includes(year)) return;
-        setYearFilter([...yearFilter, year]);
-        analyze(year.toString());
-    };
-
-    const handleTagClick = (tag: string) => {
-        if (tagFilter.includes(tag)) return;
-        setTagFilter([...tagFilter, tag]);
-        analyze(tag);
-    };
+    const {
+        filterCompany,
+        filterClient,
+        filterYear,
+        filterTag,
+        filterProjects,
+    } = useFilter();
 
     const sortedProjects = projects
         .sort((a, b) => {
@@ -78,26 +50,7 @@ export default function ProjectList({
             if (a.title < b.title) return -1;
             return 0;
         })
-        .filter((p) => {
-            // filter by company
-            if (companyFilter.length > 0 && !companyFilter.includes(p.company))
-                return false;
-            // filter by client
-            if (clientFilter.length > 0 && !clientFilter.includes(p.client))
-                return false;
-            // filter by year
-            if (yearFilter.length > 0 && !yearFilter.includes(p.year))
-                return false;
-            // filter by tag
-            if (
-                tagFilter.length > 0 &&
-                !tagFilter.every((t) => p.tags.includes(t))
-            ) {
-                return false;
-            }
-
-            return true;
-        });
+        .filter(filterProjects);
 
     return (
         <>
@@ -108,61 +61,11 @@ export default function ProjectList({
                         <h2 className="col-span-4 select-none text-2xl">
                             Projects
                         </h2>
-                    </div>
-                    <div>
-                        <div className="flex w-full select-none justify-center text-neutral-400">
-                            Select details to filter
-                        </div>
-                        {/* Filters */}
-                        <div className="flex flex-wrap justify-center gap-2 pt-1">
-                            {companyFilter.map((c, i) => (
-                                <FilterTag
-                                    key={'company-' + i}
-                                    tag={c}
-                                    onClick={() =>
-                                        setCompanyFilter(
-                                            companyFilter.filter(
-                                                (f) => f !== c,
-                                            ),
-                                        )
-                                    }
-                                />
-                            ))}
-                            {clientFilter.map((c, i) => (
-                                <FilterTag
-                                    key={'client-' + i}
-                                    tag={c}
-                                    onClick={() =>
-                                        setClientFilter(
-                                            clientFilter.filter((f) => f !== c),
-                                        )
-                                    }
-                                />
-                            ))}
-                            {yearFilter.map((y, i) => (
-                                <FilterTag
-                                    key={'year-' + i}
-                                    tag={y.toString()}
-                                    onClick={() =>
-                                        setYearFilter(
-                                            yearFilter.filter((f) => f !== y),
-                                        )
-                                    }
-                                />
-                            ))}
-                            {tagFilter.map((t, i) => (
-                                <FilterTag
-                                    key={'tag-' + i}
-                                    tag={t}
-                                    onClick={() =>
-                                        setTagFilter(
-                                            tagFilter.filter((f) => f !== t),
-                                        )
-                                    }
-                                />
-                            ))}
+                        <div className="col-span-4 flex justify-end">
+                            <FilterPopover />
                         </div>
                     </div>
+                    <Filters />
                 </>
             )}
             <div className="flex flex-col gap-2 pb-8 pt-4">
@@ -174,10 +77,10 @@ export default function ProjectList({
                         <ProjectListItem
                             key={'project-' + i}
                             project={p}
-                            handleCompanyClick={handleCompanyClick}
-                            handleClientClick={handleClientClick}
-                            handleYearClick={handleYearClick}
-                            handleTagClick={handleTagClick}
+                            handleCompanyClick={filterCompany}
+                            handleClientClick={filterClient}
+                            handleYearClick={filterYear}
+                            handleTagClick={filterTag}
                         />
                     ),
                 )}
@@ -287,19 +190,5 @@ function ProjectListItem({
                 />
             </div>
         </div>
-    );
-}
-
-function FilterTag({
-    tag,
-    onClick,
-}: {
-    tag: string;
-    onClick: (tag: string) => void;
-}) {
-    return (
-        <Badge onClick={() => onClick(tag)} variant="secondary">
-            <Close /> {tag}
-        </Badge>
     );
 }
