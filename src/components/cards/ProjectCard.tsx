@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePlausible } from 'next-plausible';
 
 import TagList from '../TagList';
-import BackButton from '../BackButton';
+import BackButton from '../buttons/BackButton';
 import Markdown from '../Markdown';
 import { Star } from '../Icons';
 import { useNavigation } from '@/app/NavigationProvider';

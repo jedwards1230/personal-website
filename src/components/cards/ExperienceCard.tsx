@@ -1,5 +1,5 @@
 import TagList from '../TagList';
-import BackButton from '../BackButton';
+import BackButton from '../buttons/BackButton';
 import { projects } from '@/data';
 import ProjectList from '../ProjectList';
 
