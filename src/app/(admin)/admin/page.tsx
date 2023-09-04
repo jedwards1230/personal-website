@@ -24,7 +24,7 @@ export default async function Page() {
                 <div className="flex w-full justify-between">
                     <div className="text-xl font-medium">Admin Page</div>
                     <div>
-                        <LogoutButton />
+                        <LogoutButton variant="outline">Log Out</LogoutButton>
                     </div>
                 </div>
                 <div>Hi, {session.user.name}</div>
