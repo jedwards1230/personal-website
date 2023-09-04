@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Contact {
@@ -20,6 +21,8 @@ model Experience {
   title       String
   company     String
   period      String
+  summary     String
   description String[]
   tags        String[]
+  extraTags   String?
 }
