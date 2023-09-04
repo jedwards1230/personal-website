@@ -1,9 +1,11 @@
-import { experiences, projects } from '@/data';
+import { projects } from '@/data';
 import { LogoutButton } from '@/components/buttons/LogoutButton';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { notFound, redirect } from 'next/navigation';
-import { getAllMessages } from '@/lib/actions';
+import { getAllExperiences, getAllMessages } from '@/lib/actions';
+import { ExperienceDialog } from '@/components/dialogs/admin/ExperienceDialog';
+import { Button } from '@/components/ui/button';
 
 export default async function Page() {
     const session = await getServerSession(authOptions);
@@ -16,6 +18,8 @@ export default async function Page() {
         notFound();
     }
 
+    // TODO: parallelize
+    const experiences = await getAllExperiences();
     const messages = await getAllMessages();
 
     return (
@@ -30,14 +34,24 @@ export default async function Page() {
                 <div>Hi, {session.user.name}</div>
             </div>
 
-            <div className="flex justify-between gap-8">
+            <div className="flex flex-col justify-between gap-4 sm:flex-row md:gap-8">
                 <Section>
-                    <Title>Experience</Title>
+                    <div className="flex w-full justify-between">
+                        <Title>Experience</Title>
+                        <div className="flex justify-end">
+                            <ExperienceDialog>
+                                <AddButton />
+                            </ExperienceDialog>
+                        </div>
+                    </div>
                     <List>
                         {experiences.map((e, i) => (
-                            <ListItem key={'experience-' + i}>
-                                {e.company}
-                            </ListItem>
+                            <ExperienceDialog
+                                experience={e}
+                                key={'experience-' + i}
+                            >
+                                <ListItem>{e.company}</ListItem>
+                            </ExperienceDialog>
                         ))}
                     </List>
                 </Section>
@@ -70,7 +84,7 @@ export default async function Page() {
 
 function Section({ children }: { children: React.ReactNode }) {
     return (
-        <div className="w-full rounded border border-border p-2">
+        <div className="w-full rounded border border-border p-2 transition-all">
             {children}
         </div>
     );
@@ -85,5 +99,15 @@ function List({ children }: { children: React.ReactNode }) {
 }
 
 function ListItem({ children }: { children: React.ReactNode }) {
-    return <div className="w-full">{children}</div>;
+    return (
+        <div className="w-full cursor-pointer hover:underline">{children}</div>
+    );
+}
+
+function AddButton() {
+    return (
+        <Button variant="outline" size="icon">
+            +
+        </Button>
+    );
 }

@@ -1,8 +1,6 @@
 'use server';
 
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from './prisma';
 
 export async function createContact(
     name: string,
@@ -24,9 +22,31 @@ export async function getAllMessages() {
     return messages;
 }
 
+export async function getAllExperiences(): Promise<Experience[]> {
+    const experiences = await prisma.experience.findMany();
+    return experiences.map((experience) => ({
+        ...experience,
+        extraTags: experience.extraTags ? experience.extraTags.split(',') : [],
+    }));
+}
+
+export async function updateExperience(e: Experience) {
+    const experience = await prisma.experience.update({
+        where: { id: e.id },
+        data: {
+            ...e,
+            extraTags: e.extraTags ? e.extraTags.join(',') : undefined,
+        },
+    });
+    return experience;
+}
+
 export async function createExperience(data: Experience) {
     const experience = await prisma.experience.create({
-        data,
+        data: {
+            ...data,
+            extraTags: data.extraTags ? data.extraTags.join(',') : undefined,
+        },
     });
     return experience;
 }
