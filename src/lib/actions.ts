@@ -19,6 +19,11 @@ export async function createContact(
     return contact;
 }
 
+export async function getAllMessages() {
+    const messages = await prisma.contact.findMany();
+    return messages;
+}
+
 export async function createExperience(data: Experience) {
     const experience = await prisma.experience.create({
         data,
