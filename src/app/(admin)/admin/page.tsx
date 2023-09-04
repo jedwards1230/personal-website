@@ -1,5 +1,5 @@
 import { experiences, projects } from '@/data';
-import { LogoutButton } from '@/components/auth';
+import { LogoutButton } from '@/components/buttons/LogoutButton';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { notFound, redirect } from 'next/navigation';
@@ -15,8 +15,6 @@ export default async function Page() {
     if (session.user.email !== process.env.ADMIN_EMAIL) {
         notFound();
     }
-
-    console.log(session);
 
     const messages = await getAllMessages();
 

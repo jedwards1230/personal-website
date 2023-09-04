@@ -5,7 +5,7 @@ import { usePlausible } from 'next-plausible';
 
 import TagList from '@/components/TagList';
 import { Photo, Star } from './Icons';
-import BackButton from './BackButton';
+import BackButton from './buttons/BackButton';
 import { useNavigation } from '@/app/NavigationProvider';
 import { useFilter } from '@/FilterProvider';
 import Filters from './Filters';
