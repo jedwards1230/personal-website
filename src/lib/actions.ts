@@ -6,8 +6,8 @@ import { prisma } from './prisma';
 const config = {
     // cache for 24 hours
     cacheStrategy: {
-        ttl: process.env.VERCEL_ENV === 'production' ? 60 * 60 * 24 : 10,
-        swr: process.env.VERCEL_ENV === 'production' ? 60 : 10,
+        ttl: process.env.VERCEL_ENV === 'production' ? 60 * 60 * 24 : 0,
+        swr: process.env.VERCEL_ENV === 'production' ? 60 : 0,
     },
 };
 
@@ -61,6 +61,13 @@ export async function createContact(
             email,
             message,
         },
+    });
+    return contact;
+}
+
+export async function deleteContact(id: number) {
+    const contact = await prisma.contact.delete({
+        where: { id },
     });
     return contact;
 }
