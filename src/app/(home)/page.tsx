@@ -11,11 +11,33 @@ export default async function Page() {
         getAllProjects(),
         getPageViews(),
     ]);
+
+    // sort by id
+    const sortedExperiences = experiences.sort((a, b) => {
+        if (a.id > b.id) {
+            return 1;
+        } else if (a.id < b.id) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+
+    const sortedProjects = projects.sort((a, b) => {
+        if (a.id > b.id) {
+            return 1;
+        } else if (a.id < b.id) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+
     return (
         <>
             <About />
-            <Experience experiences={experiences} />
-            <Projects projects={projects} />
+            <Experience experiences={sortedExperiences} />
+            <Projects projects={sortedProjects} />
             <Contact pageViews={pageViews} />
         </>
     );
