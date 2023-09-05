@@ -7,6 +7,7 @@ const config = {
     // cache for 24 hours
     cacheStrategy: {
         ttl: process.env.VERCEL_ENV === 'production' ? 60 * 60 * 24 : 10,
+        swr: process.env.VERCEL_ENV === 'production' ? 60 : 10,
     },
 };
 
