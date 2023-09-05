@@ -31,30 +31,10 @@ export default async function Page() {
     }
 
     const [experiences, projects, messages] = await Promise.all([
-        getAllExperiences(),
-        getAllProjects(),
+        getAllExperiences('company'),
+        getAllProjects('title'),
         getAllMessages(),
     ]);
-
-    const sortedExperiences = experiences.sort((a, b) => {
-        if (a.company > b.company) {
-            return 1;
-        } else if (a.company < b.company) {
-            return -1;
-        } else {
-            return 0;
-        }
-    });
-
-    const sortedProjects = projects.sort((a, b) => {
-        if (a.title > b.title) {
-            return 1;
-        } else if (a.title < b.title) {
-            return -1;
-        } else {
-            return 0;
-        }
-    });
 
     return (
         <div className="mx-auto flex max-w-5xl flex-col gap-4 p-4">
@@ -77,7 +57,7 @@ export default async function Page() {
                         </ExperienceDialog>
                     }
                 >
-                    {sortedExperiences.map((e, i) => (
+                    {experiences.map((e, i) => (
                         <ExperienceDialog
                             experience={e}
                             key={'experience-' + i}
@@ -94,7 +74,7 @@ export default async function Page() {
                         </ProjectDialog>
                     }
                 >
-                    {sortedProjects.map((p, i) => (
+                    {projects.map((p, i) => (
                         <ProjectDialog project={p} key={'project-' + i}>
                             <ListItem>{p.title}</ListItem>
                         </ProjectDialog>

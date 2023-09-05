@@ -3,10 +3,11 @@
 import { useNavigation } from '@/app/NavigationProvider';
 import { Button } from './ui/button';
 
-const sections = ['about', 'experience', 'projects', 'contact'];
+const sections: Section[] = ['about', 'experience', 'projects', 'contact'];
 
 export default function SectionNav() {
     const { currentSection } = useNavigation();
+
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
         if (element) {

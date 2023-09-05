@@ -2,18 +2,24 @@ import SectionNav from '@/components/SectionNav';
 import IconLinks from '@/components/IconLinks';
 import TagList from '@/components/TagList';
 import { title } from '@/data';
+import { NavigationProvider } from '../NavigationProvider';
+import { getAllExperiences, getAllProjects } from '@/lib/actions';
 
 export const runtime = 'edge';
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
     projectListModal,
 }: {
     children: React.ReactNode;
     projectListModal: React.ReactNode;
 }) {
+    const [experiences, projects] = await Promise.all([
+        getAllExperiences('id'),
+        getAllProjects('id'),
+    ]);
     return (
-        <>
+        <NavigationProvider experiences={experiences} projects={projects}>
             <main className="max-w-screen flex w-full flex-col justify-between px-4 pt-8 sm:gap-4 sm:px-8 md:h-full md:flex-row md:px-16 md:pt-0 lg:px-32">
                 <nav className="inset-0 flex flex-col justify-between gap-4 overflow-hidden pb-12 md:sticky md:h-screen md:pt-16 lg:left-32">
                     <div className="flex flex-col gap-12 transition-all lg:gap-32">
@@ -27,7 +33,7 @@ export default function RootLayout({
                 </div>
             </main>
             <div key="projectListModal">{projectListModal}</div>
-        </>
+        </NavigationProvider>
     );
 }
 
