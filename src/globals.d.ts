@@ -38,3 +38,11 @@ type Project = {
     /** List of images to display for the project */
     images?: string[];
 };
+
+type Contact = {
+    id: number;
+    name: string;
+    email: string;
+    message: string;
+    createdAt: Date;
+};
