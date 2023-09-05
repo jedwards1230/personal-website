@@ -1,5 +1,6 @@
 'use server';
 
+import { experiences, projects } from '@/data';
 import { prisma } from './prisma';
 
 export async function createContact(
@@ -51,6 +52,26 @@ export async function createExperience(data: Experience) {
     return experience;
 }
 
+export async function createProject(data: Project) {
+    const project = await prisma.project.create({
+        data,
+    });
+    return project;
+}
+
+export async function getAllProjects(): Promise<Project[]> {
+    const projects = await prisma.project.findMany();
+    return projects;
+}
+
+export async function updateProject(p: Project) {
+    const project = await prisma.project.update({
+        where: { id: p.id },
+        data: p,
+    });
+    return project;
+}
+
 export async function getPageViews(): Promise<number> {
     const url = new URL('https://plausible.io/api/v1/stats/aggregate');
     url.searchParams.set('site_id', 'jedwards.cc');
@@ -71,4 +92,20 @@ export async function getPageViews(): Promise<number> {
     }).then((res) => res.json());
 
     return res.results.visitors.value || 0;
+}
+
+export async function updateWithLocalData(p: Project[], e: Experience[]) {
+    const newExperiences = experiences.filter(
+        (e1) => !e.find((e2) => e2.company === e1.company),
+    );
+    for (const e of newExperiences) {
+        await createExperience(e);
+    }
+
+    const newProjects = projects.filter(
+        (p1) => !p.find((p2) => p2.title === p1.title),
+    );
+    for (const p of newProjects) {
+        await createProject(p);
+    }
 }
