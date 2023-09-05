@@ -70,7 +70,7 @@ export default async function Page() {
                 <div>Hi, {session ? session.user.name : 'Guest'}</div>
             </div>
 
-            <div className="flex flex-col justify-between gap-4 sm:flex-row md:gap-8">
+            <div className="flex flex-col justify-between gap-4 sm:flex-row">
                 <Section
                     title={SECTIONS.EXPERIENCE}
                     addButtonDialog={
@@ -104,22 +104,28 @@ export default async function Page() {
                 </Section>
             </div>
             <Section title={SECTIONS.MESSAGES}>
-                <div className="grid grid-cols-12 pb-1 text-secondary-foreground">
+                <div className="grid grid-cols-6 pb-1 text-secondary-foreground sm:grid-cols-8 md:grid-cols-12">
                     <span className="col-span-2 underline">Date</span>
-                    <span className="col-span-2 underline">Name</span>
+                    <span className="col-span-2 hidden underline sm:block">
+                        Name
+                    </span>
                     <span className="col-span-4 underline">Email</span>
-                    <span className="col-span-4 underline">Message</span>
+                    <span className="col-span-4 hidden underline md:block">
+                        Message
+                    </span>
                 </div>
                 {messages.map((m, i) => (
                     <MessageDialog key={'message-' + i} message={m}>
                         <ListItem>
-                            <div className="grid grid-cols-12">
+                            <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-12">
                                 <span className="col-span-2">
                                     {m.createdAt.toLocaleDateString()}
                                 </span>
-                                <span className="col-span-2">{m.name}</span>
+                                <span className="col-span-2 hidden sm:block">
+                                    {m.name}
+                                </span>
                                 <span className="col-span-4">{m.email}</span>
-                                <span className="col-span-4 truncate">
+                                <span className="col-span-4 hidden truncate md:block">
                                     {m.message}
                                 </span>
                             </div>

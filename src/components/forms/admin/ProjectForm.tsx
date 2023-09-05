@@ -18,7 +18,7 @@ import { createProject, updateProject } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
-    year: z.number().int().min(2000).max(2021),
+    year: z.number().int().min(2000).max(2024),
     month: z.number().int().min(1).max(12),
     company: z.string().nonempty(),
     client: z.string().optional(),
@@ -46,7 +46,7 @@ export default function ProjectForm({
             year: data?.year,
             month: data?.month,
             company: data?.company,
-            client: data?.client,
+            client: data?.client ?? '',
             title: data?.title,
             description: data?.description,
             info: data?.info,
