@@ -1,11 +1,21 @@
-import { projects } from '@/data';
 import { LogoutButton } from '@/components/buttons/LogoutButton';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { notFound, redirect } from 'next/navigation';
-import { getAllExperiences, getAllMessages } from '@/lib/actions';
+import {
+    getAllExperiences,
+    getAllMessages,
+    getAllProjects,
+} from '@/lib/actions';
 import { ExperienceDialog } from '@/components/dialogs/admin/ExperienceDialog';
 import { Button } from '@/components/ui/button';
+import { ProjectDialog } from '@/components/dialogs/admin/ProjectDialog';
+
+const SECTIONS = {
+    EXPERIENCE: 'Experience',
+    PROJECTS: 'Projects',
+    MESSAGES: 'Messages',
+};
 
 export default async function Page() {
     const session = await getServerSession(authOptions);
@@ -18,9 +28,11 @@ export default async function Page() {
         notFound();
     }
 
-    // TODO: parallelize
-    const experiences = await getAllExperiences();
-    const messages = await getAllMessages();
+    const [experiences, projects, messages] = await Promise.all([
+        getAllExperiences(),
+        getAllProjects(),
+        getAllMessages(),
+    ]);
 
     return (
         <div className="mx-auto flex max-w-5xl flex-col gap-4 p-4">
@@ -35,57 +47,71 @@ export default async function Page() {
             </div>
 
             <div className="flex flex-col justify-between gap-4 sm:flex-row md:gap-8">
-                <Section>
-                    <div className="flex w-full justify-between">
-                        <Title>Experience</Title>
-                        <div className="flex justify-end">
-                            <ExperienceDialog>
-                                <AddButton />
-                            </ExperienceDialog>
-                        </div>
-                    </div>
-                    <List>
-                        {experiences.map((e, i) => (
-                            <ExperienceDialog
-                                experience={e}
-                                key={'experience-' + i}
-                            >
-                                <ListItem>{e.company}</ListItem>
-                            </ExperienceDialog>
-                        ))}
-                    </List>
+                <Section
+                    title={SECTIONS.EXPERIENCE}
+                    addButtonDialog={
+                        <ExperienceDialog>
+                            <AddButton />
+                        </ExperienceDialog>
+                    }
+                >
+                    {experiences.map((e, i) => (
+                        <ExperienceDialog
+                            experience={e}
+                            key={'experience-' + i}
+                        >
+                            <ListItem>{e.company}</ListItem>
+                        </ExperienceDialog>
+                    ))}
                 </Section>
-                <Section>
-                    <Title>Projects</Title>
-                    <List>
-                        {projects.map((p, i) => (
-                            <ListItem key={'projects-' + i}>{p.title}</ListItem>
-                        ))}
-                    </List>
+                <Section
+                    title={SECTIONS.PROJECTS}
+                    addButtonDialog={
+                        <ProjectDialog>
+                            <AddButton />
+                        </ProjectDialog>
+                    }
+                >
+                    {projects.map((p, i) => (
+                        <ProjectDialog project={p} key={'project-' + i}>
+                            <ListItem>{p.title}</ListItem>
+                        </ProjectDialog>
+                    ))}
                 </Section>
             </div>
-            <Section>
-                <Title>Messages</Title>
-                <List>
-                    {messages.map((m, i) => (
-                        <ListItem key={'message-' + i}>
-                            <div className="flex w-full justify-between">
-                                <span>{m.name}</span>
-                                <span>{m.email}</span>
-                                <span>{m.createdAt.toLocaleDateString()}</span>
-                            </div>
-                        </ListItem>
-                    ))}
-                </List>
+            <Section title={SECTIONS.MESSAGES}>
+                {messages.map((m, i) => (
+                    <ListItem key={'message-' + i}>
+                        <div className="flex w-full justify-between">
+                            <span>{m.name}</span>
+                            <span>{m.email}</span>
+                            <span>{m.createdAt.toLocaleDateString()}</span>
+                        </div>
+                    </ListItem>
+                ))}
             </Section>
         </div>
     );
 }
 
-function Section({ children }: { children: React.ReactNode }) {
+function Section({
+    children,
+    title,
+    addButtonDialog,
+}: {
+    children: React.ReactNode;
+    title: string;
+    addButtonDialog?: React.ReactNode;
+}) {
     return (
         <div className="w-full rounded border border-border p-2 transition-all">
-            {children}
+            <div className="flex w-full justify-between">
+                <Title>{title}</Title>
+                {addButtonDialog && (
+                    <div className="flex justify-end">{addButtonDialog}</div>
+                )}
+            </div>
+            <List>{children}</List>
         </div>
     );
 }
@@ -106,7 +132,7 @@ function ListItem({ children }: { children: React.ReactNode }) {
 
 function AddButton() {
     return (
-        <Button variant="outline" size="icon">
+        <Button className="text-xl font-medium" variant="outline" size="icon">
             +
         </Button>
     );
