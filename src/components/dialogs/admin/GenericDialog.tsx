@@ -26,11 +26,10 @@ export function GenericDialog({
     ViewComponent: any;
     dataType: 'experience' | 'project';
 }) {
-    const [open, setOpen] = useState(false);
     const [edit, setEdit] = useState(false);
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog>
             <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent className="max-h-screen overflow-y-scroll sm:max-h-[95%] sm:max-w-lg md:max-w-xl lg:max-w-2xl">
                 <DialogHeader>
@@ -44,7 +43,7 @@ export function GenericDialog({
                                     : data?.title}
                             </p>
                         )}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 transition-all">
                             <Switch
                                 checked={edit}
                                 onCheckedChange={() => setEdit((prev) => !prev)}
@@ -63,7 +62,7 @@ export function GenericDialog({
                     )}
                 </DialogHeader>
                 {edit ? (
-                    <FormComponent data={data} setOpen={setOpen} />
+                    <FormComponent data={data} setEdit={setEdit} />
                 ) : (
                     <ViewComponent data={data} />
                 )}

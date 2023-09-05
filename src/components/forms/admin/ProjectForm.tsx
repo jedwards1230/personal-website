@@ -13,13 +13,7 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form';
-import {
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
+import { DialogFooter } from '@/components/ui/dialog';
 import { createProject, updateProject } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 
@@ -40,10 +34,10 @@ const formSchema = z.object({
 
 export default function ProjectForm({
     data,
-    setOpen,
+    setEdit,
 }: {
     data?: Project;
-    setOpen: (open: boolean) => void;
+    setEdit: (open: boolean) => void;
 }) {
     const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
@@ -93,7 +87,7 @@ export default function ProjectForm({
             } else {
                 updateProject(updatedProject);
             }
-            setOpen(false);
+            setEdit(false);
             router.refresh();
         } catch (err) {
             console.log(err);

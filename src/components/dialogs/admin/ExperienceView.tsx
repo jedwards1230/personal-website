@@ -1,3 +1,4 @@
+import Markdown from '@/components/Markdown';
 import { Label } from '@/components/ui/label';
 
 export default function ExperienceView({ data }: { data?: Experience }) {
@@ -17,9 +18,7 @@ export default function ExperienceView({ data }: { data?: Experience }) {
             </div>
             <div>
                 <Label>Description</Label>
-                {data?.description.map((d, i) => (
-                    <p key={'description-' + i}>{d}</p>
-                ))}
+                <Markdown>{data?.description.join('\n')}</Markdown>
             </div>
             <div>
                 <Label>Tags</Label>

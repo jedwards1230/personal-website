@@ -5,7 +5,6 @@ import { useInView } from 'react-intersection-observer';
 
 import ProjectCard from '@/components/cards/ProjectCard';
 import Modal from '@/components/Modal';
-import { experiences, projects } from '@/data';
 import ExperienceCard from '@/components/cards/ExperienceCard';
 import ImageCard from '@/components/cards/ImageCard';
 
@@ -25,8 +24,12 @@ const NavigationContext = createContext({
 
 export const NavigationProvider = ({
     children,
+    experiences,
+    projects,
 }: {
     children: React.ReactNode;
+    experiences: Experience[];
+    projects: Project[];
 }) => {
     const [currentSection, setCurrentSection] = useState('about');
     const [currentExperience, setCurrentExperience] = useState<number | null>(

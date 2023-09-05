@@ -4,6 +4,7 @@ import Contact from './Contact';
 import Experience from './Experiences';
 import Projects from './Projects';
 import { getPageViews } from '@/lib/actions';
+import { NavigationProvider } from '../NavigationProvider';
 
 export default async function Page() {
     const [experiences, projects, pageViews] = await Promise.all([
@@ -34,11 +35,11 @@ export default async function Page() {
     });
 
     return (
-        <>
+        <NavigationProvider experiences={experiences} projects={projects}>
             <About />
             <Experience experiences={sortedExperiences} />
             <Projects projects={sortedProjects} />
             <Contact pageViews={pageViews} />
-        </>
+        </NavigationProvider>
     );
 }
