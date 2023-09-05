@@ -21,6 +21,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { createProject, updateProject } from '@/lib/actions';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
     year: z.number().int().min(2000).max(2021),
@@ -44,6 +45,7 @@ export default function ProjectForm({
     project?: Project;
     setOpen: (open: boolean) => void;
 }) {
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -92,6 +94,7 @@ export default function ProjectForm({
                 updateProject(updatedProject);
             }
             setOpen(false);
+            router.refresh();
         } catch (err) {
             console.log(err);
         }
