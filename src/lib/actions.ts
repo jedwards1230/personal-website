@@ -14,28 +14,40 @@ const config = {
 export async function getAllExperiences(
     sortBy: 'id' | 'company',
 ): Promise<Experience[]> {
-    const experiences = await prisma.experience.findMany({
-        ...config,
-        orderBy: {
-            [sortBy]: 'asc',
-        },
-    });
-    return experiences.map((experience) => ({
-        ...experience,
-        extraTags: experience.extraTags ? experience.extraTags.split(',') : [],
-    }));
+    try {
+        const experiences = await prisma.experience.findMany({
+            ...config,
+            orderBy: {
+                [sortBy]: 'asc',
+            },
+        });
+        return experiences.map((experience) => ({
+            ...experience,
+            extraTags: experience.extraTags
+                ? experience.extraTags.split(',')
+                : [],
+        }));
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 }
 
 export async function getAllProjects(
     sortBy: 'id' | 'title',
 ): Promise<Project[]> {
-    const projects = await prisma.project.findMany({
-        ...config,
-        orderBy: {
-            [sortBy]: 'asc',
-        },
-    });
-    return projects;
+    try {
+        const projects = await prisma.project.findMany({
+            ...config,
+            orderBy: {
+                [sortBy]: 'asc',
+            },
+        });
+        return projects;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 }
 
 export async function createContact(
@@ -54,7 +66,12 @@ export async function createContact(
 }
 
 export async function getAllMessages() {
-    const messages = await prisma.contact.findMany();
+    const messages = await prisma.contact.findMany({
+        ...config,
+        orderBy: {
+            createdAt: 'desc',
+        },
+    });
     return messages;
 }
 

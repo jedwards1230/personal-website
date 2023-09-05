@@ -10,6 +10,7 @@ import {
 import { ExperienceDialog } from '@/components/dialogs/admin/ExperienceDialog';
 import { Button } from '@/components/ui/button';
 import { ProjectDialog } from '@/components/dialogs/admin/ProjectDialog';
+import MessageDialog from '@/components/dialogs/admin/MessageDialog';
 
 const SECTIONS = {
     EXPERIENCE: 'Experience',
@@ -30,11 +31,32 @@ export default async function Page() {
         notFound();
     }
 
-    const [experiences, projects, messages] = await Promise.all([
-        getAllExperiences('company'),
-        getAllProjects('title'),
-        getAllMessages(),
-    ]);
+    const [experiencesPromise, projectsPromise, messagesPromise] =
+        await Promise.allSettled([
+            getAllExperiences('company'),
+            getAllProjects('title'),
+            getAllMessages(),
+        ]);
+
+    // handle promise results
+    if (experiencesPromise.status === 'rejected') {
+        console.error(experiencesPromise.reason);
+    }
+    if (projectsPromise.status === 'rejected') {
+        console.error(projectsPromise.reason);
+    }
+    if (messagesPromise.status === 'rejected') {
+        console.error(messagesPromise.reason);
+    }
+
+    const experiences =
+        experiencesPromise.status === 'fulfilled'
+            ? experiencesPromise.value
+            : [];
+    const projects =
+        projectsPromise.status === 'fulfilled' ? projectsPromise.value : [];
+    const messages =
+        messagesPromise.status === 'fulfilled' ? messagesPromise.value : [];
 
     return (
         <div className="mx-auto flex max-w-5xl flex-col gap-4 p-4">
@@ -82,14 +104,27 @@ export default async function Page() {
                 </Section>
             </div>
             <Section title={SECTIONS.MESSAGES}>
+                <div className="grid grid-cols-12 pb-1 text-secondary-foreground">
+                    <span className="col-span-2 underline">Date</span>
+                    <span className="col-span-2 underline">Name</span>
+                    <span className="col-span-4 underline">Email</span>
+                    <span className="col-span-4 underline">Message</span>
+                </div>
                 {messages.map((m, i) => (
-                    <ListItem key={'message-' + i}>
-                        <div className="flex w-full justify-between">
-                            <span>{m.name}</span>
-                            <span>{m.email}</span>
-                            <span>{m.createdAt.toLocaleDateString()}</span>
-                        </div>
-                    </ListItem>
+                    <MessageDialog key={'message-' + i} message={m}>
+                        <ListItem>
+                            <div className="grid grid-cols-12">
+                                <span className="col-span-2">
+                                    {m.createdAt.toLocaleDateString()}
+                                </span>
+                                <span className="col-span-2">{m.name}</span>
+                                <span className="col-span-4">{m.email}</span>
+                                <span className="col-span-4 truncate">
+                                    {m.message}
+                                </span>
+                            </div>
+                        </ListItem>
+                    </MessageDialog>
                 ))}
             </Section>
         </div>
@@ -128,7 +163,7 @@ function List({ children }: { children: React.ReactNode }) {
 
 function ListItem({ children }: { children: React.ReactNode }) {
     return (
-        <div className="w-full cursor-pointer rounded-lg p-1 hover:bg-secondary/60 hover:underline">
+        <div className="w-full cursor-pointer rounded-lg p-1 underline-offset-4 hover:bg-secondary/60 hover:underline">
             {children}
         </div>
     );
