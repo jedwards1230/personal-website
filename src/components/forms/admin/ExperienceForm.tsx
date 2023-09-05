@@ -13,13 +13,7 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form';
-import {
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
+import { DialogFooter } from '@/components/ui/dialog';
 import { createExperience, updateExperience } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 
@@ -34,31 +28,29 @@ const formSchema = z.object({
 });
 
 export default function ExperienceForm({
-    experience,
+    data,
     setOpen,
 }: {
-    experience?: Experience;
+    data?: Experience;
     setOpen: (open: boolean) => void;
 }) {
     const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: experience?.title || '',
-            company: experience?.company || '',
-            period: experience?.period || '',
-            summary: experience?.summary || '',
-            description: experience?.description.join('\n') || '',
-            tags: experience?.tags.join(', ') || '',
-            extraTags: experience?.extraTags
-                ? experience.extraTags.join(', ')
-                : '',
+            title: data?.title || '',
+            company: data?.company || '',
+            period: data?.period || '',
+            summary: data?.summary || '',
+            description: data?.description.join('\n') || '',
+            tags: data?.tags.join(', ') || '',
+            extraTags: data?.extraTags ? data.extraTags.join(', ') : '',
         },
     });
 
     const handleSubmit = (values: z.infer<typeof formSchema>) => {
         const updatedExperience: Experience = {
-            ...experience,
+            ...data,
             title: values.title,
             company: values.company,
             period: values.period,
@@ -69,7 +61,7 @@ export default function ExperienceForm({
         };
 
         try {
-            if (!experience) {
+            if (!data) {
                 createExperience(updatedExperience)
                     .then((res) => {
                         console.log(res);
@@ -90,53 +82,14 @@ export default function ExperienceForm({
     return (
         <Form {...form}>
             <form>
-                <DialogContent className="max-h-screen overflow-y-scroll sm:max-h-[95%] sm:max-w-lg md:max-w-xl lg:max-w-2xl">
-                    <DialogHeader>
-                        <DialogTitle>
-                            {experience ? 'Edit' : 'Add'} experience
-                        </DialogTitle>
-                        <DialogDescription>
-                            {experience
-                                ? 'Make changes to your experience here.'
-                                : 'Add an experience here.'}{' '}
-                            Click save when you're done.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-2 py-4 sm:gap-4">
-                        <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
-                            <FormField
-                                control={form.control}
-                                name="title"
-                                render={({ field }) => (
-                                    <FormItem className="col-span-3">
-                                        <FormLabel>Title</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="company"
-                                render={({ field }) => (
-                                    <FormItem className="col-span-3">
-                                        <FormLabel>Company</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
+                <div className="grid gap-2 sm:gap-4">
+                    <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
                         <FormField
                             control={form.control}
-                            name="period"
+                            name="title"
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Period</FormLabel>
+                                <FormItem className="col-span-3">
+                                    <FormLabel>Title</FormLabel>
                                     <FormControl>
                                         <Input {...field} />
                                     </FormControl>
@@ -146,49 +99,10 @@ export default function ExperienceForm({
                         />
                         <FormField
                             control={form.control}
-                            name="summary"
+                            name="company"
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Summary</FormLabel>
-                                    <FormControl>
-                                        <Textarea className="h-24" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="description"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Description</FormLabel>
-                                    <FormControl>
-                                        <Textarea className="h-32" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="tags"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Tags</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="extraTags"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Extra Tags</FormLabel>
+                                <FormItem className="col-span-3">
+                                    <FormLabel>Company</FormLabel>
                                     <FormControl>
                                         <Input {...field} />
                                     </FormControl>
@@ -197,15 +111,80 @@ export default function ExperienceForm({
                             )}
                         />
                     </div>
-                    <DialogFooter>
-                        <Button
-                            onClick={form.handleSubmit(handleSubmit)}
-                            type="submit"
-                        >
-                            Save {experience ? 'Changes' : 'Experience'}
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
+                    <FormField
+                        control={form.control}
+                        name="period"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Period</FormLabel>
+                                <FormControl>
+                                    <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="summary"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Summary</FormLabel>
+                                <FormControl>
+                                    <Textarea className="h-24" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="description"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                    <Textarea className="h-32" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="tags"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Tags</FormLabel>
+                                <FormControl>
+                                    <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="extraTags"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Extra Tags</FormLabel>
+                                <FormControl>
+                                    <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+                <DialogFooter>
+                    <Button
+                        onClick={form.handleSubmit(handleSubmit)}
+                        type="submit"
+                    >
+                        Save {data ? 'Changes' : 'Experience'}
+                    </Button>
+                </DialogFooter>
             </form>
         </Form>
     );

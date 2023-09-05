@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-
 import ExperienceForm from '@/components/forms/admin/ExperienceForm';
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import ExperienceView from './ExperienceView';
+import { GenericDialog } from './GenericDialog';
 
 export function ExperienceDialog({
     children,
@@ -12,12 +11,14 @@ export function ExperienceDialog({
     children: React.ReactNode;
     experience?: Experience;
 }) {
-    const [open, setOpen] = useState(false);
-
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>{children}</DialogTrigger>
-            <ExperienceForm experience={experience} setOpen={setOpen} />
-        </Dialog>
+        <GenericDialog
+            dataType="experience"
+            FormComponent={ExperienceForm}
+            ViewComponent={ExperienceView}
+            data={experience}
+        >
+            {children}
+        </GenericDialog>
     );
 }

@@ -39,34 +39,34 @@ const formSchema = z.object({
 });
 
 export default function ProjectForm({
-    project,
+    data,
     setOpen,
 }: {
-    project?: Project;
+    data?: Project;
     setOpen: (open: boolean) => void;
 }) {
     const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            year: project?.year,
-            month: project?.month,
-            company: project?.company,
-            client: project?.client,
-            title: project?.title,
-            description: project?.description,
-            info: project?.info,
-            href: project?.href,
-            tags: project?.tags.join(', '),
-            showcase: project?.showcase,
-            favorite: project?.favorite,
-            images: project?.images,
+            year: data?.year,
+            month: data?.month,
+            company: data?.company,
+            client: data?.client,
+            title: data?.title,
+            description: data?.description,
+            info: data?.info,
+            href: data?.href,
+            tags: data?.tags.join(', '),
+            showcase: data?.showcase,
+            favorite: data?.favorite,
+            images: data?.images,
         },
     });
 
     const handleSubmit = (values: z.infer<typeof formSchema>) => {
         const updatedProject: Project = {
-            ...project,
+            ...data,
             year: values.year,
             month: values.month,
             company: values.company,
@@ -82,7 +82,7 @@ export default function ProjectForm({
         };
 
         try {
-            if (!project) {
+            if (!data) {
                 createProject(updatedProject)
                     .then((res) => {
                         console.log(res);
@@ -103,109 +103,14 @@ export default function ProjectForm({
     return (
         <Form {...form}>
             <form>
-                <DialogContent className="max-h-screen overflow-y-scroll sm:max-h-[95%] sm:max-w-lg md:max-w-xl lg:max-w-2xl">
-                    <DialogHeader>
-                        <DialogTitle>
-                            {project ? 'Edit' : 'Add'} experience
-                        </DialogTitle>
-                        <DialogDescription>
-                            {project
-                                ? 'Make changes to your experience here.'
-                                : 'Add an experience here.'}{' '}
-                            Click save when you're done.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-2 py-4 sm:gap-4">
-                        <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
-                            <FormField
-                                control={form.control}
-                                name="title"
-                                render={({ field }) => (
-                                    <FormItem className="col-span-3">
-                                        <FormLabel>Title</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="company"
-                                render={({ field }) => (
-                                    <FormItem className="col-span-3">
-                                        <FormLabel>Company</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
-                        <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
-                            <div className="col-span-3 flex gap-4">
-                                <FormField
-                                    control={form.control}
-                                    name="month"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Month</FormLabel>
-                                            <FormControl>
-                                                <Input {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="year"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Year</FormLabel>
-                                            <FormControl>
-                                                <Input {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-                            <FormField
-                                control={form.control}
-                                name="client"
-                                render={({ field }) => (
-                                    <FormItem className="col-span-3">
-                                        <FormLabel>Client</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
+                <div className="grid gap-2 sm:gap-4">
+                    <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
                         <FormField
                             control={form.control}
-                            name="description"
+                            name="title"
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Description</FormLabel>
-                                    <FormControl>
-                                        <Textarea className="h-24" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="href"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Link</FormLabel>
+                                <FormItem className="col-span-3">
+                                    <FormLabel>Title</FormLabel>
                                     <FormControl>
                                         <Input {...field} />
                                     </FormControl>
@@ -215,36 +120,10 @@ export default function ProjectForm({
                         />
                         <FormField
                             control={form.control}
-                            name="images"
+                            name="company"
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Images</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="info"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Info</FormLabel>
-                                    <FormControl>
-                                        <Textarea className="h-32" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="tags"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Tags</FormLabel>
+                                <FormItem className="col-span-3">
+                                    <FormLabel>Company</FormLabel>
                                     <FormControl>
                                         <Input {...field} />
                                     </FormControl>
@@ -253,15 +132,123 @@ export default function ProjectForm({
                             )}
                         />
                     </div>
-                    <DialogFooter>
-                        <Button
-                            onClick={form.handleSubmit(handleSubmit)}
-                            type="submit"
-                        >
-                            Save {project ? 'Changes' : 'Experience'}
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
+                    <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
+                        <div className="col-span-3 flex gap-4">
+                            <FormField
+                                control={form.control}
+                                name="month"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Month</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="year"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Year</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <FormField
+                            control={form.control}
+                            name="client"
+                            render={({ field }) => (
+                                <FormItem className="col-span-3">
+                                    <FormLabel>Client</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <FormField
+                        control={form.control}
+                        name="description"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                    <Textarea className="h-24" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="href"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Link</FormLabel>
+                                <FormControl>
+                                    <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="images"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Images</FormLabel>
+                                <FormControl>
+                                    <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="info"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Info</FormLabel>
+                                <FormControl>
+                                    <Textarea className="h-32" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="tags"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Tags</FormLabel>
+                                <FormControl>
+                                    <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+                <DialogFooter>
+                    <Button
+                        onClick={form.handleSubmit(handleSubmit)}
+                        type="submit"
+                    >
+                        Save {data ? 'Changes' : 'Experience'}
+                    </Button>
+                </DialogFooter>
             </form>
         </Form>
     );
