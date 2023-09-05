@@ -5,7 +5,9 @@ import { prisma } from './prisma';
 
 const config = {
     // cache for 24 hours
-    cacheStrategy: { ttl: 60 * 60 * 24 },
+    cacheStrategy: {
+        ttl: process.env.VERCEL_ENV === 'production' ? 60 * 60 * 24 : 0,
+    },
 };
 
 export async function getAllExperiences(): Promise<Experience[]> {

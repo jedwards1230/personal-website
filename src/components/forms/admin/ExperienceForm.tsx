@@ -29,10 +29,10 @@ const formSchema = z.object({
 
 export default function ExperienceForm({
     data,
-    setOpen,
+    setEdit,
 }: {
     data?: Experience;
-    setOpen: (open: boolean) => void;
+    setEdit: (edit: boolean) => void;
 }) {
     const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
@@ -72,7 +72,7 @@ export default function ExperienceForm({
             } else {
                 updateExperience(updatedExperience);
             }
-            setOpen(false);
+            setEdit(false);
             router.refresh();
         } catch (err) {
             console.log(err);

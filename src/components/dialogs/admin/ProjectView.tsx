@@ -1,3 +1,4 @@
+import Markdown from '@/components/Markdown';
 import { Label } from '@/components/ui/label';
 
 export default function ExperienceView({ data }: { data?: Project }) {
@@ -41,7 +42,7 @@ export default function ExperienceView({ data }: { data?: Project }) {
             </div>
             <div>
                 <Label>Info</Label>
-                <p>{data?.info}</p>
+                <Markdown>{data?.info}</Markdown>
             </div>
             <div>
                 <Label>Tags</Label>
