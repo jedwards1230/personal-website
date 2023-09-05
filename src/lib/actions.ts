@@ -3,6 +3,24 @@
 import { experiences, projects } from '@/data';
 import { prisma } from './prisma';
 
+const config = {
+    // cache for 24 hours
+    cacheStrategy: { ttl: 60 * 60 * 24 },
+};
+
+export async function getAllExperiences(): Promise<Experience[]> {
+    const experiences = await prisma.experience.findMany(config);
+    return experiences.map((experience) => ({
+        ...experience,
+        extraTags: experience.extraTags ? experience.extraTags.split(',') : [],
+    }));
+}
+
+export async function getAllProjects(): Promise<Project[]> {
+    const projects = await prisma.project.findMany(config);
+    return projects;
+}
+
 export async function createContact(
     name: string,
     email: string,
@@ -21,14 +39,6 @@ export async function createContact(
 export async function getAllMessages() {
     const messages = await prisma.contact.findMany();
     return messages;
-}
-
-export async function getAllExperiences(): Promise<Experience[]> {
-    const experiences = await prisma.experience.findMany();
-    return experiences.map((experience) => ({
-        ...experience,
-        extraTags: experience.extraTags ? experience.extraTags.split(',') : [],
-    }));
 }
 
 export async function updateExperience(e: Experience) {
@@ -57,11 +67,6 @@ export async function createProject(data: Project) {
         data,
     });
     return project;
-}
-
-export async function getAllProjects(): Promise<Project[]> {
-    const projects = await prisma.project.findMany();
-    return projects;
 }
 
 export async function updateProject(p: Project) {
