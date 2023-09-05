@@ -6,20 +6,34 @@ import { prisma } from './prisma';
 const config = {
     // cache for 24 hours
     cacheStrategy: {
-        ttl: process.env.VERCEL_ENV === 'production' ? 60 * 60 * 24 : 0,
+        ttl: process.env.VERCEL_ENV === 'production' ? 60 * 60 * 24 : 10,
     },
 };
 
-export async function getAllExperiences(): Promise<Experience[]> {
-    const experiences = await prisma.experience.findMany(config);
+export async function getAllExperiences(
+    sortBy: 'id' | 'company',
+): Promise<Experience[]> {
+    const experiences = await prisma.experience.findMany({
+        ...config,
+        orderBy: {
+            [sortBy]: 'asc',
+        },
+    });
     return experiences.map((experience) => ({
         ...experience,
         extraTags: experience.extraTags ? experience.extraTags.split(',') : [],
     }));
 }
 
-export async function getAllProjects(): Promise<Project[]> {
-    const projects = await prisma.project.findMany(config);
+export async function getAllProjects(
+    sortBy: 'id' | 'title',
+): Promise<Project[]> {
+    const projects = await prisma.project.findMany({
+        ...config,
+        orderBy: {
+            [sortBy]: 'asc',
+        },
+    });
     return projects;
 }
 

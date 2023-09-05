@@ -13,7 +13,7 @@ const NavigationContext = createContext({
     refExperience: null,
     refAbout: null,
     refContact: null,
-    currentSection: 'about',
+    currentSection: 'about' as Section,
     setCurrentSection: (section: Section) => {},
     currentProject: null,
     setCurrentProject: (project: number | null) => {},
@@ -31,7 +31,7 @@ export const NavigationProvider = ({
     experiences: Experience[];
     projects: Project[];
 }) => {
-    const [currentSection, setCurrentSection] = useState('about');
+    const [currentSection, setCurrentSection] = useState<Section>('about');
     const [currentExperience, setCurrentExperience] = useState<number | null>(
         null,
     );
@@ -91,4 +91,11 @@ export const NavigationProvider = ({
     );
 };
 
-export const useNavigation = () => useContext(NavigationContext);
+export const useNavigation = () => {
+    if (!useContext(NavigationContext)) {
+        throw new Error(
+            'useNavigation must be used within a NavigationProvider',
+        );
+    }
+    return useContext(NavigationContext);
+};
