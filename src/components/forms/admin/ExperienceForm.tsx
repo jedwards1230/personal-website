@@ -82,7 +82,7 @@ export default function ExperienceForm({
     return (
         <Form {...form}>
             <form>
-                <div className="grid gap-2 sm:gap-4">
+                <div className="grid gap-2 pb-4 sm:gap-4">
                     <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
                         <FormField
                             control={form.control}
