@@ -21,6 +21,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { createExperience, updateExperience } from '@/lib/actions';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
     title: z.string().nonempty(),
@@ -39,6 +40,7 @@ export default function ExperienceForm({
     experience?: Experience;
     setOpen: (open: boolean) => void;
 }) {
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -79,6 +81,7 @@ export default function ExperienceForm({
                 updateExperience(updatedExperience);
             }
             setOpen(false);
+            router.refresh();
         } catch (err) {
             console.log(err);
         }

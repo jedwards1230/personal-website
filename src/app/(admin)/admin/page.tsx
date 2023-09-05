@@ -17,6 +17,8 @@ const SECTIONS = {
     MESSAGES: 'Messages',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
     const session = await getServerSession(authOptions);
 
@@ -34,6 +36,26 @@ export default async function Page() {
         getAllMessages(),
     ]);
 
+    const sortedExperiences = experiences.sort((a, b) => {
+        if (a.company > b.company) {
+            return 1;
+        } else if (a.company < b.company) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+
+    const sortedProjects = projects.sort((a, b) => {
+        if (a.title > b.title) {
+            return 1;
+        } else if (a.title < b.title) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+
     return (
         <div className="mx-auto flex max-w-5xl flex-col gap-4 p-4">
             <div className="space-y-2">
@@ -43,7 +65,7 @@ export default async function Page() {
                         <LogoutButton variant="outline">Log Out</LogoutButton>
                     </div>
                 </div>
-                <div>Hi, {session.user.name}</div>
+                <div>Hi, {session ? session.user.name : 'Guest'}</div>
             </div>
 
             <div className="flex flex-col justify-between gap-4 sm:flex-row md:gap-8">
@@ -55,7 +77,7 @@ export default async function Page() {
                         </ExperienceDialog>
                     }
                 >
-                    {experiences.map((e, i) => (
+                    {sortedExperiences.map((e, i) => (
                         <ExperienceDialog
                             experience={e}
                             key={'experience-' + i}
@@ -72,7 +94,7 @@ export default async function Page() {
                         </ProjectDialog>
                     }
                 >
-                    {projects.map((p, i) => (
+                    {sortedProjects.map((p, i) => (
                         <ProjectDialog project={p} key={'project-' + i}>
                             <ListItem>{p.title}</ListItem>
                         </ProjectDialog>
@@ -117,16 +139,18 @@ function Section({
 }
 
 function Title({ children }: { children: React.ReactNode }) {
-    return <div className="text-lg font-bold">{children}</div>;
+    return <div className="py-2 text-lg font-bold">{children}</div>;
 }
 
 function List({ children }: { children: React.ReactNode }) {
-    return <div className="w-full">{children}</div>;
+    return <div className="w-full py-1">{children}</div>;
 }
 
 function ListItem({ children }: { children: React.ReactNode }) {
     return (
-        <div className="w-full cursor-pointer hover:underline">{children}</div>
+        <div className="w-full cursor-pointer rounded-lg p-1 hover:bg-secondary/60 hover:underline">
+            {children}
+        </div>
     );
 }
 
