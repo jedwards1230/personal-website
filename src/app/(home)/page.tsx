@@ -1,4 +1,4 @@
-import { getAllExperiences, getAllProjects } from '@/lib/actions.edge';
+import { getAllExperiences, getAllProjects } from '@/lib/actions';
 import About from './About';
 import Contact from './Contact';
 import Experience from './Experiences';
