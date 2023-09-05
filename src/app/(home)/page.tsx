@@ -1,16 +1,21 @@
-import { getPageViews } from '@/lib/actions';
+import { getAllExperiences, getAllProjects } from '@/lib/actions.edge';
 import About from './About';
 import Contact from './Contact';
 import Experience from './Experiences';
 import Projects from './Projects';
+import { getPageViews } from '@/lib/actions';
 
 export default async function Page() {
-    const pageViews = await getPageViews();
+    const [experiences, projects, pageViews] = await Promise.all([
+        getAllExperiences(),
+        getAllProjects(),
+        getPageViews(),
+    ]);
     return (
         <>
             <About />
-            <Experience />
-            <Projects />
+            <Experience experiences={experiences} />
+            <Projects projects={projects} />
             <Contact pageViews={pageViews} />
         </>
     );
