@@ -30,6 +30,10 @@ export default function ProjectCard({
         });
     };
 
+    const images = project.images?.length
+        ? project.images.filter((i) => i.length > 0)
+        : [];
+
     return (
         <div className="flex w-full flex-col pb-4 sm:px-4">
             {/* Title - Client - Year */}
@@ -37,7 +41,7 @@ export default function ProjectCard({
                 <BackButton modal={modal} />
             </div>
             <div className="mb-4 flex w-full flex-col gap-2 sm:flex-row md:gap-4">
-                {project.images && (
+                {images.length > 0 && (
                     <Image
                         width={800}
                         height={400}
