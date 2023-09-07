@@ -1,19 +1,17 @@
 import TagList from '../TagList';
-import BackButton from '../BackButton';
-import { projects } from '@/data';
+import BackButton from '../buttons/BackButton';
 import ProjectList from '../ProjectList';
+import Markdown from '../Markdown';
 
 export default function ExperienceCard({
     experience,
+    relevantProjects,
     modal = false,
 }: {
     experience: Experience;
+    relevantProjects?: Project[];
     modal?: boolean;
 }) {
-    const relevantProjects = projects.filter(
-        (p) => p.company === experience.company,
-    );
-
     const relevantTags = Array.from(
         new Set(
             relevantProjects.reduce((acc, p) => {
@@ -52,11 +50,7 @@ export default function ExperienceCard({
                     <TagList tags={tags} />
                 </div>
             </div>
-            <ul className="list-inside list-disc space-y-1">
-                {experience.description.map((i) => (
-                    <li key={'description-item-' + i}>{i}</li>
-                ))}
-            </ul>
+            <Markdown>{experience.description.join('\n')}</Markdown>
             {relevantProjects.length > 0 && (
                 <ProjectList
                     projects={relevantProjects}

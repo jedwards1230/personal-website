@@ -1,8 +1,44 @@
 'use server';
 
-import { PrismaClient } from '@prisma/client';
+import { experiences, projects } from '@/data';
+import { prisma } from './prisma';
 
-const prisma = new PrismaClient();
+export async function getAllExperiences(
+    sortBy: 'id' | 'company',
+): Promise<Experience[]> {
+    try {
+        const experiences = await prisma.experience.findMany({
+            orderBy: {
+                [sortBy]: 'asc',
+            },
+        });
+        return experiences.map((experience) => ({
+            ...experience,
+            extraTags: experience.extraTags
+                ? experience.extraTags.split(',')
+                : [],
+        }));
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+export async function getAllProjects(
+    sortBy: 'id' | 'title',
+): Promise<Project[]> {
+    try {
+        const projects = await prisma.project.findMany({
+            orderBy: {
+                [sortBy]: 'asc',
+            },
+        });
+        return projects;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
 
 export async function createContact(
     name: string,
@@ -19,11 +55,56 @@ export async function createContact(
     return contact;
 }
 
-export async function createExperience(data: Experience) {
-    const experience = await prisma.experience.create({
-        data,
+export async function deleteContact(id: number) {
+    const contact = await prisma.contact.delete({
+        where: { id },
+    });
+    return contact;
+}
+
+export async function getAllMessages() {
+    const messages = await prisma.contact.findMany({
+        orderBy: {
+            createdAt: 'desc',
+        },
+    });
+    return messages;
+}
+
+export async function updateExperience(e: Experience) {
+    const experience = await prisma.experience.update({
+        where: { id: e.id },
+        data: {
+            ...e,
+            extraTags: e.extraTags ? e.extraTags.join(',') : undefined,
+        },
     });
     return experience;
+}
+
+export async function createExperience(data: Experience) {
+    const experience = await prisma.experience.create({
+        data: {
+            ...data,
+            extraTags: data.extraTags ? data.extraTags.join(',') : undefined,
+        },
+    });
+    return experience;
+}
+
+export async function createProject(data: Project) {
+    const project = await prisma.project.create({
+        data,
+    });
+    return project;
+}
+
+export async function updateProject(p: Project) {
+    const project = await prisma.project.update({
+        where: { id: p.id },
+        data: p,
+    });
+    return project;
 }
 
 export async function getPageViews(): Promise<number> {
@@ -46,4 +127,20 @@ export async function getPageViews(): Promise<number> {
     }).then((res) => res.json());
 
     return res.results.visitors.value || 0;
+}
+
+export async function updateWithLocalData(p: Project[], e: Experience[]) {
+    const newExperiences = experiences.filter(
+        (e1) => !e.find((e2) => e2.company === e1.company),
+    );
+    for (const e of newExperiences) {
+        await createExperience(e);
+    }
+
+    const newProjects = projects.filter(
+        (p1) => !p.find((p2) => p2.title === p1.title),
+    );
+    for (const p of newProjects) {
+        await createProject(p);
+    }
 }
