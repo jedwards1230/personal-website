@@ -23,7 +23,16 @@ export default function Markdown({ children }: { children: string }) {
                         className="text-neutral-900 dark:text-neutral-100"
                     />
                 ),
-                ul: ({ node, depth, ...props }) => (
+                ol: ({ node, depth, ordered, ...props }) => (
+                    <ol
+                        {...props}
+                        className={clsx(
+                            'list-inside list-decimal text-neutral-700 dark:text-neutral-300',
+                            depth === 1 && 'ml-4',
+                        )}
+                    />
+                ),
+                ul: ({ node, depth, ordered, ...props }) => (
                     <ul
                         {...props}
                         className={clsx(
@@ -32,7 +41,7 @@ export default function Markdown({ children }: { children: string }) {
                         )}
                     />
                 ),
-                li: ({ node, children, ...props }) => (
+                li: ({ node, children, ordered, ...props }) => (
                     <li
                         {...props}
                         className="text-neutral-700 dark:text-neutral-300"
