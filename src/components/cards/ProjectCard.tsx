@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePlausible } from 'next-plausible';
 
 import TagList from '../TagList';
-import BackButton from '../BackButton';
+import BackButton from '../buttons/BackButton';
 import Markdown from '../Markdown';
 import { Star } from '../Icons';
 import { useNavigation } from '@/app/NavigationProvider';
@@ -30,6 +30,10 @@ export default function ProjectCard({
         });
     };
 
+    const images = project.images?.length
+        ? project.images.filter((i) => i.length > 0)
+        : [];
+
     return (
         <div className="flex w-full flex-col pb-4 sm:px-4">
             {/* Title - Client - Year */}
@@ -37,7 +41,7 @@ export default function ProjectCard({
                 <BackButton modal={modal} />
             </div>
             <div className="mb-4 flex w-full flex-col gap-2 sm:flex-row md:gap-4">
-                {project.images && (
+                {images.length > 0 && (
                     <Image
                         width={800}
                         height={400}

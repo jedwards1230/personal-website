@@ -7,15 +7,14 @@ import { usePlausible } from 'next-plausible';
 
 import Section from '@/components/Section';
 import TagList from '@/components/TagList';
-import { projects } from '@/data';
 import { useNavigation } from '../NavigationProvider';
 
-export default function Projects() {
+export default function Projects({ projects }: { projects: Project[] }) {
     const plausible = usePlausible();
     const { setCurrentProject } = useNavigation();
     const showcaseProjects = useMemo(() => {
         return projects.filter((p) => p.showcase === true);
-    }, []);
+    }, [projects]);
 
     return (
         <Section id="projects">
