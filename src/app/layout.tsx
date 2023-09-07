@@ -54,6 +54,7 @@ export default function RootLayout({
                 <PlausibleProvider
                     domain="jedwards.cc"
                     trackOutboundLinks={true}
+                    trackFileDownloads={true}
                 />
             </head>
             <body className="relative mx-auto h-full w-full max-w-10xl">
