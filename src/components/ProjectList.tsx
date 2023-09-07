@@ -127,7 +127,7 @@ function ProjectListItem({
                     <span className="text-lg font-semibold">
                         {project.title}
                     </span>
-                    {project.images && <Photo />}
+                    {project.images.length > 0 && <Photo />}
                     {project.favorite && <Star />}
                 </div>
 
