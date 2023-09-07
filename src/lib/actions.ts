@@ -3,20 +3,11 @@
 import { experiences, projects } from '@/data';
 import { prisma } from './prisma';
 
-const config = {
-    // cache for 24 hours
-    cacheStrategy: {
-        ttl: process.env.VERCEL_ENV === 'production' ? 60 * 60 * 24 : 0,
-        swr: process.env.VERCEL_ENV === 'production' ? 60 : 0,
-    },
-};
-
 export async function getAllExperiences(
     sortBy: 'id' | 'company',
 ): Promise<Experience[]> {
     try {
         const experiences = await prisma.experience.findMany({
-            ...config,
             orderBy: {
                 [sortBy]: 'asc',
             },
@@ -38,7 +29,6 @@ export async function getAllProjects(
 ): Promise<Project[]> {
     try {
         const projects = await prisma.project.findMany({
-            ...config,
             orderBy: {
                 [sortBy]: 'asc',
             },
@@ -74,7 +64,6 @@ export async function deleteContact(id: number) {
 
 export async function getAllMessages() {
     const messages = await prisma.contact.findMany({
-        ...config,
         orderBy: {
             createdAt: 'desc',
         },
