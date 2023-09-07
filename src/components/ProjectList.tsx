@@ -62,7 +62,7 @@ export default function ProjectList({
                             Projects
                         </h2>
                         <div className="col-span-4 flex justify-end">
-                            <FilterPopover />
+                            <FilterPopover projects={projects} />
                         </div>
                     </div>
                     <Filters />
@@ -105,23 +105,21 @@ function ProjectListItem({
     const plausible = usePlausible();
     const { setCurrentProject } = useNavigation();
 
+    const viewProject = () => {
+        setCurrentProject(project.id);
+        plausible('View Project', {
+            props: {
+                project: project.title,
+            },
+        });
+    };
+
     return (
         <div
             className={clsx(
                 'flex cursor-pointer flex-col rounded border border-transparent p-2 hover:border-border focus:bg-neutral-300/30 hover:sm:shadow-sm',
             )}
-            onClick={
-                project.info
-                    ? () => {
-                          setCurrentProject(project.id);
-                          plausible('View Project', {
-                              props: {
-                                  project: project.title,
-                              },
-                          });
-                      }
-                    : undefined
-            }
+            onClick={project.info ? viewProject : undefined}
         >
             <div className="flex flex-col justify-between md:flex-row md:items-center">
                 {/* Title */}
