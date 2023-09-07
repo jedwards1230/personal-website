@@ -35,9 +35,11 @@ export default function FilterPopover() {
     projects.forEach((project) => {
         if (!companyOptions.includes(project.company)) {
             companyOptions.push(project.company);
+            companyOptions.sort();
         }
         if (project.client && !clientOptions.includes(project.client)) {
             clientOptions.push(project.client);
+            clientOptions.sort();
         }
         if (!yearOptions.includes(project.year)) {
             yearOptions.push(project.year);
@@ -45,6 +47,7 @@ export default function FilterPopover() {
         project.tags.forEach((tag) => {
             if (!tagOptions.includes(tag)) {
                 tagOptions.push(tag);
+                tagOptions.sort();
             }
         });
     });
