@@ -6,12 +6,10 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from '@/components/ui/popover';
-import { projects } from '@/data';
 import { Funnel } from './Icons';
-import { Input } from './ui/input';
 import { Checkbox } from './ui/checkbox';
 
-export default function FilterPopover() {
+export default function FilterPopover({ projects }: { projects: Project[] }) {
     const {
         companyFilter,
         clientFilter,

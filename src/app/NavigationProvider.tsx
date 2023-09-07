@@ -74,7 +74,13 @@ export const NavigationProvider = ({
             {children}
             {currentExperience && (
                 <Modal>
-                    <ExperienceCard experience={experience} modal={true} />
+                    <ExperienceCard
+                        modal={true}
+                        experience={experience}
+                        relevantProjects={projects.filter(
+                            (p) => p.company === experience.company,
+                        )}
+                    />
                 </Modal>
             )}
             {currentProject && (
@@ -91,11 +97,4 @@ export const NavigationProvider = ({
     );
 };
 
-export const useNavigation = () => {
-    if (!useContext(NavigationContext)) {
-        throw new Error(
-            'useNavigation must be used within a NavigationProvider',
-        );
-    }
-    return useContext(NavigationContext);
-};
+export const useNavigation = () => useContext(NavigationContext);

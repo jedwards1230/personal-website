@@ -17,7 +17,7 @@ export default async function Page() {
     ]);
 
     return (
-        <NavigationProvider experiences={experiences} projects={projects}>
+        <>
             <nav className="inset-0 flex flex-col justify-between gap-4 overflow-hidden pb-12 md:sticky md:h-screen md:pt-16 lg:left-32">
                 <div className="flex flex-col gap-12 transition-all lg:gap-32">
                     <Header />
@@ -31,7 +31,7 @@ export default async function Page() {
                 <Projects projects={projects} />
                 <Contact pageViews={pageViews} />
             </div>
-        </NavigationProvider>
+        </>
     );
 }
 
