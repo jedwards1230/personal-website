@@ -89,11 +89,16 @@ export default function CoverForm({
 
             const data = await res.json();
 
+            if (data.error) throw new Error(data.error);
+
             setCompletion(data.choices[0].message.content);
-            setLoading(false);
-        } catch (err) {
-            console.error(err);
+        } catch (err: any) {
+            form.setError('root', {
+                type: 'manual',
+                message: err.message,
+            });
         }
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -191,6 +196,11 @@ export default function CoverForm({
                         </div>
                     </RadioGroup>
                 </div>
+                {form.formState.errors.root && (
+                    <FormMessage>
+                        {form.formState.errors.root.message}
+                    </FormMessage>
+                )}
                 {completion && (
                     <Section title={SECTIONS.RESULT}>
                         <Textarea
