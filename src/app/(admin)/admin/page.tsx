@@ -1,14 +1,9 @@
-import { getServerSession } from 'next-auth';
-import { notFound, redirect } from 'next/navigation';
-
 import {
     getAllMessages,
     getAllExperiences,
     getAllProjects,
     getAbout,
 } from '@/lib/actions';
-import { authOptions } from '@/lib/auth';
-import { LogoutButton } from '@/components/buttons/LogoutButton';
 import { ExperienceDialog } from '@/components/dialogs/admin/ExperienceDialog';
 import { Button } from '@/components/ui/button';
 import { ProjectDialog } from '@/components/dialogs/admin/ProjectDialog';
@@ -27,16 +22,6 @@ const SECTIONS = {
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
-    const session = await getServerSession(authOptions);
-
-    if (!session) {
-        redirect('/api/auth/signin');
-    }
-
-    if (session.user.email !== process.env.ADMIN_EMAIL) {
-        notFound();
-    }
-
     const [experiences, projects, messages, about] = await Promise.all([
         getAllExperiences('company'),
         getAllProjects('title'),
@@ -45,16 +30,7 @@ export default async function Page() {
     ]);
 
     return (
-        <div className="mx-auto flex max-w-5xl flex-col gap-4 p-4">
-            <div className="space-y-2">
-                <div className="flex w-full justify-between">
-                    <div className="text-xl font-medium">Admin Page</div>
-                    <div>
-                        <LogoutButton variant="outline">Log Out</LogoutButton>
-                    </div>
-                </div>
-                <div>Hi, {session ? session.user.name : 'Guest'}</div>
-            </div>
+        <>
             <Section
                 addButtonDialog={
                     <AboutDialog about={about}>
@@ -151,7 +127,7 @@ export default async function Page() {
                     </MessageDialog>
                 ))}
             </Section>
-        </div>
+        </>
     );
 }
 
