@@ -46,3 +46,11 @@ type Contact = {
     message: string;
     createdAt: Date;
 };
+
+type About = {
+    id: number;
+    title: string;
+    description: string;
+    name: string;
+    tags: string[];
+};
