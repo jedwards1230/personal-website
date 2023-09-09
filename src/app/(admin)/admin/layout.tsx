@@ -20,7 +20,7 @@ export default async function Layout({
                     <div className="flex gap-4 sm:gap-8">
                         <Nav />
                         <div className="flex items-center gap-2 sm:gap-4">
-                            <Button variant="outline" size="icon">
+                            <Button asChild variant="outline" size="icon">
                                 <Link href="/">
                                     <Home />
                                 </Link>
