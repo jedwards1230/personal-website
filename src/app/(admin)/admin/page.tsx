@@ -11,6 +11,7 @@ import MessageDialog from '@/components/dialogs/admin/MessageDialog';
 import { Label } from '@/components/ui/label';
 import { Edit } from '@/components/Icons';
 import AboutDialog from '@/components/dialogs/admin/AboutDialog';
+import Markdown from '@/components/Markdown';
 
 const SECTIONS = {
     ABOUT: 'About',
@@ -56,9 +57,7 @@ export default async function Page() {
                         <div>
                             <Label>Bio</Label>
                             <div className="space-y-2">
-                                {about.description.split('\n').map((p, i) => (
-                                    <p key={'about-paragraph-' + i}>{p}</p>
-                                ))}
+                                <Markdown>{about.description}</Markdown>
                             </div>
                         </div>
                     </div>
