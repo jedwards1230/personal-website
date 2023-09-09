@@ -38,7 +38,6 @@ export default async function Layout({
                             <LogoutButton variant="outline">
                                 Log Out
                             </LogoutButton>
-                            L
                         </div>
                     </div>
                 </div>
