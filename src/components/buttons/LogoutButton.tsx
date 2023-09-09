@@ -12,7 +12,7 @@ export const LogoutButton = ({
     variant?: 'link' | 'outline';
 }) => {
     return (
-        <Button variant={variant}>
+        <Button asChild variant={variant}>
             <Link onClick={() => signOut({ redirect: false })} href="/">
                 {children}
             </Link>

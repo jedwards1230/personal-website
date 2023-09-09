@@ -11,6 +11,7 @@ import {
     getAbout,
 } from '@/lib/actions';
 import TagList from '@/components/TagList';
+import { ProfileButton } from '@/components/buttons/AdminButton';
 
 export default async function Page() {
     const [experiences, projects, pageViews, about] = await Promise.all([
@@ -38,7 +39,10 @@ export default async function Page() {
                     </div>
                     <SectionNav />
                 </div>
-                <IconLinks />
+                <div className="flex items-center justify-between">
+                    <IconLinks />
+                    <ProfileButton />
+                </div>
             </nav>
             <div className="ml-auto flex h-full w-full flex-col gap-12 md:z-10 md:w-2/3 md:gap-24 lg:w-1/2">
                 <About about={about} />

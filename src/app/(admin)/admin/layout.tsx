@@ -1,26 +1,16 @@
 import { Home } from '@/components/Icons';
 import { LogoutButton } from '@/components/buttons/LogoutButton';
 import { Button } from '@/components/ui/button';
-import { authOptions } from '@/lib/auth';
-import { getServerSession } from 'next-auth';
 import Link from 'next/link';
-import { redirect, notFound } from 'next/navigation';
 import Nav from './Nav';
+import { getSession } from '@/lib/actions';
 
 export default async function Layout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const session = await getServerSession(authOptions);
-
-    if (!session) {
-        redirect('/api/auth/signin');
-    }
-
-    if (session.user.email !== process.env.ADMIN_EMAIL) {
-        notFound();
-    }
+    const session = await getSession();
 
     return (
         <div className="mx-auto flex max-w-5xl flex-col gap-4 p-4">

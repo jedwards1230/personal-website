@@ -11,6 +11,7 @@ export default function Nav() {
     return (
         <div className="flex items-center gap-2">
             <Button
+                asChild
                 className={pathname === '/admin' ? 'underline' : ''}
                 variant="link"
                 size="sm"
@@ -18,6 +19,7 @@ export default function Nav() {
                 <Link href="/admin">Data</Link>
             </Button>
             <Button
+                asChild
                 className={pathname === '/admin/cover' ? 'underline' : ''}
                 variant="link"
                 size="sm"
