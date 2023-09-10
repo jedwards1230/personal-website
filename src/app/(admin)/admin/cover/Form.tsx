@@ -45,6 +45,9 @@ export default function CoverForm({
     about: About;
 }) {
     const [message, setMessage] = useState<Message | null>(null);
+    const [paragraphSize, setParagraphSize] =
+        useState<keyof typeof PARAGRAPH_SIZE>('short');
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -54,13 +57,9 @@ export default function CoverForm({
         },
     });
 
-    const [paragraphSize, setParagraphSize] = useState<
-        'short' | 'medium' | 'large'
-    >('short');
-
     const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(event);
-        setParagraphSize(event.target.value as 'short' | 'medium' | 'large');
+        setParagraphSize(event.target.value as keyof typeof PARAGRAPH_SIZE);
     };
 
     const handleSubmit = async () => {
