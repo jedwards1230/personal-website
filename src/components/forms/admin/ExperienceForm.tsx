@@ -48,7 +48,7 @@ export default function ExperienceForm({
         },
     });
 
-    const handleSubmit = (values: z.infer<typeof formSchema>) => {
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         const updatedExperience: Experience = {
             ...data,
             title: values.title,
@@ -62,15 +62,9 @@ export default function ExperienceForm({
 
         try {
             if (!data) {
-                createExperience(updatedExperience)
-                    .then((res) => {
-                        console.log(res);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
+                await createExperience(updatedExperience);
             } else {
-                updateExperience(updatedExperience);
+                await updateExperience(updatedExperience);
             }
             setEdit(false);
             router.refresh();

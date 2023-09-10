@@ -1,18 +1,20 @@
-import { LogoutButton } from '@/components/buttons/LogoutButton';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import { notFound, redirect } from 'next/navigation';
 import {
     getAllMessages,
     getAllExperiences,
     getAllProjects,
+    getAbout,
 } from '@/lib/actions';
 import { ExperienceDialog } from '@/components/dialogs/admin/ExperienceDialog';
 import { Button } from '@/components/ui/button';
 import { ProjectDialog } from '@/components/dialogs/admin/ProjectDialog';
 import MessageDialog from '@/components/dialogs/admin/MessageDialog';
+import { Label } from '@/components/ui/label';
+import { Edit } from '@/components/Icons';
+import AboutDialog from '@/components/dialogs/admin/AboutDialog';
+import Markdown from '@/components/Markdown';
 
 const SECTIONS = {
+    ABOUT: 'About',
     EXPERIENCE: 'Experience',
     PROJECTS: 'Projects',
     MESSAGES: 'Messages',
@@ -21,55 +23,46 @@ const SECTIONS = {
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
-    const session = await getServerSession(authOptions);
-
-    if (!session) {
-        redirect('/api/auth/signin');
-    }
-
-    if (session.user.email !== process.env.ADMIN_EMAIL) {
-        notFound();
-    }
-
-    const [experiencesPromise, projectsPromise, messagesPromise] =
-        await Promise.allSettled([
-            getAllExperiences('company'),
-            getAllProjects('title'),
-            getAllMessages(),
-        ]);
-
-    // handle promise results
-    if (experiencesPromise.status === 'rejected') {
-        console.error(experiencesPromise.reason);
-    }
-    if (projectsPromise.status === 'rejected') {
-        console.error(projectsPromise.reason);
-    }
-    if (messagesPromise.status === 'rejected') {
-        console.error(messagesPromise.reason);
-    }
-
-    const experiences =
-        experiencesPromise.status === 'fulfilled'
-            ? experiencesPromise.value
-            : [];
-    const projects =
-        projectsPromise.status === 'fulfilled' ? projectsPromise.value : [];
-    const messages =
-        messagesPromise.status === 'fulfilled' ? messagesPromise.value : [];
+    const [experiences, projects, messages, about] = await Promise.all([
+        getAllExperiences('company'),
+        getAllProjects('title'),
+        getAllMessages(),
+        getAbout(),
+    ]);
 
     return (
-        <div className="mx-auto flex max-w-5xl flex-col gap-4 p-4">
-            <div className="space-y-2">
-                <div className="flex w-full justify-between">
-                    <div className="text-xl font-medium">Admin Page</div>
-                    <div>
-                        <LogoutButton variant="outline">Log Out</LogoutButton>
+        <>
+            <Section
+                addButtonDialog={
+                    <AboutDialog about={about}>
+                        <EditButton />
+                    </AboutDialog>
+                }
+                title={SECTIONS.ABOUT}
+            >
+                {about && (
+                    <div className="space-y-2">
+                        <div className="flex w-full">
+                            <div className="w-1/2">
+                                <Label>Name</Label>
+                                <div>{about.name}</div>
+                                <Label>Title</Label>
+                                <div>{about.title}</div>
+                            </div>
+                            <div>
+                                <Label>Tags</Label>
+                                <div>{about.tags.join(', ')}</div>
+                            </div>
+                        </div>
+                        <div>
+                            <Label>Bio</Label>
+                            <div className="space-y-2">
+                                <Markdown>{about.description}</Markdown>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div>Hi, {session ? session.user.name : 'Guest'}</div>
-            </div>
-
+                )}
+            </Section>
             <div className="flex flex-col justify-between gap-4 sm:flex-row">
                 <Section
                     title={SECTIONS.EXPERIENCE}
@@ -133,7 +126,7 @@ export default async function Page() {
                     </MessageDialog>
                 ))}
             </Section>
-        </div>
+        </>
     );
 }
 
@@ -179,6 +172,14 @@ function AddButton() {
     return (
         <Button className="text-xl font-medium" variant="outline" size="icon">
             +
+        </Button>
+    );
+}
+
+function EditButton() {
+    return (
+        <Button variant="outline" size="icon">
+            <Edit />
         </Button>
     );
 }

@@ -2,6 +2,10 @@
 
 import { experiences, projects } from '@/data';
 import { prisma } from './prisma';
+import { about } from '@/data/title';
+import { getServerSession } from 'next-auth';
+import { redirect, notFound } from 'next/navigation';
+import { authOptions } from './auth';
 
 export async function getAllExperiences(
     sortBy: 'id' | 'company',
@@ -22,6 +26,33 @@ export async function getAllExperiences(
         console.error(error);
         throw error;
     }
+}
+
+export async function getAbout(): Promise<About> {
+    try {
+        const about = await prisma.about.findFirst();
+        return (
+            about || {
+                id: 0,
+                name: '',
+                title: '',
+                description: '',
+                tags: [],
+            }
+        );
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+export async function updateAbout(a: About) {
+    const about = await prisma.about.upsert({
+        where: { id: a.id },
+        update: a,
+        create: a,
+    });
+    return about;
 }
 
 export async function getAllProjects(
@@ -143,4 +174,27 @@ export async function updateWithLocalData(p: Project[], e: Experience[]) {
     for (const p of newProjects) {
         await createProject(p);
     }
+}
+
+export async function updateWithLocalAbout() {
+    const ab = await prisma.about.create({
+        data: about,
+    });
+
+    return ab;
+}
+
+export async function getSession(redirectToSignIn: boolean = true) {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+        if (redirectToSignIn) redirect('/api/auth/signin');
+        return null;
+    }
+
+    if (session.user.email !== process.env.ADMIN_EMAIL) {
+        notFound();
+    }
+
+    return session;
 }
