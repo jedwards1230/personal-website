@@ -17,7 +17,6 @@ import {
     FormItem,
     FormMessage,
 } from '@/components/ui/form';
-import Markdown from '@/components/Markdown';
 
 const formSchema = z.object({
     input: z.string().nonempty(),
@@ -42,21 +41,8 @@ export default function ChatDialog({
     const getChat = useCallback(
         async (newMessages: Message[]) => {
             try {
-                const res = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        messages: newMessages,
-                    }),
-                });
-
-                const data = await res.json();
-
-                if (data.error) throw new Error(data.error);
-
-                setMessages((prev) => [...prev, data.choices[0].message]);
+                const data = await fetchChat(newMessages);
+                setMessages((prev) => [...prev, data]);
             } catch (err: any) {
                 form.setError('root', {
                     type: 'manual',
@@ -67,11 +53,11 @@ export default function ChatDialog({
         [form],
     );
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         const newMessages: Message[] = [
             ...messages,
             {
-                content: form.getValues().input,
+                content: values.input,
                 role: 'user',
             },
         ];
@@ -108,20 +94,15 @@ export default function ChatDialog({
                             ref={containerRef}
                             className="max-h-[85vh] space-y-2 overflow-y-scroll scroll-smooth p-1 pb-24"
                         >
-                            {messages.map((m, i) => {
-                                if (m.role === 'system') {
-                                    return (
-                                        <ChatBubble key={i}>
-                                            <SystemMessage message={m} />
-                                        </ChatBubble>
-                                    );
-                                }
-                                return (
-                                    <ChatBubble key={i}>
+                            {messages.map((m, i) => (
+                                <ChatBubble key={i}>
+                                    {m.role === 'system' ? (
+                                        <SystemMessage message={m} />
+                                    ) : (
                                         <GenericMessage message={m} />
-                                    </ChatBubble>
-                                );
-                            })}
+                                    )}
+                                </ChatBubble>
+                            ))}
                             {form.formState.errors.root && (
                                 <ChatBubble>
                                     <FormMessage>
@@ -157,6 +138,24 @@ export default function ChatDialog({
             </DialogContent>
         </Dialog>
     );
+}
+
+async function fetchChat(messages: Message[]): Promise<Message> {
+    const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            messages,
+        }),
+    });
+
+    const data = await res.json();
+
+    if (data.error) throw new Error(data.error);
+
+    return data.choices[0].message;
 }
 
 function ChatBubble({ children }: { children: React.ReactNode }) {

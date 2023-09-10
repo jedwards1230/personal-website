@@ -16,6 +16,7 @@ import {
 import { DialogFooter } from '@/components/ui/dialog';
 import { createProject, updateProject } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const formSchema = z.object({
     year: z.number().int().min(2000).max(2024),
@@ -29,7 +30,7 @@ const formSchema = z.object({
     tags: z.string().nonempty(),
     showcase: z.boolean().optional(),
     favorite: z.boolean().optional(),
-    images: z.array(z.string()).optional(),
+    images: z.string().optional(),
 });
 
 export default function ProjectForm({
@@ -52,13 +53,13 @@ export default function ProjectForm({
             info: data?.info,
             href: data?.href,
             tags: data?.tags.join(', '),
-            showcase: data?.showcase,
-            favorite: data?.favorite,
-            images: data?.images,
+            showcase: data?.showcase || false,
+            favorite: data?.favorite || false,
+            images: data?.images.join(', '),
         },
     });
 
-    const handleSubmit = (values: z.infer<typeof formSchema>) => {
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         const updatedProject: Project = {
             ...data,
             year: values.year,
@@ -72,7 +73,7 @@ export default function ProjectForm({
             tags: values.tags.split(', '),
             showcase: values.showcase,
             favorite: values.favorite,
-            images: values.images,
+            images: values.images.split(', '),
         };
 
         try {
@@ -94,9 +95,11 @@ export default function ProjectForm({
         }
     };
 
+    console.log(form.formState.errors);
+
     return (
         <Form {...form}>
-            <form>
+            <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <div className="grid gap-2 pb-4 sm:gap-4">
                     <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
                         <FormField
@@ -182,6 +185,40 @@ export default function ProjectForm({
                             </FormItem>
                         )}
                     />
+                    <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
+                        <FormField
+                            control={form.control}
+                            name="showcase"
+                            render={({ field }) => (
+                                <FormItem className="col-span-3">
+                                    <FormLabel>Showcase</FormLabel>
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="showcase"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Showcase</FormLabel>
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
                     <FormField
                         control={form.control}
                         name="href"
@@ -236,10 +273,7 @@ export default function ProjectForm({
                     />
                 </div>
                 <DialogFooter>
-                    <Button
-                        onClick={form.handleSubmit(handleSubmit)}
-                        type="submit"
-                    >
+                    <Button type="submit">
                         Save {data ? 'Changes' : 'Experience'}
                     </Button>
                 </DialogFooter>
