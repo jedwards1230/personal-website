@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import {
@@ -16,6 +16,7 @@ import {
     FormItem,
     FormMessage,
 } from '@/components/ui/form';
+import ChatDialog from './ChatDialog';
 
 const SECTIONS = {
     ABOUT: 'User Profile',
@@ -43,21 +44,19 @@ export default function CoverForm({
     experiences: Experience[];
     about: About;
 }) {
-    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState<Message | null>(null);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            about: about?.description || '',
+            about: JSON.stringify(about) || '',
             resume: JSON.stringify(experiences) || '',
             description: '',
         },
     });
 
-    const [completion, setCompletion] = useState('');
     const [paragraphSize, setParagraphSize] = useState<
         'short' | 'medium' | 'large'
     >('short');
-    const textareaRef = useRef(null);
 
     const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(event);
@@ -65,48 +64,27 @@ export default function CoverForm({
     };
 
     const handleSubmit = async () => {
-        setLoading(true);
-        setCompletion('');
         const pSize = PARAGRAPH_SIZE[paragraphSize];
-        const info = `User Profile: ${form.getValues().about}\nResume: ${
-            form.getValues().resume
-        }\nDescription: ${form.getValues().description}`;
-        const msg = `Create a ${pSize} cover letter based on the following information:\n${info}`;
-        const messages = [
-            {
-                role: 'system',
-                content: msg,
-            },
-        ];
-        try {
-            const res = await fetch('/api/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ messages }),
-            });
+        const userProfile = JSON.stringify(form.getValues().about);
+        const resume = JSON.stringify(form.getValues().resume);
+        const description = form.getValues().description;
 
-            const data = await res.json();
+        const msg =
+            `Create a cover letter based on the following rules and information.` +
+            `\n\nRules:\n\n` +
+            `Letter size: ${pSize}. ` +
+            `Include line breaks (\\n) between paragraphs and sections. ` +
+            `Do not claim to have experience with things not explicity listed.` +
+            `\n\nInformation:\n\n` +
+            `User Profile:\n${userProfile}\n\n` +
+            `Resume:\n${resume}\n\n` +
+            `Description:\n${description}`;
 
-            if (data.error) throw new Error(data.error);
-
-            setCompletion(data.choices[0].message.content);
-        } catch (err: any) {
-            form.setError('root', {
-                type: 'manual',
-                message: err.message,
-            });
-        }
-        setLoading(false);
+        setMessage({
+            role: 'system',
+            content: msg,
+        });
     };
-
-    useEffect(() => {
-        if (!textareaRef.current || !completion) return;
-        textareaRef.current.style.height = 'inherit';
-        const scrollHeight = textareaRef.current.scrollHeight;
-        textareaRef.current.style.height = `${scrollHeight}px`;
-    }, [completion]);
 
     return (
         <Form {...form}>
@@ -160,11 +138,8 @@ export default function CoverForm({
                     />
                 </Section>
                 <div className="flex gap-4">
-                    <Button disabled={loading} type="submit">
-                        Generate
-                    </Button>
+                    <Button type="submit">Generate</Button>
                     <RadioGroup
-                        disabled={loading}
                         className="flex"
                         value={paragraphSize}
                         onChange={handleSizeChange}
@@ -201,17 +176,8 @@ export default function CoverForm({
                         {form.formState.errors.root.message}
                     </FormMessage>
                 )}
-                {completion && (
-                    <Section title={SECTIONS.RESULT}>
-                        <Textarea
-                            className="py-1"
-                            ref={textareaRef}
-                            readOnly
-                            value={completion}
-                        />
-                    </Section>
-                )}
             </form>
+            <ChatDialog initialMessage={message} />
         </Form>
     );
 }
