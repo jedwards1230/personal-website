@@ -1,5 +1,5 @@
 import { experiences } from './experience';
 import { projects } from './projects';
-import { title } from './title';
+import { about } from './title';
 
-export { experiences, projects, title };
+export { experiences, projects, about };

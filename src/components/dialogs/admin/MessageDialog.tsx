@@ -35,7 +35,7 @@ export default function MessageDialog({
                 </DialogHeader>
                 <div className="flex justify-between text-secondary-foreground">
                     <div className="space-y-1">
-                        <div className="grid grid-cols-9 items-center gap-4">
+                        <div className="grid grid-cols-9 items-center gap-12 sm:gap-4">
                             <Label className="col-span-1">Name:</Label>
                             <p className="text-foreground">{message.name}</p>
                         </div>
