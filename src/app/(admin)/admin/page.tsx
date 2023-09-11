@@ -31,6 +31,9 @@ export default async function Page() {
         getAbout(),
     ]);
 
+    const linkedInUsername = about.linkedin.replace(/\/$/, '').split('/').pop();
+    const githubUsername = about.github.replace(/\/$/, '').split('/').pop();
+
     return (
         <>
             <Section
@@ -76,7 +79,7 @@ export default async function Page() {
                                         href={about.github}
                                         target="_blank"
                                     >
-                                        {about.github}
+                                        {githubUsername}
                                     </Link>
                                 </div>
                             </div>
@@ -88,7 +91,7 @@ export default async function Page() {
                                         href={about.linkedin}
                                         target="_blank"
                                     >
-                                        {about.linkedin}
+                                        {linkedInUsername}
                                     </Link>
                                 </div>
                             </div>
