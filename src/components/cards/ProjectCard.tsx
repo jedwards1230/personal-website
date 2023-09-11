@@ -45,7 +45,7 @@ export default function ProjectCard({
                     <Image
                         width={800}
                         height={400}
-                        src={project.images[0]}
+                        src={images[0]}
                         alt={project.title}
                         onClick={openImageModal}
                         className="aspect-video w-full min-w-[50%] cursor-pointer select-none rounded-lg border border-foreground shadow-sm transition-all sm:w-1/2 hover:sm:scale-[101%]"
@@ -55,13 +55,14 @@ export default function ProjectCard({
                 <div
                     className={clsx(
                         'flex w-full flex-col gap-2 py-2',
-                        project.images && 'sm:ml-4',
+                        images.length > 0 && 'sm:ml-4',
                     )}
                 >
                     {/* Details */}
                     <div
                         className={clsx(
-                            !project.images && 'flex justify-between',
+                            !images ||
+                                (images.length === 0 && 'flex justify-between'),
                         )}
                     >
                         <div>
