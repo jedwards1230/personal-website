@@ -40,7 +40,7 @@ export default async function Page() {
                     <SectionNav />
                 </div>
                 <div className="flex items-center justify-between">
-                    <IconLinks />
+                    <IconLinks about={about} />
                     <ProfileButton />
                 </div>
             </nav>

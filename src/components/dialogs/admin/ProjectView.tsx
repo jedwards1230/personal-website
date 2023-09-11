@@ -1,5 +1,7 @@
 import Markdown from '@/components/Markdown';
 import { Label } from '@/components/ui/label';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function ExperienceView({ data }: { data?: Project }) {
     return (
@@ -36,13 +38,38 @@ export default function ExperienceView({ data }: { data?: Project }) {
             </div>
             <div>
                 <Label>Link</Label>
-                <p>{data?.href ? data.href : 'None'}</p>
+                <div>
+                    {data?.href ? (
+                        <Link
+                            href={data.href}
+                            target="_blank"
+                            className="hover:underline"
+                        >
+                            {data.href}
+                        </Link>
+                    ) : (
+                        'None'
+                    )}
+                </div>
             </div>
             <div>
                 <Label>Images</Label>
-                <p>
-                    {data?.images.length > 0 ? data?.images.join(', ') : 'None'}
-                </p>
+                <div className="flex flex-wrap gap-2">
+                    {data?.images.length > 0
+                        ? data?.images.map((src, i) => (
+                              <div
+                                  key={data?.title + ' image ' + i}
+                                  className="relative aspect-video w-1/4"
+                              >
+                                  <Image
+                                      src={src}
+                                      alt={data?.title + ' image ' + i}
+                                      fill
+                                  />
+                              </div>
+                          ))
+                        : 'None'}
+                </div>
             </div>
             <div>
                 <Label>Description</Label>
