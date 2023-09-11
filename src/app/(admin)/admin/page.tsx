@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Edit } from '@/components/Icons';
 import AboutDialog from '@/components/dialogs/admin/AboutDialog';
 import Markdown from '@/components/Markdown';
+import Link from 'next/link';
 
 const SECTIONS = {
     ABOUT: 'About',
@@ -42,17 +43,59 @@ export default async function Page() {
             >
                 {about && (
                     <div className="space-y-2">
-                        <div className="flex w-full">
+                        <div className="flex">
                             <div className="w-1/2">
                                 <Label>Name</Label>
                                 <div>{about.name}</div>
+                            </div>
+                            <div className="w-1/2">
                                 <Label>Title</Label>
                                 <div>{about.title}</div>
                             </div>
-                            <div>
-                                <Label>Tags</Label>
-                                <div>{about.tags.join(', ')}</div>
+                        </div>
+                        <div>
+                            <Label>Location</Label>
+                            <div>{about.location}</div>
+                        </div>
+                        <div className="flex">
+                            <div className="w-1/2">
+                                <Label>Email</Label>
+                                <div>{about.email}</div>
                             </div>
+                            <div className="w-1/2">
+                                <Label>Phone</Label>
+                                <div>{about.phone}</div>
+                            </div>
+                        </div>
+                        <div className="flex">
+                            <div className="w-1/2">
+                                <Label>Github</Label>
+                                <div>
+                                    <Link
+                                        className="hover:underline"
+                                        href={about.github}
+                                        target="_blank"
+                                    >
+                                        {about.github}
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="w-1/2">
+                                <Label>LinkedIn</Label>
+                                <div>
+                                    <Link
+                                        className="hover:underline"
+                                        href={about.linkedin}
+                                        target="_blank"
+                                    >
+                                        {about.linkedin}
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <Label>Tags</Label>
+                            <div>{about.tags.join(', ')}</div>
                         </div>
                         <div>
                             <Label>Bio</Label>

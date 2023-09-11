@@ -1,8 +1,6 @@
 'use server';
 
-import { experiences, projects } from '@/data';
 import { prisma } from './prisma';
-import { about } from '@/data/title';
 import { getServerSession } from 'next-auth';
 import { redirect, notFound } from 'next/navigation';
 import { authOptions } from './auth';
@@ -38,6 +36,11 @@ export async function getAbout(): Promise<About> {
                 title: '',
                 description: '',
                 tags: [],
+                email: '',
+                phone: '',
+                location: '',
+                linkedin: '',
+                github: '',
             }
         );
     } catch (error) {
@@ -158,30 +161,6 @@ export async function getPageViews(): Promise<number> {
     }).then((res) => res.json());
 
     return res.results.visitors.value || 0;
-}
-
-export async function updateWithLocalData(p: Project[], e: Experience[]) {
-    const newExperiences = experiences.filter(
-        (e1) => !e.find((e2) => e2.company === e1.company),
-    );
-    for (const e of newExperiences) {
-        await createExperience(e);
-    }
-
-    const newProjects = projects.filter(
-        (p1) => !p.find((p2) => p2.title === p1.title),
-    );
-    for (const p of newProjects) {
-        await createProject(p);
-    }
-}
-
-export async function updateWithLocalAbout() {
-    const ab = await prisma.about.create({
-        data: about,
-    });
-
-    return ab;
 }
 
 export async function getSession(redirectToSignIn: boolean = true) {
