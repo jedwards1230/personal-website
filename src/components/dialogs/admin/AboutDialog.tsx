@@ -31,6 +31,11 @@ const formSchema = z.object({
     title: z.string().nonempty(),
     tags: z.string().nonempty(),
     description: z.string().nonempty(),
+    email: z.string().nonempty(),
+    location: z.string().nonempty(),
+    phone: z.string().nonempty(),
+    linkedin: z.string().nonempty(),
+    github: z.string().nonempty(),
 });
 
 export default function AboutDialog({
@@ -50,16 +55,19 @@ export default function AboutDialog({
             title: about?.title || '',
             tags: about?.tags.join(', ') || '',
             description: about?.description || '',
+            email: about?.email || '',
+            location: about?.location || '',
+            phone: about?.phone || '',
+            linkedin: about?.linkedin || '',
+            github: about?.github || '',
         },
     });
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         const updatedAbout: About = {
             ...about,
-            name: values.name,
-            title: values.title,
+            ...values,
             tags: values.tags.split(', '),
-            description: values.description,
         };
 
         try {
@@ -83,56 +91,121 @@ export default function AboutDialog({
                         onSubmit={form.handleSubmit(handleSubmit)}
                         className="space-y-2 sm:space-y-4"
                     >
-                        <div className="flex w-full flex-col gap-2 sm:flex-row sm:gap-4">
-                            <div className="w-full space-y-2 sm:w-1/2 sm:space-y-4">
-                                <FormField
-                                    control={form.control}
-                                    name="name"
-                                    render={({ field }) => (
-                                        <FormItem className="col-span-3">
-                                            <FormLabel>Name</FormLabel>
-                                            <FormControl>
-                                                <Input {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="title"
-                                    render={({ field }) => (
-                                        <FormItem className="col-span-3">
-                                            <FormLabel>Title</FormLabel>
-                                            <FormControl>
-                                                <Input {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-                            <div className="w-full sm:w-1/2">
-                                <FormField
-                                    control={form.control}
-                                    name="tags"
-                                    render={({ field }) => (
-                                        <FormItem className="col-span-3">
-                                            <FormLabel>Tags</FormLabel>
-                                            <FormControl>
-                                                <Input {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
+                        <div className="grid w-full grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                    <FormItem className="col-span-3">
+                                        <FormLabel>Name</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="title"
+                                render={({ field }) => (
+                                    <FormItem className="col-span-3">
+                                        <FormLabel>Title</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
                         </div>
+                        <FormField
+                            control={form.control}
+                            name="location"
+                            render={({ field }) => (
+                                <FormItem className="col-span-3">
+                                    <FormLabel>Location</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <div className="grid w-full grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
+                            <FormField
+                                control={form.control}
+                                name="email"
+                                render={({ field }) => (
+                                    <FormItem className="col-span-3">
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input type="email" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="phone"
+                                render={({ field }) => (
+                                    <FormItem className="col-span-3">
+                                        <FormLabel>Phone</FormLabel>
+                                        <FormControl>
+                                            <Input type="tel" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <div className="grid w-full grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
+                            <FormField
+                                control={form.control}
+                                name="linkedin"
+                                render={({ field }) => (
+                                    <FormItem className="col-span-3">
+                                        <FormLabel>LinkedIn</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="github"
+                                render={({ field }) => (
+                                    <FormItem className="col-span-3">
+                                        <FormLabel>GitHub</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <FormField
+                            control={form.control}
+                            name="tags"
+                            render={({ field }) => (
+                                <FormItem className="">
+                                    <FormLabel>Tags</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                         <FormField
                             control={form.control}
                             name="description"
                             render={({ field }) => (
-                                <FormItem className="col-span-3">
+                                <FormItem className="">
                                     <FormLabel>Bio</FormLabel>
                                     <FormControl>
                                         <Textarea {...field} />

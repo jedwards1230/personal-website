@@ -51,22 +51,25 @@ export default function CoverForm({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            about: JSON.stringify(about) || '',
+            about:
+                JSON.stringify({
+                    name: about.name,
+                    title: about.title,
+                }) || '',
             resume: JSON.stringify(experiences) || '',
             description: '',
         },
     });
 
     const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event);
         setParagraphSize(event.target.value as keyof typeof PARAGRAPH_SIZE);
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         const pSize = PARAGRAPH_SIZE[paragraphSize];
-        const userProfile = JSON.stringify(form.getValues().about);
-        const resume = JSON.stringify(form.getValues().resume);
-        const description = form.getValues().description;
+        const userProfile = values.about;
+        const resume = values.resume;
+        const description = values.description;
 
         const msg =
             `Create a cover letter based on the following rules and information.` +
