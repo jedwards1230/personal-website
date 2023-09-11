@@ -138,7 +138,7 @@ export default function ProjectForm({
                                     <FormItem>
                                         <FormLabel>Month</FormLabel>
                                         <FormControl>
-                                            <Input {...field} />
+                                            <Input type="number" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

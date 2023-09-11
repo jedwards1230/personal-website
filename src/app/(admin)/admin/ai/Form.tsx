@@ -137,7 +137,13 @@ export default function CoverForm({
                     />
                 </Section>
                 <div className="flex gap-4">
-                    <Button type="submit">Generate</Button>
+                    <ChatDialog
+                        initialMessage={message}
+                        onClose={() => setMessage(null)}
+                    >
+                        <Button type="submit">Generate</Button>
+                    </ChatDialog>
+
                     <RadioGroup
                         className="flex"
                         value={paragraphSize}
@@ -176,7 +182,6 @@ export default function CoverForm({
                     </FormMessage>
                 )}
             </form>
-            <ChatDialog initialMessage={message} />
         </Form>
     );
 }
