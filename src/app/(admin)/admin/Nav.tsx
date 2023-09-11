@@ -20,11 +20,11 @@ export default function Nav() {
             </Button>
             <Button
                 asChild
-                className={pathname === '/admin/cover' ? 'underline' : ''}
+                className={pathname === '/admin/ai' ? 'underline' : ''}
                 variant="link"
                 size="sm"
             >
-                <Link href="/admin/cover">Cover</Link>
+                <Link href="/admin/ai">AI</Link>
             </Button>
         </div>
     );

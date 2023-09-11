@@ -1,5 +1,3 @@
-'use client';
-
 import * as z from 'zod';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
@@ -17,17 +15,22 @@ import {
     FormItem,
     FormMessage,
 } from '@/components/ui/form';
+import { DialogTrigger } from '@radix-ui/react-dialog';
 
 const formSchema = z.object({
     input: z.string().nonempty(),
 });
 
 export default function ChatDialog({
+    children,
     initialMessage,
+    onClose,
 }: {
+    children: React.ReactNode;
     initialMessage: Message | null;
+    onClose: () => void;
 }) {
-    const [open, setOpen] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -40,6 +43,7 @@ export default function ChatDialog({
 
     const getChat = useCallback(
         async (newMessages: Message[]) => {
+            setLoading(true);
             try {
                 const data = await fetchChat(newMessages);
                 setMessages((prev) => [...prev, data]);
@@ -49,6 +53,7 @@ export default function ChatDialog({
                     message: err.message,
                 });
             }
+            setLoading(false);
         },
         [form],
     );
@@ -64,6 +69,11 @@ export default function ChatDialog({
         form.setValue('input', '');
         setMessages(newMessages);
         getChat(newMessages);
+    };
+
+    const closeDialog = () => {
+        setMessages([]);
+        onClose();
     };
 
     useEffect(() => {
@@ -83,9 +93,10 @@ export default function ChatDialog({
     }, [messages]);
 
     return (
-        <Dialog open={open && initialMessage !== null}>
+        <Dialog>
+            <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent
-                onInteractOutside={() => setOpen(false)}
+                onInteractOutside={closeDialog}
                 className="relative max-h-screen -translate-y-3/4 overflow-y-scroll p-1 sm:max-h-[90%] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl"
             >
                 <Form {...form}>
@@ -103,6 +114,13 @@ export default function ChatDialog({
                                     )}
                                 </ChatBubble>
                             ))}
+                            {loading && (
+                                <ChatBubble>
+                                    <p className="text-foreground">
+                                        Loading...
+                                    </p>
+                                </ChatBubble>
+                            )}
                             {form.formState.errors.root && (
                                 <ChatBubble>
                                     <FormMessage>
