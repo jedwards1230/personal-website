@@ -55,6 +55,9 @@ export default function CoverForm({
                 JSON.stringify({
                     name: about.name,
                     title: about.title,
+                    location: about.location,
+                    email: about.email,
+                    phone: about.phone,
                 }) || '',
             resume: JSON.stringify(experiences) || '',
             description: '',
