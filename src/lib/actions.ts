@@ -1,9 +1,6 @@
 'use server';
 
 import { prisma } from './prisma';
-import { getServerSession } from 'next-auth';
-import { redirect, notFound } from 'next/navigation';
-import { authOptions } from './auth';
 
 export async function getAllExperiences(
     sortBy: 'id' | 'company',
@@ -161,19 +158,4 @@ export async function getPageViews(): Promise<number> {
     }).then((res) => res.json());
 
     return res.results.visitors.value || 0;
-}
-
-export async function getSession(redirectToSignIn: boolean = true) {
-    const session = await getServerSession(authOptions);
-
-    if (!session) {
-        if (redirectToSignIn) redirect('/api/auth/signin');
-        return null;
-    }
-
-    if (session.user.email !== process.env.ADMIN_EMAIL) {
-        notFound();
-    }
-
-    return session;
 }

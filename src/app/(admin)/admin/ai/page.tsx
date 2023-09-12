@@ -1,5 +1,5 @@
 import { getAbout, getAllExperiences, getAllProjects } from '@/lib/actions';
-import Form from './Form';
+import FormOptions from './FormOptions';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,5 +10,5 @@ export default async function Page() {
         getAbout(),
     ]);
 
-    return <Form experiences={experiences} about={about} />;
+    return <FormOptions experiences={experiences} about={about} />;
 }

@@ -16,10 +16,13 @@ import {
     FormMessage,
 } from '@/components/ui/form';
 import { DialogTrigger } from '@radix-ui/react-dialog';
+import { fetchChat, parseStreamData, readStream } from '../utils';
 
 const formSchema = z.object({
     input: z.string().nonempty(),
 });
+
+const ENABLE_STREAM = true;
 
 export default function ChatDialog({
     children,
@@ -30,7 +33,6 @@ export default function ChatDialog({
     initialMessage: Message | null;
     onClose: () => void;
 }) {
-    const [loading, setLoading] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -41,19 +43,71 @@ export default function ChatDialog({
         },
     });
 
+    const reduceStreamData = (acc: string, curr: StreamData) => {
+        if (!curr || !curr.choices) {
+            if (curr && curr.error) {
+                const error = JSON.stringify(curr.error);
+            }
+            return acc;
+        }
+        const res = curr.choices[0];
+        if (res.finish_reason) {
+            //finishReason = res.finish_reason;
+            return acc;
+        }
+        return acc + res.delta.content;
+    };
+
+    const upsertMessage = (newMessage: Message) => {
+        setMessages((prev) => {
+            const messages = [...prev];
+            const foundIndex = messages.findIndex(
+                (m) => m.id === newMessage.id,
+            );
+
+            if (foundIndex !== -1) {
+                messages[foundIndex] = newMessage;
+            } else {
+                messages.push(newMessage);
+            }
+
+            return messages;
+        });
+    };
+
     const getChat = useCallback(
         async (newMessages: Message[]) => {
-            setLoading(true);
             try {
-                const data = await fetchChat(newMessages);
-                setMessages((prev) => [...prev, data]);
+                if (ENABLE_STREAM) {
+                    let accumulatedResponse = '';
+                    let id = newMessages.length;
+                    const streamCallback = (chunk: string) => {
+                        const chunks = parseStreamData(chunk);
+                        accumulatedResponse = chunks.reduce(
+                            reduceStreamData,
+                            '',
+                        );
+                        upsertMessage({
+                            id,
+                            content: accumulatedResponse,
+                            role: 'assistant',
+                        });
+                    };
+                    const stream = (await fetchChat(
+                        newMessages,
+                        true,
+                    )) as ReadableStream;
+                    await readStream(stream, streamCallback);
+                } else {
+                    const data = (await fetchChat(newMessages)) as Message;
+                    setMessages((prev) => [...prev, data]);
+                }
             } catch (err: any) {
                 form.setError('root', {
                     type: 'manual',
                     message: err.message,
                 });
             }
-            setLoading(false);
         },
         [form],
     );
@@ -62,6 +116,7 @@ export default function ChatDialog({
         const newMessages: Message[] = [
             ...messages,
             {
+                id: messages.length,
                 content: values.input,
                 role: 'user',
             },
@@ -97,7 +152,7 @@ export default function ChatDialog({
             <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent
                 onInteractOutside={closeDialog}
-                className="relative max-h-screen -translate-y-3/4 overflow-y-scroll p-1 sm:max-h-[90%] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl"
+                className="relative max-h-screen translate-y-[-60%] overflow-y-scroll p-1 sm:max-h-[90%] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl"
             >
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -114,13 +169,6 @@ export default function ChatDialog({
                                     )}
                                 </ChatBubble>
                             ))}
-                            {loading && (
-                                <ChatBubble>
-                                    <p className="text-foreground">
-                                        Loading...
-                                    </p>
-                                </ChatBubble>
-                            )}
                             {form.formState.errors.root && (
                                 <ChatBubble>
                                     <FormMessage>
@@ -129,7 +177,7 @@ export default function ChatDialog({
                                 </ChatBubble>
                             )}
                         </div>
-                        <div className="absolute inset-x-0 bottom-0 m-0.5 h-24 bg-background px-4 py-2">
+                        <div className="absolute inset-x-0 bottom-0 m-0.5 h-24 bg-background px-2 py-2">
                             <div className="relative">
                                 <FormField
                                     control={form.control}
@@ -156,24 +204,6 @@ export default function ChatDialog({
             </DialogContent>
         </Dialog>
     );
-}
-
-async function fetchChat(messages: Message[]): Promise<Message> {
-    const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            messages,
-        }),
-    });
-
-    const data = await res.json();
-
-    if (data.error) throw new Error(data.error);
-
-    return data.choices[0].message;
 }
 
 function ChatBubble({ children }: { children: React.ReactNode }) {

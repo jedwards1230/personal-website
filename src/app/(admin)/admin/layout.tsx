@@ -3,7 +3,7 @@ import { LogoutButton } from '@/components/buttons/LogoutButton';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Nav from './Nav';
-import { getSession } from '@/lib/actions';
+import { getSession } from '@/lib/auth';
 
 export default async function Layout({
     children,
