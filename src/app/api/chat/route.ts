@@ -1,6 +1,7 @@
-import { Type } from 'lucide-react';
+import { toReadableStream } from '@/app/(admin)/admin/utils';
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { Stream } from 'openai/streaming';
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY!,
@@ -23,8 +24,12 @@ export async function POST(req: Request) {
         });
 
         if (stream) {
-            // TODO: stream response
-            return NextResponse.json(response);
+            const stream = toReadableStream(
+                response as Stream<OpenAI.Chat.Completions.ChatCompletionChunk>,
+            );
+            return new Response(stream, {
+                status: 200,
+            });
         } else {
             return NextResponse.json(response);
         }

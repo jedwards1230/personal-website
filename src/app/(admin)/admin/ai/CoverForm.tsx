@@ -1,11 +1,8 @@
-'use client';
-
 import * as z from 'zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormContext } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
@@ -16,7 +13,6 @@ import {
     FormItem,
     FormMessage,
 } from '@/components/ui/form';
-import ChatDialog from './ChatDialog';
 
 const SECTIONS = {
     ABOUT: 'User Profile',
@@ -38,13 +34,16 @@ const formSchema = z.object({
 });
 
 export default function CoverForm({
+    setMessage,
     experiences,
     about,
+    submitButton,
 }: {
+    setMessage: (msg: string) => void;
     experiences: Experience[];
     about: About;
+    submitButton: React.ReactNode;
 }) {
-    const [message, setMessage] = useState<Message | null>(null);
     const [paragraphSize, setParagraphSize] =
         useState<keyof typeof PARAGRAPH_SIZE>('short');
 
@@ -64,10 +63,6 @@ export default function CoverForm({
         },
     });
 
-    const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setParagraphSize(event.target.value as keyof typeof PARAGRAPH_SIZE);
-    };
-
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         const pSize = PARAGRAPH_SIZE[paragraphSize];
         const userProfile = values.about;
@@ -85,10 +80,7 @@ export default function CoverForm({
             `Resume:\n${resume}\n\n` +
             `Description:\n${description}`;
 
-        setMessage({
-            role: 'system',
-            content: msg,
-        });
+        setMessage(msg);
     };
 
     return (
@@ -97,64 +89,10 @@ export default function CoverForm({
                 onSubmit={form.handleSubmit(handleSubmit)}
                 className="space-y-2"
             >
-                <Section title={SECTIONS.ABOUT}>
-                    <FormField
-                        control={form.control}
-                        name="about"
-                        render={({ field }) => (
-                            <FormItem className="col-span-3">
-                                {/* <FormLabel>Bio</FormLabel> */}
-                                <FormControl>
-                                    <Textarea {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </Section>
-                <Section title={SECTIONS.RESUME}>
-                    <FormField
-                        control={form.control}
-                        name="resume"
-                        render={({ field }) => (
-                            <FormItem className="col-span-3">
-                                {/* <FormLabel>Bio</FormLabel> */}
-                                <FormControl>
-                                    <Textarea {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </Section>
-                <Section title={SECTIONS.DESCRIPTION}>
-                    <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                            <FormItem className="col-span-3">
-                                {/* <FormLabel>Bio</FormLabel> */}
-                                <FormControl>
-                                    <Textarea {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </Section>
+                <FormFields />
                 <div className="flex gap-4">
-                    <ChatDialog
-                        initialMessage={message}
-                        onClose={() => setMessage(null)}
-                    >
-                        <Button type="submit">Generate</Button>
-                    </ChatDialog>
-
-                    <RadioGroup
-                        className="flex"
-                        value={paragraphSize}
-                        onChange={handleSizeChange}
-                    >
+                    {submitButton}
+                    <RadioGroup className="flex" value={paragraphSize}>
                         <div
                             onClick={() => setParagraphSize('short')}
                             className="flex items-center space-x-2"
@@ -192,6 +130,60 @@ export default function CoverForm({
     );
 }
 
+function FormFields() {
+    const form = useFormContext<z.infer<typeof formSchema>>();
+
+    return (
+        <div>
+            <Section title={SECTIONS.ABOUT}>
+                <FormField
+                    control={form.control}
+                    name="about"
+                    render={({ field }) => (
+                        <FormItem className="col-span-3">
+                            {/* <FormLabel>Bio</FormLabel> */}
+                            <FormControl>
+                                <Textarea {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Section>
+            <Section title={SECTIONS.RESUME}>
+                <FormField
+                    control={form.control}
+                    name="resume"
+                    render={({ field }) => (
+                        <FormItem className="col-span-3">
+                            {/* <FormLabel>Bio</FormLabel> */}
+                            <FormControl>
+                                <Textarea {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Section>
+            <Section title={SECTIONS.DESCRIPTION}>
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem className="col-span-3">
+                            {/* <FormLabel>Bio</FormLabel> */}
+                            <FormControl>
+                                <Textarea {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Section>
+        </div>
+    );
+}
+
 function Section({
     children,
     title,
@@ -202,17 +194,9 @@ function Section({
     return (
         <div className="w-full transition-all">
             <div className="flex w-full justify-between">
-                <Title>{title}</Title>
+                <Label>{title}</Label>
             </div>
-            <List>{children}</List>
+            <div className="w-full py-1">{children}</div>
         </div>
     );
-}
-
-function Title({ children }: { children: React.ReactNode }) {
-    return <div className="py-2 text-lg font-bold">{children}</div>;
-}
-
-function List({ children }: { children: React.ReactNode }) {
-    return <div className="w-full py-1">{children}</div>;
 }
