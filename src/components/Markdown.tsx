@@ -11,6 +11,12 @@ export default function Markdown({ children }: { children: string }) {
                         className="text-lg font-medium text-neutral-900 dark:text-neutral-100"
                     />
                 ),
+                h2: ({ node, ...props }) => (
+                    <h2
+                        {...props}
+                        className="font-medium text-neutral-900 dark:text-neutral-100"
+                    />
+                ),
                 p: ({ node, ...props }) => (
                     <p
                         {...props}
