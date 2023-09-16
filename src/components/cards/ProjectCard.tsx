@@ -70,8 +70,7 @@ export default function ProjectCard({
                                 {project.title} {project.favorite && <Star />}
                             </p>
                             <p className="text-lg text-neutral-600 dark:text-neutral-300">
-                                {project.company}{' '}
-                                {project.client ? '- ' + project.client : ''}
+                                {project.company}
                             </p>
                         </div>
                         <div className="text-neutral-500 dark:text-neutral-400">

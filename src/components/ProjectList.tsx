@@ -20,13 +20,8 @@ export default function ProjectList({
     inline?: boolean;
     modal?: boolean;
 }) {
-    const {
-        filterCompany,
-        filterClient,
-        filterYear,
-        filterTag,
-        filterProjects,
-    } = useFilter();
+    const { filterCompany, filterYear, filterTag, filterProjects } =
+        useFilter();
 
     const sortedProjects = projects
         .sort((a, b) => {
@@ -42,9 +37,6 @@ export default function ProjectList({
             // sort by company
             if (a.company > b.company) return 1;
             if (a.company < b.company) return -1;
-            // sort by client
-            if (a.client > b.client) return 1;
-            if (a.client < b.client) return -1;
             // sort by title
             if (a.title > b.title) return 1;
             if (a.title < b.title) return -1;
@@ -78,7 +70,6 @@ export default function ProjectList({
                             key={'project-' + i}
                             project={p}
                             handleCompanyClick={filterCompany}
-                            handleClientClick={filterClient}
                             handleYearClick={filterYear}
                             handleTagClick={filterTag}
                         />
@@ -92,13 +83,11 @@ export default function ProjectList({
 function ProjectListItem({
     project,
     handleCompanyClick,
-    handleClientClick,
     handleYearClick,
     handleTagClick,
 }: {
     project: Project;
     handleCompanyClick?: (company: string) => void;
-    handleClientClick?: (company: string) => void;
     handleYearClick?: (year: number) => void;
     handleTagClick?: (tag: string) => void;
 }) {
@@ -133,22 +122,8 @@ function ProjectListItem({
 
                 {/* Client - Year */}
                 <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                    {handleYearClick && handleClientClick ? (
+                    {handleYearClick ? (
                         <>
-                            {project.client && (
-                                <>
-                                    <button
-                                        className="md:hover:underline"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleClientClick(project.client);
-                                        }}
-                                    >
-                                        {project.client}
-                                    </button>{' '}
-                                    -{' '}
-                                </>
-                            )}
                             <button
                                 className="md:hover:underline"
                                 onClick={(e) => {
@@ -171,7 +146,6 @@ function ProjectListItem({
                         </>
                     ) : (
                         <>
-                            {project.client ? project.client + ' - ' : ''}{' '}
                             {project.company} - {project.month}/{project.year}
                         </>
                     )}

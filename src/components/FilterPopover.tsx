@@ -12,13 +12,11 @@ import { Checkbox } from './ui/checkbox';
 export default function FilterPopover({ projects }: { projects: Project[] }) {
     const {
         companyFilter,
-        clientFilter,
         yearFilter,
         tagFilter,
         filterCompany,
         removeCompanyFilter,
         filterClient,
-        removeClientFilter,
         filterYear,
         removeYearFilter,
         filterTag,
@@ -26,7 +24,6 @@ export default function FilterPopover({ projects }: { projects: Project[] }) {
     } = useFilter();
 
     const companyOptions: string[] = [];
-    const clientOptions: string[] = [];
     const yearOptions: number[] = [];
     const tagOptions: string[] = [];
 
@@ -34,10 +31,6 @@ export default function FilterPopover({ projects }: { projects: Project[] }) {
         if (!companyOptions.includes(project.company)) {
             companyOptions.push(project.company);
             companyOptions.sort();
-        }
-        if (project.client && !clientOptions.includes(project.client)) {
-            clientOptions.push(project.client);
-            clientOptions.sort();
         }
         if (!yearOptions.includes(project.year)) {
             yearOptions.push(project.year);
@@ -85,29 +78,6 @@ export default function FilterPopover({ projects }: { projects: Project[] }) {
                         </div>
                     </div>
                     <div className="flex flex-col gap-2 pb-2">
-                        Client
-                        <div className="flex max-h-28 flex-col gap-1 overflow-y-scroll rounded border border-border p-1">
-                            {clientOptions.map((option) => (
-                                <div className="flex gap-2" key={option}>
-                                    <Checkbox
-                                        id={'client-filter-' + option}
-                                        checked={clientFilter.includes(option)}
-                                        onCheckedChange={() => {
-                                            if (clientFilter.includes(option)) {
-                                                removeClientFilter(option);
-                                            } else {
-                                                filterClient(option);
-                                            }
-                                        }}
-                                    />
-                                    <Label htmlFor={'client-filter-' + option}>
-                                        {option}
-                                    </Label>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="flex flex-col gap-2 pb-2">
                         Year
                         <div className="flex max-h-28 flex-col gap-1 overflow-y-scroll rounded border border-border p-1">
                             {yearOptions.map((option) => (
@@ -132,7 +102,7 @@ export default function FilterPopover({ projects }: { projects: Project[] }) {
                     </div>
                     <div className="flex grid-cols-3 flex-col gap-2 pb-2">
                         Tags
-                        <div className="flex max-h-28 flex-col gap-1 overflow-y-scroll rounded border border-border p-1">
+                        <div className="flex max-h-44 flex-col gap-1 overflow-y-scroll rounded border border-border p-1">
                             {tagOptions.map((option) => (
                                 <div className="flex gap-2" key={option}>
                                     <Checkbox
