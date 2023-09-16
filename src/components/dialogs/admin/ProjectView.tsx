@@ -10,7 +10,7 @@ export default function ExperienceView({ data }: { data?: Project }) {
                 <div className="col-span-3 grid gap-2 sm:gap-4">
                     <div>
                         <Label>Company</Label>
-                        <p>{data?.title}</p>
+                        <p>{data?.company}</p>
                     </div>
                     <div>
                         <Label>Client</Label>
