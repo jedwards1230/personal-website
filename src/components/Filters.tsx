@@ -7,11 +7,9 @@ import { Badge } from './ui/badge';
 export default function Filters() {
     const {
         companyFilter,
-        clientFilter,
         yearFilter,
         tagFilter,
         removeCompanyFilter,
-        removeClientFilter,
         removeYearFilter,
         removeTagFilter,
     } = useFilter();
@@ -25,13 +23,6 @@ export default function Filters() {
                         key={'company-' + i}
                         tag={c}
                         onClick={() => removeCompanyFilter(c)}
-                    />
-                ))}
-                {clientFilter.map((c, i) => (
-                    <FilterTag
-                        key={'client-' + i}
-                        tag={c}
-                        onClick={() => removeClientFilter(c)}
                     />
                 ))}
                 {yearFilter.map((y, i) => (

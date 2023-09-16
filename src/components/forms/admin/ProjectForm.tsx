@@ -19,8 +19,8 @@ import { useRouter } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
 
 const formSchema = z.object({
-    year: z.number().int().min(2000).max(2024),
-    month: z.number().int().min(1).max(12),
+    year: z.coerce.number().int().min(2000).max(2024),
+    month: z.coerce.number().int().min(1).max(12),
     company: z.string().nonempty(),
     client: z.string().optional(),
     title: z.string().nonempty(),
