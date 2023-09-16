@@ -64,7 +64,13 @@ export async function getAllProjects(
                 [sortBy]: 'asc',
             },
         });
-        return projects;
+        return projects.map((project) => ({
+            ...project,
+            images:
+                project.images.length > 0
+                    ? project.images.filter((img) => img !== '')
+                    : [],
+        }));
     } catch (error) {
         console.error(error);
         throw error;
