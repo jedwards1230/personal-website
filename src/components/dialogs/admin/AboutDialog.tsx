@@ -82,7 +82,7 @@ export default function AboutDialog({
     return (
         <Dialog open={open} onOpenChange={(o) => setOpen(o)}>
             <DialogTrigger asChild>{children}</DialogTrigger>
-            <DialogContent className="max-h-screen overflow-y-scroll sm:max-h-[95%] sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+            <DialogContent className="max-h-screen overflow-y-scroll sm:max-h-[95%] sm:max-w-xl md:max-w-2xl lg:max-w-3xl">
                 <DialogHeader>
                     <DialogTitle className="flex gap-6">Message</DialogTitle>
                 </DialogHeader>
