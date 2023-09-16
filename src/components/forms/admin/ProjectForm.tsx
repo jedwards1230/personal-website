@@ -250,7 +250,7 @@ export default function ProjectForm({
                             <FormItem>
                                 <FormLabel>Info</FormLabel>
                                 <FormControl>
-                                    <Textarea className="h-32" {...field} />
+                                    <Textarea className="h-64" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
