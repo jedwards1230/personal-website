@@ -138,7 +138,7 @@ export default function ExperienceForm({
                             <FormItem>
                                 <FormLabel>Description</FormLabel>
                                 <FormControl>
-                                    <Textarea className="h-32" {...field} />
+                                    <Textarea className="h-64" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

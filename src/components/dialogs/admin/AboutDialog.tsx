@@ -208,7 +208,7 @@ export default function AboutDialog({
                                 <FormItem className="">
                                     <FormLabel>Bio</FormLabel>
                                     <FormControl>
-                                        <Textarea {...field} />
+                                        <Textarea className="h-64" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
