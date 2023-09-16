@@ -53,4 +53,9 @@ type About = {
     description: string;
     name: string;
     tags: string[];
+    email: string;
+    phone: string;
+    location: string;
+    linkedin: string;
+    github: string;
 };

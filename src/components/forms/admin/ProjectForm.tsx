@@ -138,7 +138,7 @@ export default function ProjectForm({
                                     <FormItem>
                                         <FormLabel>Month</FormLabel>
                                         <FormControl>
-                                            <Input type="number" {...field} />
+                                            <Input type="month" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -151,7 +151,7 @@ export default function ProjectForm({
                                     <FormItem>
                                         <FormLabel>Year</FormLabel>
                                         <FormControl>
-                                            <Input {...field} />
+                                            <Input type="year" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

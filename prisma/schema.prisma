@@ -49,4 +49,9 @@ model About {
   title       String
   tags        String[]
   description String
+  email       String
+  phone       String
+  location    String
+  linkedin    String
+  github      String
 }
