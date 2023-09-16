@@ -6,28 +6,31 @@ import Link from 'next/link';
 import { HoverCard, HoverCardTrigger } from '@/components/ui/hover-card';
 import { GithubIcon, LinkedInIcon, EmailIcon } from './Icons';
 
-const links = [
-    {
-        title: 'Github',
-        copy: '@jedwards1230',
-        href: '//www.github.com/jedwards1230',
-        icon: <GithubIcon width={30} height={30} />,
-    },
-    {
-        title: 'LinkedIn',
-        copy: '@justinedwards1230',
-        href: '//www.linkedin.com/in/justinedwards1230',
-        icon: <LinkedInIcon width={30} height={30} />,
-    },
-    {
-        title: 'Email',
-        copy: 'justin@jedwards.cc',
-        href: 'mailto:justin@jedwards.cc',
-        icon: <EmailIcon width={30} height={30} />,
-    },
-];
+export default function IconLinks({ about }: { about: About }) {
+    const linkedInUsername = about.linkedin.replace(/\/$/, '').split('/').pop();
+    const githubUsername = about.github.replace(/\/$/, '').split('/').pop();
 
-export default function IconLinks() {
+    const links = [
+        {
+            title: 'Github',
+            copy: '@' + githubUsername,
+            href: about.github,
+            icon: <GithubIcon width={30} height={30} />,
+        },
+        {
+            title: 'LinkedIn',
+            copy: '@' + linkedInUsername,
+            href: about.linkedin,
+            icon: <LinkedInIcon width={30} height={30} />,
+        },
+        {
+            title: 'Email',
+            copy: about.email,
+            href: 'mailto:' + about.email + '?subject=Hello!',
+            icon: <EmailIcon width={30} height={30} />,
+        },
+    ];
+
     return (
         <div className="flex w-48 justify-between ">
             {links.map((link, i) => (
