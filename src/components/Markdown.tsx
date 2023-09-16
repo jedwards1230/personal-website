@@ -8,7 +8,7 @@ export default function Markdown({ children }: { children: string }) {
                 h1: ({ node, ...props }) => (
                     <h1
                         {...props}
-                        className="text-lg font-bold text-neutral-900 dark:text-neutral-100"
+                        className="text-lg font-medium text-neutral-900 dark:text-neutral-100"
                     />
                 ),
                 p: ({ node, ...props }) => (
@@ -36,7 +36,7 @@ export default function Markdown({ children }: { children: string }) {
                     <ul
                         {...props}
                         className={clsx(
-                            'list-inside list-disc text-neutral-700 dark:text-neutral-300',
+                            'ml-2 list-inside list-disc text-neutral-700 dark:text-neutral-300',
                             depth === 1 && 'ml-4',
                         )}
                     />
