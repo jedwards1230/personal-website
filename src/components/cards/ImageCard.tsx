@@ -23,21 +23,21 @@ export default function ImageCard({ project }: { project: Project }) {
     }, [idx, plausible, project.images, project.title]);
 
     return (
-        <div className="relative h-full min-h-[700px] w-full select-none overflow-hidden">
-            <div className="absolute flex h-full w-full">
+        <div className="relative flex h-full w-full select-none overflow-x-hidden">
+            <div
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${idx * 100}%)` }}
+            >
                 {project.images.map((image, i) => (
-                    <Image
-                        style={{
-                            transform: `translateX(-${idx * 100}%)`,
-                            left: `${i * 100}%`,
-                        }}
-                        key={i}
-                        src={image}
-                        alt={project.title}
-                        width={1920}
-                        height={1080}
-                        className="absolute h-full w-full transition-transform duration-500 ease-in-out"
-                    />
+                    <div key={i} className="w-full flex-shrink-0">
+                        <Image
+                            src={image}
+                            alt={project.title}
+                            width={1920}
+                            height={1080}
+                            className="h-full w-full"
+                        />
+                    </div>
                 ))}
             </div>
             <div className="absolute inset-y-0 left-0 flex items-center">
