@@ -51,7 +51,7 @@ export default function ProjectForm({
             title: data?.title,
             description: data?.description,
             info: data?.info,
-            href: data?.href,
+            href: data?.href ?? '',
             tags: data?.tags.join(', '),
             showcase: data?.showcase || false,
             favorite: data?.favorite || false,
@@ -94,8 +94,6 @@ export default function ProjectForm({
             console.log(err);
         }
     };
-
-    console.log(form.formState.errors);
 
     return (
         <Form {...form}>
@@ -190,7 +188,7 @@ export default function ProjectForm({
                             control={form.control}
                             name="showcase"
                             render={({ field }) => (
-                                <FormItem className="col-span-3">
+                                <FormItem className="col-span-3 flex items-center gap-2">
                                     <FormLabel>Showcase</FormLabel>
                                     <FormControl>
                                         <Checkbox
@@ -204,10 +202,10 @@ export default function ProjectForm({
                         />
                         <FormField
                             control={form.control}
-                            name="showcase"
+                            name="favorite"
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Showcase</FormLabel>
+                                <FormItem className="flex items-center gap-2">
+                                    <FormLabel>Favorite</FormLabel>
                                     <FormControl>
                                         <Checkbox
                                             checked={field.value}
