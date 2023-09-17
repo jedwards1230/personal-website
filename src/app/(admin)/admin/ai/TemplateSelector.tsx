@@ -37,44 +37,43 @@ export default function TemplateSelector({
     });
 
     return (
-        <div className="flex w-full justify-end">
-            <Form {...form}>
-                <form className="w-64">
-                    <FormField
-                        control={form.control}
-                        name="activeForm"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-col">
-                                <FormLabel>Template</FormLabel>
-                                <Select
-                                    defaultValue={field.value}
-                                    onValueChange={(v: string) => {
-                                        field.onChange();
-                                        setActiveForm(v as Forms);
-                                    }}
-                                >
-                                    <FormControl>
-                                        <SelectTrigger>
-                                            <SelectValue
-                                                placeholder={activeForm}
-                                            />
-                                        </SelectTrigger>
-                                    </FormControl>
-                                    <SelectContent>
-                                        <SelectItem value="Cover Letter">
-                                            Cover Letter
-                                        </SelectItem>
-                                        <SelectItem value="Interview">
-                                            Interview
-                                        </SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </form>
-            </Form>
-        </div>
+        <Form {...form}>
+            <form className="w-64">
+                <FormField
+                    control={form.control}
+                    name="activeForm"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                            <FormLabel>Template</FormLabel>
+                            <Select
+                                defaultValue={field.value}
+                                onValueChange={(v: Forms) => {
+                                    field.onChange();
+                                    setActiveForm(v);
+                                }}
+                            >
+                                <FormControl>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder={activeForm} />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    <SelectItem value="Assistant">
+                                        Assistant
+                                    </SelectItem>
+                                    <SelectItem value="Cover Letter">
+                                        Cover Letter
+                                    </SelectItem>
+                                    <SelectItem value="Interview">
+                                        Interview
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </form>
+        </Form>
     );
 }
