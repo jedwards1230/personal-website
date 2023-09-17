@@ -51,7 +51,7 @@ export const NavigationProvider = ({
     useEffect(() => {
         if (inViewAbout) setCurrentSection('about');
         else if (inViewContact) setCurrentSection('contact');
-        else if (inViewExperience) setCurrentSection('experience');
+        else if (inViewExperience) setCurrentSection('history');
         else if (inViewProjects) setCurrentSection('projects');
     }, [inViewAbout, inViewContact, inViewExperience, inViewProjects]);
 

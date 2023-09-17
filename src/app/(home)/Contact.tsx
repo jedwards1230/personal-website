@@ -99,7 +99,7 @@ export default function Contact({ pageViews }: { pageViews: number }) {
                 </form>
                 <div
                     aria-label="Page Views"
-                    className="text-center text-xs text-neutral-600 dark:text-neutral-500"
+                    className="select-none text-center text-xs text-neutral-600 dark:text-neutral-500"
                 >
                     {pageViews} {pageViews === 1 ? 'visit' : 'visits'} this week
                 </div>

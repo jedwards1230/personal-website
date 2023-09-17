@@ -15,7 +15,7 @@ export default function Experience({
     const { setCurrentExperience } = useNavigation();
 
     return (
-        <Section id="experience">
+        <Section id="history">
             <div className="flex flex-col gap-4">
                 {experiences.map((e, i) => (
                     <div
