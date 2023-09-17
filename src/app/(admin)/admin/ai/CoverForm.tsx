@@ -13,6 +13,7 @@ import {
     FormItem,
     FormMessage,
 } from '@/components/ui/form';
+import { buildCoverLetterPrompt } from './prompts';
 
 const SECTIONS = {
     ABOUT: 'User Profile',
@@ -69,16 +70,12 @@ export default function CoverForm({
         const resume = values.resume;
         const description = values.description;
 
-        const msg =
-            `Create a cover letter based on the following rules and information.` +
-            `\n\nRules:\n\n` +
-            `Letter size: ${pSize}. ` +
-            `Include line breaks (\\n) between paragraphs and sections. ` +
-            `Do not claim to have experience with things not explicity listed.` +
-            `\n\nInformation:\n\n` +
-            `User Profile:\n${userProfile}\n\n` +
-            `Resume:\n${resume}\n\n` +
-            `Description:\n${description}`;
+        const msg = buildCoverLetterPrompt(
+            userProfile,
+            resume,
+            description,
+            pSize,
+        );
 
         setMessage(msg);
     };

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import {
     getAllMessages,
     getAllExperiences,
@@ -5,14 +7,12 @@ import {
     getAbout,
 } from '@/lib/actions';
 import { ExperienceDialog } from '@/components/dialogs/admin/ExperienceDialog';
-import { Button } from '@/components/ui/button';
 import { ProjectDialog } from '@/components/dialogs/admin/ProjectDialog';
 import MessageDialog from '@/components/dialogs/admin/MessageDialog';
 import { Label } from '@/components/ui/label';
-import { Edit } from '@/components/Icons';
 import AboutDialog from '@/components/dialogs/admin/AboutDialog';
 import Markdown from '@/components/Markdown';
-import Link from 'next/link';
+import { AddButton, EditButton, ListItem, Section } from './UIHelpers';
 
 const SECTIONS = {
     ABOUT: 'About',
@@ -173,59 +173,5 @@ export default async function Page() {
                 ))}
             </Section>
         </>
-    );
-}
-
-function Section({
-    children,
-    title,
-    addButtonDialog,
-}: {
-    children: React.ReactNode;
-    title: string;
-    addButtonDialog?: React.ReactNode;
-}) {
-    return (
-        <div className="w-full rounded border border-border p-2 transition-all">
-            <div className="flex w-full justify-between">
-                <Title>{title}</Title>
-                {addButtonDialog && (
-                    <div className="flex justify-end">{addButtonDialog}</div>
-                )}
-            </div>
-            <List>{children}</List>
-        </div>
-    );
-}
-
-function Title({ children }: { children: React.ReactNode }) {
-    return <div className="py-2 text-lg font-bold">{children}</div>;
-}
-
-function List({ children }: { children: React.ReactNode }) {
-    return <div className="w-full py-1">{children}</div>;
-}
-
-function ListItem({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="w-full cursor-pointer rounded-lg p-1 underline-offset-4 hover:bg-secondary/60 hover:underline">
-            {children}
-        </div>
-    );
-}
-
-function AddButton() {
-    return (
-        <Button className="text-xl font-medium" variant="outline" size="icon">
-            +
-        </Button>
-    );
-}
-
-function EditButton() {
-    return (
-        <Button variant="outline" size="icon">
-            <Edit />
-        </Button>
     );
 }

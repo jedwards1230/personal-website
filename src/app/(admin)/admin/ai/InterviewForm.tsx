@@ -11,6 +11,7 @@ import {
     FormItem,
     FormMessage,
 } from '@/components/ui/form';
+import { buildInterviewPrompt } from './prompts';
 
 const SECTIONS = {
     ABOUT: 'User Profile',
@@ -57,28 +58,7 @@ export default function InterviewForm({
         const resume = values.resume;
         const description = values.description;
 
-        const msg =
-            `Help me with interview prepartions based on the following rules and information.\n` +
-            'I want you to ask me questions as if you were the interviewer.' +
-            'There will be an intro phase, a technical phase, and a personality phase.' +
-            'The intro phase will explain the role and company. It will also ask me about my past relevant experience.' +
-            'The technical phase will ask me about my technical experience and how I would solve problems related to the specified role.' +
-            'The personality phase will ask me about my personality and how I would fit into the company culture and communicate with others. ' +
-            'Provide feedback on my answers and suggest improvements after each phase. ' +
-            `\n\nRules:\n\n` +
-            `Do not reference these rules or the details of the process. Simply act as the interviewer with those goals in mind.` +
-            'Do not ask me to repeat myself. If you do not understand something, ask me to clarify.' +
-            "Do not mention that you are an AI and do not use qualifying language such as 'as an AI assistant, I cannot...'" +
-            'Do not move onto the next phase until you are satisfied with my answers.' +
-            'Only ask one thing at a time. Do not ask multiple questions in one sentence.' +
-            "Do not ask general questions like 'tell me how your experience relates to this role' or 'how do your skills qualify you for this role'. " +
-            `\n\nInformation:\n\n` +
-            `User Profile:\n${userProfile}\n\n` +
-            `Resume:\n${resume}\n\n` +
-            `Description:\n${description}` +
-            '\n\nBegin interview with phase 1. Interview until you are satisfied with my answers, then review. ' +
-            'Then move on to phase 2 and repeat until the interview is complete.' +
-            '\nBegin the interview.';
+        const msg = buildInterviewPrompt(userProfile, resume, description);
 
         setMessage(msg);
     };

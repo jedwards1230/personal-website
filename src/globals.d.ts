@@ -59,3 +59,12 @@ type About = {
     linkedin: string;
     github: string;
 };
+
+type Job = {
+    id: number;
+    createdAt: Date;
+    company?: string;
+    title?: string;
+    pay?: string;
+    ad?: string;
+};
