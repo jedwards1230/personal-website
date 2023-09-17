@@ -46,8 +46,8 @@ export default async function Page() {
             </nav>
             <div className="ml-auto flex h-full w-full flex-col gap-12 md:z-10 md:w-2/3 md:gap-24 lg:w-1/2">
                 <About about={about} />
-                <Experience experiences={experiences} />
                 <Projects projects={projects} />
+                <Experience experiences={experiences} />
                 <Contact pageViews={pageViews} />
             </div>
         </>

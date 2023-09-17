@@ -17,7 +17,7 @@ export default function Section({
         switch (id) {
             case 'about':
                 return refAbout;
-            case 'experience':
+            case 'history':
                 return refExperience;
             case 'projects':
                 return refProjects;
