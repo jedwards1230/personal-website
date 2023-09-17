@@ -23,7 +23,7 @@ export default function ImageCard({ project }: { project: Project }) {
     }, [idx, plausible, project.images, project.title]);
 
     return (
-        <div className="relative flex h-full w-full select-none overflow-x-hidden">
+        <div className="relative flex h-full select-none items-center justify-center overflow-x-hidden">
             <div
                 className="flex transition-transform duration-300 ease-in-out"
                 style={{ transform: `translateX(-${idx * 100}%)` }}
@@ -35,27 +35,31 @@ export default function ImageCard({ project }: { project: Project }) {
                             alt={project.title}
                             width={1920}
                             height={1080}
-                            className="h-full w-full"
+                            className="mx-auto h-full w-full"
                         />
                     </div>
                 ))}
             </div>
-            <div className="absolute inset-y-0 left-0 flex items-center">
-                <button
-                    onClick={prev}
-                    className="flex h-12 w-12 items-center justify-center rounded-r border border-border bg-background/20 transition-all hover:bg-background/80"
-                >
-                    <ChevronLeft />
-                </button>
-            </div>
-            <div className="absolute inset-y-0 right-0 flex items-center">
-                <button
-                    onClick={next}
-                    className="flex h-12 w-12 items-center justify-center rounded-l border border-border transition-all hover:bg-background/80 dark:bg-background/20"
-                >
-                    <ChevronRight />
-                </button>
-            </div>
+            {project.images.length > 1 && (
+                <>
+                    <div className="absolute inset-y-0 left-0 flex items-center">
+                        <button
+                            onClick={prev}
+                            className="flex h-12 w-12 items-center justify-center rounded-r border border-border bg-background/20 transition-all hover:bg-background/80"
+                        >
+                            <ChevronLeft />
+                        </button>
+                    </div>
+                    <div className="absolute inset-y-0 right-0 flex items-center">
+                        <button
+                            onClick={next}
+                            className="flex h-12 w-12 items-center justify-center rounded-l border border-border transition-all hover:bg-background/80 dark:bg-background/20"
+                        >
+                            <ChevronRight />
+                        </button>
+                    </div>
+                </>
+            )}
         </div>
     );
 }
