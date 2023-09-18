@@ -23,6 +23,15 @@ export async function getAllExperiences(
     }
 }
 
+export async function getUnreadMessageCount() {
+    const count = await prisma.contact.count({
+        where: {
+            readAt: null,
+        },
+    });
+    return count;
+}
+
 export async function getAbout(): Promise<About> {
     try {
         const about = await prisma.about.findFirst();
