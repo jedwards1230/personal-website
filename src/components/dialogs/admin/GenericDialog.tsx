@@ -21,12 +21,12 @@ export function GenericDialog({
     dataType,
 }: {
     children: React.ReactNode;
-    data?: Experience | Project;
+    data?: Experience | Project | Job;
     FormComponent: any;
     ViewComponent: any;
-    dataType: 'experience' | 'project';
+    dataType: 'experience' | 'project' | 'job';
 }) {
-    const [edit, setEdit] = useState(false);
+    const [edit, setEdit] = useState(!data);
 
     return (
         <Dialog>
@@ -36,21 +36,25 @@ export function GenericDialog({
                     <DialogTitle className="flex gap-6">
                         {edit ? (
                             <>{data ? `Edit ${dataType}` : `Add ${dataType}`}</>
-                        ) : (
+                        ) : data ? (
                             <p>
-                                {dataType === 'experience'
-                                    ? data?.company
-                                    : data?.title}
+                                {dataType === 'job' && data?.company}
+                                {dataType === 'experience' && data?.title}
+                                {dataType === 'project' && data?.company}
                             </p>
+                        ) : null}
+                        {data && (
+                            <div className="flex items-center gap-3 transition-all">
+                                <Switch
+                                    checked={edit}
+                                    onCheckedChange={() =>
+                                        setEdit((prev) => !prev)
+                                    }
+                                    id="edit-mode"
+                                />
+                                <Label htmlFor="edit-mode">Edit</Label>
+                            </div>
                         )}
-                        <div className="flex items-center gap-3 transition-all">
-                            <Switch
-                                checked={edit}
-                                onCheckedChange={() => setEdit((prev) => !prev)}
-                                id="edit-mode"
-                            />
-                            <Label htmlFor="edit-mode">Edit</Label>
-                        </div>
                     </DialogTitle>
                     {edit && (
                         <DialogDescription>

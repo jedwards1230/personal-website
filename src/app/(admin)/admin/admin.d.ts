@@ -4,7 +4,7 @@ type Message = {
     content: string;
 };
 
-type Forms = 'Cover Letter' | 'Interview';
+type Forms = 'Cover Letter' | 'Interview' | 'Assistant';
 
 interface StreamData {
     error?: {
