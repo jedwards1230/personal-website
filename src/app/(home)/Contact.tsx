@@ -21,8 +21,8 @@ import {
 } from '@/components/ui/form';
 
 const formSchema = z.object({
-    name: z.string(),
-    email: z.string().email(),
+    name: z.string().optional(),
+    email: z.string().email().optional(),
     message: z.string().nonempty(),
 });
 
