@@ -57,10 +57,11 @@ model About {
 }
 
 model Job {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  company   String?
-  title     String?
-  pay       String?
-  ad        String?
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  company     String
+  title       String
+  pay         String?
+  description String
+  href        String
 }

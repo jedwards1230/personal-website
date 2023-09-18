@@ -12,6 +12,7 @@ import {
 } from './prompts';
 import { Button } from '@/components/ui/button';
 import TemplateSettings from './TemplateSettings';
+import { Label } from '@/components/ui/label';
 
 export default function Assistant({
     experiences,
@@ -25,9 +26,7 @@ export default function Assistant({
     jobs: Job[];
 }) {
     const [activeForm, setActiveForm] = useState<Forms>('Assistant');
-    const [activeJob, setActiveJob] = useState<Job | null>(
-        jobs.length > 0 ? jobs[0] : null,
-    );
+    const [activeJob, setActiveJob] = useState<Job | null>(null);
 
     const [message, setMessage] = useState<Message | null>({
         id: 0,
@@ -56,22 +55,28 @@ export default function Assistant({
 
     return (
         <>
-            <div className="flex items-end justify-end gap-4 px-1">
-                <TemplateSelector
-                    activeForm={activeForm}
-                    setActiveForm={setForm}
-                />
-                <TemplateSettings
-                    activeForm={activeForm}
-                    setForm={setForm}
-                    activeJob={activeJob}
-                    jobs={jobs}
-                    setJob={setJob}
-                >
-                    <Button variant="outline" size="icon">
-                        <Settings />
-                    </Button>
-                </TemplateSettings>
+            <div className="flex items-end justify-between">
+                <div>
+                    <Label>Active Job:</Label>{' '}
+                    <p>{activeJob ? activeJob.company : 'None'}</p>
+                </div>
+                <div className="flex items-end justify-end gap-4 px-1">
+                    <TemplateSelector
+                        activeForm={activeForm}
+                        setActiveForm={setForm}
+                    />
+                    <TemplateSettings
+                        activeForm={activeForm}
+                        setForm={setForm}
+                        activeJob={activeJob}
+                        jobs={jobs}
+                        setJob={setJob}
+                    >
+                        <Button variant="outline" size="icon">
+                            <Settings />
+                        </Button>
+                    </TemplateSettings>
+                </div>
             </div>
             <Chat initialMessage={message} />
         </>
@@ -111,7 +116,7 @@ function buildPrompt(
               company: activeJob.company,
               title: activeJob.title,
               pay: activeJob.pay,
-              ad: activeJob.ad,
+              description: activeJob.description,
           })
         : 'null';
 
@@ -121,6 +126,6 @@ function buildPrompt(
         case 'Interview':
             return buildInterviewPrompt(userProfile, resume, job);
         case 'Cover Letter':
-            return buildCoverLetterPrompt(userProfile, resume, job, '');
+            return buildCoverLetterPrompt(userProfile, resume, job);
     }
 }

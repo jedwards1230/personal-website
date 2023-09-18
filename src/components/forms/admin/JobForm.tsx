@@ -21,7 +21,8 @@ const formSchema = z.object({
     title: z.string().nonempty(),
     company: z.string().nonempty(),
     pay: z.string(),
-    ad: z.string().nonempty(),
+    description: z.string().nonempty(),
+    href: z.string().url(),
 });
 
 export default function JobForm({
@@ -38,17 +39,15 @@ export default function JobForm({
             title: data?.title || '',
             company: data?.company || '',
             pay: data?.pay || '',
-            ad: data?.ad || '',
+            description: data?.description || '',
+            href: data?.href || '',
         },
     });
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         const updatedJob: Job = {
             ...data,
-            title: values.title,
-            company: values.company,
-            pay: values.pay,
-            ad: values.ad,
+            ...values,
         };
 
         try {
@@ -109,7 +108,20 @@ export default function JobForm({
                     />
                     <FormField
                         control={form.control}
-                        name="ad"
+                        name="href"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Link</FormLabel>
+                                <FormControl>
+                                    <Input {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="description"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Description</FormLabel>

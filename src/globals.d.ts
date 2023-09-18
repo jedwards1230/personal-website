@@ -63,8 +63,9 @@ type About = {
 type Job = {
     id: number;
     createdAt: Date;
-    company?: string;
-    title?: string;
+    company: string;
+    title: string;
     pay?: string;
-    ad?: string;
+    description: string;
+    href: string;
 };

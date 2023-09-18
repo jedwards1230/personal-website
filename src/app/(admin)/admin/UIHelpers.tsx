@@ -31,7 +31,7 @@ Section.displayName = 'Section';
 
 export const Title = forwardRef<HTMLDivElement, { children: React.ReactNode }>(
     ({ children, ...props }, forwardedRef) => (
-        <div className="py-2 text-lg font-bold" {...props} ref={forwardedRef}>
+        <div className="p-2 text-lg font-bold" {...props} ref={forwardedRef}>
             {children}
         </div>
     ),

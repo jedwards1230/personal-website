@@ -32,19 +32,20 @@ export default function TemplateSettings({
                 <DialogHeader>
                     <DialogTitle>Template Settings</DialogTitle>
                 </DialogHeader>
-                <TemplateSelector
-                    activeForm={activeForm}
-                    setActiveForm={setForm}
-                />
-                {activeForm === 'Assistant' && <></>}
-                {activeForm === 'Cover Letter' && <></>}
-                {activeForm === 'Interview' && (
+                <div className="flex justify-between gap-2 md:gap-4">
+                    <TemplateSelector
+                        activeForm={activeForm}
+                        setActiveForm={setForm}
+                    />
                     <JobSelector
                         jobs={jobs}
                         activeJob={activeJob}
                         setActiveJob={setJob}
                     />
-                )}
+                </div>
+                {activeForm === 'Assistant' && <></>}
+                {activeForm === 'Cover Letter' && <></>}
+                {activeForm === 'Interview' && <></>}
                 <Section
                     title="Jobs"
                     addButtonDialog={
