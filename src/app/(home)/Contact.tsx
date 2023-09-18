@@ -1,109 +1,149 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import * as z from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { usePlausible } from 'next-plausible';
 
 import Section from '@/components/Section';
-import { createContact, getPageViews } from '@/lib/actions';
-import clsx from 'clsx';
-import { usePlausible } from 'next-plausible';
+import { createContact } from '@/lib/actions';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form';
+
+const formSchema = z.object({
+    name: z.string(),
+    email: z.string().email(),
+    message: z.string().nonempty(),
+});
 
 export default function Contact({ pageViews }: { pageViews: number }) {
     const plausible = usePlausible();
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            name: '',
+            email: '',
+            message: '',
+        },
+    });
+    // TODO: use hook error handling
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            await createContact(name, email, message);
+            await createContact(values.name, values.email, values.message);
             plausible('Contact Form Submission');
             setSuccess(true);
-            setName('');
-            setEmail('');
-            setMessage('');
         } catch (error: any) {
             setError(error.message);
         }
     };
 
     useEffect(() => {
-        if (success) {
-            setTimeout(() => {
-                setSuccess(false);
-            }, 5000);
-        }
+        if (success) setTimeout(() => setSuccess(false), 5000);
     }, [success]);
 
     return (
         <Section id="contact">
-            <div className="flex h-full w-full flex-1 flex-col justify-between pb-16">
+            <Form {...form}>
                 <form
-                    className="flex w-full select-none flex-col gap-2 pb-20"
-                    onSubmit={handleSubmit}
+                    onSubmit={form.handleSubmit(handleSubmit)}
+                    className="flex h-full w-full flex-1 flex-col justify-between pb-16"
                 >
-                    <p
-                        className={clsx(
-                            'text-lg',
-                            success || error ? 'pb-1' : 'pb-2',
-                        )}
-                    >
-                        Leave a message
-                    </p>
-                    {success && <p className="text-green-500">Message sent!</p>}
-                    {error && <p className="text-red-500">{error}</p>}
+                    <div className="flex w-full select-none flex-col gap-2 pb-20">
+                        <p className="text-lg">Leave a message</p>
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
+                                        <FormLabel>Name</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                className="md:w-2/3"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <FormMessage />
+                                    </div>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                className="md:w-2/3"
+                                                type="email"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <FormMessage />
+                                    </div>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="message"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
+                                        <FormLabel>Message</FormLabel>
+                                        <FormControl>
+                                            <Textarea
+                                                {...field}
+                                                className="md:w-2/3"
+                                                rows={5}
+                                            />
+                                        </FormControl>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <FormMessage />
+                                    </div>
+                                </FormItem>
+                            )}
+                        />
+                        <Button variant="link" type="submit">
+                            Send
+                        </Button>
+                        <div className="pt-2 text-center">
+                            {success && (
+                                <p className="text-green-500">Message sent!</p>
+                            )}
+                            {error && <p className="text-red-500">{error}</p>}
+                        </div>
+                    </div>
                     <div
-                        className={clsx(
-                            'flex items-center justify-between',
-                            success || error ? 'pt-1' : 'pt-2',
-                        )}
+                        aria-label="Page Views"
+                        className="select-none text-center text-xs text-neutral-600 dark:text-neutral-500"
                     >
-                        <Label htmlFor="name">Name:</Label>
-                        <Input
-                            className="w-2/3"
-                            type="text"
-                            id="name"
-                            value={name}
-                            onChange={(event) => setName(event.target.value)}
-                        />
+                        {pageViews} {pageViews === 1 ? 'visit' : 'visits'} this
+                        week
                     </div>
-                    <div className="flex items-center justify-between">
-                        <Label htmlFor="email">Email:</Label>
-                        <Input
-                            className="w-2/3"
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                        />
-                    </div>
-                    <div className="flex items-center justify-between">
-                        <Label htmlFor="message">Message:</Label>
-                        <Textarea
-                            className="w-2/3"
-                            value={message}
-                            id="message"
-                            rows={5}
-                            onChange={(event) => setMessage(event.target.value)}
-                            required
-                        />
-                    </div>
-                    <button className="pt-4 hover:underline" type="submit">
-                        Send
-                    </button>
                 </form>
-                <div
-                    aria-label="Page Views"
-                    className="select-none text-center text-xs text-neutral-600 dark:text-neutral-500"
-                >
-                    {pageViews} {pageViews === 1 ? 'visit' : 'visits'} this week
-                </div>
-            </div>
+            </Form>
         </Section>
     );
 }
