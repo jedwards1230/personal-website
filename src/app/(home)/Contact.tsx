@@ -22,7 +22,18 @@ import {
 
 const formSchema = z.object({
     name: z.string().optional(),
-    email: z.string().email().optional(),
+    email: z.preprocess(
+        (email) => {
+            if (!email || typeof email !== 'string') return undefined;
+            return email === '' ? undefined : email;
+        },
+        z
+            .string()
+            .email({
+                message: 'Please correct your email address',
+            })
+            .optional(),
+    ),
     message: z.string().nonempty(),
 });
 

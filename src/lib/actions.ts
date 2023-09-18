@@ -107,8 +107,8 @@ export async function createContact(
 ): Promise<Contact> {
     const contact = await prisma.contact.create({
         data: {
-            name,
-            email,
+            name: name || 'Anonymous',
+            email: email || 'Anonymous',
             message,
         },
     });
