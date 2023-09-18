@@ -20,13 +20,15 @@ export default function JobView({ data }: { data?: Job }) {
             </div>
             <div className="flex flex-col gap-1">
                 <Label>Link</Label>
-                <Link
-                    className="hover:underline"
-                    href={data?.href}
-                    target="_blank"
-                >
-                    {data?.href}
-                </Link>
+                {data && (
+                    <Link
+                        className="hover:underline"
+                        href={data?.href}
+                        target="_blank"
+                    >
+                        {data?.href}
+                    </Link>
+                )}
             </div>
             <div>
                 <Label>Description</Label>
