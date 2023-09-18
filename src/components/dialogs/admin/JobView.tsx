@@ -1,5 +1,7 @@
-import Markdown from '@/components/Markdown';
+'use client';
+
 import { Label } from '@/components/ui/label';
+import Link from 'next/link';
 
 export default function JobView({ data }: { data?: Job }) {
     return (
@@ -14,11 +16,21 @@ export default function JobView({ data }: { data?: Job }) {
             </div>
             <div>
                 <Label>Pay</Label>
-                <Markdown>{data?.pay}</Markdown>
+                <p>{data?.pay}</p>
+            </div>
+            <div className="flex flex-col gap-1">
+                <Label>Link</Label>
+                <Link
+                    className="hover:underline"
+                    href={data?.href}
+                    target="_blank"
+                >
+                    {data?.href}
+                </Link>
             </div>
             <div>
                 <Label>Description</Label>
-                <p>{data?.ad}</p>
+                <p>{data?.description}</p>
             </div>
         </div>
     );

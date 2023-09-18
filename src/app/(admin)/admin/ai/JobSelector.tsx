@@ -41,7 +41,7 @@ export default function JobSelector({
 
     return (
         <Form {...form}>
-            <form className="flex w-64 items-end gap-2">
+            <form className="flex w-full items-end gap-2">
                 <FormField
                     control={form.control}
                     name="id"
@@ -52,7 +52,9 @@ export default function JobSelector({
                                 defaultValue={field.value.toString()}
                                 onValueChange={(id: string) => {
                                     field.onChange();
-                                    setActiveJob(parseInt(id));
+                                    setActiveJob(
+                                        parseInt(id !== '-1' ? id : null),
+                                    );
                                 }}
                             >
                                 <FormControl>
@@ -66,9 +68,10 @@ export default function JobSelector({
                                         />
                                     </SelectTrigger>
                                 </FormControl>
-                                {jobs.length > 0 && (
-                                    <SelectContent>
-                                        {jobs.map((job) => (
+                                <SelectContent>
+                                    <SelectItem value="-1">None</SelectItem>
+                                    {jobs.length > 0 &&
+                                        jobs.map((job) => (
                                             <SelectItem
                                                 key={job.id}
                                                 value={job.id.toString()}
@@ -76,21 +79,12 @@ export default function JobSelector({
                                                 {job.company}
                                             </SelectItem>
                                         ))}
-                                    </SelectContent>
-                                )}
+                                </SelectContent>
                             </Select>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <Button
-                    type="button"
-                    className="flex"
-                    variant="outline"
-                    size="icon"
-                >
-                    +
-                </Button>
             </form>
         </Form>
     );

@@ -38,7 +38,7 @@ export default function TemplateSelector({
 
     return (
         <Form {...form}>
-            <form className="w-64">
+            <form className="w-full">
                 <FormField
                     control={form.control}
                     name="activeForm"

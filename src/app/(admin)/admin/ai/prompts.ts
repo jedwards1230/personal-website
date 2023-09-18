@@ -2,7 +2,7 @@ export function buildAssistantPrompt(userProfile: string) {
     return (
         `You are a personal assistant to the following person:\n\n` +
         `${userProfile}\n\n` +
-        `Your primary purpose is to aid in their professional endeavors.` +
+        `Your primary purpose is to aid in their professional endeavors.\n\n` +
         `Begin by introducing yourself and asking how you can help.`
     );
 }
@@ -41,12 +41,10 @@ export function buildCoverLetterPrompt(
     userProfile: string,
     resume: string,
     description: string,
-    pSize: string,
 ) {
     return (
         `Create a cover letter based on the following rules and information.` +
         `\n\nRules:\n\n` +
-        `Letter size: ${pSize}\n\n` +
         `Include line breaks (\\n) between paragraphs and sections. ` +
         `Do not claim to have experience with things not explicity listed.` +
         `\n\nInformation:\n\n` +
