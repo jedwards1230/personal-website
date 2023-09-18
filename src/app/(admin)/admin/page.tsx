@@ -45,7 +45,7 @@ export default async function Page() {
                 title={SECTIONS.ABOUT}
             >
                 {about && (
-                    <div className="space-y-2">
+                    <div className="space-y-2 px-2">
                         <div className="flex">
                             <div className="w-1/2">
                                 <Label>Name</Label>
@@ -143,34 +143,45 @@ export default async function Page() {
                 </Section>
             </div>
             <Section title={SECTIONS.MESSAGES}>
-                <div className="grid grid-cols-6 pb-1 text-secondary-foreground sm:grid-cols-8 md:grid-cols-12">
-                    <span className="col-span-2 underline">Date</span>
-                    <span className="col-span-2 hidden underline sm:block">
-                        Name
-                    </span>
-                    <span className="col-span-4 underline">Email</span>
-                    <span className="col-span-4 hidden underline md:block">
-                        Message
-                    </span>
-                </div>
-                {messages.map((m, i) => (
-                    <MessageDialog key={'message-' + i} message={m}>
-                        <ListItem>
-                            <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-12">
-                                <span className="col-span-2">
-                                    {m.createdAt.toLocaleDateString()}
-                                </span>
-                                <span className="col-span-2 hidden sm:block">
-                                    {m.name}
-                                </span>
-                                <span className="col-span-4">{m.email}</span>
-                                <span className="col-span-4 hidden truncate md:block">
-                                    {m.message}
-                                </span>
-                            </div>
-                        </ListItem>
-                    </MessageDialog>
-                ))}
+                {messages.length > 0 ? (
+                    <>
+                        <div className="grid grid-cols-6 pb-1 text-secondary-foreground sm:grid-cols-8 md:grid-cols-12">
+                            <span className="col-span-2 underline">Date</span>
+                            <span className="col-span-2 hidden underline sm:block">
+                                Name
+                            </span>
+                            <span className="col-span-4 underline">Email</span>
+                            <span className="col-span-4 hidden underline md:block">
+                                Message
+                            </span>
+                        </div>
+                        {messages.map((m, i) => (
+                            <MessageDialog key={'message-' + i} message={m}>
+                                <ListItem>
+                                    <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-12">
+                                        <span className="col-span-2">
+                                            {m.createdAt.toLocaleDateString()}
+                                            <span className="font-bold text-primary-foreground">
+                                                {m.readAt ? '' : '  •'}
+                                            </span>
+                                        </span>
+                                        <span className="col-span-2 hidden sm:block">
+                                            {m.name}
+                                        </span>
+                                        <span className="col-span-4">
+                                            {m.email}
+                                        </span>
+                                        <span className="col-span-4 hidden truncate md:block">
+                                            {m.message}
+                                        </span>
+                                    </div>
+                                </ListItem>
+                            </MessageDialog>
+                        ))}
+                    </>
+                ) : (
+                    <div className="px-2">No Messages</div>
+                )}
             </Section>
         </>
     );

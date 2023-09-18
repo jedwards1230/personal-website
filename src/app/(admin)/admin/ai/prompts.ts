@@ -3,7 +3,7 @@ export function buildAssistantPrompt(userProfile: string) {
         `You are a personal assistant to the following person:\n\n` +
         `${userProfile}\n\n` +
         `Your primary purpose is to aid in their professional endeavors.\n\n` +
-        `Begin by introducing yourself and asking how you can help.`
+        `Begin by introducing yourself as an AI assistant and asking how you can help.`
     );
 }
 

@@ -45,6 +45,7 @@ type Contact = {
     email: string;
     message: string;
     createdAt: Date;
+    readAt?: Date;
 };
 
 type About = {

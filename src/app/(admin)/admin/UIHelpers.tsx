@@ -54,7 +54,7 @@ export const ListItem = forwardRef<
     { children: React.ReactNode }
 >(({ children, ...props }, forwardedRef) => (
     <div
-        className="w-full cursor-pointer rounded-lg p-1 underline-offset-4 hover:bg-secondary/60 hover:underline"
+        className="w-full cursor-pointer rounded-lg px-2 py-1 underline-offset-4 hover:bg-secondary/60 hover:underline"
         {...props}
         ref={forwardedRef}
     >
