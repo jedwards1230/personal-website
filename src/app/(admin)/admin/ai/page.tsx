@@ -1,14 +1,27 @@
-import { getAbout, getAllExperiences, getAllProjects } from '@/lib/actions';
-import FormOptions from './FormOptions';
+import {
+    getAbout,
+    getAllExperiences,
+    getAllJobs,
+    getAllProjects,
+} from '@/lib/actions';
+import Assistant from './Assistant';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
-    const [experiences, projects, about] = await Promise.all([
+    const [experiences, projects, about, jobs] = await Promise.all([
         getAllExperiences('company'),
         getAllProjects('title'),
         getAbout(),
+        getAllJobs(),
     ]);
 
-    return <FormOptions experiences={experiences} about={about} />;
+    return (
+        <Assistant
+            experiences={experiences}
+            projects={projects}
+            about={about}
+            jobs={jobs}
+        />
+    );
 }

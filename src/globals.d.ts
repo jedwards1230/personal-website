@@ -45,6 +45,7 @@ type Contact = {
     email: string;
     message: string;
     createdAt: Date;
+    readAt?: Date;
 };
 
 type About = {
@@ -58,4 +59,14 @@ type About = {
     location: string;
     linkedin: string;
     github: string;
+};
+
+type Job = {
+    id: number;
+    createdAt: Date;
+    company: string;
+    title: string;
+    pay?: string;
+    description: string;
+    href: string;
 };

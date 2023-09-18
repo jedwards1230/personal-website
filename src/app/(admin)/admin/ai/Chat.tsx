@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import {
@@ -15,25 +14,20 @@ import {
     FormItem,
     FormMessage,
 } from '@/components/ui/form';
-import { DialogTrigger } from '@radix-ui/react-dialog';
 import { fetchChat, parseStreamData, readStream } from '../utils';
 
 const formSchema = z.object({
-    input: z.string().nonempty(),
+    input: z.string(),
 });
 
 const ENABLE_STREAM = true;
 
-export default function ChatDialog({
-    children,
+export default function Chat({
     initialMessage,
-    onClose,
 }: {
-    children: React.ReactNode;
     initialMessage: Message | null;
-    onClose: () => void;
 }) {
-    const [messages, setMessages] = useState<Message[]>([]);
+    const [messages, setMessages] = useState<Message[]>([initialMessage]);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -126,16 +120,11 @@ export default function ChatDialog({
         getChat(newMessages);
     };
 
-    const closeDialog = () => {
-        setMessages([]);
-        onClose();
-    };
-
     useEffect(() => {
-        if (messages.length === 0 && initialMessage !== null) {
+        if (initialMessage !== null) {
             const initialMessages = [initialMessage];
             setMessages(initialMessages);
-            getChat(initialMessages);
+            // TODO: Save chat?
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initialMessage]);
@@ -148,61 +137,69 @@ export default function ChatDialog({
     }, [messages]);
 
     return (
-        <Dialog>
-            <DialogTrigger asChild>{children}</DialogTrigger>
-            <DialogContent
-                onInteractOutside={closeDialog}
-                className="relative max-h-screen translate-y-[-60%] overflow-y-scroll p-1 sm:max-h-[90%] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl"
+        <Form {...form}>
+            <form
+                className="relative"
+                onSubmit={form.handleSubmit(handleSubmit)}
             >
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(handleSubmit)}>
-                        <div
-                            ref={containerRef}
-                            className="max-h-[85vh] space-y-2 overflow-y-scroll scroll-smooth p-1 pb-24"
+                <div
+                    ref={containerRef}
+                    className="space-y-2 overflow-y-scroll scroll-smooth p-1"
+                >
+                    {messages.map((m, i) => {
+                        if (m.content === '') return null;
+                        return (
+                            <ChatBubble key={i}>
+                                {m.role === 'system' ? (
+                                    <SystemMessage message={m} />
+                                ) : (
+                                    <GenericMessage message={m} />
+                                )}
+                            </ChatBubble>
+                        );
+                    })}
+                    {form.formState.errors.root && (
+                        <ChatBubble>
+                            <FormMessage>
+                                {form.formState.errors.root.message}
+                            </FormMessage>
+                        </ChatBubble>
+                    )}
+                </div>
+                <div className="sticky inset-x-0 bottom-0 h-24 bg-background px-1 py-2">
+                    {messages.length > 1 ? (
+                        <div className="relative">
+                            <FormField
+                                control={form.control}
+                                name="input"
+                                render={({ field }) => (
+                                    <FormItem className="col-span-3">
+                                        <FormControl>
+                                            <Textarea {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <Button
+                                className="absolute bottom-2 right-3"
+                                type="submit"
+                            >
+                                Send
+                            </Button>
+                        </div>
+                    ) : (
+                        <Button
+                            onClick={() => getChat(messages)}
+                            className="absolute bottom-2 right-3"
+                            type="button"
                         >
-                            {messages.map((m, i) => (
-                                <ChatBubble key={i}>
-                                    {m.role === 'system' ? (
-                                        <SystemMessage message={m} />
-                                    ) : (
-                                        <GenericMessage message={m} />
-                                    )}
-                                </ChatBubble>
-                            ))}
-                            {form.formState.errors.root && (
-                                <ChatBubble>
-                                    <FormMessage>
-                                        {form.formState.errors.root.message}
-                                    </FormMessage>
-                                </ChatBubble>
-                            )}
-                        </div>
-                        <div className="absolute inset-x-0 bottom-0 m-0.5 h-24 bg-background px-2 py-2">
-                            <div className="relative">
-                                <FormField
-                                    control={form.control}
-                                    name="input"
-                                    render={({ field }) => (
-                                        <FormItem className="col-span-3">
-                                            <FormControl>
-                                                <Textarea {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <Button
-                                    className="absolute bottom-2 right-3"
-                                    type="submit"
-                                >
-                                    Send
-                                </Button>
-                            </div>
-                        </div>
-                    </form>
-                </Form>
-            </DialogContent>
-        </Dialog>
+                            Begin
+                        </Button>
+                    )}
+                </div>
+            </form>
+        </Form>
     );
 }
 
@@ -238,15 +235,14 @@ function GenericMessage({ message }: { message: Message }) {
 
 function SystemMessage({ message }: { message: Message }) {
     const [hidden, setHidden] = useState(true);
-    const [content, setContent] = useState(message.content);
 
     useEffect(() => {
-        setContent(message.content);
+        setHidden(true);
     }, [message]);
 
     return (
         <div className="flex flex-col items-center">
-            <div className="flex flex-col gap-2">
+            <div className="flex w-full flex-col gap-2">
                 <Label
                     className={clsx(
                         'transition-colors',
@@ -265,7 +261,7 @@ function SystemMessage({ message }: { message: Message }) {
                             : 'max-h-8 overflow-hidden text-secondary-foreground',
                     )}
                 >
-                    {content}
+                    {message.content}
                 </p>
             </div>
             <Button

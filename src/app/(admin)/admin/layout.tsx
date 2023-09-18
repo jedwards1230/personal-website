@@ -4,13 +4,17 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Nav from './Nav';
 import { getSession } from '@/lib/auth';
+import { getUnreadMessageCount } from '@/lib/actions';
 
 export default async function Layout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const session = await getSession();
+    const [session, unreadCount] = await Promise.all([
+        getSession(),
+        getUnreadMessageCount(),
+    ]);
 
     return (
         <div className="mx-auto flex max-w-5xl flex-col gap-4 p-4">
@@ -31,7 +35,14 @@ export default async function Layout({
                         </div>
                     </div>
                 </div>
-                <div>Hi, {session.user.name}</div>
+                <div className="flex items-center justify-between gap-4">
+                    <div>Hi, {session.user.name}</div>
+                    {unreadCount > 0 && (
+                        <div className="text-sm">
+                            {unreadCount} New Messages
+                        </div>
+                    )}
+                </div>
             </div>
             {children}
         </div>

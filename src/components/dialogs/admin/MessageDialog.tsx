@@ -11,10 +11,10 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { deleteContact } from '@/lib/actions';
+import { deleteContact, readContact } from '@/lib/actions';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function MessageDialog({
     children,
@@ -25,6 +25,14 @@ export default function MessageDialog({
 }) {
     const router = useRouter();
     const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        if (!message.readAt && open) {
+            readContact(message.id)
+                .then(() => router.refresh())
+                .catch(console.error);
+        }
+    }, [message.id, message.readAt, open, router]);
 
     return (
         <Dialog open={open} onOpenChange={(o) => setOpen(o)}>

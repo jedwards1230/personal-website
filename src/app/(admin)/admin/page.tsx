@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import {
     getAllMessages,
     getAllExperiences,
@@ -5,14 +7,12 @@ import {
     getAbout,
 } from '@/lib/actions';
 import { ExperienceDialog } from '@/components/dialogs/admin/ExperienceDialog';
-import { Button } from '@/components/ui/button';
 import { ProjectDialog } from '@/components/dialogs/admin/ProjectDialog';
 import MessageDialog from '@/components/dialogs/admin/MessageDialog';
 import { Label } from '@/components/ui/label';
-import { Edit } from '@/components/Icons';
 import AboutDialog from '@/components/dialogs/admin/AboutDialog';
 import Markdown from '@/components/Markdown';
-import Link from 'next/link';
+import { AddButton, EditButton, ListItem, Section } from './UIHelpers';
 
 const SECTIONS = {
     ABOUT: 'About',
@@ -45,7 +45,7 @@ export default async function Page() {
                 title={SECTIONS.ABOUT}
             >
                 {about && (
-                    <div className="space-y-2">
+                    <div className="space-y-2 px-2">
                         <div className="flex">
                             <div className="w-1/2">
                                 <Label>Name</Label>
@@ -143,89 +143,46 @@ export default async function Page() {
                 </Section>
             </div>
             <Section title={SECTIONS.MESSAGES}>
-                <div className="grid grid-cols-6 pb-1 text-secondary-foreground sm:grid-cols-8 md:grid-cols-12">
-                    <span className="col-span-2 underline">Date</span>
-                    <span className="col-span-2 hidden underline sm:block">
-                        Name
-                    </span>
-                    <span className="col-span-4 underline">Email</span>
-                    <span className="col-span-4 hidden underline md:block">
-                        Message
-                    </span>
-                </div>
-                {messages.map((m, i) => (
-                    <MessageDialog key={'message-' + i} message={m}>
-                        <ListItem>
-                            <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-12">
-                                <span className="col-span-2">
-                                    {m.createdAt.toLocaleDateString()}
-                                </span>
-                                <span className="col-span-2 hidden sm:block">
-                                    {m.name}
-                                </span>
-                                <span className="col-span-4">{m.email}</span>
-                                <span className="col-span-4 hidden truncate md:block">
-                                    {m.message}
-                                </span>
-                            </div>
-                        </ListItem>
-                    </MessageDialog>
-                ))}
+                {messages.length > 0 ? (
+                    <>
+                        <div className="grid grid-cols-6 pb-1 text-secondary-foreground sm:grid-cols-8 md:grid-cols-12">
+                            <span className="col-span-2 underline">Date</span>
+                            <span className="col-span-2 hidden underline sm:block">
+                                Name
+                            </span>
+                            <span className="col-span-4 underline">Email</span>
+                            <span className="col-span-4 hidden underline md:block">
+                                Message
+                            </span>
+                        </div>
+                        {messages.map((m, i) => (
+                            <MessageDialog key={'message-' + i} message={m}>
+                                <ListItem>
+                                    <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-12">
+                                        <span className="col-span-2">
+                                            {m.createdAt.toLocaleDateString()}
+                                            <span className="font-bold text-primary-foreground">
+                                                {m.readAt ? '' : '  •'}
+                                            </span>
+                                        </span>
+                                        <span className="col-span-2 hidden sm:block">
+                                            {m.name}
+                                        </span>
+                                        <span className="col-span-4">
+                                            {m.email}
+                                        </span>
+                                        <span className="col-span-4 hidden truncate md:block">
+                                            {m.message}
+                                        </span>
+                                    </div>
+                                </ListItem>
+                            </MessageDialog>
+                        ))}
+                    </>
+                ) : (
+                    <div className="px-2">No Messages</div>
+                )}
             </Section>
         </>
-    );
-}
-
-function Section({
-    children,
-    title,
-    addButtonDialog,
-}: {
-    children: React.ReactNode;
-    title: string;
-    addButtonDialog?: React.ReactNode;
-}) {
-    return (
-        <div className="w-full rounded border border-border p-2 transition-all">
-            <div className="flex w-full justify-between">
-                <Title>{title}</Title>
-                {addButtonDialog && (
-                    <div className="flex justify-end">{addButtonDialog}</div>
-                )}
-            </div>
-            <List>{children}</List>
-        </div>
-    );
-}
-
-function Title({ children }: { children: React.ReactNode }) {
-    return <div className="py-2 text-lg font-bold">{children}</div>;
-}
-
-function List({ children }: { children: React.ReactNode }) {
-    return <div className="w-full py-1">{children}</div>;
-}
-
-function ListItem({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="w-full cursor-pointer rounded-lg p-1 underline-offset-4 hover:bg-secondary/60 hover:underline">
-            {children}
-        </div>
-    );
-}
-
-function AddButton() {
-    return (
-        <Button className="text-xl font-medium" variant="outline" size="icon">
-            +
-        </Button>
-    );
-}
-
-function EditButton() {
-    return (
-        <Button variant="outline" size="icon">
-            <Edit />
-        </Button>
     );
 }
