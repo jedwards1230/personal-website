@@ -3,7 +3,6 @@
     "version": "2.0.0",
     "private": true,
     "scripts": {
-        "prepare": "patch-package",
         "dev": "next dev",
         "build": "prisma generate && next build",
         "start": "next start",
@@ -53,7 +52,6 @@
         "autoprefixer": "^10.4.16",
         "eslint": "8.49.0",
         "eslint-config-next": "13.5.2",
-        "patch-package": "^8.0.0",
         "postcss": "^8.4.30",
         "prettier": "^3.0.3",
         "prettier-plugin-tailwindcss": "^0.5.4",
