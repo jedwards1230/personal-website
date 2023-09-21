@@ -9,7 +9,7 @@
             "@@/*": ["public/*"]
         },
         "allowJs": true,
-        "skipLibCheck": false,
+        "skipLibCheck": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,

@@ -1,7 +1,8 @@
+import Link from 'next/link';
+
 import { Home } from '@/components/Icons';
 import { LogoutButton } from '@/components/buttons/LogoutButton';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import Nav from './Nav';
 import { getSession } from '@/lib/auth';
 import { getUnreadMessageCount } from '@/lib/actions';
