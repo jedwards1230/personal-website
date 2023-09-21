@@ -5,11 +5,7 @@ import { Settings } from 'lucide-react';
 
 import TemplateSelector from './TemplateSelector';
 import Chat from './Chat';
-import {
-    buildAssistantPrompt,
-    buildCoverLetterPrompt,
-    buildInterviewPrompt,
-} from './prompts';
+import { buildPrompt } from './prompts';
 import { Button } from '@/components/ui/button';
 import TemplateSettings from './TemplateSettings';
 import { Label } from '@/components/ui/label';
@@ -114,63 +110,4 @@ export default function Assistant({
             <Chat initialMessage={message} />
         </>
     );
-}
-
-function buildPrompt({
-    form,
-    about,
-    experiences,
-    activeJob,
-    interviewPhase,
-}: {
-    form: Forms;
-    about: About;
-    experiences: Experience[];
-    activeJob: Job | null;
-    interviewPhase?: InterviewPhase;
-}) {
-    const userProfile = JSON.stringify({
-        name: about.name,
-        title: about.title,
-        location: about.location,
-        ...(form === 'Cover Letter' && {
-            email: about.email,
-            phone: about.phone,
-        }),
-    });
-
-    const resume = experiences
-        .map((experience) =>
-            JSON.stringify({
-                title: experience.title,
-                company: experience.company,
-                period: experience.period,
-                description: experience.description,
-                tags: experience.tags,
-            }),
-        )
-        .join('\n\n');
-
-    const job = activeJob
-        ? JSON.stringify({
-              company: activeJob.company,
-              title: activeJob.title,
-              pay: activeJob.pay,
-              description: activeJob.description,
-          })
-        : 'null';
-
-    switch (form) {
-        case 'Assistant':
-            return buildAssistantPrompt(userProfile);
-        case 'Interview':
-            return buildInterviewPrompt(
-                userProfile,
-                resume,
-                job,
-                interviewPhase,
-            );
-        case 'Cover Letter':
-            return buildCoverLetterPrompt(userProfile, resume, job);
-    }
 }
