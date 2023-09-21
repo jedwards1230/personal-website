@@ -18,24 +18,22 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 
+const phases: InterviewPhase[] = ['Initial', 'Technical', 'Personality'];
+
 const formSchema = z.object({
-    id: z.coerce.number(),
+    phase: z.string(),
 });
 
-export default function JobSelector({
-    jobs,
-    activeJob,
-    setActiveJob,
+export default function InterviewPhaseSelector({
+    phase,
+    setActivePhase,
 }: {
-    jobs: Job[];
-    activeJob: Job | null;
-    setActiveJob: (id: number) => void;
+    phase: InterviewPhase;
+    setActivePhase: (phase: InterviewPhase) => void;
 }) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            id: activeJob ? activeJob.id : -1,
-        },
+        defaultValues: { phase },
     });
 
     return (
@@ -43,41 +41,28 @@ export default function JobSelector({
             <form className="flex w-full items-end gap-2">
                 <FormField
                     control={form.control}
-                    name="id"
+                    name="phase"
                     render={({ field }) => (
                         <FormItem className="flex w-full flex-col">
-                            <FormLabel>Job</FormLabel>
+                            <FormLabel>Interview Phase</FormLabel>
                             <Select
                                 defaultValue={field.value.toString()}
                                 onValueChange={(id: string) => {
                                     field.onChange();
-                                    setActiveJob(
-                                        parseInt(id !== '-1' ? id : null),
-                                    );
+                                    setActivePhase(id as InterviewPhase);
                                 }}
                             >
                                 <FormControl>
                                     <SelectTrigger>
-                                        <SelectValue
-                                            placeholder={
-                                                activeJob
-                                                    ? activeJob.toString()
-                                                    : 'Select a job'
-                                            }
-                                        />
+                                        <SelectValue placeholder={phase} />
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    <SelectItem value="-1">None</SelectItem>
-                                    {jobs.length > 0 &&
-                                        jobs.map((job) => (
-                                            <SelectItem
-                                                key={job.id}
-                                                value={job.id.toString()}
-                                            >
-                                                {job.company}
-                                            </SelectItem>
-                                        ))}
+                                    {phases.map((p) => (
+                                        <SelectItem key={p} value={p}>
+                                            {p}
+                                        </SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                             <FormMessage />

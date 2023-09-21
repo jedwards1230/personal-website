@@ -9,6 +9,7 @@ import TemplateSelector from './TemplateSelector';
 import JobSelector from './JobSelector';
 import { AddButton, ListItem, Section } from '../UIHelpers';
 import JobDialog from '@/components/dialogs/admin/JobDialog';
+import InterviewPhaseSelector from './InterviewPhaseSelector';
 
 export default function TemplateSettings({
     children,
@@ -17,6 +18,8 @@ export default function TemplateSettings({
     activeJob,
     jobs,
     setJob,
+    interviewPhase,
+    setInterviewPhase,
 }: {
     children: React.ReactNode;
     activeForm: Forms;
@@ -24,6 +27,8 @@ export default function TemplateSettings({
     activeJob: Job | null;
     jobs: Job[];
     setJob: (id: number) => void;
+    interviewPhase: InterviewPhase;
+    setInterviewPhase: (phase: InterviewPhase) => void;
 }) {
     return (
         <Dialog>
@@ -45,7 +50,14 @@ export default function TemplateSettings({
                 </div>
                 {activeForm === 'Assistant' && <></>}
                 {activeForm === 'Cover Letter' && <></>}
-                {activeForm === 'Interview' && <></>}
+                {activeForm === 'Interview' && (
+                    <>
+                        <InterviewPhaseSelector
+                            phase={interviewPhase}
+                            setActivePhase={setInterviewPhase}
+                        />
+                    </>
+                )}
                 <Section
                     title="Jobs"
                     addButtonDialog={
