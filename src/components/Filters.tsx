@@ -1,6 +1,6 @@
 'use client';
 
-import { useFilter } from '@/FilterProvider';
+import { useFilter } from '@/app/FilterProvider';
 import { Close } from './Icons';
 import { Badge } from './ui/badge';
 

@@ -1,12 +1,7 @@
-import Modal from '@/components/Modal';
-import ProjectList from '@/components/ProjectList';
+import ProjectListDialog from '@/components/dialogs/ProjectListDialog';
 import { getAllProjects } from '@/lib/actions';
 
 export default async function Page() {
     const projects = await getAllProjects('id');
-    return (
-        <Modal intercept={true}>
-            <ProjectList projects={projects} modal={true} />
-        </Modal>
-    );
+    return <ProjectListDialog projects={projects} />;
 }

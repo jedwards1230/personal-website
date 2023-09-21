@@ -9,7 +9,8 @@ import TagList from '../TagList';
 import BackButton from '../buttons/BackButton';
 import Markdown from '../Markdown';
 import { Star } from '../Icons';
-import { useNavigation } from '@/app/NavigationProvider';
+import ImagesDialog from '../dialogs/ImagesDialog';
+import { DialogTrigger } from '../ui/dialog';
 
 export default function ProjectCard({
     project,
@@ -19,37 +20,38 @@ export default function ProjectCard({
     modal?: boolean;
 }) {
     const plausible = usePlausible();
-    const { setImageOpen } = useNavigation();
 
-    const openImageModal = () => {
-        setImageOpen(true);
+    const openImageModal = () =>
         plausible('View Project Image', {
             props: {
                 project: project.title,
             },
         });
-    };
 
     const images = project.images?.length
         ? project.images.filter((i) => i.length > 0)
         : [];
 
     return (
-        <div className="flex w-full flex-col pb-4 sm:px-4">
+        <div className="flex w-full max-w-7xl flex-col pb-4 sm:px-4">
             {/* Title - Client - Year */}
-            <div className="sticky top-0 grid grid-cols-12 bg-background py-4">
-                <BackButton modal={modal} />
-            </div>
+            {!modal && (
+                <DialogTrigger className="py-4">
+                    <BackButton modal={modal} />
+                </DialogTrigger>
+            )}
             <div className="mb-4 flex w-full flex-col gap-2 sm:flex-row md:gap-4">
                 {images.length > 0 && (
-                    <Image
-                        width={800}
-                        height={400}
-                        src={images[0]}
-                        alt={project.title}
-                        onClick={openImageModal}
-                        className="aspect-video w-full min-w-[50%] cursor-pointer select-none rounded-lg border border-foreground shadow-sm transition-all sm:w-1/2 hover:sm:scale-[101%]"
-                    />
+                    <ImagesDialog project={project}>
+                        <Image
+                            width={800}
+                            height={400}
+                            src={images[0]}
+                            alt={project.title}
+                            onClick={openImageModal}
+                            className="aspect-video w-full cursor-pointer select-none rounded-lg border border-foreground object-cover shadow-sm transition-all hover:sm:scale-[101%]"
+                        />
+                    </ImagesDialog>
                 )}
 
                 <div
