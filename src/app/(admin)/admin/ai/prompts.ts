@@ -76,3 +76,62 @@ export function buildCoverLetterPrompt(
         `Description:\n\n${description}`
     );
 }
+
+export function buildPrompt({
+    form,
+    about,
+    experiences,
+    activeJob,
+    interviewPhase,
+}: {
+    form: Forms;
+    about: About;
+    experiences: Experience[];
+    activeJob: Job | null;
+    interviewPhase?: InterviewPhase;
+}) {
+    const userProfile = JSON.stringify({
+        name: about.name,
+        title: about.title,
+        location: about.location,
+        ...(form === 'Cover Letter' && {
+            email: about.email,
+            phone: about.phone,
+        }),
+    });
+
+    const resume = experiences
+        .map((experience) =>
+            JSON.stringify({
+                title: experience.title,
+                company: experience.company,
+                period: experience.period,
+                description: experience.description,
+                tags: experience.tags,
+            }),
+        )
+        .join('\n\n');
+
+    const job = activeJob
+        ? JSON.stringify({
+              company: activeJob.company,
+              title: activeJob.title,
+              pay: activeJob.pay,
+              description: activeJob.description,
+          })
+        : 'null';
+
+    switch (form) {
+        case 'Assistant':
+            return buildAssistantPrompt(userProfile);
+        case 'Interview':
+            return buildInterviewPrompt(
+                userProfile,
+                resume,
+                job,
+                interviewPhase,
+            );
+        case 'Cover Letter':
+            return buildCoverLetterPrompt(userProfile, resume, job);
+    }
+}
