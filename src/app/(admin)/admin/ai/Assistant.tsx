@@ -27,19 +27,35 @@ export default function Assistant({
 }) {
     const [activeForm, setActiveForm] = useState<Forms>('Assistant');
     const [activeJob, setActiveJob] = useState<Job | null>(null);
+    const [interviewPhase, setInterviewPhase] =
+        useState<InterviewPhase>('Initial');
+
+    const systemMessage = {
+        id: 0,
+        role: 'system' as const,
+    };
+
+    const promptProps = {
+        form: activeForm,
+        about,
+        experiences,
+        activeJob,
+        interviewPhase,
+    };
 
     const [message, setMessage] = useState<Message | null>({
-        id: 0,
-        role: 'system',
-        content: buildPrompt(activeForm, about, experiences, activeJob),
+        ...systemMessage,
+        content: buildPrompt(promptProps),
     });
 
     const setForm = (form: Forms) => {
         setActiveForm(form);
         setMessage({
-            id: 0,
-            role: 'system',
-            content: buildPrompt(form, about, experiences, activeJob),
+            ...systemMessage,
+            content: buildPrompt({
+                ...promptProps,
+                form,
+            }),
         });
     };
 
@@ -47,9 +63,24 @@ export default function Assistant({
         const job = jobs.find((job) => job.id === id) ?? null;
         setActiveJob(job);
         setMessage({
-            id: 0,
-            role: 'system',
-            content: buildPrompt(activeForm, about, experiences, job),
+            ...systemMessage,
+            content: buildPrompt({
+                ...promptProps,
+                form: activeForm,
+                activeJob: job,
+            }),
+        });
+    };
+
+    const setPhase = (phase: InterviewPhase) => {
+        setInterviewPhase(phase);
+        setMessage({
+            ...systemMessage,
+            content: buildPrompt({
+                ...promptProps,
+                form: activeForm,
+                interviewPhase: phase,
+            }),
         });
     };
 
@@ -71,6 +102,8 @@ export default function Assistant({
                         activeJob={activeJob}
                         jobs={jobs}
                         setJob={setJob}
+                        interviewPhase={interviewPhase}
+                        setInterviewPhase={setPhase}
                     >
                         <Button variant="outline" size="icon">
                             <Settings />
@@ -83,12 +116,19 @@ export default function Assistant({
     );
 }
 
-function buildPrompt(
-    form: Forms,
-    about: About,
-    experiences: Experience[],
-    activeJob: Job,
-) {
+function buildPrompt({
+    form,
+    about,
+    experiences,
+    activeJob,
+    interviewPhase,
+}: {
+    form: Forms;
+    about: About;
+    experiences: Experience[];
+    activeJob: Job | null;
+    interviewPhase?: InterviewPhase;
+}) {
     const userProfile = JSON.stringify({
         name: about.name,
         title: about.title,
@@ -124,7 +164,12 @@ function buildPrompt(
         case 'Assistant':
             return buildAssistantPrompt(userProfile);
         case 'Interview':
-            return buildInterviewPrompt(userProfile, resume, job);
+            return buildInterviewPrompt(
+                userProfile,
+                resume,
+                job,
+                interviewPhase,
+            );
         case 'Cover Letter':
             return buildCoverLetterPrompt(userProfile, resume, job);
     }

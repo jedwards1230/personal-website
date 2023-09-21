@@ -33,3 +33,5 @@ type Choice = {
 };
 
 type Model = 'gpt-3.5-turbo' | 'gpt-3.5-turbo-16k' | 'gpt-4' | 'gpt-4-0613';
+
+type InterviewPhase = 'Initial' | 'Technical' | 'Personality';
