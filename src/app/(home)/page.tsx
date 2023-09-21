@@ -47,7 +47,7 @@ export default async function Page() {
             <div className="ml-auto flex h-full w-full flex-col gap-12 md:z-10 md:w-2/3 md:gap-24 lg:w-1/2">
                 <About about={about} />
                 <Projects projects={projects} />
-                <Experience experiences={experiences} />
+                <Experience experiences={experiences} projects={projects} />
                 <Contact pageViews={pageViews} />
             </div>
         </>

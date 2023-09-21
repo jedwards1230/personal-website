@@ -23,7 +23,7 @@ export default function ImageCard({ project }: { project: Project }) {
     }, [idx, plausible, project.images, project.title]);
 
     return (
-        <div className="relative flex h-full select-none items-center justify-center overflow-x-hidden">
+        <div className="relative flex h-auto select-none items-center justify-center overflow-x-hidden">
             <div
                 className="flex transition-transform duration-300 ease-in-out"
                 style={{ transform: `translateX(-${idx * 100}%)` }}

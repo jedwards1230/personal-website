@@ -1,5 +1,4 @@
 import TagList from '../TagList';
-import BackButton from '../buttons/BackButton';
 import ProjectList from '../ProjectList';
 import Markdown from '../Markdown';
 
@@ -27,10 +26,6 @@ export default function ExperienceCard({
 
     return (
         <div className="flex w-full flex-col pb-4 sm:px-4">
-            {/* Title - Client - Year */}
-            <div className="sticky top-0 grid grid-cols-12 bg-background py-4">
-                <BackButton modal={modal} />
-            </div>
             <div className="mb-4 flex w-full flex-col gap-2 sm:flex-row md:gap-4">
                 <div className="flex w-full flex-col gap-2 py-2">
                     <div className="flex items-center justify-between">

@@ -5,7 +5,6 @@ import '@/globals.css';
 import { Providers } from './providers';
 import ThemeToggle from '@/components/ThemeToggle';
 import { getAllExperiences, getAllProjects } from '@/lib/actions';
-import { NavigationProvider } from './NavigationProvider';
 
 const APP_NAME = 'J. Edwards Personal Website';
 const APP_DEFAULT_TITLE = 'J. Edwards';
@@ -69,12 +68,7 @@ export default async function RootLayout({
                     <div className="fixed bottom-8 right-8 z-10 sm:bottom-12">
                         <ThemeToggle />
                     </div>
-                    <NavigationProvider
-                        experiences={experiences}
-                        projects={projects}
-                    >
-                        {children}
-                    </NavigationProvider>
+                    {children}
                 </Providers>
             </body>
         </html>

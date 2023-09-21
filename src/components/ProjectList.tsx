@@ -6,10 +6,11 @@ import { usePlausible } from 'next-plausible';
 import TagList from '@/components/TagList';
 import { Photo, Star } from './Icons';
 import BackButton from './buttons/BackButton';
-import { useNavigation } from '@/app/NavigationProvider';
-import { useFilter } from '@/FilterProvider';
+import { useFilter } from '@/app/FilterProvider';
 import Filters from './Filters';
 import FilterPopover from './FilterPopover';
+import ProjectDialog from './dialogs/ProjectDialog';
+import { useMemo } from 'react';
 
 export default function ProjectList({
     projects,
@@ -23,33 +24,39 @@ export default function ProjectList({
     const { filterCompany, filterYear, filterTag, filterProjects } =
         useFilter();
 
-    const sortedProjects = projects
-        .sort((a, b) => {
-            // sort by year, most recent first
-            if (a.year > b.year) return -1;
-            if (a.year < b.year) return 1;
-            // sort by month, most recent first
-            if (a.month > b.month) return -1;
-            if (a.month < b.month) return 1;
-            // sort by favorite
-            if (a.favorite && !b.favorite) return -1;
-            if (!a.favorite && b.favorite) return 1;
-            // sort by company
-            if (a.company > b.company) return 1;
-            if (a.company < b.company) return -1;
-            // sort by title
-            if (a.title > b.title) return 1;
-            if (a.title < b.title) return -1;
-            return 0;
-        })
-        .filter(filterProjects);
+    const sortedProjects = useMemo(
+        () =>
+            projects
+                .sort((a, b) => {
+                    // sort by year, most recent first
+                    if (a.year > b.year) return -1;
+                    if (a.year < b.year) return 1;
+                    // sort by month, most recent first
+                    if (a.month > b.month) return -1;
+                    if (a.month < b.month) return 1;
+                    // sort by favorite
+                    if (a.favorite && !b.favorite) return -1;
+                    if (!a.favorite && b.favorite) return 1;
+                    // sort by company
+                    if (a.company > b.company) return 1;
+                    if (a.company < b.company) return -1;
+                    // sort by title
+                    if (a.title > b.title) return 1;
+                    if (a.title < b.title) return -1;
+                    return 0;
+                })
+                .filter(filterProjects),
+        [projects, filterProjects],
+    );
 
     return (
         <>
             {!inline && (
                 <>
-                    <div className="sticky top-0 z-10 grid w-full grid-cols-12 bg-background pb-4 pt-4 text-center md:pb-2">
-                        <BackButton modal={modal} intercept={true} />
+                    <div className="grid w-full grid-cols-12 pb-4 pt-4 text-center md:pb-2">
+                        <div className="col-span-4 flex items-center">
+                            {!modal && <BackButton />}
+                        </div>
                         <h2 className="col-span-4 select-none text-2xl">
                             Projects
                         </h2>
@@ -62,19 +69,18 @@ export default function ProjectList({
             )}
             <div className="flex flex-col gap-2 pb-8 pt-4">
                 {/* Projects */}
-                {sortedProjects.map((p, i) =>
-                    inline ? (
-                        <ProjectListItem key={'project-' + i} project={p} />
-                    ) : (
+                {sortedProjects.map((p) => (
+                    <ProjectDialog project={p} key={p.id}>
                         <ProjectListItem
-                            key={'project-' + i}
                             project={p}
-                            handleCompanyClick={filterCompany}
-                            handleYearClick={filterYear}
-                            handleTagClick={filterTag}
+                            handleCompanyClick={
+                                !inline ? filterCompany : undefined
+                            }
+                            handleYearClick={!inline ? filterYear : undefined}
+                            handleTagClick={!inline ? filterTag : undefined}
                         />
-                    ),
-                )}
+                    </ProjectDialog>
+                ))}
             </div>
         </>
     );
@@ -92,16 +98,13 @@ function ProjectListItem({
     handleTagClick?: (tag: string) => void;
 }) {
     const plausible = usePlausible();
-    const { setCurrentProject } = useNavigation();
 
-    const viewProject = () => {
-        setCurrentProject(project.id);
+    const viewProject = () =>
         plausible('View Project', {
             props: {
                 project: project.title,
             },
         });
-    };
 
     return (
         <div
@@ -110,7 +113,7 @@ function ProjectListItem({
             )}
             onClick={project.info ? viewProject : undefined}
         >
-            <div className="flex flex-col justify-between md:flex-row md:items-center">
+            <div className="flex flex-col justify-between text-left md:flex-row md:items-center">
                 {/* Title */}
                 <div className="flex items-center gap-2">
                     <span className="text-lg font-semibold">
@@ -121,37 +124,37 @@ function ProjectListItem({
                 </div>
 
                 {/* Client - Year */}
-                <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                    {handleYearClick ? (
-                        <>
-                            <button
-                                className="md:hover:underline"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleCompanyClick(project.company);
-                                }}
-                            >
-                                {project.company}
-                            </button>{' '}
-                            -{' '}
-                            <button
-                                className="md:hover:underline"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleYearClick(project.year);
-                                }}
-                            >
-                                {project.month}/{project.year}
-                            </button>
-                        </>
-                    ) : (
-                        <>
-                            {project.company} - {project.month}/{project.year}
-                        </>
-                    )}
-                </p>
+                <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                    <span
+                        className={clsx(
+                            'cursor-pointer',
+                            handleCompanyClick && 'md:hover:underline',
+                        )}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            if (!handleCompanyClick) return;
+                            handleCompanyClick(project.company);
+                        }}
+                    >
+                        {project.company}
+                    </span>{' '}
+                    -{' '}
+                    <span
+                        className={clsx(
+                            'cursor-pointer',
+                            handleYearClick && 'md:hover:underline',
+                        )}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            if (!handleYearClick) return;
+                            handleYearClick(project.year);
+                        }}
+                    >
+                        {project.month}/{project.year}
+                    </span>
+                </div>
             </div>
-            <div className="flex flex-col justify-between md:flex-row">
+            <div className="flex flex-col justify-between text-left md:flex-row">
                 {/* Description */}
                 <p>{project.description}</p>
                 {/* Tags */}
