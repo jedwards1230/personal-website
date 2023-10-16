@@ -29,22 +29,16 @@ export default function Markdown({ children }: { children: string }) {
                         className="text-neutral-900 dark:text-neutral-100"
                     />
                 ),
-                ol: ({ node, depth, ordered, ...props }) => (
+                ol: ({ node, ordered, ...props }) => (
                     <ol
                         {...props}
-                        className={clsx(
-                            'list-inside list-decimal text-neutral-700 dark:text-neutral-300',
-                            depth === 1 && 'ml-4',
-                        )}
+                        className="list-inside list-decimal pl-4 text-neutral-700 dark:text-neutral-300"
                     />
                 ),
-                ul: ({ node, depth, ordered, ...props }) => (
+                ul: ({ node, ordered, ...props }) => (
                     <ul
                         {...props}
-                        className={clsx(
-                            'ml-2 list-inside list-disc text-neutral-700 dark:text-neutral-300',
-                            depth === 1 && 'ml-4',
-                        )}
+                        className="list-inside list-disc pl-4 text-neutral-700 dark:text-neutral-300"
                     />
                 ),
                 li: ({ node, children, ordered, ...props }) => (
