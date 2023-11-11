@@ -29,19 +29,19 @@ export default function Markdown({ children }: { children: string }) {
                         className="text-neutral-900 dark:text-neutral-100"
                     />
                 ),
-                ol: ({ node, ordered, ...props }) => (
+                ol: ({ node, ...props }) => (
                     <ol
                         {...props}
                         className="list-inside list-decimal pl-4 text-neutral-700 dark:text-neutral-300"
                     />
                 ),
-                ul: ({ node, ordered, ...props }) => (
+                ul: ({ node, ...props }) => (
                     <ul
                         {...props}
                         className="list-inside list-disc pl-4 text-neutral-700 dark:text-neutral-300"
                     />
                 ),
-                li: ({ node, children, ordered, ...props }) => (
+                li: ({ node, children, ...props }) => (
                     <li
                         {...props}
                         className="text-neutral-700 dark:text-neutral-300"
