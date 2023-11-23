@@ -18,7 +18,7 @@ export default function Markdown({ children }: { children: string }) {
                     />
                 ),
                 p: ({ node, ...props }) => (
-                    <span
+                    <p
                         {...props}
                         className="text-neutral-700 dark:text-neutral-300"
                     />
