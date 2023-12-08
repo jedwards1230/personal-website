@@ -5,6 +5,7 @@ import '@/globals.css';
 import { Providers } from './providers';
 import ThemeToggle from '@/components/ThemeToggle';
 import { getAllExperiences, getAllProjects } from '@/lib/actions';
+import { ProfileButton } from '@/components/buttons/AdminButton';
 
 const APP_NAME = 'J. Edwards Personal Website';
 const APP_DEFAULT_TITLE = 'J. Edwards';
@@ -65,7 +66,8 @@ export default async function RootLayout({
             </head>
             <body className="relative mx-auto h-full w-full max-w-10xl">
                 <Providers>
-                    <div className="fixed bottom-8 right-8 z-10 sm:bottom-12">
+                    <div className="fixed bottom-8 right-8 z-10 flex flex-col items-center justify-center gap-4 sm:bottom-12">
+                        <ProfileButton />
                         <ThemeToggle />
                     </div>
                     {children}

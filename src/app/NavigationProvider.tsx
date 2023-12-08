@@ -5,10 +5,9 @@ import { useInView } from 'react-intersection-observer';
 
 const NavigationContext = createContext({
     refProjects: null,
-    refExperience: null,
-    refAbout: null,
+    refIntro: null,
     refContact: null,
-    currentSection: 'about' as Section,
+    currentSection: 'intro' as Section,
     setCurrentSection: (section: Section) => {},
 });
 
@@ -17,27 +16,24 @@ export const NavigationProvider = ({
 }: {
     children: React.ReactNode;
 }) => {
-    const [currentSection, setCurrentSection] = useState<Section>('about');
+    const [currentSection, setCurrentSection] = useState<Section>('intro');
 
     // Intersection Observer
     const [refProjects, inViewProjects] = useInView({ threshold: 0.25 });
-    const [refExperience, inViewExperience] = useInView({ threshold: 0.25 });
-    const [refAbout, inViewAbout] = useInView({ threshold: 0.25 });
+    const [refIntro, inViewIntro] = useInView({ threshold: 0.25 });
     const [refContact, inViewContact] = useInView({ threshold: 0.25 });
 
     useEffect(() => {
-        if (inViewAbout) setCurrentSection('about');
+        if (inViewIntro) setCurrentSection('intro');
         else if (inViewContact) setCurrentSection('contact');
-        else if (inViewExperience) setCurrentSection('history');
         else if (inViewProjects) setCurrentSection('projects');
-    }, [inViewAbout, inViewContact, inViewExperience, inViewProjects]);
+    }, [inViewContact, inViewIntro, inViewProjects]);
 
     return (
         <NavigationContext.Provider
             value={{
                 refProjects,
-                refExperience,
-                refAbout,
+                refIntro,
                 refContact,
                 currentSection,
                 setCurrentSection,

@@ -11,9 +11,9 @@ export default function DownloadResume() {
             href="/resume"
             onClick={() => plausible('Resume Download')}
             target="_blank"
-            className="group inline-flex select-none justify-center gap-2 pt-8 text-lg hover:underline"
+            className="group inline-flex select-none gap-4 hover:underline"
         >
-            View Full Resume{' '}
+            View Resume
             <span className="pt-0.5 transition-all duration-150 group-hover:sm:translate-x-1">
                 <NewTab />
             </span>

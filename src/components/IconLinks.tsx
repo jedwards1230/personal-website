@@ -46,7 +46,7 @@ export default function IconLinks({ about }: { about: About }) {
                             {link.icon}
                         </Link>
                     </HoverCardTrigger>
-                    <HoverCardContent side="top" className="pb-4">
+                    <HoverCardContent side="bottom" className="pt-4">
                         <div className="rounded border border-border p-2 text-sm">
                             {link.copy}
                         </div>

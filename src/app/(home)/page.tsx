@@ -1,21 +1,10 @@
-import IconLinks from '@/components/IconLinks';
-import SectionNav from '@/components/SectionNav';
-import About from './About';
 import Contact from './Contact';
-import Experience from './Experiences';
 import Projects from './Projects';
-import {
-    getPageViews,
-    getAllExperiences,
-    getAllProjects,
-    getAbout,
-} from '@/lib/actions';
-import TagList from '@/components/TagList';
-import { ProfileButton } from '@/components/buttons/AdminButton';
+import { getPageViews, getAllProjects, getAbout } from '@/lib/actions';
+import Intro from './Intro';
 
 export default async function Page() {
-    const [experiences, projects, pageViews, about] = await Promise.all([
-        getAllExperiences('id'),
+    const [projects, pageViews, about] = await Promise.all([
         getAllProjects('id'),
         getPageViews(),
         getAbout(),
@@ -23,33 +12,9 @@ export default async function Page() {
 
     return (
         <>
-            <nav className="inset-0 flex flex-col justify-between gap-4 overflow-hidden pb-12 md:sticky md:h-screen md:pt-16 lg:left-32">
-                <div className="flex flex-col gap-12 transition-all lg:gap-32">
-                    <div>
-                        <div className="text-4xl" aria-label="Name">
-                            {about.name}
-                        </div>
-                        <div
-                            className="pb-1 text-2xl text-neutral-600 dark:text-neutral-500"
-                            aria-label="Title"
-                        >
-                            {about.title}
-                        </div>
-                        <TagList tags={about.tags} />
-                    </div>
-                    <SectionNav />
-                </div>
-                <div className="flex items-center justify-between">
-                    <IconLinks about={about} />
-                    <ProfileButton />
-                </div>
-            </nav>
-            <div className="ml-auto flex h-full w-full flex-col gap-12 md:z-10 md:w-2/3 md:gap-24 lg:w-1/2">
-                <About about={about} />
-                <Projects projects={projects} />
-                <Experience experiences={experiences} projects={projects} />
-                <Contact pageViews={pageViews} />
-            </div>
+            <Intro about={about} />
+            <Projects projects={projects} />
+            <Contact about={about} pageViews={pageViews} />
         </>
     );
 }

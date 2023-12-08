@@ -16,7 +16,6 @@ export default function FilterPopover({ projects }: { projects: Project[] }) {
         tagFilter,
         filterCompany,
         removeCompanyFilter,
-        filterClient,
         filterYear,
         removeYearFilter,
         filterTag,
