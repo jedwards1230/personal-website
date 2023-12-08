@@ -14,8 +14,7 @@ import Filters from '@/components/Filters';
 export default function Projects({ projects }: { projects: Project[] }) {
     const plausible = usePlausible();
 
-    const { filterCompany, filterYear, filterTag, filterProjects } =
-        useFilter();
+    const { filterProjects } = useFilter();
 
     const sortedProjects = useMemo(
         () =>
@@ -66,23 +65,35 @@ export default function Projects({ projects }: { projects: Project[] }) {
                                     },
                                 })
                             }
-                            className="flex h-full w-full cursor-pointer flex-col gap-1 rounded p-2 text-left text-neutral-500 transition-all hover:scale-105 hover:bg-neutral-200/50 dark:text-neutral-400 hover:dark:bg-neutral-800 lg:gap-6"
+                            className="flex h-full w-full cursor-pointer flex-col gap-2 rounded p-2 text-left text-neutral-500 transition-all hover:scale-105 hover:bg-neutral-200/50 dark:text-neutral-400 hover:dark:bg-neutral-800"
                         >
                             {/* Preview */}
-                            <Image
-                                width={800}
-                                height={400}
-                                src={p.images[0]}
-                                alt={'Preview ' + p.title + '.png'}
-                                className="w-full select-none rounded border border-border bg-neutral-100 shadow-sm"
-                            />
-                            {/* Title */}
-                            <div className="flex flex-col gap-1 ">
-                                <div className="font-medium text-foreground">
+                            {p.images[0] ? (
+                                <Image
+                                    width={800}
+                                    height={400}
+                                    src={p.images[0]}
+                                    alt={'Preview ' + p.title + '.png'}
+                                    className="h-40 w-full select-none rounded border border-border bg-neutral-100 shadow-sm"
+                                />
+                            ) : (
+                                <div className="flex h-40 w-full select-none items-center justify-center rounded border border-border bg-background text-foreground shadow-sm">
                                     {p.title}
+                                </div>
+                            )}
+                            {/* Title */}
+                            <div className="flex flex-col gap-1">
+                                <div className="flex items-center justify-between font-medium text-foreground">
+                                    {p.title}
+                                    {p.company !== 'Personal' && (
+                                        <div className="text-sm text-blue-400">
+                                            @{p.company}
+                                        </div>
+                                    )}
                                 </div>
                                 {/* Description */}
                                 <div>{p.description}</div>
+
                                 <TagList tags={p.tags} />
                             </div>
                         </div>
