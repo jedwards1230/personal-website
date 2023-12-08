@@ -10,30 +10,27 @@ export default function Section({
     children: React.ReactNode;
     id: Section;
 }) {
-    const { refProjects, refExperience, refAbout, refContact } =
-        useNavigation();
+    const { refProjects, refIntro, refContact } = useNavigation();
 
     const ref = useMemo(() => {
         switch (id) {
-            case 'about':
-                return refAbout;
-            case 'history':
-                return refExperience;
+            case 'intro':
+                return refIntro;
             case 'projects':
                 return refProjects;
             case 'contact':
                 return refContact;
         }
-    }, [id, refAbout, refContact, refExperience, refProjects]);
+    }, [id, refIntro, refContact, refProjects]);
 
     return (
         <section
             aria-label={id.charAt(0).toUpperCase() + id.slice(1) + ' section'}
             ref={ref}
-            className="flex h-full flex-col sm:min-h-screen sm:pt-16"
+            className="flex h-full min-h-screen flex-col gap-4 sm:py-16 md:justify-between"
             id={id}
         >
-            <div className="text-xl font-medium md:hidden">
+            <div className="text-xl font-medium md:text-center md:text-2xl">
                 {id.charAt(0).toUpperCase() + id.slice(1)}
             </div>
             {children}

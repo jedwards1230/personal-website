@@ -4,7 +4,7 @@ import { useFilter } from '@/app/FilterProvider';
 import { Close } from './Icons';
 import { Badge } from './ui/badge';
 
-export default function Filters() {
+export default function Filters({ className }: { className?: string }) {
     const {
         companyFilter,
         yearFilter,
@@ -15,7 +15,7 @@ export default function Filters() {
     } = useFilter();
 
     return (
-        <div>
+        <div className={className}>
             {/* Filters */}
             <div className="flex flex-wrap justify-center gap-2 pt-1">
                 {companyFilter.map((c, i) => (

@@ -1,4 +1,4 @@
-type Section = 'about' | 'history' | 'projects' | 'contact';
+type Section = 'intro' | 'projects' | 'contact';
 
 type Experience = {
     id: number;
