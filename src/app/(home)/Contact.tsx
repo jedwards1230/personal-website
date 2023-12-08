@@ -34,7 +34,7 @@ export default function Contact({
 
     return (
         <Section id="contact">
-            <div className="flex flex-col gap-4 md:flex-row">
+            <div className="flex flex-col gap-4 md:mt-4 md:flex-row">
                 <div className="flex flex-col justify-start gap-4 md:w-1/2">
                     <p>
                         I am currently looking for new opportunities. Feel free
@@ -79,7 +79,7 @@ export default function Contact({
             </div>
             <div
                 aria-label="Page Views"
-                className="select-none text-center text-xs text-neutral-600 dark:text-neutral-500"
+                className="mb-8 mt-auto select-none text-center text-xs text-neutral-600 dark:text-neutral-500"
             >
                 {pageViews} {pageViews === 1 ? 'visit' : 'visits'} this week
             </div>

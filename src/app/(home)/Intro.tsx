@@ -4,8 +4,28 @@ import { ChevronDown } from 'lucide-react';
 
 import IconLinks from '@/components/IconLinks';
 import TagList from '@/components/TagList';
+import { useEffect } from 'react';
 
 export default function Intro({ about }: { about: About }) {
+    useEffect(() => {
+        const handleScroll = () => {
+            const chevron = document.querySelector('.chevron') as HTMLElement;
+            if (chevron) {
+                const windowHeight = window.innerHeight;
+                const scrollY = window.scrollY;
+                const offset = -150;
+                const opacity = 1 - scrollY / (windowHeight + offset);
+                chevron.style.opacity = Math.max(opacity, 0).toString();
+            }
+        };
+
+        // Attach the event listener
+        window.addEventListener('scroll', handleScroll);
+
+        // Remove the event listener on cleanup
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
         <section
             id="intro"
@@ -34,7 +54,7 @@ export default function Intro({ about }: { about: About }) {
                         .getElementById('projects')
                         .scrollIntoView({ behavior: 'smooth' })
                 }
-                className="absolute inset-x-auto bottom-12"
+                className="chevron absolute inset-x-auto bottom-12"
             >
                 <ChevronDown className="transition-all hover:scale-150" />
             </button>
