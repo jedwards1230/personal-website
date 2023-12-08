@@ -100,12 +100,12 @@ export default async function Page() {
                             <Label>Tags</Label>
                             <div>{about.tags.join(', ')}</div>
                         </div>
-                        <div>
+                        {/* <div>
                             <Label>Bio</Label>
                             <div className="space-y-2">
                                 <Markdown>{about.description}</Markdown>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 )}
             </Section>

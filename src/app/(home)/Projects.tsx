@@ -4,12 +4,14 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 import { usePlausible } from 'next-plausible';
 
-import Section from '@/components/Section';
 import TagList from '@/components/TagList';
 import ProjectDialog from '@/components/dialogs/ProjectDialog';
 import { useFilter } from '../FilterProvider';
 import FilterPopover from '@/components/FilterPopover';
 import Filters from '@/components/Filters';
+import SectionTitle from '@/components/SectionTitle';
+
+const ID = 'projects';
 
 export default function Projects({ projects }: { projects: Project[] }) {
     const plausible = usePlausible();
@@ -42,7 +44,11 @@ export default function Projects({ projects }: { projects: Project[] }) {
     );
 
     return (
-        <Section id="projects">
+        <section
+            id={ID}
+            className="flex h-full min-h-screen flex-col gap-4 sm:py-16 md:justify-between"
+        >
+            <SectionTitle id={ID} />
             <div className="grid grid-cols-12 items-center">
                 <Filters className="col-span-10 col-start-2" />
                 <div className="col-span-1 flex justify-end">
@@ -53,7 +59,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
                 {sortedProjects.map((p, i) => (
                     <ProjectDialog
                         project={p}
-                        className="col-span-6 sm:col-span-4 lg:col-span-3"
+                        className="col-span-6 md:col-span-4 lg:col-span-3"
                         key={'projects-' + i}
                     >
                         <div
@@ -74,16 +80,16 @@ export default function Projects({ projects }: { projects: Project[] }) {
                                     height={400}
                                     src={p.images[0]}
                                     alt={'Preview ' + p.title + '.png'}
-                                    className="h-40 w-full select-none rounded border border-border bg-neutral-100 shadow-sm"
+                                    className="h-36 w-full select-none rounded border border-border bg-neutral-100 shadow-sm sm:h-40"
                                 />
                             ) : (
-                                <div className="flex h-40 w-full select-none items-center justify-center rounded border border-border bg-background text-foreground shadow-sm">
+                                <div className="flex h-36 w-full select-none items-center justify-center rounded border border-border bg-background text-foreground shadow-sm sm:h-40">
                                     {p.title}
                                 </div>
                             )}
                             {/* Title */}
                             <div className="flex flex-col gap-1">
-                                <div className="flex items-center justify-between font-medium text-foreground">
+                                <div className="flex flex-col justify-between font-medium text-foreground md:flex-row md:items-center">
                                     {p.title}
                                     {p.company !== 'Personal' && (
                                         <div className="text-sm text-blue-400">
@@ -100,6 +106,6 @@ export default function Projects({ projects }: { projects: Project[] }) {
                     </ProjectDialog>
                 ))}
             </div>
-        </Section>
+        </section>
     );
 }

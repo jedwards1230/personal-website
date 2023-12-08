@@ -14,7 +14,7 @@ export default function ProjectDialog({
         <Dialog>
             <DialogTrigger className={className}>{children}</DialogTrigger>
             <DialogContent size="lg">
-                <ProjectCard project={project} modal={true} />
+                <ProjectCard project={project} />
             </DialogContent>
         </Dialog>
     );

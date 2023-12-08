@@ -6,19 +6,11 @@ import Link from 'next/link';
 import { usePlausible } from 'next-plausible';
 
 import TagList from '../TagList';
-import BackButton from '../buttons/BackButton';
 import Markdown from '../Markdown';
 import { Star } from '../Icons';
 import ImagesDialog from '../dialogs/ImagesDialog';
-import { DialogTrigger } from '../ui/dialog';
 
-export default function ProjectCard({
-    project,
-    modal = false,
-}: {
-    project: Project;
-    modal?: boolean;
-}) {
+export default function ProjectCard({ project }: { project: Project }) {
     const plausible = usePlausible();
 
     const openImageModal = () =>
@@ -35,11 +27,6 @@ export default function ProjectCard({
     return (
         <div className="flex w-full max-w-7xl flex-col pb-4 sm:px-4">
             {/* Title - Client - Year */}
-            {!modal && (
-                <DialogTrigger className="py-4">
-                    <BackButton modal={modal} />
-                </DialogTrigger>
-            )}
             <div className="mb-4 flex w-full flex-col gap-2 sm:flex-row md:gap-4">
                 {images.length > 0 && (
                     <ImagesDialog project={project}>

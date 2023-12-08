@@ -13,7 +13,7 @@ export default function Intro({ about }: { about: About }) {
             if (chevron) {
                 const windowHeight = window.innerHeight;
                 const scrollY = window.scrollY;
-                const offset = -150;
+                const offset = -200;
                 const opacity = 1 - scrollY / (windowHeight + offset);
                 chevron.style.opacity = Math.max(opacity, 0).toString();
             }
