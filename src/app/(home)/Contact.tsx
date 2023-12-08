@@ -5,8 +5,8 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePlausible } from 'next-plausible';
+import Link from 'next/link';
 
-import Section from '@/components/Section';
 import { createContact } from '@/lib/actions';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -20,7 +20,9 @@ import {
     FormMessage,
 } from '@/components/ui/form';
 import DownloadResume from '@/components/DownloadResume';
-import Link from 'next/link';
+import SectionTitle from '@/components/SectionTitle';
+
+const ID = 'contact';
 
 export default function Contact({
     about,
@@ -33,7 +35,11 @@ export default function Contact({
     const githubUsername = about.github.replace(/\/$/, '').split('/').pop();
 
     return (
-        <Section id="contact">
+        <section
+            id={ID}
+            className="flex h-full min-h-screen flex-col gap-4 sm:py-16 md:justify-between md:gap-8"
+        >
+            <SectionTitle id={ID} />
             <div className="flex flex-col gap-4 md:mt-4 md:flex-row">
                 <div className="flex flex-col justify-start gap-4 md:w-1/2">
                     <p>
@@ -83,7 +89,7 @@ export default function Contact({
             >
                 {pageViews} {pageViews === 1 ? 'visit' : 'visits'} this week
             </div>
-        </Section>
+        </section>
     );
 }
 
