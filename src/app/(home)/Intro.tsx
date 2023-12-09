@@ -3,7 +3,6 @@
 import { ChevronDown } from 'lucide-react';
 
 import IconLinks from '@/components/IconLinks';
-import TagList from '@/components/TagList';
 import { useEffect } from 'react';
 
 export default function Intro({ about }: { about: About }) {
@@ -43,7 +42,6 @@ export default function Intro({ about }: { about: About }) {
                         {about.title}
                     </div>
                 </div>
-                <TagList tags={about.tags} />
             </div>
             <div className="flex items-center justify-between">
                 <IconLinks about={about} />
