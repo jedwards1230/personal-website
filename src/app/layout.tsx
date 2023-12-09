@@ -4,7 +4,6 @@ import type { Metadata } from 'next/types';
 import '@/globals.css';
 import { Providers } from './providers';
 import ThemeToggle from '@/components/ThemeToggle';
-import { getAllExperiences, getAllProjects } from '@/lib/actions';
 import { ProfileButton } from '@/components/buttons/AdminButton';
 
 const APP_NAME = 'J. Edwards Personal Website';
@@ -46,11 +45,6 @@ export default async function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const [experiences, projects] = await Promise.all([
-        getAllExperiences('id'),
-        getAllProjects('id'),
-    ]);
-
     return (
         <html
             suppressHydrationWarning={true}

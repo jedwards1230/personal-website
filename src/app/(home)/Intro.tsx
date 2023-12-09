@@ -47,6 +47,7 @@ export default function Intro({ about }: { about: About }) {
                 <IconLinks about={about} />
             </div>
             <button
+                aria-label="Scroll down"
                 onClick={() =>
                     document
                         .getElementById('projects')
