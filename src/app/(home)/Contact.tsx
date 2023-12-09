@@ -145,7 +145,7 @@ function ContactForm() {
                 className="flex h-full w-full flex-1 flex-col justify-between"
             >
                 <div className="flex w-full select-none flex-col gap-2">
-                    <p className="text-lg">Leave a message</p>
+                    <p className="mb-2 text-lg">Leave a message</p>
                     <FormField
                         control={form.control}
                         name="name"
