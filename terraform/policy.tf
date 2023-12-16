@@ -35,8 +35,6 @@ resource "aws_iam_role" "task_execution" {
   }
 }
 
-
-
 # Attach AmazonECSTaskExecutionRolePolicy to ECS Task Execution Role
 # Associates a predefined AWS policy (AmazonECSTaskExecutionRolePolicy) with the ECS Task Execution Role. 
 # This policy provides the necessary permissions for the ECS tasks to interact with AWS services needed 
@@ -44,4 +42,9 @@ resource "aws_iam_role" "task_execution" {
 resource "aws_iam_role_policy_attachment" "attach_policy" {
   role       = aws_iam_role.task_execution.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "secrets_access_attachment" {
+  role       = aws_iam_role.task_execution.name
+  policy_arn = aws_iam_policy.secrets_access.arn
 }

@@ -44,6 +44,38 @@ resource "aws_resourcegroups_group" "resource_group" {
   }
 }
 
+resource "aws_iam_policy" "secrets_access" {
+  name        = "secrets_access"
+  description = "Allow ECS tasks to access secrets"
+  tags        = var.common_tags
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = [
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret"
+        ],
+        Effect = "Allow",
+        Resource = [
+          aws_secretsmanager_secret.nextauth_url.arn,
+          aws_secretsmanager_secret.nextauth_secret.arn,
+          aws_secretsmanager_secret.next_public_url.arn,
+          aws_secretsmanager_secret.plausible_api_key.arn,
+          aws_secretsmanager_secret.database_url.arn,
+          aws_secretsmanager_secret.direct_url.arn,
+          aws_secretsmanager_secret.edge_config.arn,
+          aws_secretsmanager_secret.admin_email.arn,
+          aws_secretsmanager_secret.github_client_id.arn,
+          aws_secretsmanager_secret.github_client_secret.arn,
+          aws_secretsmanager_secret.openai_api_key.arn
+        ]
+      }
+    ]
+  })
+}
+
 # Create Secrets Manager
 # NEXTAUTH_URL
 resource "aws_secretsmanager_secret" "nextauth_url" {
