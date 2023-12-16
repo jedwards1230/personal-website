@@ -89,7 +89,7 @@ resource "aws_secretsmanager_secret" "plausible_api_key" {
 }
 
 resource "aws_secretsmanager_secret_version" "plausible_api_key_version" {
-  secret_id     = aws_secretsmanager_secret.nextauth_url.id
+  secret_id     = aws_secretsmanager_secret.plausible_api_key.id
   secret_string = "abc"
 }
 
