@@ -25,6 +25,13 @@ jobs:
                   role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
                   aws-region: ${{ secrets.AWS_REGION }}
 
+            - name: Retrieve Secrets from AWS Secrets Manager
+              run: |
+                  export NEXT_PUBLIC_URL=$(aws secretsmanager get-secret-value --secret-id next_public_url --query SecretString --output text)
+                  export PLAUSIBLE_API_KEY=$(aws secretsmanager get-secret-value --secret-id plausible_api_key --query SecretString --output text)
+                  export DATABASE_URL=$(aws secretsmanager get-secret-value --secret-id database_url --query SecretString --output text)
+                  export DIRECT_URL=$(aws secretsmanager get-secret-value --secret-id direct_url --query SecretString --output text)
+
             - name: Login to Amazon ECR
               id: login-ecr
               uses: aws-actions/amazon-ecr-login@v2
@@ -44,8 +51,16 @@ jobs:
                   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
                   ECR_REPOSITORY: personal-website
                   IMAGE_TAG: ${{ github.sha }}
+                  NEXT_PUBLIC_URL: ${{ env.NEXT_PUBLIC_URL }}
+                  PLAUSIBLE_API_KEY: ${{ env.PLAUSIBLE_API_KEY }}
+                  DATABASE_URL: ${{ env.DATABASE_URL }}
+                  DIRECT_URL: ${{ env.DIRECT_URL }}
               run: |
                   docker build \
+                    --build-arg NEXT_PUBLIC_URL=${NEXT_PUBLIC_URL} \
+                    --build-arg PLAUSIBLE_API_KEY=${PLAUSIBLE_API_KEY} \
+                    --build-arg DATABASE_URL=${DATABASE_URL} \
+                    --build-arg DIRECT_URL=${DIRECT_URL} \
                     --cache-from=type=local,src=/tmp/.buildx-cache \
                     -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
                   docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
@@ -53,7 +68,11 @@ jobs:
 
             - name: Download task definition
               run: |
-                  aws ecs describe-task-definition --task-definition personal-website --query taskDefinition | jq 'del(.compatibilities, .taskDefinitionArn, .requiresAttributes, .revision, .status, .registeredAt, .registeredBy)' > task-definition.json
+                  aws ecs describe-task-definition \
+                    --task-definition personal-website \
+                    --query taskDefinition | \
+                    jq 'del(.compatibilities, .taskDefinitionArn, .requiresAttributes, .revision, .status, .registeredAt, .registeredBy)' \
+                    > task-definition.json
 
             # Assign Main image
             - name: Fill in the new App image ID in the Amazon ECS task definition
