@@ -26,6 +26,8 @@ COPY . .
 # Learn more here: https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
 
+COPY .env ./
+
 # If using npm comment out above and use below instead
 RUN npm run build
 
