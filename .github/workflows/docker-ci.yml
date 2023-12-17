@@ -15,6 +15,15 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+            - name: Set resource name
+              id: resource-name
+              run: |
+                  if [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
+                      echo "::set-output name=resource::personal-website-dev"
+                  elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+                      echo "::set-output name=resource::personal-website-prod"
+                  fi
+
             - name: Checkout repo
               uses: actions/checkout@v3
 
@@ -50,7 +59,7 @@ jobs:
               id: build-image
               env:
                   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-                  ECR_REPOSITORY: personal-website
+                  ECR_REPOSITORY: ${{ steps.resource-name.outputs.resource }}
                   IMAGE_TAG: ${{ github.sha }}
               run: |
                   docker build \
@@ -66,7 +75,7 @@ jobs:
 
             - name: Download task definition
               run: |
-                  aws ecs describe-task-definition --task-definition personal-website --query taskDefinition | jq 'del(.compatibilities, .taskDefinitionArn, .requiresAttributes, .revision, .status, .registeredAt, .registeredBy)' > task-definition.json
+                  aws ecs describe-task-definition --task-definition ${{ steps.resource-name.outputs.resource }} --query taskDefinition | jq 'del(.compatibilities, .taskDefinitionArn, .requiresAttributes, .revision, .status, .registeredAt, .registeredBy)' > task-definition.json
 
             # Assign Main image
             - name: Fill in the new App image ID in the Amazon ECS task definition
@@ -74,13 +83,13 @@ jobs:
               uses: aws-actions/amazon-ecs-render-task-definition@v1
               with:
                   task-definition: task-definition.json
-                  container-name: personal-website
+                  container-name: ${{ steps.resource-name.outputs.resource }}
                   image: ${{ steps.build-image.outputs.image }}
 
             - name: Deploy Amazon ECS task definition
               uses: aws-actions/amazon-ecs-deploy-task-definition@v1
               with:
                   task-definition: ${{ steps.task-def.outputs.task-definition }}
-                  service: personal-website
-                  cluster: personal-website
+                  service: ${{ steps.resource-name.outputs.resource }}
+                  cluster: ${{ steps.resource-name.outputs.resource }}
                   wait-for-service-stability: false
