@@ -3,8 +3,8 @@
 # This repository will store Docker container images, allowing for version control and integration 
 # with AWS container services like ECS.
 resource "aws_ecr_repository" "main" {
-  name = "personal-website"
-  tags = var.common_tags
+  name = local.name
+  tags = local.common_tags
 }
 
 # Build ECS Cluster
@@ -12,8 +12,8 @@ resource "aws_ecr_repository" "main" {
 # where the tasks or services are executed. The cluster itself does not handle scaling of individual 
 # tasks or services but provides the underlying compute and networking resources necessary for them.
 resource "aws_ecs_cluster" "main" {
-  name = "personal-website"
-  tags = var.common_tags
+  name = local.name
+  tags = local.common_tags
 }
 
 # Build ECS Task Definition
@@ -21,22 +21,21 @@ resource "aws_ecs_cluster" "main" {
 # CPU and memory allocations, network mode, and IAM role for execution. The task definition specifies 
 # the details of how the containers should operate, including their resource requirements and networking settings.
 resource "aws_ecs_task_definition" "main" {
-  family                   = "personal-website"
+  family                   = local.name
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "1024"
   memory                   = "2048"
   execution_role_arn       = aws_iam_role.task_execution.arn
-  tags                     = var.common_tags
+  tags                     = local.common_tags
 
   container_definitions = jsonencode([
     {
-      name      = "personal-website",
+      name      = local.name,
       image     = aws_ecr_repository.main.repository_url,
       essential = true,
       portMappings = [
         {
-          name          = "personal-website-8889-tcp",
           containerPort = 3000,
           hostPort      = 3000,
           protocol      = "tcp"
@@ -91,11 +90,11 @@ resource "aws_ecs_task_definition" "main" {
       ],
       logConfiguration = {
         logDriver = "awslogs",
-        tags      = var.common_tags
+        tags      = local.common_tags
         options = {
           "awslogs-create-group"  = "true",
-          "awslogs-group"         = "/ecs/personal-website",
-          "awslogs-region"        = "us-east-1",
+          "awslogs-group"         = "/ecs/${var.project-name}-${var.stage}-container",
+          "awslogs-region"        = var.region,
           "awslogs-stream-prefix" = "ecs",
         }
       }
@@ -109,12 +108,12 @@ resource "aws_ecs_task_definition" "main" {
 # when a task fails (e.g., if the underlying infrastructure fails for some reason). The service also handles 
 # the scaling of tasks based on the desired count and can integrate with load balancers for traffic distribution.
 resource "aws_ecs_service" "main" {
-  name            = "personal-website"
+  name            = local.name
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.main.family
   launch_type     = "FARGATE"
   desired_count   = 2
-  tags            = var.common_tags
+  tags            = local.common_tags
 
   network_configuration {
     subnets          = [aws_subnet.subnet1.id, aws_subnet.subnet2.id]
@@ -124,7 +123,7 @@ resource "aws_ecs_service" "main" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.https.arn
-    container_name   = "personal-website"
+    container_name   = local.name
     container_port   = 3000
   }
 }

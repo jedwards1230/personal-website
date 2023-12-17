@@ -46,5 +46,5 @@ pkg/
 wasm-pack.log
 
 game/package.json
-terraform/.terraform*
-terraform/terraform.tfstate*
+terraform/**/*.terraform*
+terraform/**/terraform.tfstate*
