@@ -19,9 +19,9 @@ jobs:
               id: resource-name
               run: |
                   if [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
-                      echo "resource=personal-website-dev" >> $GITHUB_STATE
+                      echo "resource=personal-website-dev" >> $GITHUB_OUTPUT
                   elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-                      echo "resource=personal-website-prod" >> $GITHUB_STATE
+                      echo "resource=personal-website-prod" >> $GITHUB_OUTPUT
                   fi
 
             - name: Checkout repo
