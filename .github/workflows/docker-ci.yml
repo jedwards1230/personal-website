@@ -19,9 +19,9 @@ jobs:
               id: resource-name
               run: |
                   if [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
-                      echo "::set-output name=resource::personal-website-dev"
+                      echo "resource=personal-website-dev" >> $GITHUB_STATE
                   elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-                      echo "::set-output name=resource::personal-website-prod"
+                      echo "resource=personal-website-prod" >> $GITHUB_STATE
                   fi
 
             - name: Checkout repo
@@ -36,11 +36,11 @@ jobs:
 
             - name: Create .env file
               run: |
-                  echo NEXT_PUBLIC_URL=$(aws secretsmanager get-secret-value --secret-id next_public_url --query SecretString --output text) >> .env
-                  echo OPENAI_API_KEY = $(aws secretsmanager get-secret-value --secret-id openai_api_key --query SecretString --output text) >> .env
-                  echo PLAUSIBLE_API_KEY=$(aws secretsmanager get-secret-value --secret-id plausible_api_key --query SecretString --output text) >> .env
-                  echo DATABASE_URL=$(aws secretsmanager get-secret-value --secret-id database_url --query SecretString --output text) >> .env
-                  echo DIRECT_URL=$(aws secretsmanager get-secret-value --secret-id direct_url --query SecretString --output text) >> .env
+                  echo NEXT_PUBLIC_URL=$(aws secretsmanager get-secret-value --secret-id ${{ steps.resource-name.outputs.resource }}-next_public_url --query SecretString --output text) >> .env
+                  echo OPENAI_API_KEY = $(aws secretsmanager get-secret-value --secret-id ${{ steps.resource-name.outputs.resource }}-openai_api_key --query SecretString --output text) >> .env
+                  echo PLAUSIBLE_API_KEY=$(aws secretsmanager get-secret-value --secret-id ${{ steps.resource-name.outputs.resource }}-plausible_api_key --query SecretString --output text) >> .env
+                  echo DATABASE_URL=$(aws secretsmanager get-secret-value --secret-id ${{ steps.resource-name.outputs.resource }}-database_url --query SecretString --output text) >> .env
+                  echo DIRECT_URL=$(aws secretsmanager get-secret-value --secret-id ${{ steps.resource-name.outputs.resource }}-direct_url --query SecretString --output text) >> .env
 
             - name: Login to Amazon ECR
               id: login-ecr
