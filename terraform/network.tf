@@ -1,3 +1,24 @@
+# Route 53 Hosted Zone
+# Creates a Route 53 hosted zone for the domain name 'lanecontrols.net'. This hosted zone is used to
+# manage DNS records for the domain.
+resource "aws_route53_zone" "main" {
+  name = "jedwards.cc"
+  tags = var.common_tags
+}
+
+# Request a new ACM certificate
+resource "aws_acm_certificate" "cert" {
+  domain_name       = "test.jedwards.cc"
+  validation_method = "DNS"
+  tags              = var.common_tags
+}
+
+# Validate the ACM certificate
+resource "aws_acm_certificate_validation" "cert" {
+  certificate_arn         = aws_acm_certificate.cert.arn
+  validation_record_fqdns = [for record in aws_acm_certificate.cert.domain_validation_options : record.resource_record_name]
+}
+
 # Build VPC
 # Creates a new Virtual Private Cloud (VPC) to provide a logically isolated section of the AWS cloud 
 # where you can launch AWS resources in a defined virtual network.
@@ -119,32 +140,42 @@ resource "aws_lb" "main" {
   tags                       = var.common_tags
 }
 
-resource "aws_lb_target_group" "main" {
-  name        = "personal-website-target-group"
-  port        = 80
-  protocol    = "HTTP"
-  vpc_id      = aws_vpc.main.id
-  target_type = "ip"
-  tags        = var.common_tags
-
-  health_check {
-    interval            = 30
-    path                = "/health/"
-    protocol            = "HTTP"
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    timeout             = 5
-  }
-}
-
-resource "aws_lb_listener" "main" {
+resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.main.arn
   port              = "80"
   protocol          = "HTTP"
   tags              = var.common_tags
 
   default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_target_group" "https" {
+  name        = "personal-website-https"
+  port        = 443
+  protocol    = "HTTP"
+  vpc_id      = aws_vpc.main.id
+  target_type = "ip"
+  tags        = var.common_tags
+}
+
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.main.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = aws_acm_certificate_validation.cert.certificate_arn
+  tags              = var.common_tags
+
+  default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.main.arn
+    target_group_arn = aws_lb_target_group.https.arn
   }
 }

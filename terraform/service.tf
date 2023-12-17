@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "main" {
   container_definitions = jsonencode([
     {
       name      = "personal-website",
-      image     = "placeholder/image:tag",
+      image     = aws_ecr_repository.main.repository_url,
       essential = true,
       portMappings = [
         {
@@ -123,7 +123,7 @@ resource "aws_ecs_service" "main" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.main.arn
+    target_group_arn = aws_lb_target_group.https.arn
     container_name   = "personal-website"
     container_port   = 3000
   }
