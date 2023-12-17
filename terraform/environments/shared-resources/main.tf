@@ -29,7 +29,7 @@ resource "aws_resourcegroups_group" "resource_group" {
   }
 
   tags = {
-    awsApplication = "${var.project-name}-group"
+    awsApplication = "${var.project-name}"
   }
 }
 
