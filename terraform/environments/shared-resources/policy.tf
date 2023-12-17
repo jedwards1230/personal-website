@@ -3,8 +3,8 @@
 # This role is used by ECS tasks to interact with other AWS services such as ECR for image pulling 
 # and CloudWatch for logging.
 resource "aws_iam_role" "task_execution" {
-  name = "personal-website-ecsTaskExecutionRole"
-  tags = var.common_tags
+  name = local.executor_role_name
+  tags = local.common_tags
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -21,7 +21,7 @@ resource "aws_iam_role" "task_execution" {
 
   # Attach additional policy for logs:CreateLogGroup permission
   inline_policy {
-    name = "personal-website-ecsTaskExecutionRole-InlinePolicy"
+    name = "ecsTaskExecutionRole-InlinePolicy"
     policy = jsonencode({
       Version = "2012-10-17",
       Statement = [

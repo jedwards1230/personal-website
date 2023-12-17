@@ -8,5 +8,8 @@
         "editor.defaultFormatter": "Prisma.prisma"
     },
     "typescript.tsdk": "node_modules/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "[terraform]": {
+        "editor.defaultFormatter": "hashicorp.terraform"
+    }
 }
