@@ -93,7 +93,7 @@ resource "aws_ecs_task_definition" "main" {
         tags      = local.common_tags
         options = {
           "awslogs-create-group"  = "true",
-          "awslogs-group"         = "/ecs/${var.project-name}-${var.stage}-container",
+          "awslogs-group"         = "/ecs/${local.name}-container",
           "awslogs-region"        = var.region,
           "awslogs-stream-prefix" = "ecs",
         }

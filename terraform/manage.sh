@@ -18,7 +18,8 @@ source .env
 check_infra() {
     if [ -d "$BASE_DIR/$1" ]; then
         cd "$BASE_DIR/$1"
-        if terraform state list > /dev/null 2>&1; then
+        local state_list=$(terraform state list)
+        if [ $? -eq 0 ] && [ ! -z "$state_list" ]; then
             echo "The infrastructure in the $1 directory is initialized."
             if [ "$1" = "init-state" ]; then
                 export S3_BUCKET_NAME=$(terraform output -raw s3_bucket_name)
