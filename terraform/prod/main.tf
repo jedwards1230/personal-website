@@ -10,6 +10,8 @@ terraform {
 }
 
 module "infra" {
-  source = "../shared"
-  stage  = "prod"
+  source       = "../shared"
+  stage        = var.stage
+  project-name = var.project-name
+  region       = var.region
 }

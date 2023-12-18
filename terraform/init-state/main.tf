@@ -10,28 +10,10 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = var.region
 }
 
 data "aws_caller_identity" "current" {}
-
-variable "common_tags" {
-  description = "Common tags to be applied to all resources"
-  type        = map(string)
-  default = {
-    awsApplication = "personal-website"
-  }
-}
-
-variable "project-name" {
-  description = "Project name"
-  default     = "personal-website"
-}
-
-locals {
-  bucket_name         = "${var.project-name}-${data.aws_caller_identity.current.account_id}-terraform-state"
-  dynamodb_table_name = "${var.project-name}-terraform-locks"
-}
 
 resource "aws_resourcegroups_group" "resource_group" {
   name = var.project-name
@@ -51,6 +33,14 @@ resource "aws_resourcegroups_group" "resource_group" {
   tags = {
     awsApplication = "${var.project-name}-group"
   }
+}
+
+# Route 53 Hosted Zone
+# Creates a Route 53 hosted zone for the domain name 'jedwards.cc'. This hosted zone is used to
+# manage DNS records for the domain.
+resource "aws_route53_zone" "main" {
+  name = var.domain_name
+  tags = var.common_tags
 }
 
 resource "aws_s3_bucket" "terraform_state" {
