@@ -1,11 +1,3 @@
-# Route 53 Hosted Zone
-# Creates a Route 53 hosted zone for the domain name 'lanecontrols.net'. This hosted zone is used to
-# manage DNS records for the domain.
-resource "aws_route53_zone" "main" {
-  name = "jedwards.cc"
-  tags = local.common_tags
-}
-
 # Request a new ACM certificate
 resource "aws_acm_certificate" "cert" {
   domain_name       = "test.jedwards.cc"
