@@ -1,6 +1,6 @@
 # Request a new ACM certificate
 resource "aws_acm_certificate" "cert" {
-  domain_name       = "test.jedwards.cc"
+  domain_name       = var.domain_name
   validation_method = "DNS"
   tags              = local.common_tags
 }

@@ -24,7 +24,7 @@ resource "aws_resourcegroups_group" "resource_group" {
       TagFilters = [
         {
           Key    = "awsApplication"
-          Values = [var.common_tags["awsApplication"]]
+          Values = [local.common_tags["awsApplication"]]
         }
       ]
     })
@@ -40,12 +40,12 @@ resource "aws_resourcegroups_group" "resource_group" {
 # manage DNS records for the domain.
 resource "aws_route53_zone" "main" {
   name = var.domain_name
-  tags = var.common_tags
+  tags = local.common_tags
 }
 
 resource "aws_s3_bucket" "terraform_state" {
   bucket = local.bucket_name
-  tags   = var.common_tags
+  tags   = local.common_tags
 
   lifecycle {
     prevent_destroy = true
@@ -63,7 +63,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
   name         = local.dynamodb_table_name
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
-  tags         = var.common_tags
+  tags         = local.common_tags
 
   attribute {
     name = "LockID"
