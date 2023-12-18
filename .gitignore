@@ -48,3 +48,4 @@ wasm-pack.log
 game/package.json
 terraform/**/*.terraform*
 terraform/**/terraform.tfstate*
+**/*.tfvars
