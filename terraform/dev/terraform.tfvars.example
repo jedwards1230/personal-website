@@ -1,7 +1,14 @@
+# Infrastructure
 project-name = ""
 stage = ""
 region = ""
 domain_name = ""
+route53_zone_id = ""
+cloudflare_email = ""
+cloudflare_api_token = ""
+cloudflare_zone_id = ""
+
+# Webapp
 nextauth_url         = ""
 nextauth_secret      = ""
 next_public_url      = ""

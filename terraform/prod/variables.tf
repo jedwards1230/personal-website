@@ -2,6 +2,9 @@ variable "project-name" { description = "Project name" }
 variable "stage" { description = "Stage (dev, prod)" }
 variable "region" { description = "AWS region" }
 variable "domain_name" { description = "Domain name" }
+variable "cloudflare_email" { description = "Cloudflare email" }
+variable "cloudflare_api_token" { description = "Cloudflare API token" }
+variable "cloudflare_zone_id" { description = "Cloudflare Zone ID" }
 
 /* Secrets */
 variable "nextauth_url" { description = "NEXTAUTH_URL" }

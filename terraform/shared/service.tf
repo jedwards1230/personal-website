@@ -122,7 +122,7 @@ resource "aws_ecs_service" "main" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.https.arn
+    target_group_arn = aws_lb_target_group.http.arn
     container_name   = local.name
     container_port   = 3000
   }
