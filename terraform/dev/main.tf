@@ -1,20 +1,16 @@
 terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-
   backend "s3" {}
 }
 
 module "infra" {
-  source       = "../shared"
-  stage        = var.stage
-  project-name = var.project-name
-  region       = var.region
-  domain_name  = var.domain_name
+  source               = "../shared"
+  stage                = var.stage
+  project-name         = var.project-name
+  region               = var.region
+  domain_name          = var.domain_name
+  cloudflare_email     = var.cloudflare_email
+  cloudflare_api_token = var.cloudflare_api_token
+  cloudflare_zone_id   = var.cloudflare_zone_id
 
   nextauth_url         = var.nextauth_url
   nextauth_secret      = var.nextauth_secret

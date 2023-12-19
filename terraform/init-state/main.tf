@@ -35,14 +35,6 @@ resource "aws_resourcegroups_group" "resource_group" {
   }
 }
 
-# Route 53 Hosted Zone
-# Creates a Route 53 hosted zone for the domain name 'jedwards.cc'. This hosted zone is used to
-# manage DNS records for the domain.
-resource "aws_route53_zone" "main" {
-  name = var.domain_name
-  tags = local.common_tags
-}
-
 resource "aws_s3_bucket" "terraform_state" {
   bucket = local.bucket_name
   tags   = local.common_tags
