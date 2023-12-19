@@ -24,8 +24,8 @@ resource "aws_ecs_task_definition" "main" {
   family                   = local.name
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "1024"
-  memory                   = "2048"
+  cpu                      = "256"
+  memory                   = "512"
   execution_role_arn       = aws_iam_role.task_execution.arn
   tags                     = local.common_tags
 
