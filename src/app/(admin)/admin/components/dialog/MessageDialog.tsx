@@ -1,5 +1,9 @@
 'use client';
 
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
 import { Trash } from '@/components/Icons';
 import Markdown from '@/components/Markdown';
 import { Button } from '@/components/ui/button';
@@ -12,9 +16,6 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { deleteContact, readContact } from '@/lib/actions';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 export default function MessageDialog({
     children,

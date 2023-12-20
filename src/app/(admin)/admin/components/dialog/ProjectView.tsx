@@ -1,7 +1,8 @@
-import Markdown from '@/components/Markdown';
-import { Label } from '@/components/ui/label';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import Markdown from '@/components/Markdown';
+import { Label } from '@/components/ui/label';
 
 export default function ExperienceView({ data }: { data?: Project }) {
     return (

@@ -1,6 +1,6 @@
 import JobView from './JobView';
 import { GenericDialog } from './GenericDialog';
-import JobForm from '@/components/forms/admin/JobForm';
+import JobForm from '../forms/JobForm';
 
 export default function JobDialog({
     children,

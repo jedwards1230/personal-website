@@ -1,9 +1,9 @@
 'use client';
 
 import { ChevronDown } from 'lucide-react';
+import { useEffect } from 'react';
 
 import IconLinks from '@/components/IconLinks';
-import { useEffect } from 'react';
 
 export default function Intro({ about }: { about: About }) {
     useEffect(() => {
