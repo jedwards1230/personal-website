@@ -1,5 +1,6 @@
 import PlausibleProvider from 'next-plausible';
 import type { Metadata } from 'next/types';
+import { Suspense } from 'react';
 
 import '@/globals.css';
 import { Providers } from './providers';
@@ -49,7 +50,7 @@ export default async function RootLayout({
         <html
             suppressHydrationWarning={true}
             lang="en"
-            className="background-background select-none scroll-smooth text-base text-foreground selection:bg-neutral-300 selection:text-neutral-900 dark:selection:bg-neutral-400 dark:selection:text-neutral-900 sm:select-auto"
+            className="background-background select-none scroll-smooth text-base text-foreground selection:bg-neutral-300 selection:text-neutral-900 sm:select-auto dark:selection:bg-neutral-400 dark:selection:text-neutral-900"
         >
             <head>
                 <PlausibleProvider
@@ -61,7 +62,12 @@ export default async function RootLayout({
             <body className="relative mx-auto h-full w-full max-w-10xl">
                 <Providers>
                     <div className="fixed bottom-8 right-8 z-10 flex flex-col items-center justify-center gap-4 sm:bottom-12">
-                        <ProfileButton />
+                        {/* <Suspense fallback={null}>
+                            <ChatButton />
+                        </Suspense> */}
+                        <Suspense fallback={null}>
+                            <ProfileButton />
+                        </Suspense>
                         <ThemeToggle />
                     </div>
                     {children}

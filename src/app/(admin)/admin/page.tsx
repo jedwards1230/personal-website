@@ -6,12 +6,11 @@ import {
     getAllProjects,
     getAbout,
 } from '@/lib/actions';
-import { ExperienceDialog } from '@/components/dialogs/admin/ExperienceDialog';
-import { ProjectDialog } from '@/components/dialogs/admin/ProjectDialog';
-import MessageDialog from '@/components/dialogs/admin/MessageDialog';
+import { ExperienceDialog } from './components/dialog/ExperienceDialog';
+import { ProjectDialog } from './components/dialog/ProjectDialog';
+import MessageDialog from './components/dialog/MessageDialog';
 import { Label } from '@/components/ui/label';
-import AboutDialog from '@/components/dialogs/admin/AboutDialog';
-import Markdown from '@/components/Markdown';
+import AboutDialog from './components/dialog/AboutDialog';
 import { AddButton, EditButton, ListItem, Section } from './UIHelpers';
 
 const SECTIONS = {
@@ -100,12 +99,6 @@ export default async function Page() {
                             <Label>Tags</Label>
                             <div>{about.tags.join(', ')}</div>
                         </div>
-                        {/* <div>
-                            <Label>Bio</Label>
-                            <div className="space-y-2">
-                                <Markdown>{about.description}</Markdown>
-                            </div>
-                        </div> */}
                     </div>
                 )}
             </Section>

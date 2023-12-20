@@ -8,7 +8,7 @@ import {
 import TemplateSelector from './TemplateSelector';
 import JobSelector from './JobSelector';
 import { AddButton, ListItem, Section } from '../UIHelpers';
-import JobDialog from '@/components/dialogs/admin/JobDialog';
+import JobDialog from '../components/dialog/JobDialog';
 import InterviewPhaseSelector from './InterviewPhaseSelector';
 
 export default function TemplateSettings({

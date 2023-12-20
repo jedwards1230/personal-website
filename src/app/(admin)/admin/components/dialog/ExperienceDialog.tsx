@@ -1,6 +1,6 @@
 'use client';
 
-import ExperienceForm from '@/components/forms/admin/ExperienceForm';
+import ExperienceForm from '../forms/ExperienceForm';
 import ExperienceView from './ExperienceView';
 import { GenericDialog } from './GenericDialog';
 

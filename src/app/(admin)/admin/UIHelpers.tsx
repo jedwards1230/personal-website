@@ -1,22 +1,16 @@
-'use client';
-
 import { Edit } from '@/components/Icons';
 import { Button } from '@/components/ui/button';
-import { forwardRef } from 'react';
 
-export const Section = forwardRef<
-    HTMLDivElement,
-    {
-        children: React.ReactNode;
-        title: string;
-        addButtonDialog?: React.ReactNode;
-    }
->(({ children, title, addButtonDialog, ...props }, forwardedRef) => (
-    <div
-        className="w-full rounded border border-border p-2 transition-all"
-        {...props}
-        ref={forwardedRef}
-    >
+export const Section = ({
+    children,
+    title,
+    addButtonDialog,
+}: {
+    children: React.ReactNode;
+    title: string;
+    addButtonDialog?: React.ReactNode;
+}) => (
+    <div className="w-full rounded border border-border p-2 transition-all">
         <div className="flex w-full justify-between">
             <Title>{title}</Title>
             {addButtonDialog && (
@@ -25,75 +19,49 @@ export const Section = forwardRef<
         </div>
         <List>{children}</List>
     </div>
-));
-
-Section.displayName = 'Section';
-
-export const Title = forwardRef<HTMLDivElement, { children: React.ReactNode }>(
-    ({ children, ...props }, forwardedRef) => (
-        <div className="p-2 text-lg font-bold" {...props} ref={forwardedRef}>
-            {children}
-        </div>
-    ),
 );
 
-Title.displayName = 'Title';
-
-export const List = forwardRef<HTMLDivElement, { children: React.ReactNode }>(
-    ({ children, ...props }, forwardedRef) => (
-        <div className="w-full py-1" {...props} ref={forwardedRef}>
-            {children}
-        </div>
-    ),
+export const Title = ({ children }: { children: React.ReactNode }) => (
+    <div className="p-2 text-lg font-bold">{children}</div>
 );
 
-List.displayName = 'List';
+export const List = ({ children }: { children: React.ReactNode }) => (
+    <div className="w-full py-1">{children}</div>
+);
 
-export const ListItem = forwardRef<
-    HTMLDivElement,
-    { children: React.ReactNode }
->(({ children, ...props }, forwardedRef) => (
+export const ListItem = ({
+    children,
+    ...props
+}: {
+    children: React.ReactNode;
+    props?: React.HTMLAttributes<HTMLDivElement>;
+}) => (
     <div
         className="w-full cursor-pointer rounded-lg px-2 py-1 underline-offset-4 hover:bg-secondary/60 hover:underline"
         {...props}
-        ref={forwardedRef}
     >
         {children}
     </div>
-));
-
-ListItem.displayName = 'ListItem';
-
-export const AddButton = forwardRef<HTMLButtonElement>(
-    (props, forwardedRef) => (
-        <Button
-            type="button"
-            className="text-xl font-medium"
-            variant="outline"
-            size="icon"
-            {...props}
-            ref={forwardedRef}
-        >
-            +
-        </Button>
-    ),
 );
 
-AddButton.displayName = 'AddButton';
-
-export const EditButton = forwardRef<HTMLButtonElement>(
-    (props, forwardedRef) => (
-        <Button
-            type="button"
-            className="text-xl font-medium"
-            variant="outline"
-            size="icon"
-            {...props}
-            ref={forwardedRef}
-        >
-            <Edit />
-        </Button>
-    ),
+export const AddButton = () => (
+    <Button
+        type="button"
+        className="text-xl font-medium"
+        variant="outline"
+        size="icon"
+    >
+        +
+    </Button>
 );
 
-EditButton.displayName = 'EditButton';
+export const EditButton = () => (
+    <Button
+        type="button"
+        className="text-xl font-medium"
+        variant="outline"
+        size="icon"
+    >
+        <Edit />
+    </Button>
+);

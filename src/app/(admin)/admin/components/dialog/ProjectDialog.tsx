@@ -1,7 +1,7 @@
 'use client';
 
 import { GenericDialog } from './GenericDialog';
-import ProjectForm from '@/components/forms/admin/ProjectForm';
+import ProjectForm from '../forms/ProjectForm';
 import ProjectView from './ProjectView';
 
 export function ProjectDialog({
