@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "Job" ALTER COLUMN "description" DROP DEFAULT,
-ALTER COLUMN "href" DROP DEFAULT;
