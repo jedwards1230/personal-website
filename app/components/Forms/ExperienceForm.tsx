@@ -3,7 +3,6 @@ import { json } from "@remix-run/node";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { DialogFooter } from "@/components/ui/dialog";
 import { updateExperience } from "@/models/experience.server";
 import { Label } from "@/components/ui/label";
 
@@ -49,13 +48,7 @@ export const handleExperienceFormSubmit = async (request: Request) => {
 	}
 };
 
-export default function ExperienceForm({
-	data,
-	setEdit,
-}: {
-	data?: Experience;
-	setEdit: (edit: boolean) => void;
-}) {
+export default function ExperienceForm({ data }: { data?: Experience }) {
 	return (
 		<form>
 			<div className="grid gap-2 pb-4 sm:gap-4">
@@ -90,11 +83,9 @@ export default function ExperienceForm({
 					<Input name="extraTags" />
 				</div>
 			</div>
-			<DialogFooter>
-				<Button type="submit">
-					Save {data ? "Changes" : "Experience"}
-				</Button>
-			</DialogFooter>
+			<Button type="submit">
+				Save {data ? "Changes" : "Experience"}
+			</Button>
 		</form>
 	);
 }

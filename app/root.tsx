@@ -1,8 +1,4 @@
-import {
-	type LinksFunction,
-	type LoaderFunctionArgs,
-	json,
-} from "@remix-run/node";
+import { type LinksFunction } from "@remix-run/node";
 import {
 	Link,
 	Links,
@@ -12,25 +8,16 @@ import {
 	Scripts,
 	ScrollRestoration,
 	isRouteErrorResponse,
-	useLoaderData,
 	useRouteError,
 } from "@remix-run/react";
 import { useEffect } from "react";
 
 import styles from "./styles.css";
-import { AdminButton } from "./components/buttons/AdminButton";
-import { isAuthenticated } from "./session.server";
 import { Button } from "./components/ui/button";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
-export async function loader({ request }: LoaderFunctionArgs) {
-	return json(await isAuthenticated(request));
-}
-
 export default function App() {
-	const isAuthenticated = useLoaderData<typeof loader>();
-
 	useEffect(() => {
 		document.addEventListener("keydown", (e) => {
 			// cmd + 0
@@ -57,10 +44,6 @@ export default function App() {
 				<Links />
 			</head>
 			<body className="relative mx-auto h-full w-full max-w-10xl">
-				<div className="fixed bottom-8 right-8 z-10 flex flex-col items-center justify-center gap-4 sm:bottom-12">
-					<AdminButton isAuthenticated={isAuthenticated} />
-					{/* <ThemeToggle /> */}
-				</div>
 				<Outlet />
 				<ScrollRestoration />
 				<Scripts />

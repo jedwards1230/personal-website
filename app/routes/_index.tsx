@@ -12,6 +12,8 @@ import { getPageViews } from "@/data";
 import Contact, { handleFormSubmit } from "@/components/Contact";
 import { getAbout } from "@/models/about.server";
 import { getAllProjects } from "@/models/project.server";
+import { AdminButton } from "@/components/buttons/AdminButton";
+import { isAuthenticated } from "@/session.server";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -29,22 +31,31 @@ export async function loader({ request }: LoaderFunctionArgs) {
 		getPageViews(),
 		getAbout(),
 	]);
+	const authenticated = await isAuthenticated(request);
 	return json({
 		projects,
 		pageViews,
 		about,
+		authenticated,
 	});
 }
 
 export default function Index() {
-	const { projects, pageViews, about } = useLoaderData<typeof loader>();
+	const { projects, pageViews, about, authenticated } =
+		useLoaderData<typeof loader>();
 
 	return (
-		<div className="max-w-screen flex w-full flex-col justify-between gap-4 px-4 pt-8 sm:px-8 md:h-full md:px-12 md:pt-0 lg:px-24 xl:px-32">
-			<Intro about={about} />
-			<Projects projects={projects} />
-			<Contact about={about} pageViews={pageViews} />
-		</div>
+		<>
+			<div className="fixed bottom-8 right-8 z-10 flex flex-col items-center justify-center gap-4 sm:bottom-12">
+				<AdminButton isAuthenticated={authenticated} />
+				{/* <ThemeToggle /> */}
+			</div>
+			<div className="max-w-screen flex w-full flex-col justify-between gap-4 px-4 pt-8 sm:px-8 md:h-full md:px-12 md:pt-0 lg:px-24 xl:px-32">
+				<Intro about={about} />
+				<Projects projects={projects} />
+				<Contact about={about} pageViews={pageViews} />
+			</div>
+		</>
 	);
 }
 

@@ -1,146 +1,86 @@
-import * as z from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
-import { DialogFooter } from "@/components/ui/dialog";
-import { invariant } from "@/utils";
-import { createJob, updateJob } from "@/models/job.server";
 
-const formSchema = z.object({
-	title: z.string().min(1),
-	company: z.string().min(1),
-	pay: z.string(),
-	description: z.string().min(1),
-	href: z.string().url(),
-});
+import { updateJob } from "@/models/job.server";
+import { json } from "@remix-run/node";
+import { Label } from "@/components/ui/label";
 
-export default function JobForm({
-	data,
-	setEdit,
-}: {
-	data?: Job;
-	setEdit: (edit: boolean) => void;
-}) {
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
-		defaultValues: {
-			title: data?.title || "",
-			company: data?.company || "",
-			pay: data?.pay || "",
-			description: data?.description || "",
-			href: data?.href || "",
-		},
-	});
+export const handleProjectFormSubmit = async (request: Request) => {
+	const formData = await request.formData();
+	const id = Number(formData.get("id"));
+	const title = String(formData.get("title"));
+	const company = String(formData.get("company"));
+	const pay = String(formData.get("pay"));
+	const description = String(formData.get("description"));
+	const href = String(formData.get("href"));
+	const createdAt = new Date(String(formData.get("createdAt")));
 
-	const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-		invariant(data?.id, "Missing job id");
-		const updatedJob: Job = {
-			...data,
-			...values,
-		};
+	const errors: Record<string, string> = {};
 
-		try {
-			if (!data) {
-				await createJob(updatedJob);
-			} else {
-				await updateJob(updatedJob);
-			}
-			setEdit(false);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	if (!id) errors.id = "ID is required.";
+	if (!company) errors.company = "Company is required.";
+	if (!title) errors.title = "Title is required.";
+	if (!description) errors.description = "Description is required.";
 
+	if (Object.keys(errors).length > 0) {
+		return json({ errors });
+	}
+
+	try {
+		await updateJob({
+			id,
+			title,
+			company,
+			pay,
+			description,
+			href,
+			createdAt,
+		});
+		return json({ success: "Updated successfully!" });
+	} catch (error: any) {
+		return json({ error: "Failed to send message." }, { status: 400 });
+	}
+};
+
+export default function JobForm({ data }: { data: Job }) {
 	return (
-		<Form {...form}>
-			<form>
-				<div className="flex flex-col gap-2 pb-4 sm:gap-4">
-					<FormField
-						control={form.control}
-						name="company"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Company</FormLabel>
-								<FormControl>
-									<Input {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="title"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Title</FormLabel>
-								<FormControl>
-									<Input {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="pay"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Pay</FormLabel>
-								<FormControl>
-									<Input {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="href"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Link</FormLabel>
-								<FormControl>
-									<Input {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
+		<form>
+			<div className="flex flex-col gap-2 pb-4 sm:gap-4">
+				<div>
+					<Label>Company</Label>
+					<Input name="company" defaultValue={data.company} />
+				</div>
+				<div>
+					<Label>Title</Label>
+					<Input name="title" defaultValue={data.title} />
+				</div>
+				<div>
+					<Label>Pay</Label>
+					<Input name="pay" defaultValue={data.pay ?? ""} />
+				</div>
+				<div>
+					<Label>Link</Label>
+					<Input name="href" defaultValue={data.href ?? ""} />
+				</div>
+				<div>
+					<Label>Description</Label>
+					<Textarea
+						className="h-24"
 						name="description"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Description</FormLabel>
-								<FormControl>
-									<Textarea className="h-24" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
+						defaultValue={data.description}
 					/>
 				</div>
-				<DialogFooter>
-					<Button
-						onClick={form.handleSubmit(handleSubmit)}
-						type="submit"
-					>
-						Save {data ? "Changes" : "Experience"}
-					</Button>
-				</DialogFooter>
-			</form>
-		</Form>
+			</div>
+			<input type="hidden" name="id" value={data?.id} />
+			<input
+				type="hidden"
+				name="createdAt"
+				value={data?.createdAt.toDateString()}
+			/>
+			<Button type="submit">
+				Save {data ? "Changes" : "Experience"}
+			</Button>
+		</form>
 	);
 }

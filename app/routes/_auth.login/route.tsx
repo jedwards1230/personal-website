@@ -2,7 +2,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node"; /
 import { json, redirect } from "@remix-run/node"; // or cloudflare/deno
 import { useLoaderData } from "@remix-run/react";
 
-import { createAdminSession, isAuthenticated } from "../session.server";
+import { createAdminSession, isAuthenticated } from "../../session.server";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
