@@ -1,3 +1,6 @@
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 const isProduction = process.env.NODE_ENV === "production";
 
 export function invariant(
@@ -15,4 +18,8 @@ export function invariant(
 	var provided = typeof message === "function" ? message() : message;
 	var value = provided ? "".concat(prefix, ": ").concat(provided) : prefix;
 	throw new Error(value);
+}
+
+export function cn(...inputs: ClassValue[]) {
+	return twMerge(clsx(inputs));
 }

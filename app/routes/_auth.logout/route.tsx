@@ -1,5 +1,5 @@
 import { type ActionFunctionArgs } from "@remix-run/node";
-import { logoutAdminSession } from "../session.server";
+import { logoutAdminSession } from "../../session.server";
 import { Form, Link } from "@remix-run/react";
 import { Button } from "@/components/ui/button";
 
