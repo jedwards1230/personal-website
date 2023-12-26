@@ -200,10 +200,10 @@ export const handleProjectFormSubmit = async (request: Request) => {
 			description: description,
 			info: info,
 			href,
-			tags: tags.split(",").map((tag) => tag.trim()),
+			tags: tags.split(",").map(tag => tag.trim()),
 			showcase,
 			favorite,
-			images: images.split(",").map((image) => image.trim()),
+			images: images.split(",").map(image => image.trim()),
 		});
 		return true;
 	} catch (error: any) {

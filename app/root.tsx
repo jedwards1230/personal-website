@@ -19,7 +19,7 @@ export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function App() {
 	useEffect(() => {
-		document.addEventListener("keydown", (e) => {
+		document.addEventListener("keydown", e => {
 			// cmd + 0
 			if (e.metaKey && e.key === "0") {
 				e.preventDefault();

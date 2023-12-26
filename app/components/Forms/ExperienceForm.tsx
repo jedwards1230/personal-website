@@ -131,8 +131,8 @@ export const handleExperienceFormSubmit = async (request: Request) => {
 			period,
 			summary,
 			description: description.split("\n"),
-			tags: tags.split(",").map((tag) => tag.trim()),
-			extraTags: extraTags.split(",").map((tag) => tag.trim()),
+			tags: tags.split(",").map(tag => tag.trim()),
+			extraTags: extraTags.split(",").map(tag => tag.trim()),
 		});
 		return true;
 	} catch (error: any) {

@@ -22,7 +22,7 @@ export default function Chat() {
 									<Markdown>{m.content}</Markdown>
 								</div>
 							</div>
-						))
+					  ))
 					: null}
 			</div>
 			<form
