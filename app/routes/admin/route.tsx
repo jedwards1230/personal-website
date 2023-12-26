@@ -18,7 +18,7 @@ export default function Admin() {
 
 				{/* Body */}
 				<div className="rounded-sm grid grid-cols-12 overflow-hidden border border-border h-full w-full">
-					<div className="w-full transition-all col-span-12 sm:col-span-2 flex flex-col border-r border-border">
+					<div className="w-full transition-all hidden lg:flex col-span-2 flex-col border-r border-border">
 						<SideBar />
 					</div>
 					<Outlet />

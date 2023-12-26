@@ -1,21 +1,21 @@
 import {
 	type ActionFunction,
-	json,
 	type LoaderFunctionArgs,
 	type MetaFunction,
 	defer,
 } from "@remix-run/node";
 import { Await, useLoaderData } from "@remix-run/react";
+import { Suspense } from "react";
 
-import Intro from "@/components/Intro";
-import Projects from "@/components/Projects";
 import { getPageViews } from "@/data";
-import Contact, { handleFormSubmit } from "@/components/Contact";
 import { getAbout } from "@/models/about.server";
 import { getAllProjects } from "@/models/project.server";
 import { AdminButton } from "@/components/buttons/AdminButton";
 import { isAuthenticated } from "@/session.server";
-import { Suspense } from "react";
+
+import Intro from "./Intro";
+import Projects from "./Projects";
+import Contact, { handleFormSubmit } from "./Contact";
 
 export const meta: MetaFunction = () => {
 	return [

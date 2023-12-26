@@ -14,4 +14,4 @@ terraform/**/*.terraform*
 terraform/**/terraform.tfstate*
 **/*.tfvars
 
-nextjs/
+old/
