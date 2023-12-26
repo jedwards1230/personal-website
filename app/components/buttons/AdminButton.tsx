@@ -3,12 +3,13 @@ import { User } from "lucide-react";
 
 import { Button } from "../ui/button";
 
-
-export const AdminButton = ({isAuthenticated}: {
+export const AdminButton = ({
+	isAuthenticated,
+}: {
 	isAuthenticated: boolean;
 }) => {
 	if (!isAuthenticated) {
-		return null; 
+		return null;
 	}
 
 	return (

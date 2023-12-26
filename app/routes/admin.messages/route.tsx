@@ -27,7 +27,7 @@ export default function Messages() {
 					</tr>
 				</thead>
 				<tbody>
-					{messages.map((m) => {
+					{messages.map(m => {
 						return (
 							<tr key={m.id}>
 								<td className="border px-4 py-2">{m.name}</td>

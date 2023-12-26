@@ -54,12 +54,12 @@ export default function Index() {
 				<Intro about={about} />
 				<Suspense fallback={<p>Loading...</p>}>
 					<Await resolve={projects}>
-						{(projects) => <Projects projects={projects} />}
+						{projects => <Projects projects={projects} />}
 					</Await>
 				</Suspense>
 				<Suspense fallback={<p>Loading...</p>}>
 					<Await resolve={pageViews}>
-						{(pageViews) => (
+						{pageViews => (
 							<Contact about={about} pageViews={pageViews} />
 						)}
 					</Await>

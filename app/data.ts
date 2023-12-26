@@ -15,7 +15,7 @@ export async function getPageViews(): Promise<number> {
 			Authorization: "Bearer " + process.env.PLAUSIBLE_API_KEY,
 		},
 		// next: { revalidate: 10 },
-	}).then((res) => res.json());
+	}).then(res => res.json());
 
 	return res.results.visitors.value || 0;
 }

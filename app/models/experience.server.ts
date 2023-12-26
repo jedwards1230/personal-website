@@ -36,7 +36,7 @@ export async function getAllExperiences(
 				[sortBy]: "asc",
 			},
 		});
-		return experiences.map((experience) => ({
+		return experiences.map(experience => ({
 			...experience,
 			extraTags: experience.extraTags
 				? experience.extraTags.split(",")

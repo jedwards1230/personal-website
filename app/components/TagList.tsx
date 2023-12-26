@@ -18,7 +18,7 @@ export default function TagList({
 					<Badge
 						key={"tag-" + i}
 						variant="outline"
-						onClick={(e) => {
+						onClick={e => {
 							e.stopPropagation();
 							onClick(t);
 						}}

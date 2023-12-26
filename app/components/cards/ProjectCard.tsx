@@ -14,7 +14,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 		}); */
 
 	const images = project.images?.length
-		? project.images.filter((i) => i.length > 0)
+		? project.images.filter(i => i.length > 0)
 		: [];
 
 	return (

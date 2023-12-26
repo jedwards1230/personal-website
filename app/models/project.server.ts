@@ -17,7 +17,7 @@ export async function getProjectById(id: number): Promise<Project> {
 		...project,
 		images:
 			project.images.length > 0
-				? project.images.filter((img) => img !== "")
+				? project.images.filter(img => img !== "")
 				: [],
 	};
 }
@@ -31,11 +31,11 @@ export async function getAllProjects(
 				[sortBy]: "asc",
 			},
 		});
-		return projects.map((project) => ({
+		return projects.map(project => ({
 			...project,
 			images:
 				project.images.length > 0
-					? project.images.filter((img) => img !== "")
+					? project.images.filter(img => img !== "")
 					: [],
 		}));
 	} catch (error) {
