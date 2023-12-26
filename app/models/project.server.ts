@@ -1,9 +1,18 @@
 import { prisma } from "@/lib/prisma";
+import { invariant } from "@/utils";
 
 export async function createProject(data: Project): Promise<Project> {
 	const project = await prisma.project.create({
 		data,
 	});
+	return project;
+}
+
+export async function getProjectById(id: number): Promise<Project> {
+	const project = await prisma.project.findUnique({
+		where: { id },
+	});
+	invariant(project, "Project not found");
 	return project;
 }
 

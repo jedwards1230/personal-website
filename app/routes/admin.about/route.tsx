@@ -40,7 +40,7 @@ export default function DataSections() {
 	};
 
 	return (
-		<div className="flex flex-col gap-4">
+		<div className="flex col-span-10 p-4 flex-col gap-4">
 			<div className="flex justify-between">
 				<div className="flex flex-col gap-2">
 					<h2 className="text-xl capitalize font-semibold">About</h2>

@@ -20,7 +20,7 @@ export default function Chat() {
 		useAssistant({ api: "/api/assistant" });
 
 	return (
-		<div className="flex h-full flex-col justify-between gap-4">
+		<div className="flex h-full col-span-10 flex-col p-4 justify-between gap-4">
 			<div className="flex flex-col h-full overflow-y-scroll gap-4">
 				{messages.map((m: Message) => {
 					const input = m.data ? (m.data as any) : null;

@@ -34,7 +34,7 @@ export default function Intro({ about }: { about: About }) {
 						{about.name || "Name"}
 					</div>
 					<div
-						className="pb-1 text-2xl text-secondary-foreground"
+						className="pb-1 text-2xl text-muted-foreground"
 						aria-label="Title"
 					>
 						{about.title || "Title"}

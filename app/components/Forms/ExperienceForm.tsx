@@ -39,8 +39,8 @@ export const handleExperienceFormSubmit = async (request: Request) => {
 			period,
 			summary,
 			description: description.split("\n"),
-			tags: tags.split(","),
-			extraTags: extraTags.split(","),
+			tags: tags.split(",").map((tag) => tag.trim()),
+			extraTags: extraTags.split(",").map((tag) => tag.trim()),
 		});
 		return json({ success: "Updated successfully!" });
 	} catch (error: any) {
@@ -48,39 +48,50 @@ export const handleExperienceFormSubmit = async (request: Request) => {
 	}
 };
 
-export default function ExperienceForm({ data }: { data?: Experience }) {
+export default function ExperienceForm({ data }: { data: Experience }) {
 	return (
 		<form>
 			<div className="grid gap-2 pb-4 sm:gap-4">
 				<div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
 					<div className="col-span-3">
 						<Label>Title</Label>
-						<Input name="title" />
+						<Input name="title" defaultValue={data.title} />
 					</div>
 					<div className="col-span-3">
 						<Label>Company</Label>
-						<Input name="company" />
+						<Input name="company" defaultValue={data.company} />
 					</div>
 				</div>
 				<div className="col-span-3">
 					<Label>Period</Label>
-					<Input name="period" />
+					<Input name="period" defaultValue={data.period} />
 				</div>
 				<div className="col-span-3">
 					<Label>Summary</Label>
-					<Textarea className="h-24" name="summary" />
+					<Textarea
+						className="h-24"
+						name="summary"
+						defaultValue={data.summary}
+					/>
 				</div>
 				<div className="col-span-3">
 					<Label>Description</Label>
-					<Textarea className="h-64" name="description" />
+					<Textarea
+						className="h-64"
+						name="description"
+						defaultValue={data.description.join("\n")}
+					/>
 				</div>
 				<div className="col-span-3">
 					<Label>Tags</Label>
-					<Input name="tags" />
+					<Input name="tags" defaultValue={data.tags.join(", ")} />
 				</div>
 				<div className="col-span-3">
 					<Label>Extra Tags</Label>
-					<Input name="extraTags" />
+					<Input
+						name="extraTags"
+						defaultValue={data.extraTags?.join(", ")}
+					/>
 				</div>
 			</div>
 			<Button type="submit">

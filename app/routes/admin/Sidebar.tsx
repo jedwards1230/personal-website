@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { NavLink } from "@remix-run/react";
 import clsx from "clsx";
 
 export default function SideBar() {
@@ -25,15 +25,22 @@ function ListItem({
 	className?: string;
 }) {
 	return (
-		<Link
-			className={clsx(
-				"w-full block py-1 hover:bg-secondary cursor-pointer capitalize pl-4",
-				className
-			)}
+		<NavLink
 			to={to}
 			title={to}
+			className={({ isActive, isPending }) =>
+				clsx(
+					isPending
+						? "pending"
+						: isActive
+							? "bg-secondary hover:bg-secondary/80"
+							: "",
+					"w-full block py-1 hover:bg-secondary cursor-pointer capitalize pl-4",
+					className
+				)
+			}
 		>
 			{children}
-		</Link>
+		</NavLink>
 	);
 }
