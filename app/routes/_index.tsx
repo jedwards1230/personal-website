@@ -50,7 +50,7 @@ export default function Index() {
 				<AdminButton isAuthenticated={authenticated} />
 				{/* <ThemeToggle /> */}
 			</div>
-			<div className="max-w-screen flex w-full flex-col justify-between gap-4 px-4 pt-8 sm:px-8 md:h-full md:px-12 md:pt-0 lg:px-24 xl:px-32">
+			<div className="max-w-screen select-none flex w-full flex-col justify-between gap-4 px-4 pt-8 sm:px-8 md:h-full md:px-12 md:pt-0 lg:px-24 xl:px-32">
 				<Intro about={about} />
 				<Suspense fallback={<p>Loading...</p>}>
 					<Await resolve={projects}>
