@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 
-import TagList from "./TagList";
-import ProjectDialog from "./dialogs/ProjectDialog";
+import TagList from "@/components/TagList";
+import ProjectDialog from "@/components/dialogs/ProjectDialog";
+
 import SectionTitle from "./SectionTitle";
 
 const ID = "projects";

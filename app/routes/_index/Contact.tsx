@@ -3,10 +3,11 @@ import { json, useFetcher } from "@remix-run/react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import DownloadResume from "@/components/DownloadResume";
-import SectionTitle from "@/components/SectionTitle";
-import { Label } from "./ui/label";
+import { Label } from "@/components/ui/label";
 import { createContact } from "@/models/contact.server";
+
+import DownloadResume from "./DownloadResume";
+import SectionTitle from "./SectionTitle";
 
 const ID = "contact";
 

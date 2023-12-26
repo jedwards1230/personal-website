@@ -1,17 +1,19 @@
 import { prisma } from "@/lib/prisma";
 import { invariant } from "@/utils";
 
-export async function createExperience(data: Experience): Promise<Experience> {
+export async function createExperience(): Promise<number> {
 	const experience = await prisma.experience.create({
 		data: {
-			...data,
-			extraTags: data.extraTags ? data.extraTags.join(",") : undefined,
+			title: "New Title",
+			company: "New Company",
+			period: "",
+			summary: "",
+			description: [""],
+			tags: [],
+			extraTags: "",
 		},
 	});
-	return {
-		...experience,
-		extraTags: experience.extraTags ? experience.extraTags.split(",") : [],
-	};
+	return experience.id;
 }
 
 export async function getExperienceById(id: number): Promise<Experience> {

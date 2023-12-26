@@ -17,7 +17,7 @@ export default function Messages() {
 	const messages = useLoaderData<typeof loader>() as Contact[];
 
 	return (
-		<div className="col-span-10">
+		<div className="col-span-12 lg:col-span-10">
 			<table className="table-auto w-full">
 				<thead>
 					<tr>

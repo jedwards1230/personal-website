@@ -30,12 +30,10 @@ function ListItem({
 			title={to}
 			className={({ isActive, isPending }) =>
 				clsx(
-					isPending
-						? "pending"
-						: isActive
-							? "bg-secondary hover:bg-secondary/80"
-							: "",
-					"w-full block py-1 hover:bg-secondary cursor-pointer capitalize pl-4",
+					isPending || isActive
+						? "bg-foreground text-background hover:bg-foreground/70"
+						: "focus:bg-foreground/30",
+					"w-full block transition-all duration-100 py-2 hover:bg-secondary cursor-pointer capitalize pl-4",
 					className
 				)
 			}

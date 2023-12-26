@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 export default function Chat() {
 	const { messages, input, handleInputChange, handleSubmit } = useChat();
 	return (
-		<div className="flex col-span-10 h-full p-4 flex-col justify-between">
-			<div className="flex flex-col gap-4">
+		<div className="flex col-span-12 gap-4 lg:col-span-10 overflow-hidden h-full p-4 flex-col justify-between">
+			<div className="flex overflow-y-scroll flex-col gap-4">
 				{messages.length > 0
 					? messages.map((m, i) => (
 							<div

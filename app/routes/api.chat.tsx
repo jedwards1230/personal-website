@@ -32,11 +32,9 @@ export async function action({ request }: ActionFunctionArgs) {
 			about.name
 		}. Here's some information about them: ${
 			about.description
-		}. I have these experiences: ${experiences
-			.map((e) => e.title)
-			.join(", ")}. And these are my projects: ${projects
-			.map((p) => p.title)
-			.join(", ")}.`,
+		}. I have these experiences: ${JSON.stringify(
+			experiences
+		)}. And these are my projects: ${JSON.stringify(projects)}.`,
 	};
 
 	// Add the system instruction to the messages

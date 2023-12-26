@@ -83,7 +83,7 @@ export function ErrorBoundary() {
 	return (
 		<html
 			lang="en"
-			className="bg-background h-full w-full transition-all text-foreground scroll-smooth select-none"
+			className="bg-background h-full w-full transition-all text-foreground scroll-smooth"
 		>
 			<head>
 				<title>Oh no!</title>

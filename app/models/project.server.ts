@@ -13,7 +13,13 @@ export async function getProjectById(id: number): Promise<Project> {
 		where: { id },
 	});
 	invariant(project, "Project not found");
-	return project;
+	return {
+		...project,
+		images:
+			project.images.length > 0
+				? project.images.filter((img) => img !== "")
+				: [],
+	};
 }
 
 export async function getAllProjects(
