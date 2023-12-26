@@ -3,8 +3,9 @@ import {
 	json,
 	type LoaderFunctionArgs,
 	type MetaFunction,
+	defer,
 } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Await, useLoaderData } from "@remix-run/react";
 
 import Intro from "@/components/Intro";
 import Projects from "@/components/Projects";
@@ -14,6 +15,7 @@ import { getAbout } from "@/models/about.server";
 import { getAllProjects } from "@/models/project.server";
 import { AdminButton } from "@/components/buttons/AdminButton";
 import { isAuthenticated } from "@/session.server";
+import { Suspense } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -26,13 +28,11 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
-	const [projects, pageViews, about] = await Promise.all([
-		getAllProjects("id"),
-		getPageViews(),
-		getAbout(),
-	]);
+	const projects = getAllProjects("id");
+	const pageViews = getPageViews();
+	const about = await getAbout();
 	const authenticated = await isAuthenticated(request);
-	return json({
+	return defer({
 		projects,
 		pageViews,
 		about,
@@ -52,8 +52,18 @@ export default function Index() {
 			</div>
 			<div className="max-w-screen flex w-full flex-col justify-between gap-4 px-4 pt-8 sm:px-8 md:h-full md:px-12 md:pt-0 lg:px-24 xl:px-32">
 				<Intro about={about} />
-				<Projects projects={projects} />
-				<Contact about={about} pageViews={pageViews} />
+				<Suspense fallback={<p>Loading...</p>}>
+					<Await resolve={projects}>
+						{(projects) => <Projects projects={projects} />}
+					</Await>
+				</Suspense>
+				<Suspense fallback={<p>Loading...</p>}>
+					<Await resolve={pageViews}>
+						{(pageViews) => (
+							<Contact about={about} pageViews={pageViews} />
+						)}
+					</Await>
+				</Suspense>
 			</div>
 		</>
 	);

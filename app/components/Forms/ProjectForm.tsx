@@ -68,33 +68,40 @@ export default function ProjectForm({ data }: { data: Project }) {
 					<Label>Title</Label>
 					<Input name="title" defaultValue={data.title} />
 				</div>
-				<div>
-					<Label>Company</Label>
-					<Input name="company" defaultValue={data.company} />
-				</div>
-				<div>
-					<Label>Client</Label>
-					<Input name="client" defaultValue={data.client ?? ""} />
+				<div className="flex gap-4 justify-between">
+					<div className="w-full">
+						<Label>Company</Label>
+						<Input name="company" defaultValue={data.company} />
+					</div>
+					<div className="w-full">
+						<Label>Client</Label>
+						<Input name="client" defaultValue={data.client ?? ""} />
+					</div>
 				</div>
 				<div>
 					<Label>Link</Label>
 					<Input name="href" defaultValue={data.href ?? ""} />
 				</div>
-				<div>
-					<Label>Year</Label>
-					<Input name="year" defaultValue={data.year} />
-				</div>
-				<div>
-					<Label>Month</Label>
-					<Input name="month" defaultValue={data.month} />
+				<div className="flex gap-4 justify-between">
+					<div className="w-full">
+						<Label>Month</Label>
+						<Input name="month" defaultValue={data.month} />
+					</div>
+					<div className="w-full">
+						<Label>Year</Label>
+						<Input name="year" defaultValue={data.year} />
+					</div>
 				</div>
 				<div>
 					<Label>Tags</Label>
-					<Input name="tags" defaultValue={data.tags.join(",")} />
+					<Input name="tags" defaultValue={data.tags.join(", ")} />
 				</div>
 				<div>
 					<Label>Images</Label>
-					<Input name="images" defaultValue={data.images.join(",")} />
+					<Input
+						name="images"
+						defaultValue={data.images.join(", ")}
+					/>
 				</div>
 				<div>
 					<Label>Showcase</Label>

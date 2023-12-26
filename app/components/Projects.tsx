@@ -71,7 +71,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
 								<div className="flex flex-col justify-between font-medium text-foreground md:flex-row md:items-center">
 									{p.title}
 									{p.company !== "Personal" && (
-										<div className="text-sm text-blue-400">
+										<div className="text-sm text-primary">
 											@{p.company}
 										</div>
 									)}

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { invariant } from "@/utils";
 
 export async function createExperience(data: Experience): Promise<Experience> {
 	const experience = await prisma.experience.create({
@@ -7,6 +8,17 @@ export async function createExperience(data: Experience): Promise<Experience> {
 			extraTags: data.extraTags ? data.extraTags.join(",") : undefined,
 		},
 	});
+	return {
+		...experience,
+		extraTags: experience.extraTags ? experience.extraTags.split(",") : [],
+	};
+}
+
+export async function getExperienceById(id: number): Promise<Experience> {
+	const experience = await prisma.experience.findUnique({
+		where: { id },
+	});
+	invariant(experience, "Experience not found");
 	return {
 		...experience,
 		extraTags: experience.extraTags ? experience.extraTags.split(",") : [],
