@@ -1,0 +1,17 @@
+node_modules
+
+/.cache
+/build
+/public/build
+.env
+
+.DS_Store
+*.pem
+__pycache__
+.mypy_cache/
+
+terraform/**/*.terraform*
+terraform/**/terraform.tfstate*
+**/*.tfvars
+
+old/
