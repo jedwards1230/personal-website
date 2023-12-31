@@ -12,7 +12,7 @@ export default async function Page({
 	const data = await getAbout();
 
 	return (
-		<div className="flex col-span-12 lg:col-span-10 p-4 flex-col gap-4">
+		<div className="flex overflow-y-scroll col-span-12 lg:col-span-10 p-4 flex-col gap-4">
 			<div className="flex justify-between">
 				<div className="flex flex-col gap-2">
 					<h2 className="text-xl capitalize font-semibold">About</h2>

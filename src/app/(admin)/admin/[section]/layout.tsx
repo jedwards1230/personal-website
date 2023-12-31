@@ -8,6 +8,8 @@ import {
 import { createProject, getAllProjects } from "@/models/project.server";
 import NavItem from "../NavItem";
 
+export const dynamic = "force-dynamic";
+
 const SECTIONS = {
 	projects: {
 		getData: () => getAllProjects("title"),

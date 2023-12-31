@@ -18,9 +18,9 @@ export default function AboutView({ data }: { data: About }) {
 					<p>{data.phone}</p>
 				</div>
 			</div>
-			<div className="hidden flex-col gap-2">
+			<div className="flex-col gap-2">
 				<Label>About</Label>
-				<Markdown>{data.description}</Markdown>d
+				<Markdown>{data.description}</Markdown>
 			</div>
 			<div className="flex flex-col gap-2">
 				<Label>LinkedIn</Label>

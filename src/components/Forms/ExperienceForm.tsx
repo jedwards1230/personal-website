@@ -1,122 +1,97 @@
+"use client";
+
+import { useFormState } from "react-dom";
+import { redirect, usePathname } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { updateExperience } from "@/models/experience.server";
 import { Label } from "@/components/ui/label";
+import Submit from "../buttons/SubmitButton";
+import { updateExperience } from "@/models/experience.server";
 
 export default function ExperienceForm({ data }: { data: Experience }) {
-	const handleExperienceFormSubmit = async (formData: FormData) => {
-		"use server";
+	const pathname = usePathname();
+
+	async function handleExperienceFormSubmit(p: any, formData: FormData) {
 		const id = Number(formData.get("id"));
-		const title = String(formData.get("title"));
-		const company = String(formData.get("company"));
-		const period = String(formData.get("period"));
-		const summary = String(formData.get("summary"));
-		const description = String(formData.get("description"));
-		const tags = String(formData.get("tags"));
-		const extraTags = String(formData.get("extraTags"));
-
-		const errors: Record<string, string> = {};
-
-		if (!id) errors.id = "ID is required.";
-		if (!title) errors.title = "Title is required.";
-		if (!company) errors.company = "Company is required.";
-		if (!period) errors.period = "Period is required.";
-		if (!summary) errors.summary = "Summary is required.";
-		if (!tags) errors.tags = "Tags are required.";
-		if (!description) errors.description = "Description is required.";
-
-		if (Object.keys(errors).length > 0) {
-			console.log(errors);
-			return { errors };
-		}
+		if (!id) return { error: "Invalid id." };
 
 		try {
 			await updateExperience({
 				id,
-				title,
-				company,
-				period,
-				summary,
-				description: description.split("\n"),
-				tags: tags.split(",").map(tag => tag.trim()),
-				extraTags: extraTags.split(",").map(tag => tag.trim()),
+				title: String(formData.get("title")),
+				company: String(formData.get("company")),
+				period: String(formData.get("period")),
+				summary: String(formData.get("summary")),
+				description: String(formData.get("description")).split("\n"),
+				tags: String(formData.get("tags"))
+					.split(",")
+					.map(tag => tag.trim()),
+				extraTags: String(formData.get("extraTags"))
+					.split(",")
+					.map(tag => tag.trim()),
 			});
-			return true;
 		} catch (error: any) {
 			return { error: "Failed to send message." };
 		}
-	};
 
-	const actionData = {
-		errors: {},
-	} as any;
+		redirect(pathname);
+	}
+
+	// @ts-ignore
+	const [state, formAction] = useFormState(handleExperienceFormSubmit, {});
+
 	return (
-		<form action={handleExperienceFormSubmit} method="post">
+		<form action={formAction}>
 			<div className="grid gap-2 pb-4 sm:gap-4">
 				<div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-4">
 					<div className="col-span-3">
 						<Label>Title</Label>
-						<Input name="title" defaultValue={data.title} />
-						{actionData?.errors?.title && (
-							<p className="text-destructive">
-								{actionData.errors.title}
-							</p>
-						)}
+						<Input
+							required
+							name="title"
+							defaultValue={data.title}
+						/>
 					</div>
 					<div className="col-span-3">
 						<Label>Company</Label>
-						<Input name="company" defaultValue={data.company} />
-						{actionData?.errors?.company && (
-							<p className="text-destructive">
-								{actionData.errors.company}
-							</p>
-						)}
+						<Input
+							required
+							name="company"
+							defaultValue={data.company}
+						/>
 					</div>
 				</div>
 				<div className="col-span-3">
 					<Label>Period</Label>
-					<Input name="period" defaultValue={data.period} />
-					{actionData?.errors?.period && (
-						<p className="text-destructive">
-							{actionData.errors.period}
-						</p>
-					)}
+					<Input required name="period" defaultValue={data.period} />
 				</div>
 				<div className="col-span-3">
 					<Label>Summary</Label>
 					<Textarea
+						required
 						className="h-24"
 						name="summary"
 						defaultValue={data.summary}
 					/>
-					{actionData?.errors?.summary && (
-						<p className="text-destructive">
-							{actionData.errors.summary}
-						</p>
-					)}
 				</div>
 				<div className="col-span-3">
 					<Label>Description</Label>
 					<Textarea
+						required
 						className="h-64"
 						name="description"
 						defaultValue={data.description.join("\n")}
 					/>
-					{actionData?.errors?.description && (
-						<p className="text-destructive">
-							{actionData.errors.description}
-						</p>
-					)}
 				</div>
 				<div className="col-span-3">
 					<Label>Tags</Label>
-					<Input name="tags" defaultValue={data.tags.join(", ")} />
-					{actionData?.errors?.tags && (
-						<p className="text-destructive">
-							{actionData.errors.tags}
-						</p>
-					)}
+					<Input
+						required
+						name="tags"
+						defaultValue={data.tags.join(", ")}
+					/>
 				</div>
 				<div className="col-span-3">
 					<Label>Extra Tags</Label>
@@ -131,7 +106,10 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 				<Button type="button" variant="destructive">
 					Delete
 				</Button>
-				<Button type="submit">Save</Button>
+				<Submit />
+			</div>
+			<div className="pt-2 text-center">
+				{state?.error && <p className="text-red-500">{state.error}</p>}
 			</div>
 		</form>
 	);
