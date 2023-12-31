@@ -6,6 +6,8 @@ import { getAbout } from "@/models/about.server";
 import { getAllExperiences } from "@/models/experience.server";
 import { getAllProjects } from "@/models/project.server";
 
+export const runtime = "edge";
+
 type ResponseMessages = {
 	messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[];
 };

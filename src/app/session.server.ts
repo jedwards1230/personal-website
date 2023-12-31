@@ -9,10 +9,6 @@ invariant(
 	process.env.ADMIN_PASSWORD,
 	"Missing ADMIN_PASSWORD environment variable"
 );
-invariant(
-	process.env.SESSION_SECRET,
-	"Missing SESSION_SECRET environment variable"
-);
 
 export async function createAdminSession(password: string, redirectTo: string) {
 	if (password !== process.env.ADMIN_PASSWORD) {
