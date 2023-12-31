@@ -38,20 +38,18 @@ export default async function Page({
 					<EditButton isEdit={false} />
 				</div>
 			)}
-			<div>
-				<div className="flex flex-col">
-					<div className="flex flex-row justify-between">
-						<div className="font-bold">Name</div>
-						<div>{message.name}</div>
-					</div>
-					<div className="flex flex-row justify-between">
-						<div className="font-bold">Email</div>
-						<div>{message.email}</div>
-					</div>
-					<div className="flex flex-row justify-between">
-						<div className="font-bold">Message</div>
-						<div>{message.message}</div>
-					</div>
+			<div className="space-y-2">
+				<div className="space-y-1">
+					<div className="font-bold">Name</div>
+					<div>{message.name}</div>
+				</div>
+				<div className="space-y-1">
+					<div className="font-bold">Email</div>
+					<div>{message.email}</div>
+				</div>
+				<div className="space-y-1">
+					<div className="font-bold">Message</div>
+					<div>{message.message}</div>
 				</div>
 			</div>
 		</div>
