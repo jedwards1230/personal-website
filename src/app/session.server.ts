@@ -23,11 +23,9 @@ export async function createAdminSession(password: string, redirectTo: string) {
 		name: "admin",
 		value: "true",
 		httpOnly: true,
-		path: "/",
+		sameSite: "lax",
 		maxAge: 60 * 60 * 24 * 30, // 30 days
 	});
-
-	return redirect(redirectTo);
 }
 
 export async function isAuthenticated() {
@@ -44,5 +42,5 @@ export async function requireAdminSession() {
 
 export async function logoutAdminSession() {
 	cookies().delete("admin");
-	return redirect("/");
+	redirect("/");
 }

@@ -10,7 +10,11 @@ export default function EditButton({ isEdit }: { isEdit: boolean }) {
 	const pathname = usePathname();
 
 	return (
-		<Button size="icon" variant={isEdit ? "destructive" : "outline"}>
+		<Button
+			asChild
+			size="icon"
+			variant={isEdit ? "destructive" : "outline"}
+		>
 			<Link href={isEdit ? pathname : `${pathname}?edit=true`}>
 				<Edit />
 			</Link>
