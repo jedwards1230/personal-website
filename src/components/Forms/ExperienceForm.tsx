@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import Submit from "../buttons/SubmitButton";
 import { updateExperience } from "@/models/experience.server";
 
 export default function ExperienceForm({ data }: { data: Experience }) {
+	const router = useRouter();
 	const pathname = usePathname();
 
 	async function handleExperienceFormSubmit(p: any, formData: FormData) {
@@ -48,7 +49,7 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 			return { error: "Failed to send message." };
 		}
 
-		redirect(pathname);
+		router.push(pathname);
 	}
 
 	// @ts-ignore

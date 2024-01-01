@@ -2,6 +2,9 @@ import Header from "./Header";
 import NavItem from "./NavItem";
 import Download from "./Download";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="mx-auto h-full flex flex-col gap-4 p-4">

@@ -3,11 +3,13 @@
 import { invariant } from "@/lib/utils";
 import { kv } from "@vercel/kv";
 import { addIdToList, getAllIds, removeIdFromList } from "./helpers";
+import { revalidatePath } from "next/cache";
 
 export async function createContact(contact: Contact): Promise<number> {
 	const key = `contact-${contact.id}`;
 	await kv.set(key, JSON.stringify(contact));
 	const id = await addIdToList("contact-ids", contact.id);
+	revalidatePath("/");
 	return id;
 }
 
@@ -42,4 +44,5 @@ export async function deleteContact(id: number): Promise<void> {
 	const key = `contact-${id}`;
 	await kv.del(key);
 	await removeIdFromList("contact-ids", id);
+	revalidatePath("/");
 }

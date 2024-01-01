@@ -56,7 +56,8 @@ export default function ProjectCard({ project }: { project: Project }) {
 							</p>
 						</div>
 						<div className="text-neutral-500 dark:text-neutral-400">
-							{project.month}/{project.year}
+							{new Date(project.date).getMonth() + 1}/
+							{new Date(project.date).getFullYear()}
 						</div>
 					</div>
 

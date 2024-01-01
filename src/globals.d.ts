@@ -14,10 +14,7 @@ type Experience = {
 
 type Project = {
 	id: number;
-	/** Year of completion */
-	year: number;
-	/** Month of completion */
-	month: number;
+	date: Date;
 	/** Where I worked when I built the project */
 	company: string;
 	/** Who the project was built for */
