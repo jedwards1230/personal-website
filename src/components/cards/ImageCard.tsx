@@ -1,20 +1,24 @@
+"use client";
+
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { usePlausible } from "next-plausible";
+import { useEffect, useState } from "react";
 
 export default function ImageCard({ project }: { project: Project }) {
+	const plausible = usePlausible();
 	const [idx, setIdx] = useState(0);
 
 	const next = () => setIdx(idx < project.images.length - 1 ? idx + 1 : 0);
 	const prev = () => setIdx(idx > 0 ? idx - 1 : project.images.length - 1);
 
-	/* useEffect(() => {
-        plausible('Image', {
-            props: {
-                project: project.title,
-                image: project.images[idx],
-            },
-        });
-    }, [idx, plausible, project.images, project.title]); */
+	useEffect(() => {
+		plausible("Image", {
+			props: {
+				project: project.title,
+				image: project.images[idx],
+			},
+		});
+	}, [idx, plausible, project.images, project.title]);
 
 	return (
 		<div className="relative flex h-auto select-none items-center justify-center overflow-x-hidden">

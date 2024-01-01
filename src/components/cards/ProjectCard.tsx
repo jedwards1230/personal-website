@@ -1,17 +1,21 @@
+"use client";
+
 import clsx from "clsx";
+import { Star } from "lucide-react";
+import { usePlausible } from "next-plausible";
 
 import TagList from "../TagList";
 import Markdown from "../Markdown";
 import ImagesDialog from "../dialogs/ImagesDialog";
-import { Star } from "lucide-react";
 
 export default function ProjectCard({ project }: { project: Project }) {
-	/* const openImageModal = () =>
+	const plausible = usePlausible();
+	const openImageModal = () =>
 		plausible("View Project Image", {
 			props: {
 				project: project.title,
 			},
-		}); */
+		});
 
 	const images = project.images?.length
 		? project.images.filter(i => i.length > 0)
@@ -28,7 +32,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 							height={400}
 							src={images[0]}
 							alt={project.title}
-							//onClick={openImageModal}
+							onClick={openImageModal}
 							className="aspect-video w-full cursor-pointer select-none rounded-lg border border-foreground object-cover shadow-sm transition-all hover:sm:scale-[101%]"
 						/>
 					</ImagesDialog>
