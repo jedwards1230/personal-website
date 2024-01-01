@@ -1,4 +1,5 @@
 import TagList from "@/components/TagList";
+import ProjectDialog from "@/components/dialogs/ProjectDialog";
 import { getAllProjects } from "@/models/project.server";
 
 export default async function Projects() {
@@ -7,9 +8,13 @@ export default async function Projects() {
 	return (
 		<div className="space-y-2">
 			<div className="text-xl font-semibold">Projects</div>
-			<div className="space-y-4">
+			<div className="flex flex-col gap-4">
 				{projects.map(project => (
-					<div className="space-y-1" key={project.id}>
+					<ProjectDialog
+						project={project}
+						className="space-y-1 border border-transparent hover:border-border rounded-rounded rounded p-2"
+						key={project.id}
+					>
 						<div className="flex items-center justify-between">
 							<div className="flex gap-2 items-center">
 								<div className="font-medium">
@@ -23,13 +28,10 @@ export default async function Projects() {
 								{project.date.getFullYear()}
 							</p>
 						</div>
-						<div className="text-sm px-2">
-							{project.description}
-						</div>
 						<div>
 							<TagList tags={project.tags} />
 						</div>
-					</div>
+					</ProjectDialog>
 				))}
 			</div>
 		</div>
