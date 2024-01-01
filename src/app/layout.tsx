@@ -7,6 +7,7 @@ import "./styles.css";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+export const runtime = "edge";
 
 const inter = Inter({ subsets: ["latin"] });
 

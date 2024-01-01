@@ -1,11 +1,11 @@
 import { Suspense } from "react";
+import Link from "next/link";
 
 import Contact from "./Contact";
 import ProjectsList from "./ProjectsList";
 import Intro from "./Intro";
 import { AdminButton } from "@/components/buttons/AdminButton";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export default async function Page() {
 	return (
