@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { usePlausible } from "next-plausible";
 
 import TagList from "@/components/TagList";
@@ -9,32 +8,9 @@ import ProjectDialog from "@/components/dialogs/ProjectDialog";
 export default function Projects({ projects }: { projects: Project[] }) {
 	const plausible = usePlausible();
 
-	const sortedProjects = useMemo(
-		() =>
-			projects.sort((a, b) => {
-				// sort by year, most recent first
-				if (a.date.getFullYear() > b.date.getFullYear()) return -1;
-				if (a.date.getFullYear() < b.date.getFullYear()) return 1;
-				// sort by month, most recent first
-				if (a.date.getMonth() > b.date.getMonth()) return -1;
-				if (a.date.getMonth() < b.date.getMonth()) return 1;
-				// sort by favorite
-				if (a.favorite && !b.favorite) return -1;
-				if (!a.favorite && b.favorite) return 1;
-				// sort by company
-				if (a.company > b.company) return 1;
-				if (a.company < b.company) return -1;
-				// sort by title
-				if (a.title > b.title) return 1;
-				if (a.title < b.title) return -1;
-				return 0;
-			}),
-		[projects]
-	);
-
 	return (
 		<div className="grid grid-cols-12 gap-4 md:gap-6">
-			{sortedProjects.map((p, i) => (
+			{projects.map((p, i) => (
 				<ProjectDialog
 					project={p}
 					className="col-span-6 md:col-span-4 lg:col-span-3"

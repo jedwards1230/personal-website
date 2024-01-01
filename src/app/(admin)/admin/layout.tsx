@@ -13,8 +13,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				<Header />
 
 				<div className="rounded-sm grid grid-cols-12 overflow-hidden border border-border h-full w-full">
-					<div className="flex w-full col-span-2 flex-col justify-between gap-2">
-						<div className="w-full transition-all hidden lg:flex flex-col border-r border-border">
+					<div className="hidden lg:flex w-full col-span-2 flex-col justify-between gap-2">
+						<div className="w-full transition-all flex flex-col border-r border-border">
 							<NavItem to={"/admin/about"}>About</NavItem>
 							<NavItem to={"/admin/experience"}>
 								Experience
