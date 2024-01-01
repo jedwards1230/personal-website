@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 export default function Markdown({ children }: { children: string }) {
 	return (
 		<ReactMarkdown
+			className="space-y-2"
 			components={{
 				h1: ({ node, ...props }) => (
 					<h1
@@ -47,6 +48,14 @@ export default function Markdown({ children }: { children: string }) {
 					>
 						{children}
 					</li>
+				),
+				pre: ({ node, children, ...props }) => (
+					<pre
+						{...props}
+						className="border border-border rounded rounded-rounded p-1 bg-secondary overflow-x-scroll"
+					>
+						{children}
+					</pre>
 				),
 			}}
 		>
