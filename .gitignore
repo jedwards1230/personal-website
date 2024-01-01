@@ -37,8 +37,8 @@ yarn-error.log*
 next-env.d.ts
 
 
-old/
-old1/
+data.json
+script.ts
 
 terraform/**/*.terraform*
 terraform/**/terraform.tfstate*
