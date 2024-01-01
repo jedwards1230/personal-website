@@ -1,6 +1,7 @@
 import Header from "./Header";
 import NavItem from "./NavItem";
 import Download from "./Download";
+import Upload from "./Upload";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -25,7 +26,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 							<div className="h-px bg-border my-2 mx-4"></div>
 							<NavItem to="/admin/messages">Messages</NavItem>
 						</div>
-						<Download />
+						<div className="flex flex-col gap-2">
+							<Download />
+							<Upload />
+						</div>
 					</div>
 					{children}
 				</div>

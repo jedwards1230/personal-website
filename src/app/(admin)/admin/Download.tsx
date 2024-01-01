@@ -8,13 +8,13 @@ import { getAllProjects } from "@/models/project.server";
 
 export default function Download() {
 	const getData = async () => {
-		const [about, projects, experience, messages] = await Promise.all([
+		const [about, projects, experiences, messages] = await Promise.all([
 			await getAbout(),
 			await getAllProjects(),
 			await getAllExperiences(),
 			await getAllMessages(),
 		]);
-		return { about, projects, experience, messages };
+		return { about, projects, experiences, messages };
 	};
 
 	const saveData = async () => {
