@@ -8,7 +8,7 @@ export default async function Page() {
 	const [about, projects, experience] = await Promise.all([
 		await getAbout(),
 		await getAllProjects(),
-		await getAllExperiences(),
+		await getAllExperiences("endDate"),
 	]);
 
 	const linkedInUsername = about.linkedin.replace(/\/$/, "").split("/").pop();
@@ -28,7 +28,7 @@ export default async function Page() {
 					<div>{about.location}</div>
 				</div>
 
-				<div className="flex flex-col gap-1 pt-1">
+				<div className="flex flex-col text-sm gap-1 pt-1">
 					<a
 						className="hover:underline"
 						target="_blank"
@@ -55,27 +55,52 @@ export default async function Page() {
 			<div className="space-y-1">
 				<div className="text-xl font-semibold">Experience</div>
 				<div className="space-y-2">
-					{experience.map(experience => (
-						<div key={experience.id}>
-							<div className="flex pb-2 justify-between">
-								<div className="flex gap-2 items-end">
-									<div className="text-lg font-medium">
-										{experience.company}
+					{experience.map(experience => {
+						const startDate = new Date(experience.startDate);
+						const endDate = experience.endDate
+							? new Date(experience.endDate)
+							: null;
+
+						return (
+							<div key={experience.id}>
+								<div className="flex pb-2 justify-between">
+									<div className="flex gap-2 items-end">
+										<div className="font-medium">
+											{experience.company}
+										</div>
+										{"-"}
+										<div>{experience.title}</div>
 									</div>
-									{"-"}
-									<div>{experience.title}</div>
+									<div
+										title={calculateTimeSpent(
+											startDate,
+											endDate
+										)}
+										className="flex gap-2 text-secondary-foreground"
+									>
+										<p>
+											{startDate.getMonth() + 1}/
+											{startDate.getFullYear()}
+										</p>
+										-
+										<p>
+											{endDate
+												? endDate.getMonth() +
+													1 +
+													"/" +
+													endDate.getFullYear()
+												: "Present"}
+										</p>
+									</div>
 								</div>
-								<div className="text-secondary-foreground">
-									{experience.period}
+								<div className="text-sm px-2">
+									{experience.description.map(d => (
+										<div key={d}>{d}</div>
+									))}
 								</div>
 							</div>
-							<div className="text-sm px-2">
-								{experience.description.map(d => (
-									<div key={d}>{d}</div>
-								))}
-							</div>
-						</div>
-					))}
+						);
+					})}
 				</div>
 			</div>
 			{/* <div>
@@ -91,4 +116,23 @@ export default async function Page() {
 			</div> */}
 		</div>
 	);
+}
+
+function calculateTimeSpent(startDate: Date, endDate?: Date | null): string {
+	if (!endDate) {
+		endDate = new Date();
+	}
+
+	let years = endDate.getFullYear() - startDate.getFullYear();
+	let months = endDate.getMonth() - startDate.getMonth() + 1;
+
+	if (months <= 0) {
+		years--;
+		months += 12;
+	} else if (months > 12) {
+		years++;
+		months = 0;
+	}
+
+	return `${years} years, ${months} months`;
 }

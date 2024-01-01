@@ -14,9 +14,8 @@ export async function addIdToList(key: string, id: number) {
 		ids.push(id);
 		const res = await kv.set(key, JSON.stringify(ids));
 		invariant(res, `Failed to add ID to list: ${key}`);
-		return id;
 	}
-	return null;
+	return id;
 }
 
 export async function removeIdFromList(key: string, id: number) {

@@ -2,6 +2,9 @@ import Markdown from "@/components/Markdown";
 import { Label } from "@/components/ui/label";
 
 export default function ExperienceView({ data }: { data: Experience }) {
+	const startDate = new Date(data.startDate);
+	const endDate = data.endDate ? new Date(data.endDate) : null;
+
 	return (
 		<div className="flex transition-all flex-col gap-2">
 			<div className="w-1/2 pb-4">
@@ -9,7 +12,20 @@ export default function ExperienceView({ data }: { data: Experience }) {
 				<p className="text-lg text-secondary-foreground">
 					{data.title}
 				</p>
-				<p>{data.period}</p>
+				<div className="flex gap-2">
+					<p>
+						{startDate.getMonth() + 1}/{startDate.getFullYear()}
+					</p>
+					-
+					<p>
+						{endDate
+							? endDate.getMonth() +
+								1 +
+								"/" +
+								endDate.getFullYear()
+							: "Present"}
+					</p>
+				</div>
 			</div>
 
 			<div className="flex flex-col gap-2">

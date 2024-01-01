@@ -6,7 +6,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 async function loadDataFromFile() {
-	const filePath = join(__dirname, "./data-dev.json");
+	const filePath = join(__dirname, "./data.json");
 	const data = JSON.parse(readFileSync(filePath, "utf8"));
 
 	// Upload projects
@@ -16,7 +16,11 @@ async function loadDataFromFile() {
 
 	// Upload experiences
 	for (const experience of data.experience) {
-		await createExperience(experience);
+		await createExperience({
+			...experience,
+			startDate: new Date(),
+			endDate: experience.endDate ? new Date() : null,
+		});
 	}
 
 	// Upload contacts

@@ -17,12 +17,24 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 		const id = Number(formData.get("id"));
 		if (!id) return { error: "Invalid id." };
 
+		const startYear = Number(formData.get("startYear"));
+		const startMonth = Number(formData.get("startMonth")) - 1;
+		const startDate = new Date(startYear, startMonth);
+
+		let endDate = null;
+		const endYear = formData.get("endYear");
+		const endMonth = formData.get("endMonth");
+		if (endYear && endMonth) {
+			endDate = new Date(Number(endYear), Number(endMonth) - 1);
+		}
+
 		try {
 			await updateExperience({
 				id,
 				title: String(formData.get("title")),
 				company: String(formData.get("company")),
-				period: String(formData.get("period")),
+				startDate,
+				endDate,
 				summary: String(formData.get("summary")),
 				description: String(formData.get("description")).split("\n"),
 				tags: String(formData.get("tags"))
@@ -64,8 +76,48 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 					</div>
 				</div>
 				<div className="col-span-3">
-					<Label>Period</Label>
-					<Input required name="period" defaultValue={data.period} />
+					<Label>Start Date</Label>
+					<div className="flex gap-2">
+						<Input
+							required
+							name="startMonth"
+							type="month"
+							defaultValue={
+								new Date(data.startDate).getMonth() + 1
+							}
+						/>
+						<Input
+							required
+							name="startYear"
+							type="year"
+							defaultValue={new Date(
+								data.startDate
+							).getFullYear()}
+						/>
+					</div>
+				</div>
+				<div className="col-span-3">
+					<Label>End Date</Label>
+					<div className="flex gap-2">
+						<Input
+							name="endMonth"
+							type="month"
+							defaultValue={
+								data.endDate
+									? new Date(data.endDate).getMonth() + 1
+									: undefined
+							}
+						/>
+						<Input
+							name="endYear"
+							type="year"
+							defaultValue={
+								data.endDate
+									? new Date(data.endDate).getFullYear()
+									: undefined
+							}
+						/>
+					</div>
 				</div>
 				<div className="col-span-3">
 					<Label>Summary</Label>
