@@ -1,53 +1,46 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import { invariant } from "@/lib/utils";
+import { kv } from "@vercel/kv";
+import { addIdToList, getAllIds, removeIdFromList } from "./helpers";
 
-export async function createContact(
-	name: string,
-	email: string,
-	message: string
-): Promise<Contact> {
-	const contact = await prisma.contact.create({
-		data: {
-			name: name || "Anonymous",
-			email: email || "Anonymous",
-			message,
-		},
-	});
-	return contact;
+export async function createContact(contact: Contact): Promise<number> {
+	const key = `contact-${contact.id}`;
+	await kv.set(key, JSON.stringify(contact));
+	const id = await addIdToList("contact-ids", contact.id);
+	invariant(id, "Failed to add contact ID to list");
+	return id;
 }
 
 export async function readContact(id: number): Promise<Contact> {
-	const contact = await prisma.contact.update({
-		where: { id },
-		data: {
-			readAt: new Date(),
-		},
-	});
+	const key = `contact-${id}`;
+	const contact = await kv.get<Contact>(key);
+	invariant(contact, "Contact not found");
 	return contact;
 }
 
 export async function getAllMessages(): Promise<Contact[]> {
-	const messages = await prisma.contact.findMany({
-		orderBy: {
-			createdAt: "desc",
-		},
-	});
-	return messages;
+	const ids = await getAllIds("contact-ids");
+	const contacts = [];
+	for (const id of ids) {
+		const contact = await readContact(id);
+		if (contact) {
+			contacts.push(contact);
+		}
+	}
+	return contacts;
 }
 
-export async function getUnreadMessageCount() {
-	const count = await prisma.contact.count({
-		where: {
-			readAt: null,
-		},
-	});
-	return count;
+export async function getUnreadMessageCount(): Promise<number> {
+	const messages = await getAllMessages();
+	return messages.reduce(
+		(count, message) => (message.readAt === null ? count + 1 : count),
+		0
+	);
 }
 
-export async function deleteContact(id: number) {
-	const contact = await prisma.contact.delete({
-		where: { id },
-	});
-	return contact;
+export async function deleteContact(id: number): Promise<void> {
+	const key = `contact-${id}`;
+	await kv.del(key);
+	await removeIdFromList("contact-ids", id);
 }

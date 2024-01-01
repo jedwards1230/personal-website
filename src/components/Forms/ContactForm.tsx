@@ -11,11 +11,14 @@ import { Textarea } from "../ui/textarea";
 export default function ContactForm() {
 	async function submitMessage(p: any, formData: FormData) {
 		try {
-			await createContact(
-				String(formData.get("name")),
-				String(formData.get("email")),
-				String(formData.get("message"))
-			);
+			await createContact({
+				name: String(formData.get("name")),
+				email: String(formData.get("email")),
+				message: String(formData.get("message")),
+				id: Date.now(),
+				createdAt: new Date(),
+				readAt: null,
+			});
 			return { success: "Message sent successfully!" };
 		} catch (e) {
 			return { error: String(e) };

@@ -12,14 +12,14 @@ export const dynamic = "force-dynamic";
 
 const SECTIONS = {
 	projects: {
-		getData: () => getAllProjects("title"),
+		getData: () => getAllProjects(),
 		create: () => createProject,
 		path: "/admin/projects",
 		title: "Projects",
 		listBy: "title",
 	},
 	experience: {
-		getData: () => getAllExperiences("company"),
+		getData: () => getAllExperiences(),
 		create: createExperience,
 		path: "/admin/experience",
 		title: "Experience",
