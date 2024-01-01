@@ -5,6 +5,9 @@ import clsx from "clsx";
 
 import "./styles.css";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
