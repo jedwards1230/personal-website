@@ -30,7 +30,7 @@ export default function ContactForm() {
 			action={formAction}
 			className="flex h-full w-full flex-1 flex-col justify-between"
 		>
-			<div className="flex w-full select-none flex-col gap-2">
+			<div className="flex w-full select-none flex-col gap-4">
 				<p className="mb-2 text-lg">Leave a message</p>
 
 				<div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
@@ -50,7 +50,7 @@ export default function ContactForm() {
 						rows={5}
 					/>
 				</div>
-				<Submit />
+				<Submit>Send</Submit>
 				<div className="pt-2 text-center">
 					{state?.success && (
 						<p className="text-green-500">{state.success}</p>

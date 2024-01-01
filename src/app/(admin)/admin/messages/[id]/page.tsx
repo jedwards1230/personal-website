@@ -48,6 +48,10 @@ export default async function Page({
 					<div>{message.email}</div>
 				</div>
 				<div className="space-y-1">
+					<div className="font-bold">Date</div>
+					<div>{message.createdAt.toLocaleString()}</div>
+				</div>
+				<div className="space-y-1">
 					<div className="font-bold">Message</div>
 					<div>{message.message}</div>
 				</div>
