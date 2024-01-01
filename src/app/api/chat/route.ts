@@ -20,8 +20,8 @@ export async function POST(request: Request) {
 	// Fetch data from your models
 	const [about, experiences, projects] = await Promise.all([
 		getAbout(),
-		getAllExperiences("id"),
-		getAllProjects("id"),
+		getAllExperiences(),
+		getAllProjects(),
 	]);
 
 	// Insert the data into the system instruction

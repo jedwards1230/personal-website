@@ -8,8 +8,8 @@ const MyPdf = dynamic(() => import("./PdfViewer"), { ssr: false });
 export default async function Page() {
 	const [about, projects, experiences] = await Promise.all([
 		await getAbout(),
-		await getAllProjects("id"),
-		await getAllExperiences("id"),
+		await getAllProjects(),
+		await getAllExperiences(),
 	]);
 
 	return (

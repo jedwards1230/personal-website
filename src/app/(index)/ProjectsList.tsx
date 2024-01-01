@@ -6,7 +6,7 @@ import Projects from "./Projects";
 const ID = "projects";
 
 export default async function ProjectsList() {
-	const projects = await getAllProjects("id");
+	const projects = await getAllProjects();
 
 	return (
 		<section

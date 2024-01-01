@@ -1,35 +1,14 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import { invariant } from "@/lib/utils";
+import { kv } from "@vercel/kv";
 
 export async function getAbout(): Promise<About> {
-	try {
-		const about = await prisma.about.findFirst();
-		return (
-			about || {
-				id: 0,
-				name: "",
-				title: "",
-				description: "",
-				tags: [],
-				email: "",
-				phone: "",
-				location: "",
-				linkedin: "",
-				github: "",
-			}
-		);
-	} catch (error) {
-		console.error(error);
-		throw error;
-	}
+	const value = await kv.get<About>("about");
+	invariant(value, "About not found");
+	return value;
 }
 
-export async function updateAbout(a: About): Promise<About> {
-	const about = await prisma.about.upsert({
-		where: { id: a.id },
-		update: a,
-		create: a,
-	});
-	return about;
+export async function updateAbout(a: About) {
+	await kv.set("about", JSON.stringify(a));
 }

@@ -1,55 +1,37 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
 import { invariant } from "@/lib/utils";
+import { kv } from "@vercel/kv";
+import { addIdToList, getAllIds } from "./helpers";
 
-export async function createProject(data: Project): Promise<Project> {
-	const project = await prisma.project.create({
-		data,
-	});
-	return project;
+export async function createProject(data: Project): Promise<number> {
+	const key = `project-${data.id}`;
+	await kv.set(key, JSON.stringify(data));
+	const id = await addIdToList("project-ids", data.id);
+	invariant(id, "Failed to add project ID to list");
+	return id;
 }
 
 export async function getProjectById(id: number): Promise<Project> {
-	const project = await prisma.project.findUnique({
-		where: { id },
-	});
-	invariant(project, "Project not found");
-	return {
-		...project,
-		images:
-			project.images.length > 0
-				? project.images.filter(img => img !== "")
-				: [],
-	};
+	const key = `project-${id}`;
+	const value = await kv.get<Project>(key);
+	invariant(value, "Project not found");
+	return value;
 }
 
-export async function getAllProjects(
-	sortBy: "id" | "title"
-): Promise<Project[]> {
-	try {
-		const projects = await prisma.project.findMany({
-			orderBy: {
-				[sortBy]: "asc",
-			},
-		});
-		return projects.map(project => ({
-			...project,
-			images:
-				project.images.length > 0
-					? project.images.filter(img => img !== "")
-					: [],
-		}));
-	} catch (error) {
-		console.error(error);
-		throw error;
+export async function getAllProjects(): Promise<Project[]> {
+	const ids = await getAllIds("project-ids");
+	const projects = [];
+	for (const id of ids) {
+		const project = await getProjectById(id);
+		if (project) {
+			projects.push(project);
+		}
 	}
+	return projects;
 }
 
 export async function updateProject(p: Project): Promise<Project> {
-	const project = await prisma.project.update({
-		where: { id: p.id },
-		data: p,
-	});
-	return project;
+	await kv.set(`project:${p.id}`, p);
+	return p;
 }

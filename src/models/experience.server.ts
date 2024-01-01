@@ -1,65 +1,37 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
 import { invariant } from "@/lib/utils";
+import { kv } from "@vercel/kv";
+import { addIdToList, getAllIds } from "./helpers";
 
-export async function createExperience(): Promise<number> {
-	const experience = await prisma.experience.create({
-		data: {
-			title: "New Title",
-			company: "New Company",
-			period: "",
-			summary: "",
-			description: [""],
-			tags: [],
-			extraTags: "",
-		},
-	});
-	return experience.id;
+export async function createExperience(data: Experience): Promise<number> {
+	const key = `experience-${data.id}`;
+	await kv.set(key, JSON.stringify(data));
+	const id = await addIdToList("experience-ids", data.id);
+	invariant(id, "Failed to add experience ID to list");
+	return id;
 }
 
 export async function getExperienceById(id: number): Promise<Experience> {
-	const experience = await prisma.experience.findUnique({
-		where: { id },
-	});
-	invariant(experience, "Experience not found");
-	return {
-		...experience,
-		extraTags: experience.extraTags ? experience.extraTags.split(",") : [],
-	};
+	const key = `experience-${id}`;
+	const value = await kv.get<Experience>(key);
+	invariant(value, "Experience not found");
+	return value;
 }
 
-export async function getAllExperiences(
-	sortBy: "id" | "company"
-): Promise<Experience[]> {
-	try {
-		const experiences = await prisma.experience.findMany({
-			orderBy: {
-				[sortBy]: "asc",
-			},
-		});
-		return experiences.map(experience => ({
-			...experience,
-			extraTags: experience.extraTags
-				? experience.extraTags.split(",")
-				: [],
-		}));
-	} catch (error) {
-		console.error(error);
-		throw error;
+export async function getAllExperiences(): Promise<Experience[]> {
+	const ids = await getAllIds("experience-ids");
+	const experiences = [];
+	for (const id of ids) {
+		const experience = await getExperienceById(id);
+		if (experience) {
+			experiences.push(experience);
+		}
 	}
+	return experiences;
 }
 
-export async function updateExperience(e: Experience): Promise<Experience> {
-	const experience = await prisma.experience.update({
-		where: { id: e.id },
-		data: {
-			...e,
-			extraTags: e.extraTags ? e.extraTags.join(",") : undefined,
-		},
-	});
-	return {
-		...experience,
-		extraTags: experience.extraTags ? experience.extraTags.split(",") : [],
-	};
+export async function updateExperience(e: Experience) {
+	const key = `experience-${e.id}`;
+	await kv.set(key, JSON.stringify(e));
 }
