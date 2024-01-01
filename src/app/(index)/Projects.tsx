@@ -10,11 +10,11 @@ export default function Projects({ projects }: { projects: Project[] }) {
 		() =>
 			projects.sort((a, b) => {
 				// sort by year, most recent first
-				if (a.year > b.year) return -1;
-				if (a.year < b.year) return 1;
+				if (a.date.getFullYear() > b.date.getFullYear()) return -1;
+				if (a.date.getFullYear() < b.date.getFullYear()) return 1;
 				// sort by month, most recent first
-				if (a.month > b.month) return -1;
-				if (a.month < b.month) return 1;
+				if (a.date.getMonth() > b.date.getMonth()) return -1;
+				if (a.date.getMonth() < b.date.getMonth()) return 1;
 				// sort by favorite
 				if (a.favorite && !b.favorite) return -1;
 				if (!a.favorite && b.favorite) return 1;

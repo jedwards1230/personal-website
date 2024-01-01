@@ -2,6 +2,7 @@ import Markdown from "@/components/Markdown";
 import { Label } from "@/components/ui/label";
 
 export default function ProjectView({ data }: { data: Project }) {
+	const date = new Date(data.date);
 	return (
 		<div className="flex w-full flex-col gap-2">
 			<div className="w-1/2 pb-4">
@@ -11,7 +12,7 @@ export default function ProjectView({ data }: { data: Project }) {
 				</p>
 				<p className="text-secondary-foreground">{data.client}</p>
 				<p>
-					{data.month}/{data.year}
+					{date.getMonth() + 1}/{date.getFullYear()}
 				</p>
 			</div>
 			{data.href && (

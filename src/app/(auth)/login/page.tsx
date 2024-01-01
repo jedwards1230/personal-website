@@ -5,9 +5,25 @@ import { useFormState } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import loginAction from "./action.server";
+import { createAdminSession } from "@/app/session.server";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Page() {
+	const router = useRouter();
+	const pathname = usePathname();
+
+	async function loginAction(p: any, formData: FormData) {
+		const password = String(formData.get("password"));
+
+		try {
+			await createAdminSession(password, "/admin");
+		} catch (error) {
+			return { error: String(error) };
+		}
+
+		router.push(pathname);
+	}
+
 	// @ts-ignore
 	const [state, formAction] = useFormState(loginAction, {});
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,17 +11,24 @@ import { updateProject } from "@/models/project.server";
 import { Label } from "@/components/ui/label";
 
 export default function ProjectForm({ data }: { data: Project }) {
+	const router = useRouter();
 	const pathname = usePathname();
 
 	const handleProjectFormSubmit = async (p: any, formData: FormData) => {
 		const id = Number(formData.get("id"));
 		if (!id) return { error: "Invalid id." };
 
+		const date = new Date(
+			Number(formData.get("year")),
+			Number(formData.get("month")) - 1
+		);
+
+		console.log(date);
+
 		try {
 			await updateProject({
 				id,
-				year: Number(formData.get("year")),
-				month: Number(formData.get("month")),
+				date,
 				company: String(formData.get("company")),
 				client: String(formData.get("client")),
 				title: String(formData.get("title")),
@@ -41,7 +48,7 @@ export default function ProjectForm({ data }: { data: Project }) {
 			return { error: "Failed to send message." };
 		}
 
-		redirect(pathname);
+		router.push(pathname);
 	};
 
 	// @ts-ignore
@@ -70,11 +77,7 @@ export default function ProjectForm({ data }: { data: Project }) {
 				</div>
 				<div>
 					<Label>Link</Label>
-					<Input
-						required
-						name="href"
-						defaultValue={data.href ?? ""}
-					/>
+					<Input name="href" defaultValue={data.href ?? ""} />
 				</div>
 				<div className="flex gap-4 justify-between">
 					<div className="w-full">
@@ -82,12 +85,16 @@ export default function ProjectForm({ data }: { data: Project }) {
 						<Input
 							required
 							name="month"
-							defaultValue={data.month}
+							defaultValue={new Date(data.date).getMonth() + 1}
 						/>
 					</div>
 					<div className="w-full">
 						<Label>Year</Label>
-						<Input required name="year" defaultValue={data.year} />
+						<Input
+							required
+							name="year"
+							defaultValue={new Date(data.date).getFullYear()}
+						/>
 					</div>
 				</div>
 				<div>

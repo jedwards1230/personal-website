@@ -6,8 +6,6 @@ import EditButton from "@/components/buttons/EditButton";
 import { getExperienceById } from "@/models/experience.server";
 import { getProjectById } from "@/models/project.server";
 
-export const dynamic = "force-dynamic";
-
 const SECTIONS = {
 	projects: {
 		getData: getProjectById,
