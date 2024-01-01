@@ -7,6 +7,7 @@ import { ChangeEvent, useState } from "react";
 
 export default function Upload() {
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const target = event.target as HTMLInputElement;
@@ -25,9 +26,11 @@ export default function Upload() {
 				if (typeof text !== "string") return;
 				try {
 					const json = JSON.parse(text);
-					uploadData(json); // Call the uploadData function with the parsed JSON
+					await uploadData(json);
+					setStatusMessage("Data uploaded successfully");
 				} catch (error) {
 					console.error("Error parsing JSON:", error);
+					setStatusMessage("Error parsing JSON");
 				}
 			};
 
@@ -41,6 +44,7 @@ export default function Upload() {
 			<Button variant="link" onClick={handleUpload}>
 				Upload Data
 			</Button>
+			{statusMessage && <p>{statusMessage}</p>}
 		</>
 	);
 }
