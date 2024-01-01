@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import { Star } from "lucide-react";
 import { usePlausible } from "next-plausible";
 
 import TagList from "../TagList";
@@ -53,7 +52,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 					>
 						<div>
 							<p className="flex items-center gap-2 text-xl font-medium">
-								{project.title} {project.favorite && <Star />}
+								{project.title}
 							</p>
 							<p className="text-lg text-neutral-600 dark:text-neutral-300">
 								{project.company}
