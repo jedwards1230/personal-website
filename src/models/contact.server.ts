@@ -8,7 +8,6 @@ export async function createContact(contact: Contact): Promise<number> {
 	const key = `contact-${contact.id}`;
 	await kv.set(key, JSON.stringify(contact));
 	const id = await addIdToList("contact-ids", contact.id);
-	invariant(id, "Failed to add contact ID to list");
 	return id;
 }
 

@@ -8,7 +8,6 @@ export async function createProject(data: Project): Promise<number> {
 	const key = `project-${data.id}`;
 	await kv.set(key, JSON.stringify(data));
 	const id = await addIdToList("project-ids", data.id);
-	invariant(id, "Failed to add project ID to list");
 	return id;
 }
 

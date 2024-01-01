@@ -4,7 +4,8 @@ type Experience = {
 	id: number;
 	title: string;
 	company: string;
-	period: string;
+	startDate: Date;
+	endDate: Date | null;
 	summary: string;
 	description: string[];
 	tags: string[];

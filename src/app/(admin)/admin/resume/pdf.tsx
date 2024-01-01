@@ -74,7 +74,9 @@ export function PdfDocument({ data }: { data: PDFData }) {
 										<Text>{experience.title}</Text>
 									</View>
 									<Text style={tw("uppercase text-[8px]")}>
-										{experience.period}
+										{experience.startDate.getDate()} -{" "}
+										{experience.endDate?.getDate() ??
+											"Present"}
 									</Text>
 									<View style={tw("pl-2")}>
 										{experience.description.map(item => (
