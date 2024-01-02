@@ -16,16 +16,14 @@ export default async function Contact() {
 	return (
 		<section
 			id={ID}
-			className="flex h-full min-h-screen py-2 flex-col gap-4 sm:py-16 md:justify-between md:gap-8"
+			className="flex min-h-screen py-2 flex-col gap-4 sm:py-16 md:gap-8"
 		>
 			<SectionTitle id={ID} />
-			<div className="flex flex-col gap-4 md:mt-4 md:flex-row">
-				<div className="flex h-full flex-col pb-8 justify-between gap-4 md:w-1/2">
+			<div className="flex flex-col gap-4 md:gap-8 md:justify-between md:mt-4 md:flex-row">
+				<div className="flex h-full flex-col pb-8 justify-between gap-4">
 					<div className="space-y-4">
-						<p>
-							I am currently looking for new opportunities. Feel
-							free to reach out!
-						</p>
+						<p>I am currently looking for new opportunities.</p>
+						<p>Feel free to reach out!</p>
 						<p>
 							Email:{" "}
 							<a
