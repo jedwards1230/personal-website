@@ -16,50 +16,54 @@ export default async function Contact() {
 	return (
 		<section
 			id={ID}
-			className="flex h-full min-h-full flex-col gap-4 sm:py-16 md:justify-between md:gap-8"
+			className="flex h-full min-h-screen py-2 flex-col gap-4 sm:py-16 md:justify-between md:gap-8"
 		>
 			<SectionTitle id={ID} />
 			<div className="flex flex-col gap-4 md:mt-4 md:flex-row">
-				<div className="flex flex-col justify-start gap-4 md:w-1/2">
-					<p>
-						I am currently looking for new opportunities. Feel free
-						to reach out!
-					</p>
-					<p>
-						Email:{" "}
-						<a
-							className="hover:underline"
-							href={"mailto:" + about.email + "?subject=Hello!"}
-							target="_blank"
-							rel="noreferrer"
-						>
-							{about.email}
-						</a>
-					</p>
-					<p>
-						LinkedIn:{" "}
-						<a
-							className="hover:underline"
-							href={about.linkedin}
-							target="_blank"
-							rel="noreferrer"
-						>
-							{"@" + linkedInUsername}
-						</a>
-					</p>
-					<p>
-						GitHub:{" "}
-						<a
-							className="hover:underline"
-							href={about.github}
-							target="_blank"
-							rel="noreferrer"
-						>
-							{"@" + githubUsername}
-						</a>
-					</p>
+				<div className="flex h-full flex-col pb-8 justify-between gap-4 md:w-1/2">
+					<div className="space-y-4">
+						<p>
+							I am currently looking for new opportunities. Feel
+							free to reach out!
+						</p>
+						<p>
+							Email:{" "}
+							<a
+								className="hover:underline"
+								href={
+									"mailto:" + about.email + "?subject=Hello!"
+								}
+								target="_blank"
+								rel="noreferrer"
+							>
+								{about.email}
+							</a>
+						</p>
+						<p>
+							LinkedIn:{" "}
+							<a
+								className="hover:underline"
+								href={about.linkedin}
+								target="_blank"
+								rel="noreferrer"
+							>
+								{"@" + linkedInUsername}
+							</a>
+						</p>
+						<p>
+							GitHub:{" "}
+							<a
+								className="hover:underline"
+								href={about.github}
+								target="_blank"
+								rel="noreferrer"
+							>
+								{"@" + githubUsername}
+							</a>
+						</p>
+					</div>
 					<Button
-						className="!px-0 !py-0 !h-6 text-lg mr-auto font-medium"
+						className="!px-0 !py-0 !h-6 mr-auto font-semibold"
 						asChild
 						size="sm"
 						variant="link"

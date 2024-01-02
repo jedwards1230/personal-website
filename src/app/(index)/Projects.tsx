@@ -13,7 +13,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
 			{projects.map((p, i) => (
 				<ProjectDialog
 					project={p}
-					className="col-span-6 md:col-span-4 lg:col-span-3"
+					className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3"
 					key={"projects-" + i}
 				>
 					<div
@@ -32,10 +32,10 @@ export default function Projects({ projects }: { projects: Project[] }) {
 							<img
 								src={p.images[0]}
 								alt={"Preview " + p.title + ".png"}
-								className="h-36 w-full select-none rounded border border-border bg-neutral-100 shadow-sm sm:h-40"
+								className="h-auto aspect-video w-full select-none rounded border border-border bg-neutral-100 shadow-sm sm:h-40"
 							/>
 						) : (
-							<div className="flex h-36 w-full select-none items-center justify-center rounded border border-border bg-background text-foreground shadow-sm sm:h-40">
+							<div className="flex h-auto aspect-video w-full select-none items-center justify-center rounded border border-border bg-background text-foreground shadow-sm sm:h-40">
 								{p.title}
 							</div>
 						)}

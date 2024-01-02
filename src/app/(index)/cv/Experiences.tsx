@@ -14,12 +14,14 @@ export default async function Experiences() {
 
 					return (
 						<div key={experience.id}>
-							<div className="flex pb-2 justify-between">
-								<div className="flex gap-2 items-end">
+							<div className="flex gap-1 sm:gap-2 flex-col sm:flex-row pb-2 sm:justify-between">
+								<div className="flex flex-col sm:flex-row gap-1 sm:gap-2 sm:items-end">
 									<div className="font-medium">
 										{experience.company}
 									</div>
-									{"-"}
+									<span className="hidden sm:inline-block">
+										{"-"}
+									</span>
 									<div>{experience.title}</div>
 								</div>
 								<div
