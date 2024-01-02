@@ -1,12 +1,18 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Edit } from "lucide-react";
+import { Edit, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default function EditButton({ isEdit }: { isEdit: boolean }) {
+export default function EditButton({
+	isEdit,
+	newItem = false,
+}: {
+	isEdit: boolean;
+	newItem?: boolean;
+}) {
 	const pathname = usePathname();
 
 	return (
@@ -15,8 +21,14 @@ export default function EditButton({ isEdit }: { isEdit: boolean }) {
 			size="icon"
 			variant={isEdit ? "destructive" : "outline"}
 		>
-			<Link href={isEdit ? pathname : `${pathname}?edit=true`}>
-				<Edit />
+			<Link
+				href={
+					isEdit
+						? pathname
+						: `${pathname}?edit=${newItem ? "new" : "true"}`
+				}
+			>
+				{newItem ? <Plus /> : <Edit />}
 			</Link>
 		</Button>
 	);

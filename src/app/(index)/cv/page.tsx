@@ -4,6 +4,7 @@ import Link from "next/link";
 import Experiences from "./Experiences";
 import Projects from "./Projects";
 import DownloadResume from "../DownloadResume";
+import Educations from "./Education";
 
 export default async function Page() {
 	const about = await getAbout();
@@ -12,7 +13,7 @@ export default async function Page() {
 	const githubUsername = about.github.replace(/\/$/, "").split("/").pop();
 
 	return (
-		<div className="max-w-4xl px-4 space-y-4 md:space-y-6 mx-auto py-4 md:py-16">
+		<div className="max-w-4xl px-4 space-y-4 md:space-y-8 mx-auto py-4 md:py-16">
 			<div className="w-full items-center flex justify-between">
 				<Button className="!px-0" variant="link" asChild>
 					<Link href="/">Home</Link>
@@ -53,6 +54,7 @@ export default async function Page() {
 			</div>
 			<p className="text-sm">{about.description}</p>
 			<Experiences />
+			<Educations />
 			<Projects />
 		</div>
 	);
