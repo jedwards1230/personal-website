@@ -11,7 +11,7 @@ export default async function ProjectsList() {
 	return (
 		<section
 			id={ID}
-			className="flex flex-col gap-4 md:gap-8 sm:py-16 md:justify-between"
+			className="flex min-h-screen py-2 flex-col gap-4 md:gap-8 sm:py-16 md:justify-between"
 		>
 			<SectionTitle id={ID} />
 			<Projects projects={projects} />

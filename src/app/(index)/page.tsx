@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Link from "next/link";
 
 import Contact from "./Contact";
@@ -16,14 +15,10 @@ export default async function Page() {
 				</Button>
 				<AdminButton />
 			</div>
-			<div className="max-w-screen select-none flex w-full flex-col justify-between gap-4 px-4 pt-8 sm:px-8 md:h-full md:px-16 md:pt-0 lg:px-24 xl:px-32">
+			<div className="max-w-screen select-none flex w-full flex-col justify-between gap-12 md:gap-4 px-4 pt-8 sm:px-8 md:px-16 md:pt-0 lg:px-24 xl:px-32">
 				<Intro />
-				<Suspense fallback={null}>
-					<ProjectsList />
-				</Suspense>
-				<Suspense fallback={null}>
-					<Contact />
-				</Suspense>
+				<ProjectsList />
+				<Contact />
 			</div>
 		</>
 	);

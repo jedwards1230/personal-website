@@ -12,14 +12,14 @@ export default async function Page() {
 	const githubUsername = about.github.replace(/\/$/, "").split("/").pop();
 
 	return (
-		<div className="max-w-4xl px-4 space-y-6 mx-auto py-16">
+		<div className="max-w-4xl px-4 space-y-4 md:space-y-6 mx-auto py-4 md:py-16">
 			<div className="w-full items-center flex justify-between">
 				<Button className="!px-0" variant="link" asChild>
 					<Link href="/">Home</Link>
 				</Button>
 				<DownloadResume />
 			</div>
-			<div className="flex justify-between">
+			<div className="flex flex-col gap-2 md:flex-row justify-between">
 				<div>
 					<div className="text-2xl font-bold">{about.name}</div>
 					<div className="text-lg font-semibold pb-1">
@@ -27,7 +27,7 @@ export default async function Page() {
 					</div>
 					<div>{about.location}</div>
 				</div>
-				<div className="flex flex-col text-right justify-center text-sm gap-1 pt-1">
+				<div className="flex flex-col md:text-right justify-center text-sm gap-1 pt-1">
 					<a
 						className="hover:underline"
 						target="_blank"
