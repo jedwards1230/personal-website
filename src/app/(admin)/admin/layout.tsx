@@ -1,7 +1,5 @@
 import Header from "./Header";
 import NavItem from "./NavItem";
-import Download from "./Download";
-import Upload from "./Upload";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
@@ -23,9 +21,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 							<div className="h-px bg-border my-2 mx-4"></div>
 							<NavItem to="/admin/messages">Messages</NavItem>
 						</div>
-						<div className="flex flex-col gap-2">
-							<Download />
-							<Upload />
+						<div className="transition-all">
+							<NavItem to="/admin/data">Data</NavItem>
 						</div>
 					</div>
 					{children}

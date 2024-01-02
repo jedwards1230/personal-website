@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { uploadData } from "@/models/upload.server";
+import { uploadData } from "@/models/data";
+import { UploadCloudIcon } from "lucide-react";
 import { ChangeEvent, useState } from "react";
 
 export default function Upload() {
@@ -41,8 +42,8 @@ export default function Upload() {
 	return (
 		<>
 			<Input type="file" onChange={handleFileChange} accept=".json" />
-			<Button variant="link" onClick={handleUpload}>
-				Upload Data
+			<Button size="icon" variant="outline" onClick={handleUpload}>
+				<UploadCloudIcon />
 			</Button>
 			{statusMessage && <p>{statusMessage}</p>}
 		</>
