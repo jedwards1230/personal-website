@@ -1,8 +1,9 @@
-import DownloadResume from "./DownloadResume";
 import SectionTitle from "./SectionTitle";
 import { getAbout } from "@/models/about.server";
 import { getPageViews } from "@/lib/utils";
 import ContactForm from "@/components/Forms/ContactForm";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const ID = "contact";
 
@@ -57,7 +58,14 @@ export default async function Contact() {
 							{"@" + githubUsername}
 						</a>
 					</p>
-					<DownloadResume />
+					<Button
+						className="!px-0 !py-0 !h-6 text-lg mr-auto font-medium"
+						asChild
+						size="sm"
+						variant="link"
+					>
+						<Link href="/cv">View my cv</Link>
+					</Button>
 				</div>
 				<ContactForm />
 			</div>
