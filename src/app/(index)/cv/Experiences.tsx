@@ -3,9 +3,9 @@ import { getAllExperiences } from "@/models/experience.server";
 export default async function Experiences() {
 	const experiences = await getAllExperiences("endDate");
 	return (
-		<div className="space-y-2">
+		<div className="space-y-2 print:space-y-1">
 			<div className="text-xl font-semibold">Experience</div>
-			<div className="space-y-4">
+			<div className="space-y-4 print:space-y-2">
 				{experiences.map(experience => {
 					const startDate = new Date(experience.startDate);
 					const endDate = experience.endDate
@@ -14,7 +14,7 @@ export default async function Experiences() {
 
 					return (
 						<div key={experience.id}>
-							<div className="flex gap-1 sm:gap-2 flex-col sm:flex-row pb-2 sm:justify-between">
+							<div className="flex gap-1 sm:gap-2 flex-col sm:flex-row md:pb-2 sm:justify-between">
 								<div className="flex flex-col sm:flex-row gap-1 sm:gap-2 sm:items-end">
 									<div className="font-medium">
 										{experience.company}

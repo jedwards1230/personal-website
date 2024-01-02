@@ -31,7 +31,7 @@ export default function ContactForm() {
 	return (
 		<form
 			action={formAction}
-			className="flex h-full w-full flex-1 flex-col justify-between"
+			className="flex h-full w-full max-w-[50%] flex-1 flex-col justify-between"
 		>
 			<div className="flex w-full select-none flex-col gap-4">
 				<p className="mb-2 text-lg">Leave a message</p>

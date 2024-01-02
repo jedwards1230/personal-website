@@ -6,7 +6,7 @@ export default async function Projects() {
 	const projects = await getAllProjects();
 
 	return (
-		<div className="space-y-2">
+		<div className="space-y-2 print:hidden">
 			<div className="text-xl font-semibold">Projects</div>
 			<div className="flex flex-col gap-4">
 				{projects.map(project => (
