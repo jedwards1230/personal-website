@@ -5,6 +5,7 @@ import { getAbout } from "@/models/about.server";
 import { getAllMessages } from "@/models/contact.server";
 import { getAllExperiences } from "@/models/experience.server";
 import { getAllProjects } from "@/models/project.server";
+import { DownloadCloudIcon } from "lucide-react";
 
 export default function Download() {
 	const getData = async () => {
@@ -31,8 +32,8 @@ export default function Download() {
 	};
 
 	return (
-		<Button variant="link" onClick={saveData}>
-			Download Data
+		<Button size="icon" variant="outline" onClick={saveData}>
+			<DownloadCloudIcon />
 		</Button>
 	);
 }
