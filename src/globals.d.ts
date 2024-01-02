@@ -59,6 +59,13 @@ type About = {
 	github: string;
 };
 
+type Education = {
+	id: number;
+	school: string;
+	degree: string;
+	endDate: Date;
+};
+
 type Job = {
 	id: number;
 	createdAt: Date;
