@@ -1,17 +1,43 @@
+"use client";
+
+import { usePlausible } from "next-plausible";
+import Image from "next/image";
+
 import ImageCard from "@/components/cards/ImageCard";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 
 export default function ImagesDialog({
 	project,
-	children,
+	src,
+	alt,
 }: {
 	project: Project;
-	children: React.ReactNode;
+	src: string;
+	alt: string;
 }) {
+	const plausible = usePlausible();
+
+	const openImageModal = () =>
+		plausible("View Project Image", {
+			props: {
+				project: project.title,
+			},
+		});
+
 	return (
 		<Dialog>
-			<DialogTrigger asChild className="object-cover">
-				{children}
+			<DialogTrigger
+				onClick={openImageModal}
+				asChild
+				className="object-cover"
+			>
+				<Image
+					width={800}
+					height={400}
+					src={src}
+					alt={alt}
+					className="aspect-video w-full cursor-pointer select-none rounded-lg border border-foreground object-cover shadow-sm transition-all hover:sm:scale-[101%]"
+				/>
 			</DialogTrigger>
 			<DialogContent size="full">
 				<ImageCard project={project} />
