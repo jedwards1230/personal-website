@@ -24,7 +24,7 @@ export async function getProjectById(id: number): Promise<Project> {
 	const key = `project-${id}`;
 	const value = await kv.get<Project>(key);
 	invariant(value, "Project not found");
-	return value;
+	return { ...value, date: new Date(value.date) };
 }
 
 export async function getAllProjects(): Promise<Project[]> {
@@ -36,29 +36,24 @@ export async function getAllProjects(): Promise<Project[]> {
 			projects.push(project);
 		}
 	}
-	return projects
-		.map(p => ({
-			...p,
-			date: new Date(p.date),
-		}))
-		.sort((a, b) => {
-			// sort by year, most recent first
-			if (a.date.getFullYear() > b.date.getFullYear()) return -1;
-			if (a.date.getFullYear() < b.date.getFullYear()) return 1;
-			// sort by month, most recent first
-			if (a.date.getMonth() > b.date.getMonth()) return -1;
-			if (a.date.getMonth() < b.date.getMonth()) return 1;
-			// sort by favorite
-			if (a.favorite && !b.favorite) return -1;
-			if (!a.favorite && b.favorite) return 1;
-			// sort by company
-			if (a.company > b.company) return 1;
-			if (a.company < b.company) return -1;
-			// sort by title
-			if (a.title > b.title) return 1;
-			if (a.title < b.title) return -1;
-			return 0;
-		});
+	return projects.sort((a, b) => {
+		// sort by year, most recent first
+		if (a.date.getFullYear() > b.date.getFullYear()) return -1;
+		if (a.date.getFullYear() < b.date.getFullYear()) return 1;
+		// sort by month, most recent first
+		if (a.date.getMonth() > b.date.getMonth()) return -1;
+		if (a.date.getMonth() < b.date.getMonth()) return 1;
+		// sort by favorite
+		if (a.favorite && !b.favorite) return -1;
+		if (!a.favorite && b.favorite) return 1;
+		// sort by company
+		if (a.company > b.company) return 1;
+		if (a.company < b.company) return -1;
+		// sort by title
+		if (a.title > b.title) return 1;
+		if (a.title < b.title) return -1;
+		return 0;
+	});
 }
 
 export async function updateProject(p: Project): Promise<Project> {

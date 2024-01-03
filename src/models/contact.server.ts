@@ -17,7 +17,11 @@ export async function readContact(id: number): Promise<Contact> {
 	const key = `contact-${id}`;
 	const contact = await kv.get<Contact>(key);
 	invariant(contact, "Contact not found");
-	return contact;
+	return {
+		...contact,
+		createdAt: new Date(contact.createdAt),
+		readAt: contact.readAt ? new Date(contact.readAt) : null,
+	};
 }
 
 export async function getAllMessages(): Promise<Contact[]> {
@@ -29,7 +33,14 @@ export async function getAllMessages(): Promise<Contact[]> {
 			contacts.push(contact);
 		}
 	}
-	return contacts;
+	return contacts.sort((a, b) => {
+		if (a.readAt === null && b.readAt === null) {
+			return b.createdAt.getTime() - a.createdAt.getTime();
+		}
+		if (a.readAt === null) return -1;
+		if (b.readAt === null) return 1;
+		return b.readAt.getTime() - a.readAt.getTime();
+	});
 }
 
 export async function getUnreadMessageCount(): Promise<number> {
