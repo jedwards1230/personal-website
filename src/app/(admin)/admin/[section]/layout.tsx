@@ -6,6 +6,8 @@ import { createProject, getAllProjects } from "@/models/project.server";
 import NavItem from "../NavItem";
 import EditButton from "@/components/buttons/EditButton";
 
+export const runtime = "edge";
+
 const SECTIONS = {
 	projects: {
 		getData: () => getAllProjects(),

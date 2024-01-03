@@ -6,6 +6,14 @@ const nextConfig = {
 	compiler: {
 		removeConsole: process.env.NODE_ENV === PHASE_PRODUCTION_BUILD,
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "raw.githubusercontent.com",
+			},
+		],
+	},
 	async rewrites() {
 		return [
 			{

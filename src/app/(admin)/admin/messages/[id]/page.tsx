@@ -1,6 +1,8 @@
 import EditButton from "@/components/buttons/EditButton";
 import { readContact } from "@/models/contact.server";
 
+export const runtime = "edge";
+
 export default async function Page({ params }: { params: { id: number } }) {
 	const message = await readContact(Number(params.id));
 

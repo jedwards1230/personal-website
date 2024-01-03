@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePlausible } from "next-plausible";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function ImageCard({ project }: { project: Project }) {
@@ -28,7 +29,7 @@ export default function ImageCard({ project }: { project: Project }) {
 			>
 				{project.images.map((image, i) => (
 					<div key={i} className="w-full flex-shrink-0">
-						<img
+						<Image
 							src={image}
 							alt={project.title}
 							width={1920}
