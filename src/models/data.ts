@@ -16,43 +16,53 @@ export async function uploadData({
 	experiences,
 	messages,
 }: {
-	about: About;
-	educations: Education[];
-	projects: Project[];
-	experiences: Experience[];
-	messages: Contact[];
+	about?: About;
+	educations?: Education[];
+	projects?: Project[];
+	experiences?: Experience[];
+	messages?: Contact[];
 }) {
 	// Upload projects
-	for (const project of projects) {
-		await createProject({
-			...project,
-			date: new Date(project.date),
-		});
+	if (projects) {
+		for (const project of projects) {
+			await createProject({
+				...project,
+				date: new Date(project.date),
+			});
+		}
 	}
 
-	for (const education of educations) {
-		await createEducation({
-			...education,
-			endDate: new Date(education.endDate),
-		});
+	if (educations) {
+		for (const education of educations) {
+			await createEducation({
+				...education,
+				endDate: new Date(education.endDate),
+			});
+		}
 	}
 
 	// Upload experiences
-	for (const experience of experiences) {
-		await createExperience({
-			...experience,
-			startDate: new Date(experience.startDate),
-			endDate: experience.endDate ? new Date(experience.endDate) : null,
-		});
+	if (experiences) {
+		for (const experience of experiences) {
+			await createExperience({
+				...experience,
+				startDate: new Date(experience.startDate),
+				endDate: experience.endDate
+					? new Date(experience.endDate)
+					: null,
+			});
+		}
 	}
 
 	// Upload contacts
-	for (const contact of messages) {
-		await createContact(contact);
+	if (messages) {
+		for (const contact of messages) {
+			await createContact(contact);
+		}
 	}
 
 	// Set About data
-	await updateAbout(about);
+	if (about) await updateAbout(about);
 }
 
 export async function getAllData() {

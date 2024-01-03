@@ -40,12 +40,14 @@ export default function Upload() {
 	};
 
 	return (
-		<>
-			<Input type="file" onChange={handleFileChange} accept=".json" />
-			<Button size="icon" variant="outline" onClick={handleUpload}>
-				<UploadCloudIcon />
-			</Button>
-			{statusMessage && <p>{statusMessage}</p>}
-		</>
+		<div className="space-y-1">
+			<div className="flex gap-2">
+				<Input type="file" onChange={handleFileChange} accept=".json" />
+				<Button size="icon" variant="outline" onClick={handleUpload}>
+					<UploadCloudIcon />
+				</Button>
+			</div>
+			{statusMessage && <p className="pl-2">{statusMessage}</p>}
+		</div>
 	);
 }
