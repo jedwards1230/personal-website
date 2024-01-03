@@ -16,12 +16,7 @@ export default function RevalidateButton() {
 	};
 
 	return (
-		<Button
-			onClick={onClick}
-			disabled={loading}
-			variant="outline"
-			size="icon"
-		>
+		<Button onClick={onClick} disabled={loading} size="icon">
 			<Redo />
 		</Button>
 	);

@@ -1,4 +1,4 @@
-import { getAllData } from "@/models/data";
+import { getAllData } from "@/models/data.server";
 import Download from "./Download";
 import Upload from "./Upload";
 import Editor from "./Editor";

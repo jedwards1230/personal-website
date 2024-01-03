@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { revalidateAction } from "@/lib/action.server";
-import { uploadData } from "@/models/data";
+import { uploadData } from "@/models/data.server";
 import { UploadCloudIcon } from "lucide-react";
 import { ChangeEvent, useState } from "react";
 
@@ -15,6 +15,7 @@ export default function Upload() {
 		const target = event.target as HTMLInputElement;
 		if (!target.files) return;
 		const file = target.files[0];
+		console.log({ file });
 		setSelectedFile(file);
 	};
 
@@ -45,7 +46,11 @@ export default function Upload() {
 		<div className="space-y-1">
 			<div className="flex gap-2">
 				<Input type="file" onChange={handleFileChange} accept=".json" />
-				<Button size="icon" variant="outline" onClick={handleUpload}>
+				<Button
+					size="icon"
+					disabled={!selectedFile}
+					onClick={handleUpload}
+				>
 					<UploadCloudIcon />
 				</Button>
 			</div>
