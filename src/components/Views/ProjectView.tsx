@@ -1,6 +1,7 @@
 import Markdown from "@/components/Markdown";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
+import TagList from "../TagList";
 
 export default function ProjectView({ data }: { data: Project }) {
 	const date = new Date(data.date);
@@ -19,6 +20,10 @@ export default function ProjectView({ data }: { data: Project }) {
 				<p>
 					{date.getMonth() + 1}/{date.getFullYear()}
 				</p>
+			</div>
+			<div className="flex flex-col gap-2">
+				<Label>Tags</Label>
+				<TagList tags={data.tags} />
 			</div>
 			{data.href && (
 				<div className="flex flex-col gap-2">
@@ -52,24 +57,6 @@ export default function ProjectView({ data }: { data: Project }) {
 			<div className="flex flex-col gap-2">
 				<Label>Info</Label>
 				<Markdown>{data.info}</Markdown>
-			</div>
-			<div className="w-full flex flex-col gap-2">
-				<div className="flex w-full items-center gap-2">
-					<Label className="w-1/4">Showcase</Label>
-					<p>{data.showcase ? "True" : "False"}</p>
-				</div>
-				<div className="flex w-full items-center gap-2">
-					<Label className="w-1/4">Favorite</Label>
-					<p>{data.favorite ? "True" : "False"}</p>
-				</div>
-				<div className="flex flex-col gap-2">
-					<Label>Tags</Label>
-					<p>
-						{data.tags && data.tags.length > 0
-							? data.tags.join(", ")
-							: "None"}
-					</p>
-				</div>
 			</div>
 		</div>
 	);

@@ -29,10 +29,6 @@ type Project = {
 	href: string | null;
 	/** Tags for the project */
 	tags: string[];
-	/** Whether to showcase the project on the home page */
-	showcase: boolean | null;
-	/** Highlight for visitors */
-	favorite: boolean | null;
 	/** List of images to display for the project */
 	images: string[];
 };

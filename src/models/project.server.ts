@@ -43,9 +43,6 @@ export async function getAllProjects(): Promise<Project[]> {
 		// sort by month, most recent first
 		if (a.date.getMonth() > b.date.getMonth()) return -1;
 		if (a.date.getMonth() < b.date.getMonth()) return 1;
-		// sort by favorite
-		if (a.favorite && !b.favorite) return -1;
-		if (!a.favorite && b.favorite) return 1;
 		// sort by company
 		if (a.company > b.company) return 1;
 		if (a.company < b.company) return -1;
