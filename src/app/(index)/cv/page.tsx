@@ -6,6 +6,8 @@ import Projects from "./Projects";
 import DownloadResume from "../DownloadResume";
 import Educations from "./Education";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
 	const about = await getAbout();
 
