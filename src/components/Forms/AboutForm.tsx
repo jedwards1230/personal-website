@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import Submit from "@/components/buttons/SubmitButton";
 import { updateAbout } from "@/models/about.server";
 import { redirect } from "next/navigation";
+import { revalidateAction } from "@/lib/action.server";
 
 export async function handleAboutFormSubmit(
 	p: any,
@@ -29,6 +30,7 @@ export async function handleAboutFormSubmit(
 			tags: String(formData.get("tags")).split(","),
 			description: String(formData.get("description")),
 		});
+		revalidateAction();
 	} catch (error: any) {
 		return { error: "Failed to send message." };
 	}

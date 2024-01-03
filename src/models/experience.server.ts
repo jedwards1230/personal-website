@@ -3,7 +3,6 @@
 import { invariant } from "@/lib/utils";
 import { kv } from "@vercel/kv";
 import { addIdToList, getAllIds } from "./helpers";
-import { revalidatePath } from "next/cache";
 
 const stringify = (e: Experience): string =>
 	JSON.stringify({
@@ -16,7 +15,6 @@ export async function createExperience(data: Experience): Promise<number> {
 	const key = `experience-${data.id}`;
 	await kv.set(key, stringify(data));
 	const id = await addIdToList("experience-ids", data.id);
-	revalidatePath("/", "layout");
 	return id;
 }
 
@@ -69,5 +67,4 @@ export async function getAllExperiences(
 export async function updateExperience(e: Experience) {
 	const key = `experience-${e.id}`;
 	await kv.set(key, stringify(e));
-	revalidatePath("/", "layout");
 }

@@ -25,7 +25,7 @@ export default async function Page({
 	params,
 	searchParams,
 }: {
-	params: { section: keyof typeof SECTIONS; id: number };
+	params: { section: keyof typeof SECTIONS; id: string };
 	searchParams: { edit: "true" | "false" } | undefined;
 }) {
 	const { View, Form, getData } = SECTIONS[params.section];

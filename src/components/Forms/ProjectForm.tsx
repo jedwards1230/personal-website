@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { updateProject } from "@/models/project.server";
 import { Label } from "@/components/ui/label";
+import { revalidateAction } from "@/lib/action.server";
 
 export default function ProjectForm({ data }: { data?: Project }) {
 	const router = useRouter();
@@ -42,6 +43,7 @@ export default function ProjectForm({ data }: { data?: Project }) {
 					.split(",")
 					.map(image => image.trim()),
 			});
+			revalidateAction();
 		} catch (error: any) {
 			return { error: "Failed to send message." };
 		}

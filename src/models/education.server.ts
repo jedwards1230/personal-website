@@ -1,7 +1,6 @@
 "use server";
 
 import { kv } from "@vercel/kv";
-import { revalidatePath } from "next/cache";
 
 import { invariant } from "@/lib/utils";
 import { addIdToList, getAllIds } from "./helpers";
@@ -16,7 +15,6 @@ export async function createEducation(data: Education): Promise<number> {
 	const key = `education-${data.id}`;
 	await kv.set(key, stringify(data));
 	const id = await addIdToList("education-ids", data.id);
-	revalidatePath("/", "layout");
 	return id;
 }
 
@@ -53,7 +51,6 @@ export async function getAllEducations(
 export async function updateEducation(e: Education) {
 	const key = `education-${e.id}`;
 	await kv.set(key, stringify(e));
-	revalidatePath("/", "layout");
 }
 
 export async function getNewEducationId(): Promise<number> {

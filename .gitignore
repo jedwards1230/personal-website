@@ -43,3 +43,7 @@ script.ts
 terraform/**/*.terraform*
 terraform/**/terraform.tfstate*
 **/*.tfvars
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
