@@ -5,9 +5,6 @@ import clsx from "clsx";
 
 import "./styles.css";
 
-export const dynamic = "force-dynamic";
-export const runtime = "edge";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

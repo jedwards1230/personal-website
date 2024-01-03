@@ -6,6 +6,8 @@ import Intro from "./Intro";
 import { AdminButton } from "@/components/buttons/AdminButton";
 import { Button } from "@/components/ui/button";
 
+export const runtime = "edge";
+
 export default async function Page() {
 	return (
 		<>

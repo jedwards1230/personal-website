@@ -6,6 +6,8 @@ import { getAllEducations } from "@/models/education.server";
 import EducationForm from "@/components/Forms/EducationForm";
 import EducationView from "@/components/Views/EducationView";
 
+export const runtime = "edge";
+
 export default async function Page({
 	searchParams,
 }: {

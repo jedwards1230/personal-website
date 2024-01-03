@@ -1,11 +1,16 @@
 import Markdown from "@/components/Markdown";
 import { Label } from "@/components/ui/label";
+import Image from "next/image";
 
 export default function ProjectView({ data }: { data: Project }) {
 	const date = new Date(data.date);
+	const images = data.images
+		?.map(i => (i.length > 0 ? i : null))
+		.filter(i => i);
+
 	return (
-		<div className="flex w-full flex-col gap-2">
-			<div className="w-1/2 pb-4">
+		<div className="flex w-full flex-col gap-4">
+			<div className="w-1/2">
 				<p className="text-2xl font-bold">{data.title}</p>
 				<p className="text-lg text-secondary-foreground">
 					{data.company}
@@ -21,26 +26,28 @@ export default function ProjectView({ data }: { data: Project }) {
 					<p>{data.href}</p>
 				</div>
 			)}
-			<div className="flex">
-				{data.images.length > 0 && (
-					<div className="flex flex-col min-w-[50%] gap-2">
-						<Label>Images</Label>
-						<div className="flex flex-wrap gap-2">
-							{data.images.map(image => (
-								<img
+			{images.length > 0 && (
+				<div className="flex flex-col min-w-[50%] gap-2">
+					<Label>Images</Label>
+					<div className="flex flex-wrap gap-2">
+						{images.map(image =>
+							image ? (
+								<Image
+									width={256}
+									height={144}
 									key={image}
-									className="w-64"
+									className="w-64 border border-border"
 									src={image}
 									alt={image}
 								/>
-							))}
-						</div>
+							) : null
+						)}
 					</div>
-				)}
-				<div className="flex flex-col gap-2">
-					<Label>Description</Label>
-					<Markdown>{data.description}</Markdown>
 				</div>
+			)}
+			<div className="flex flex-col gap-2">
+				<Label>Description</Label>
+				<Markdown>{data.description}</Markdown>
 			</div>
 			<div className="flex flex-col gap-2">
 				<Label>Info</Label>

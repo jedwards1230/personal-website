@@ -1,6 +1,7 @@
 "use client";
 
 import { usePlausible } from "next-plausible";
+import Image from "next/image";
 
 import TagList from "@/components/TagList";
 import ProjectDialog from "@/components/dialogs/ProjectDialog";
@@ -29,7 +30,9 @@ export default function Projects({ projects }: { projects: Project[] }) {
 					>
 						{/* Preview */}
 						{p.images[0] ? (
-							<img
+							<Image
+								width={800}
+								height={400}
 								src={p.images[0]}
 								alt={"Preview " + p.title + ".png"}
 								className="h-auto aspect-video w-full select-none rounded border border-border bg-neutral-100 shadow-sm sm:h-40"

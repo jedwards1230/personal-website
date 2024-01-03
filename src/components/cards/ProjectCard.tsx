@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import { usePlausible } from "next-plausible";
+import Image from "next/image";
 
 import TagList from "../TagList";
 import Markdown from "../Markdown";
@@ -9,6 +10,7 @@ import ImagesDialog from "../dialogs/ImagesDialog";
 
 export default function ProjectCard({ project }: { project: Project }) {
 	const plausible = usePlausible();
+
 	const openImageModal = () =>
 		plausible("View Project Image", {
 			props: {
@@ -26,7 +28,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 			<div className="mb-4 flex w-full flex-col gap-2 sm:flex-row md:gap-4">
 				{images.length > 0 && (
 					<ImagesDialog project={project}>
-						<img
+						<Image
 							width={800}
 							height={400}
 							src={images[0]}
