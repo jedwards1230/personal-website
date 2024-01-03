@@ -16,7 +16,7 @@ export async function createContact(contact: Contact): Promise<number> {
 export async function readContact(id: number): Promise<Contact> {
 	const key = `contact-${id}`;
 	const contact = await kv.get<Contact>(key);
-	invariant(contact, "Contact not found");
+	invariant(contact, "Contact not found: " + id);
 	return {
 		...contact,
 		createdAt: new Date(contact.createdAt),
@@ -28,9 +28,13 @@ export async function getAllMessages(): Promise<Contact[]> {
 	const ids = await getAllIds("contact-ids");
 	const contacts = [];
 	for (const id of ids) {
-		const contact = await readContact(id);
-		if (contact) {
-			contacts.push(contact);
+		try {
+			const contact = await readContact(id);
+			if (contact) {
+				contacts.push(contact);
+			}
+		} catch (err) {
+			console.log(err);
 		}
 	}
 	return contacts.sort((a, b) => {
@@ -53,7 +57,7 @@ export async function getUnreadMessageCount(): Promise<number> {
 
 export async function deleteContact(id: number): Promise<void> {
 	const key = `contact-${id}`;
-	await kv.del(key);
 	await removeIdFromList("contact-ids", id);
+	await kv.del(key);
 	revalidatePath("/", "layout");
 }

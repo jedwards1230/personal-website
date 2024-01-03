@@ -21,7 +21,7 @@ export default async function Page() {
 						doing.
 					</p>
 				</div>
-				<div className="flex w-96 justify-between items-center gap-2">
+				<div className="flex w-96 justify-between items-start gap-2">
 					<Download />
 					<Upload />
 				</div>

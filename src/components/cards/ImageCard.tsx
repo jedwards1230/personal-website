@@ -30,6 +30,7 @@ export default function ImageCard({ project }: { project: Project }) {
 				{project.images.map((image, i) => (
 					<div key={i} className="w-full flex-shrink-0">
 						<Image
+							priority
 							src={image}
 							alt={project.title}
 							width={1920}
