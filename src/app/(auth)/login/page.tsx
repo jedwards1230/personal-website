@@ -12,7 +12,10 @@ export default function Page() {
 	const router = useRouter();
 	const pathname = usePathname();
 
-	async function loginAction(p: any, formData: FormData) {
+	async function loginAction(
+		p: any,
+		formData: FormData
+	): Promise<FormResponse> {
 		const password = String(formData.get("password"));
 
 		try {
@@ -22,9 +25,9 @@ export default function Page() {
 		}
 
 		router.push(pathname);
+		return { success: "Login successful" };
 	}
 
-	// @ts-ignore
 	const [state, formAction] = useFormState(loginAction, {});
 
 	return (

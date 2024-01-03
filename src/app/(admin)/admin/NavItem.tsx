@@ -16,7 +16,6 @@ export default function NavItem({
 	className?: string;
 }) {
 	const pathname = usePathname();
-
 	const checkActive = eq ? pathname === to : pathname.includes(to);
 
 	return (
