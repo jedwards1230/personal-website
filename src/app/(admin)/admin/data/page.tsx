@@ -2,6 +2,7 @@ import { getAllData } from "@/models/data";
 import Download from "./Download";
 import Upload from "./Upload";
 import Editor from "./Editor";
+import RevalidateButton from "./Revalidate";
 
 export default async function Page() {
 	const data = await getAllData();
@@ -24,6 +25,7 @@ export default async function Page() {
 				<div className="flex w-96 justify-between items-start gap-2">
 					<Download />
 					<Upload />
+					<RevalidateButton />
 				</div>
 			</div>
 			<div className="overflow-y-scroll h-full">

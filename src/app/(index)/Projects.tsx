@@ -44,7 +44,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
 						)}
 						{/* Title */}
 						<div className="flex flex-col gap-1">
-							<div className="flex flex-col justify-between font-medium text-foreground md:flex-row md:items-center">
+							<div className="space-y-1 items-center font-medium text-foreground">
 								{p.title}
 								{p.company !== "Personal" && (
 									<div className="text-sm text-primary">
