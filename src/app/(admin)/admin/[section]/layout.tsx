@@ -1,12 +1,10 @@
-import { Plus } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import {
 	getAllExperiences,
 	createExperience,
 } from "@/models/experience.server";
 import { createProject, getAllProjects } from "@/models/project.server";
 import NavItem from "../NavItem";
+import EditButton from "@/components/buttons/EditButton";
 
 const SECTIONS = {
 	projects: {
@@ -39,11 +37,7 @@ export default async function Layout({
 			<div className="flex col-span-3 border-r border-border flex-col">
 				<div className="flex p-2 pl-4 border-b border-border justify-between items-center">
 					<h2 className="text-lg font-bold">{title}</h2>
-					<form method="post">
-						<Button variant="outline" size="icon">
-							<Plus />
-						</Button>
-					</form>
+					<EditButton isEdit={false} newItem={true} />
 				</div>
 				{data.map((d: any) => (
 					<div key={d.id}>

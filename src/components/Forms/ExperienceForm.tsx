@@ -14,7 +14,10 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 	const router = useRouter();
 	const pathname = usePathname();
 
-	async function handleExperienceFormSubmit(p: any, formData: FormData) {
+	async function handleExperienceFormSubmit(
+		p: any,
+		formData: FormData
+	): Promise<FormResponse> {
 		const id = Number(formData.get("id"));
 		if (!id) return { error: "Invalid id." };
 
@@ -50,9 +53,9 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 		}
 
 		router.push(pathname);
+		return { success: "Experience updated successfully!" };
 	}
 
-	// @ts-ignore
 	const [state, formAction] = useFormState(handleExperienceFormSubmit, {});
 
 	return (

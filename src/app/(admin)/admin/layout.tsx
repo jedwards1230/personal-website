@@ -1,5 +1,10 @@
+import { type Metadata } from "next";
 import Header from "./Header";
 import NavItem from "./NavItem";
+
+export const metadata: Metadata = {
+	title: "Admin",
+};
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (

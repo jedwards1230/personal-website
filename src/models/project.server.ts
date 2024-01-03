@@ -16,7 +16,7 @@ export async function createProject(data: Project): Promise<number> {
 	const key = `project-${data.id}`;
 	await kv.set(key, stringify(data));
 	const id = await addIdToList("project-ids", data.id);
-	revalidatePath("/");
+	revalidatePath("/", "layout");
 	return id;
 }
 
@@ -63,6 +63,6 @@ export async function getAllProjects(): Promise<Project[]> {
 
 export async function updateProject(p: Project): Promise<Project> {
 	await kv.set(`project-${p.id}`, stringify(p));
-	revalidatePath("/");
+	revalidatePath("/", "layout");
 	return p;
 }

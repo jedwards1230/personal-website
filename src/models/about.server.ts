@@ -12,5 +12,5 @@ export async function getAbout(): Promise<About> {
 
 export async function updateAbout(a: About) {
 	await kv.set("about", JSON.stringify(a));
-	revalidatePath("/");
+	revalidatePath("/", "layout");
 }
