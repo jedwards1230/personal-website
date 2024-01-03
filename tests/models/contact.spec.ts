@@ -16,7 +16,6 @@ test("create, read, and delete a contact", async ({ page }) => {
 	};
 
 	// Act: Create a contact
-	console.log("creating contact");
 	const createdContactId = await createContact(contact);
 
 	// Assert: Check if the contact was created successfully
