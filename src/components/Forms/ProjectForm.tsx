@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { updateProject } from "@/models/project.server";
 import { Label } from "@/components/ui/label";
 
-export default function ProjectForm({ data }: { data: Project }) {
+export default function ProjectForm({ data }: { data?: Project }) {
 	const router = useRouter();
 	const pathname = usePathname();
 
@@ -39,8 +39,6 @@ export default function ProjectForm({ data }: { data: Project }) {
 				tags: String(formData.get("tags"))
 					.split(",")
 					.map(tag => tag.trim()),
-				showcase: Boolean(formData.get("showcase")),
-				favorite: Boolean(formData.get("favorite")),
 				images: String(formData.get("images"))
 					.split(",")
 					.map(image => image.trim()),
@@ -60,7 +58,7 @@ export default function ProjectForm({ data }: { data: Project }) {
 			<div className="grid gap-2 pb-4 sm:gap-4">
 				<div>
 					<Label>Title</Label>
-					<Input required name="title" defaultValue={data.title} />
+					<Input required name="title" defaultValue={data?.title} />
 				</div>
 				<div className="flex gap-4 justify-between">
 					<div className="w-full">
@@ -68,17 +66,20 @@ export default function ProjectForm({ data }: { data: Project }) {
 						<Input
 							required
 							name="company"
-							defaultValue={data.company}
+							defaultValue={data?.company}
 						/>
 					</div>
 					<div className="w-full">
 						<Label>Client</Label>
-						<Input name="client" defaultValue={data.client ?? ""} />
+						<Input
+							name="client"
+							defaultValue={data?.client ?? ""}
+						/>
 					</div>
 				</div>
 				<div>
 					<Label>Link</Label>
-					<Input name="href" defaultValue={data.href ?? ""} />
+					<Input name="href" defaultValue={data?.href ?? ""} />
 				</div>
 				<div className="flex gap-4 justify-between">
 					<div className="w-full">
@@ -86,7 +87,7 @@ export default function ProjectForm({ data }: { data: Project }) {
 						<Input
 							required
 							name="month"
-							defaultValue={new Date(data.date).getMonth() + 1}
+							defaultValue={(data?.date.getMonth() ?? 0) + 1}
 						/>
 					</div>
 					<div className="w-full">
@@ -94,7 +95,7 @@ export default function ProjectForm({ data }: { data: Project }) {
 						<Input
 							required
 							name="year"
-							defaultValue={new Date(data.date).getFullYear()}
+							defaultValue={data?.date.getFullYear()}
 						/>
 					</div>
 				</div>
@@ -103,28 +104,14 @@ export default function ProjectForm({ data }: { data: Project }) {
 					<Input
 						required
 						name="tags"
-						defaultValue={data.tags.join(", ")}
+						defaultValue={data?.tags.join(", ")}
 					/>
 				</div>
 				<div>
 					<Label>Images</Label>
 					<Input
 						name="images"
-						defaultValue={data.images.join(", ")}
-					/>
-				</div>
-				<div>
-					<Label>Showcase</Label>
-					<Checkbox
-						name="showcase"
-						defaultChecked={data.showcase ?? false}
-					/>
-				</div>
-				<div>
-					<Label>Favorite</Label>
-					<Checkbox
-						name="favorite"
-						defaultChecked={data.favorite ?? false}
+						defaultValue={data?.images.join(", ")}
 					/>
 				</div>
 				<div>
@@ -133,7 +120,7 @@ export default function ProjectForm({ data }: { data: Project }) {
 						required
 						className="h-32"
 						name="description"
-						defaultValue={data.description}
+						defaultValue={data?.description}
 					/>
 				</div>
 				<div>
@@ -142,12 +129,12 @@ export default function ProjectForm({ data }: { data: Project }) {
 						required
 						className="h-64"
 						name="info"
-						defaultValue={data.info}
+						defaultValue={data?.info}
 					/>
 				</div>
 			</div>
 			<div className="flex w-full justify-between">
-				<input type="hidden" name="id" value={data.id} />
+				<input type="hidden" name="id" value={data?.id} />
 				{state?.error && (
 					<p className="text-destructive">{state.error}</p>
 				)}
