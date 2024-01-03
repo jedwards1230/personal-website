@@ -14,7 +14,10 @@ export default function ProjectForm({ data }: { data: Project }) {
 	const router = useRouter();
 	const pathname = usePathname();
 
-	const handleProjectFormSubmit = async (p: any, formData: FormData) => {
+	const handleProjectFormSubmit = async (
+		p: any,
+		formData: FormData
+	): Promise<FormResponse> => {
 		const id = Number(formData.get("id"));
 		if (!id) return { error: "Invalid id." };
 
@@ -22,8 +25,6 @@ export default function ProjectForm({ data }: { data: Project }) {
 			Number(formData.get("year")),
 			Number(formData.get("month")) - 1
 		);
-
-		console.log(date);
 
 		try {
 			await updateProject({
@@ -49,9 +50,9 @@ export default function ProjectForm({ data }: { data: Project }) {
 		}
 
 		router.push(pathname);
+		return { success: "Project updated successfully!" };
 	};
 
-	// @ts-ignore
 	const [state, formAction] = useFormState(handleProjectFormSubmit, {});
 
 	return (

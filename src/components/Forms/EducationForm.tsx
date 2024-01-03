@@ -17,7 +17,10 @@ export default function EducationForm({ data }: { data?: Education }) {
 	const router = useRouter();
 	const pathname = usePathname();
 
-	async function handleEducationFormSubmit(p: any, formData: FormData) {
+	async function handleEducationFormSubmit(
+		p: any,
+		formData: FormData
+	): Promise<FormResponse> {
 		const id = data
 			? Number(formData.get("id"))
 			: await getNewEducationId();
@@ -41,9 +44,9 @@ export default function EducationForm({ data }: { data?: Education }) {
 		}
 
 		router.push(pathname);
+		return { success: "Education updated successfully!" };
 	}
 
-	// @ts-ignore
 	const [state, formAction] = useFormState(handleEducationFormSubmit, {});
 
 	return (

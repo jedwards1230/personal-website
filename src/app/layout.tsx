@@ -12,7 +12,10 @@ export const runtime = "edge";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "J. Edwards",
+	title: {
+		template: "%s | J. Edwards",
+		default: "J. Edwards",
+	},
 	description: "Personal Website for Justin Edwards",
 };
 

@@ -75,3 +75,8 @@ type Job = {
 	description: string;
 	href: string;
 };
+
+type FormResponse = {
+	success?: string;
+	error?: string;
+};
