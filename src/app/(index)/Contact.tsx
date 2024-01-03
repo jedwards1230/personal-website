@@ -1,15 +1,14 @@
 import SectionTitle from "./SectionTitle";
 import { getAbout } from "@/models/about.server";
-import { getPageViews } from "@/lib/utils";
 import ContactForm from "@/components/Forms/ContactForm";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import PageViews from "./PageViews";
 
 const ID = "contact";
 
 export default async function Contact() {
 	const about = await getAbout();
-	const pageViews = await getPageViews();
 	const linkedInUsername = about.linkedin.replace(/\/$/, "").split("/").pop();
 	const githubUsername = about.github.replace(/\/$/, "").split("/").pop();
 
@@ -71,12 +70,7 @@ export default async function Contact() {
 				</div>
 				<ContactForm />
 			</div>
-			<div
-				aria-label="Page Views"
-				className="mb-8 mt-auto select-none text-center text-xs text-neutral-600 dark:text-neutral-500"
-			>
-				{pageViews} {pageViews === 1 ? "visit" : "visits"} this week
-			</div>
+			<PageViews />
 		</section>
 	);
 }
