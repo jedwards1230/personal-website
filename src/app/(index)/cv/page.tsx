@@ -29,27 +29,36 @@ export default async function Page() {
 					<div>{about.location}</div>
 				</div>
 				<div className="flex flex-col md:text-right justify-center text-sm gap-1 pt-1">
-					<a
-						className="hover:underline"
-						target="_blank"
-						href={"mailto:" + about.email + "?subject=Hello!"}
-					>
-						Email: {about.email}
-					</a>
-					<a
-						className="hover:underline"
-						target="_blank"
-						href={about.linkedin}
-					>
-						LinkedIn: {linkedInUsername}
-					</a>
-					<a
-						className="hover:underline"
-						target="_blank"
-						href={about.github}
-					>
-						GitHub: {githubUsername}
-					</a>
+					<div>
+						Email:{" "}
+						<a
+							className="hover:underline"
+							target="_blank"
+							href={"mailto:" + about.email + "?subject=Hello!"}
+						>
+							{about.email}
+						</a>
+					</div>
+					<div>
+						LinkedIn:{" "}
+						<a
+							className="hover:underline"
+							target="_blank"
+							href={about.linkedin}
+						>
+							@{linkedInUsername}
+						</a>
+					</div>
+					<div>
+						GitHub:{" "}
+						<a
+							className="hover:underline"
+							target="_blank"
+							href={about.github}
+						>
+							@{githubUsername}
+						</a>
+					</div>
 				</div>
 			</div>
 			<p className="text-sm">{about.description}</p>

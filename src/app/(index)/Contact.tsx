@@ -19,10 +19,12 @@ export default async function Contact() {
 		>
 			<SectionTitle id={ID} />
 			<div className="flex flex-col gap-4 md:gap-8 md:justify-between md:mt-4 md:flex-row">
-				<div className="flex h-full flex-col pb-8 justify-between gap-4">
+				<div className="pb-8 space-y-12">
 					<div className="space-y-4">
 						<p>I am currently looking for new opportunities.</p>
 						<p>Feel free to reach out!</p>
+					</div>
+					<div className="space-y-4">
 						<p>
 							Email:{" "}
 							<a
@@ -65,7 +67,7 @@ export default async function Contact() {
 						size="sm"
 						variant="link"
 					>
-						<Link href="/cv">View my cv</Link>
+						<Link href="/cv">View my CV</Link>
 					</Button>
 				</div>
 				<ContactForm />
