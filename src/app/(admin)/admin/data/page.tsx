@@ -1,8 +1,8 @@
 import { getAllData } from "@/models/data.server";
-import Download from "./Download";
-import Upload from "./Upload";
+import Download from "./DownloadButton";
+import Upload from "./UploadButton";
 import Editor from "./Editor";
-import RevalidateButton from "./Revalidate";
+import RevalidateButton from "./RevalidateButton";
 
 export default async function Page() {
 	const data = await getAllData();

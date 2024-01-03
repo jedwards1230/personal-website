@@ -15,7 +15,7 @@ export default async function Page() {
 	const githubUsername = about.github.replace(/\/$/, "").split("/").pop();
 
 	return (
-		<div className="max-w-4xl px-4 space-y-4 md:space-y-8 print:space-y-2 mx-auto print:py-0 print:px-0 py-4 md:py-16">
+		<div className="max-w-4xl px-4 space-y-4 md:space-y-8 print:space-y-2 mx-auto print:py-0 print:px-0 py-4 md:py-8">
 			<div className="w-full print:hidden items-center flex justify-between">
 				<Button className="!px-0" variant="link" asChild>
 					<Link href="/">Home</Link>
