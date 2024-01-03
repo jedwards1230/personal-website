@@ -54,13 +54,13 @@ export default function ProjectCard({ project }: { project: Project }) {
 							<p className="flex items-center gap-2 text-xl font-medium">
 								{project.title}
 							</p>
-							<p className="text-lg text-neutral-600 dark:text-neutral-300">
+							<p className="text-lg text-foreground/85">
 								{project.company}
 							</p>
 						</div>
-						<div className="text-neutral-500 dark:text-neutral-400">
-							{new Date(project.date).getMonth() + 1}/
-							{new Date(project.date).getFullYear()}
+						<div className="text-foreground/70">
+							{project.date.getMonth() + 1}/
+							{project.date.getFullYear()}
 						</div>
 					</div>
 

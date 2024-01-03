@@ -24,7 +24,11 @@ export async function getExperienceById(id: number): Promise<Experience> {
 	const key = `experience-${id}`;
 	const value = await kv.get<Experience>(key);
 	invariant(value, "Experience not found");
-	return value;
+	return {
+		...value,
+		startDate: new Date(value.startDate),
+		endDate: value.endDate ? new Date(value.endDate) : null,
+	};
 }
 
 export async function getAllExperiences(
@@ -39,14 +43,8 @@ export async function getAllExperiences(
 		}
 	}
 
-	const cleanedExperiences = experiences.map(e => ({
-		...e,
-		startDate: new Date(e.startDate),
-		endDate: e.endDate ? new Date(e.endDate) : null,
-	}));
-
 	if (sortBy) {
-		cleanedExperiences.sort((a, b) => {
+		experiences.sort((a, b) => {
 			switch (sortBy) {
 				case "endDate":
 					if (a.endDate === null && b.endDate === null) {
@@ -65,7 +63,7 @@ export async function getAllExperiences(
 		});
 	}
 
-	return cleanedExperiences;
+	return experiences;
 }
 
 export async function updateExperience(e: Experience) {

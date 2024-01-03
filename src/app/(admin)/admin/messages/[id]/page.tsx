@@ -1,32 +1,8 @@
-import ExperienceForm from "@/components/Forms/ExperienceForm";
-import ProjectForm from "@/components/Forms/ProjectForm";
-import ExperienceView from "@/components/Views/ExperienceView";
-import ProjectView from "@/components/Views/ProjectView";
 import EditButton from "@/components/buttons/EditButton";
-import { getAllMessages } from "@/models/contact.server";
-import { getExperienceById } from "@/models/experience.server";
-import { getProjectById } from "@/models/project.server";
+import { readContact } from "@/models/contact.server";
 
-const SECTIONS = {
-	projects: {
-		getData: getProjectById,
-		View: ProjectView,
-		Form: ProjectForm,
-	},
-	experience: {
-		getData: getExperienceById,
-		View: ExperienceView,
-		Form: ExperienceForm,
-	},
-};
-
-export default async function Page({
-	params,
-}: {
-	params: { section: keyof typeof SECTIONS; id: number };
-}) {
-	const data = await getAllMessages();
-	const message = data.find((m: any) => m.id === Number(params.id));
+export default async function Page({ params }: { params: { id: number } }) {
+	const message = await readContact(Number(params.id));
 
 	if (!message) {
 		return <div>Not found</div>;

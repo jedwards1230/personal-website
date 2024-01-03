@@ -24,35 +24,30 @@ export async function getEducationById(id: number): Promise<Education> {
 	const key = `education-${id}`;
 	const value = await kv.get<Education>(key);
 	invariant(value, "Education not found");
-	return value;
+	return { ...value, endDate: new Date(value.endDate) };
 }
 
 export async function getAllEducations(
 	sortBy?: keyof Education
 ): Promise<Education[]> {
 	const ids = await getAllIds("education-ids");
-	const Educations = [];
+	const educations = [];
 	for (const id of ids) {
 		const Education = await getEducationById(id);
 		if (Education) {
-			Educations.push(Education);
+			educations.push(Education);
 		}
 	}
 
-	const cleanedEducations = Educations.map(e => ({
-		...e,
-		endDate: new Date(e.endDate),
-	}));
-
 	if (sortBy) {
-		cleanedEducations.sort((a, b) => {
+		educations.sort((a, b) => {
 			if (a.endDate === null) return -1;
 			if (b.endDate === null) return 1;
 			return b.endDate.getTime() - a.endDate.getTime();
 		});
 	}
 
-	return cleanedEducations;
+	return educations;
 }
 
 export async function updateEducation(e: Education) {
