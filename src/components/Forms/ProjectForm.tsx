@@ -88,7 +88,9 @@ export default function ProjectForm({ data }: { data?: Project }) {
 						<Input
 							required
 							name="month"
-							defaultValue={(data?.date.getMonth() ?? 0) + 1}
+							defaultValue={
+								(data?.date ? data.date.getMonth() : 0) + 1
+							}
 						/>
 					</div>
 					<div className="w-full">
@@ -96,7 +98,9 @@ export default function ProjectForm({ data }: { data?: Project }) {
 						<Input
 							required
 							name="year"
-							defaultValue={data?.date.getFullYear()}
+							defaultValue={
+								data?.date ? data?.date.getFullYear() : 0
+							}
 						/>
 					</div>
 				</div>

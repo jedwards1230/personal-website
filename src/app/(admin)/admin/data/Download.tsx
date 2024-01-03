@@ -32,7 +32,7 @@ export default function Download() {
 	};
 
 	return (
-		<Button size="icon" variant="outline" onClick={saveData}>
+		<Button size="icon" onClick={saveData}>
 			<DownloadCloudIcon />
 		</Button>
 	);

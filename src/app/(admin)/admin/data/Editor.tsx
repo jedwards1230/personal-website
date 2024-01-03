@@ -4,15 +4,23 @@ import { useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { uploadData } from "@/models/data.server";
 
 export default function Editor({ data }: { data: string }) {
+	const [loading, setLoading] = useState(false);
 	const [dataString, setDataString] = useState(data);
 	const ref = useRef<HTMLTextAreaElement>(null);
 
-	const saveData = () => {
+	const saveData = async () => {
 		if (ref.current) {
-			const json = JSON.parse(ref.current.value);
-			console.log(json);
+			try {
+				setLoading(true);
+				const json = JSON.parse(ref.current.value);
+				await uploadData(json);
+				setLoading(false);
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	};
 
@@ -24,7 +32,10 @@ export default function Editor({ data }: { data: string }) {
 				value={dataString}
 				onChange={e => setDataString(e.target.value)}
 			></Textarea>
-			<Button disabled={dataString === data} onClick={saveData}>
+			<Button
+				disabled={dataString === data || loading}
+				onClick={saveData}
+			>
 				Save
 			</Button>
 		</div>
