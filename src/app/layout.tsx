@@ -5,6 +5,8 @@ import clsx from "clsx";
 
 import "./styles.css";
 
+export const runtime = "edge";
+
 const inter = Inter({
 	subsets: ["latin"],
 });

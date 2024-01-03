@@ -14,7 +14,12 @@ export default function ProjectDialog({
 		<Dialog>
 			<DialogTrigger className={className}>{children}</DialogTrigger>
 			<DialogContent size="lg">
-				<ProjectCard project={project} />
+				<ProjectCard
+					project={{
+						...project,
+						date: new Date(project.date),
+					}}
+				/>
 			</DialogContent>
 		</Dialog>
 	);
