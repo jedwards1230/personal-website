@@ -7,6 +7,7 @@ import Submit from "../buttons/SubmitButton";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
+import { revalidateAction } from "@/lib/action.server";
 
 async function submitMessage(
 	p: any,
@@ -21,6 +22,7 @@ async function submitMessage(
 			createdAt: new Date(),
 			readAt: null,
 		});
+		revalidateAction();
 		return { success: "Message sent successfully!" };
 	} catch (e) {
 		return { error: String(e) };

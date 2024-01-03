@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { revalidateAction } from "@/lib/action.server";
 import { uploadData } from "@/models/data";
 import { UploadCloudIcon } from "lucide-react";
 import { ChangeEvent, useState } from "react";
@@ -29,6 +30,7 @@ export default function Upload() {
 					const json = JSON.parse(text);
 					await uploadData(json);
 					setStatusMessage("Data uploaded successfully");
+					revalidateAction();
 				} catch (error) {
 					console.error("Error parsing JSON:", error);
 					setStatusMessage("Error parsing JSON");

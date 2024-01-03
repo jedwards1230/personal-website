@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import Submit from "../buttons/SubmitButton";
 import { updateExperience } from "@/models/experience.server";
+import { revalidateAction } from "@/lib/action.server";
 
 export default function ExperienceForm({ data }: { data: Experience }) {
 	const router = useRouter();
@@ -48,6 +49,7 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 					.split(",")
 					.map(tag => tag.trim()),
 			});
+			revalidateAction();
 		} catch (error: any) {
 			return { error: "Failed to send message." };
 		}

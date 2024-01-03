@@ -16,6 +16,7 @@ export default function DeleteButton({ id }: { id: number }) {
 		await deleteContact(id);
 		setLoading(false);
 		router.push("/admin/messages");
+		router.refresh();
 	};
 
 	return (

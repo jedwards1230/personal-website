@@ -12,6 +12,7 @@ import {
 	getNewEducationId,
 	updateEducation,
 } from "@/models/education.server";
+import { revalidateAction } from "@/lib/action.server";
 
 export default function EducationForm({ data }: { data?: Education }) {
 	const router = useRouter();
@@ -39,6 +40,7 @@ export default function EducationForm({ data }: { data?: Education }) {
 			data
 				? await updateEducation(params)
 				: await createEducation(params);
+			revalidateAction();
 		} catch (error: any) {
 			return { error: "Failed to send message." };
 		}
