@@ -8,7 +8,13 @@ import { getProjectById } from "@/models/project.server";
 
 export const dynamic = "force-dynamic";
 
-const SECTIONS = {
+const SECTIONS: {
+	[section: string]: {
+		getData: (id: number) => Promise<any>;
+		View: React.FC<{ data: any }>;
+		Form: React.FC<{ data: any }>;
+	};
+} = {
 	projects: {
 		getData: getProjectById,
 		View: ProjectView,
@@ -31,22 +37,16 @@ export default async function Page({
 	const { View, Form, getData } = SECTIONS[params.section];
 
 	const isEdit = searchParams?.edit === "true";
-	const data = await getData(Number(params.id));
+	const data = params.id !== "new" ? await getData(Number(params.id)) : null;
 
 	return (
 		<div className="w-full relative p-4 overflow-y-scroll col-span-9 lg:col-span-7">
-			{!isEdit && (
+			{!isEdit && data && (
 				<div className="absolute top-4 right-4">
 					<EditButton isEdit={isEdit} />
 				</div>
 			)}
-			{isEdit ? (
-				// @ts-ignore
-				<Form data={data} />
-			) : (
-				// @ts-ignore
-				<View data={data} />
-			)}
+			{isEdit || !data ? <Form data={data} /> : <View data={data} />}
 		</div>
 	);
 }

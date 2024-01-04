@@ -9,9 +9,11 @@ import Link from "next/link";
 export default function EditButton({
 	isEdit,
 	newItem = false,
+	path,
 }: {
 	isEdit: boolean;
 	newItem?: boolean;
+	path?: string;
 }) {
 	const pathname = usePathname();
 
@@ -25,7 +27,9 @@ export default function EditButton({
 				href={
 					isEdit
 						? pathname
-						: `${pathname}?edit=${newItem ? "new" : "true"}`
+						: newItem
+							? `${path ?? pathname}/new`
+							: `${path ?? pathname}?edit=true`
 				}
 			>
 				{newItem ? <Plus /> : <Edit />}

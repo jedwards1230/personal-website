@@ -68,3 +68,9 @@ export async function updateExperience(e: Experience) {
 	const key = `experience-${e.id}`;
 	await kv.set(key, stringify(e));
 }
+
+export async function getNewExperienceId(): Promise<number> {
+	const ids = await getAllIds("experience-ids");
+	const maxId = Math.max(...ids);
+	return isFinite(maxId) ? maxId + 1 : 1;
+}
