@@ -26,7 +26,7 @@ export default function NavItem({
 				checkActive
 					? "bg-foreground text-background hover:bg-foreground/70"
 					: "hover:bg-secondary focus:bg-foreground/30",
-				"w-full block transition-all duration-100 py-2 cursor-pointer capitalize pl-4",
+				"block w-full cursor-pointer py-2 pl-4 capitalize transition-all duration-100",
 				className
 			)}
 		>

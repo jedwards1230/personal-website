@@ -28,7 +28,7 @@ export default function Editor({ data }: { data: string }) {
 		<div className="flex flex-col gap-4">
 			<Textarea
 				ref={ref}
-				className="w-full h-96"
+				className="h-96 w-full"
 				value={dataString}
 				onChange={e => setDataString(e.target.value)}
 			></Textarea>

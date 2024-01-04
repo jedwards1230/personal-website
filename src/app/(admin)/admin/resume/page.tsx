@@ -14,7 +14,7 @@ export default async function Page() {
 
 	return (
 		<>
-			<div className="w-full flex flex-col gap-2 h-full col-span-2">
+			<div className="col-span-2 flex h-full w-full flex-col gap-2">
 				<div>
 					<div className="underline">Experiences</div>
 					<div>
@@ -32,7 +32,7 @@ export default async function Page() {
 					</div>
 				</div>
 			</div>
-			<div className="w-full h-full col-span-8">
+			<div className="col-span-8 h-full w-full">
 				<MyPdf data={{ about, projects, experiences }} />
 			</div>
 		</>

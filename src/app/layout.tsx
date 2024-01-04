@@ -28,7 +28,7 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			className="bg-background h-full w-full transition-all text-foreground scroll-smooth"
+			className="h-full w-full scroll-smooth bg-background text-foreground transition-all"
 		>
 			<head>
 				<PlausibleProvider

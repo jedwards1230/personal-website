@@ -13,7 +13,7 @@ export default async function Educations() {
 
 					return (
 						<div key={education.id}>
-							<div className="flex gap-1 sm:gap-2 flex-col sm:flex-row pb-2 sm:justify-between">
+							<div className="flex flex-col gap-1 pb-2 sm:flex-row sm:justify-between sm:gap-2">
 								<div className="flex flex-col gap-1">
 									<div className="font-medium md:text-lg">
 										{education.school}

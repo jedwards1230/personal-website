@@ -12,11 +12,11 @@ export default async function Projects() {
 				{projects.map(project => (
 					<ProjectDialog
 						project={project}
-						className="space-y-1 border border-transparent hover:border-border rounded-rounded rounded p-2"
+						className="rounded-rounded space-y-1 rounded border border-transparent p-2 hover:border-border"
 						key={project.id}
 					>
 						<div className="flex items-center justify-between">
-							<div className="flex gap-2 items-center">
+							<div className="flex items-center gap-2">
 								<div className="font-medium">
 									{project.title}
 								</div>

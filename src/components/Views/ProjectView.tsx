@@ -34,7 +34,7 @@ export default function ProjectView({ data }: { data: Project | null }) {
 				</div>
 			)}
 			{images.length > 0 && (
-				<div className="flex flex-col min-w-[50%] gap-2">
+				<div className="flex min-w-[50%] flex-col gap-2">
 					<Label>Images</Label>
 					<div className="flex flex-wrap gap-2">
 						{images.map(image =>

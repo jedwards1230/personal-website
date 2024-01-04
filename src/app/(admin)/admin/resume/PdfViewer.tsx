@@ -7,7 +7,7 @@ import { PDFData, PdfDocument } from "./pdf";
 // Create Document Component
 export default function MyPdf({ data }: { data: PDFData }) {
 	return (
-		<PDFViewer className="w-full h-full">
+		<PDFViewer className="h-full w-full">
 			<PdfDocument data={data} />
 		</PDFViewer>
 	);

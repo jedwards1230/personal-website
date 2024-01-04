@@ -19,10 +19,10 @@ export default async function Page({
 	const educations = await getAllEducations();
 
 	return (
-		<div className="flex overflow-y-scroll col-span-12 lg:col-span-10 p-4 flex-col gap-4">
+		<div className="col-span-12 flex flex-col gap-4 overflow-y-scroll p-4 lg:col-span-10">
 			<div className="flex justify-between">
 				<div className="flex flex-col gap-2">
-					<h2 className="text-xl capitalize font-semibold">About</h2>
+					<h2 className="text-xl font-semibold capitalize">About</h2>
 					<p className="text-sm text-gray-500">
 						Edit the about section of the website.
 					</p>
@@ -34,7 +34,7 @@ export default async function Page({
 
 			<div className="flex justify-between">
 				<div className="flex flex-col gap-2">
-					<h2 className="text-xl capitalize font-semibold">
+					<h2 className="text-xl font-semibold capitalize">
 						Education
 					</h2>
 					<p className="text-sm text-gray-500">

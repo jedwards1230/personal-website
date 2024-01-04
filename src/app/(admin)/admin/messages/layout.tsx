@@ -17,8 +17,8 @@ export default async function Layout({
 
 	return (
 		<>
-			<div className="flex col-span-3 border-r border-border flex-col">
-				<div className="flex p-2 pl-4 border-b border-border justify-between items-center">
+			<div className="col-span-3 flex flex-col border-r border-border">
+				<div className="flex items-center justify-between border-b border-border p-2 pl-4">
 					<h2 className="text-lg font-bold">{title}</h2>
 					<form method="post">
 						<Button variant="outline" size="icon">
@@ -34,7 +34,7 @@ export default async function Layout({
 								false
 									? "bg-foreground text-background hover:bg-foreground/70"
 									: "hover:bg-secondary focus:bg-foreground/30",
-								"w-full transition-all duration-100 block py-2 cursor-pointer capitalize pl-4"
+								"block w-full cursor-pointer py-2 pl-4 capitalize transition-all duration-100"
 							)}
 						>
 							{d.name}
