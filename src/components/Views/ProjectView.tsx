@@ -10,7 +10,7 @@ export default function ProjectView({ data }: { data: Project | null }) {
 		: [];
 
 	return (
-		<div className="flex w-full flex-col gap-4">
+		<div className="w-full space-y-4">
 			<div className="w-1/2">
 				<p className="text-2xl font-bold">{data?.title}</p>
 				<p className="text-lg text-secondary-foreground">
@@ -22,15 +22,22 @@ export default function ProjectView({ data }: { data: Project | null }) {
 				</p>
 			</div>
 			{data?.tags && data?.tags.length > 0 && (
-				<div className="flex flex-col gap-2">
+				<div className="space-y-2">
 					<Label>Tags</Label>
 					<TagList tags={data.tags} />
 				</div>
 			)}
 			{data?.href && (
-				<div className="flex flex-col gap-2">
+				<div className="space-y-2">
 					<Label>Link</Label>
-					<p>{data.href}</p>
+					<a
+						className="block text-sm hover:underline"
+						href={data.href}
+						target="_blank"
+						rel="noreferrer"
+					>
+						{data.href}
+					</a>
 				</div>
 			)}
 			{images.length > 0 && (
@@ -53,13 +60,13 @@ export default function ProjectView({ data }: { data: Project | null }) {
 				</div>
 			)}
 			{data?.description && (
-				<div className="flex flex-col gap-2">
+				<div className="space-y-2">
 					<Label>Description</Label>
 					<Markdown>{data.description}</Markdown>
 				</div>
 			)}
 			{data?.info && (
-				<div className="flex flex-col gap-2">
+				<div className="space-y-2">
 					<Label>Info</Label>
 					<Markdown>{data.info}</Markdown>
 				</div>
