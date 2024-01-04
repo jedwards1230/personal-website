@@ -13,6 +13,7 @@ import {
 } from "@/models/project.server";
 import { Label } from "@/components/ui/label";
 import { revalidateAction } from "@/lib/action.server";
+import ImageHandler from "./ImageHandler";
 
 export default function ProjectForm({ data }: { data?: Project | null }) {
 	const router = useRouter();
@@ -122,13 +123,7 @@ export default function ProjectForm({ data }: { data?: Project | null }) {
 						defaultValue={data?.tags.join(", ")}
 					/>
 				</div>
-				<div>
-					<Label>Images</Label>
-					<Input
-						name="images"
-						defaultValue={data?.images.join(", ")}
-					/>
-				</div>
+				<ImageHandler imageData={data?.images ?? []} />
 				<div>
 					<Label>Description</Label>
 					<Textarea
