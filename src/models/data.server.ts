@@ -66,11 +66,14 @@ export async function uploadData({
 }
 
 export async function getAllData() {
-	const about = await getAbout();
-	const educations = await getAllEducations();
-	const projects = await getAllProjects();
-	const experiences = await getAllExperiences();
-	const messages = await getAllMessages();
+	const [about, educations, projects, experiences, messages] =
+		await Promise.all([
+			getAbout(),
+			getAllEducations(),
+			getAllProjects(),
+			getAllExperiences(),
+			getAllMessages(),
+		]);
 
 	return {
 		about,

@@ -5,6 +5,7 @@ import openai from "@/lib/openai";
 import { getAbout } from "@/models/about.server";
 import { getAllExperiences } from "@/models/experience.server";
 import { getAllProjects } from "@/models/project.server";
+import { getAllData } from "@/models/data.server";
 
 export const runtime = "edge";
 
@@ -18,22 +19,20 @@ export async function POST(request: Request) {
 	const { messages } = (await request.json()) as ResponseMessages;
 
 	// Fetch data from your models
-	const [about, experiences, projects] = await Promise.all([
-		getAbout(),
-		getAllExperiences(),
-		getAllProjects(),
-	]);
+	const { about, educations, experiences, projects } = await getAllData();
+
+	const dataString = `I have these experiences: ${JSON.stringify(
+		experiences
+	)}. And these are my projects: ${JSON.stringify(
+		projects
+	)}. And these are my educations: ${JSON.stringify(educations)}.`;
 
 	// Insert the data into the system instruction
 	const systemInstruction: SystemMessage = {
 		role: "system",
-		content: `You are a helpful assistant for ${
-			about.name
-		}. Here's some information about them: ${
-			about.description
-		}. I have these experiences: ${JSON.stringify(
-			experiences
-		)}. And these are my projects: ${JSON.stringify(projects)}.`,
+		content:
+			`You are a helpful assistant for ${about.name}. Here's some information about them: ${about.description}.\n\n` +
+			dataString,
 	};
 
 	// Add the system instruction to the messages

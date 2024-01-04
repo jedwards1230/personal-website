@@ -15,7 +15,7 @@ export default function Page() {
 					? messages.map((m, i) => (
 							<div
 								key={m.content + i}
-								className="rounded-md border border-border p-4"
+								className="space-y-1 rounded-md border border-border p-4"
 							>
 								<div className="text-sm font-semibold capitalize">
 									{m.role}
