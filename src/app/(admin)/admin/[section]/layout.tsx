@@ -39,7 +39,7 @@ export default async function Layout({
 			<div className="flex col-span-3 border-r border-border flex-col">
 				<div className="flex p-2 pl-4 border-b border-border justify-between items-center">
 					<h2 className="text-lg font-bold">{title}</h2>
-					<EditButton isEdit={false} newItem={true} />
+					<EditButton isEdit={false} newItem={true} path={path} />
 				</div>
 				{data.map((d: any) => (
 					<div key={d.id}>

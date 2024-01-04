@@ -11,7 +11,7 @@ import Submit from "../buttons/SubmitButton";
 import { updateExperience } from "@/models/experience.server";
 import { revalidateAction } from "@/lib/action.server";
 
-export default function ExperienceForm({ data }: { data: Experience }) {
+export default function ExperienceForm({ data }: { data?: Experience | null }) {
 	const router = useRouter();
 	const pathname = usePathname();
 
@@ -69,7 +69,7 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 						<Input
 							required
 							name="title"
-							defaultValue={data.title}
+							defaultValue={data?.title}
 						/>
 					</div>
 					<div className="col-span-3">
@@ -77,7 +77,7 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 						<Input
 							required
 							name="company"
-							defaultValue={data.company}
+							defaultValue={data?.company}
 						/>
 					</div>
 				</div>
@@ -89,16 +89,20 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 							name="startMonth"
 							type="month"
 							defaultValue={
-								new Date(data.startDate).getMonth() + 1
+								data?.startDate
+									? data.startDate.getMonth() + 1
+									: undefined
 							}
 						/>
 						<Input
 							required
 							name="startYear"
 							type="year"
-							defaultValue={new Date(
-								data.startDate
-							).getFullYear()}
+							defaultValue={
+								data?.startDate
+									? data.startDate.getFullYear()
+									: undefined
+							}
 						/>
 					</div>
 				</div>
@@ -109,8 +113,8 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 							name="endMonth"
 							type="month"
 							defaultValue={
-								data.endDate
-									? new Date(data.endDate).getMonth() + 1
+								data?.endDate
+									? data.endDate.getMonth() + 1
 									: undefined
 							}
 						/>
@@ -118,8 +122,8 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 							name="endYear"
 							type="year"
 							defaultValue={
-								data.endDate
-									? new Date(data.endDate).getFullYear()
+								data?.endDate
+									? data.endDate.getFullYear()
 									: undefined
 							}
 						/>
@@ -131,7 +135,7 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 						required
 						className="h-24"
 						name="summary"
-						defaultValue={data.summary}
+						defaultValue={data?.summary}
 					/>
 				</div>
 				<div className="col-span-3">
@@ -140,7 +144,7 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 						required
 						className="h-64"
 						name="description"
-						defaultValue={data.description.join("\n")}
+						defaultValue={data?.description.join("\n")}
 					/>
 				</div>
 				<div className="col-span-3">
@@ -148,19 +152,19 @@ export default function ExperienceForm({ data }: { data: Experience }) {
 					<Input
 						required
 						name="tags"
-						defaultValue={data.tags.join(", ")}
+						defaultValue={data?.tags.join(", ")}
 					/>
 				</div>
 				<div className="col-span-3">
 					<Label>Extra Tags</Label>
 					<Input
 						name="extraTags"
-						defaultValue={data.extraTags?.join(", ")}
+						defaultValue={data?.extraTags?.join(", ")}
 					/>
 				</div>
 			</div>
 			<div className="flex w-full justify-between">
-				<input type="hidden" name="id" value={data.id} />
+				<input type="hidden" name="id" value={data?.id} />
 				<Button type="button" variant="destructive">
 					Delete
 				</Button>

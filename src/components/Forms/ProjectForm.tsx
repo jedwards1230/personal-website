@@ -6,11 +6,15 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { updateProject } from "@/models/project.server";
+import {
+	createProject,
+	getNewProjectId,
+	updateProject,
+} from "@/models/project.server";
 import { Label } from "@/components/ui/label";
 import { revalidateAction } from "@/lib/action.server";
 
-export default function ProjectForm({ data }: { data?: Project }) {
+export default function ProjectForm({ data }: { data?: Project | null }) {
 	const router = useRouter();
 	const pathname = usePathname();
 
@@ -18,7 +22,7 @@ export default function ProjectForm({ data }: { data?: Project }) {
 		p: any,
 		formData: FormData
 	): Promise<FormResponse> => {
-		const id = Number(formData.get("id"));
+		const id = data ? Number(formData.get("id")) : await getNewProjectId();
 		if (!id) return { error: "Invalid id." };
 
 		const date = new Date(
@@ -27,7 +31,7 @@ export default function ProjectForm({ data }: { data?: Project }) {
 		);
 
 		try {
-			await updateProject({
+			const params = {
 				id,
 				date,
 				company: String(formData.get("company")),
@@ -42,13 +46,15 @@ export default function ProjectForm({ data }: { data?: Project }) {
 				images: String(formData.get("images"))
 					.split(",")
 					.map(image => image.trim()),
-			});
+			};
+
+			data ? await updateProject(params) : await createProject(params);
 			revalidateAction();
 		} catch (error: any) {
 			return { error: "Failed to send message." };
 		}
 
-		router.push(pathname);
+		router.push(pathname.split("/").slice(0, -1).join("/") + "/" + id);
 		return { success: "Project updated successfully!" };
 	};
 
@@ -89,7 +95,9 @@ export default function ProjectForm({ data }: { data?: Project }) {
 							required
 							name="month"
 							defaultValue={
-								(data?.date ? data.date.getMonth() : 0) + 1
+								data?.date
+									? data.date.getMonth() + 1
+									: undefined
 							}
 						/>
 					</div>
@@ -99,7 +107,9 @@ export default function ProjectForm({ data }: { data?: Project }) {
 							required
 							name="year"
 							defaultValue={
-								data?.date ? data?.date.getFullYear() : 0
+								data?.date
+									? data?.date.getFullYear()
+									: undefined
 							}
 						/>
 					</div>

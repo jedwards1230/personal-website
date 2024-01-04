@@ -21,17 +21,22 @@ export async function createProject(data: Project): Promise<number> {
 export async function getProjectById(id: number): Promise<Project> {
 	const key = `project-${id}`;
 	const value = await kv.get<Project>(key);
-	invariant(value, "Project not found");
-	return { ...value, date: new Date(value.date) };
+	invariant(value, `Project not found: ${id}`);
+	const tags = value.tags.filter(t => t !== "");
+	return { ...value, date: new Date(value.date), tags };
 }
 
 export async function getAllProjects(): Promise<Project[]> {
 	const ids = await getAllIds("project-ids");
 	const projects = [];
 	for (const id of ids) {
-		const project = await getProjectById(id);
-		if (project) {
-			projects.push(project);
+		try {
+			const project = await getProjectById(id);
+			if (project) {
+				projects.push(project);
+			}
+		} catch (e) {
+			console.error(e);
 		}
 	}
 	return projects.sort((a, b) => {
@@ -59,4 +64,10 @@ export async function updateProject(p: Project): Promise<Project> {
 export async function deleteProject(id: number): Promise<void> {
 	await kv.del(`project-${id}`);
 	await removeIdFromList("project-ids", id);
+}
+
+export async function getNewProjectId(): Promise<number> {
+	const ids = await getAllIds("project-ids");
+	const maxId = Math.max(...ids);
+	return isFinite(maxId) ? maxId + 1 : 1;
 }
