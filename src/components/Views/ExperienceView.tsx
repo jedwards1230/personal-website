@@ -6,7 +6,7 @@ export default function ExperienceView({ data }: { data: Experience | null }) {
 	const endDate = data?.endDate ? new Date(data.endDate) : null;
 
 	return (
-		<div className="flex transition-all flex-col gap-2">
+		<div className="flex flex-col gap-2 transition-all">
 			<div className="w-1/2 pb-4">
 				<p className="text-2xl font-bold">{data?.company}</p>
 				<p className="text-lg text-secondary-foreground">

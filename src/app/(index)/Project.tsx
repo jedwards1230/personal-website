@@ -27,16 +27,16 @@ export default function Project({ project }: { project: Project }) {
 					height={400}
 					src={project.images[0]}
 					alt={"Preview " + project.title + ".png"}
-					className="h-auto aspect-video w-full select-none rounded border border-border bg-neutral-100 shadow-sm sm:h-40"
+					className="aspect-video h-auto w-full select-none rounded border border-border bg-neutral-100 shadow-sm sm:h-40"
 				/>
 			) : (
-				<div className="flex h-auto aspect-video w-full select-none items-center justify-center rounded border border-border bg-background text-foreground shadow-sm sm:h-40">
+				<div className="flex aspect-video h-auto w-full select-none items-center justify-center rounded border border-border bg-background text-foreground shadow-sm sm:h-40">
 					{project.title}
 				</div>
 			)}
 			{/* Title */}
 			<div className="flex flex-col gap-1">
-				<div className="space-y-1 items-center font-medium text-foreground">
+				<div className="items-center space-y-1 font-medium text-foreground">
 					{project.title}
 					{project.company !== "Personal" && (
 						<div className="text-sm text-primary">

@@ -10,8 +10,8 @@ export default async function Page({ params }: { params: { id: string } }) {
 		return <div>Not found</div>;
 	}
 	return (
-		<div className="w-full relative p-4 overflow-y-scroll col-span-9 lg:col-span-7">
-			<div className="absolute top-4 right-4">
+		<div className="relative col-span-9 w-full overflow-y-scroll p-4 lg:col-span-7">
+			<div className="absolute right-4 top-4">
 				<DeleteButton id={Number(params.id)} />
 			</div>
 			<div className="space-y-2">

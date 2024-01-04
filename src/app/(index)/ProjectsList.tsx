@@ -12,7 +12,7 @@ export default async function ProjectsList() {
 	return (
 		<section
 			id={ID}
-			className="flex min-h-screen py-2 flex-col gap-4 md:gap-8 sm:py-16 md:justify-between"
+			className="flex min-h-screen flex-col gap-4 py-2 sm:py-16 md:justify-between md:gap-8"
 		>
 			<SectionTitle id={ID} />
 			<div className="grid grid-cols-12 gap-4 md:gap-6">

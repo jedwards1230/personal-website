@@ -32,13 +32,13 @@ export default function Page() {
 
 	return (
 		<form
-			className="flex flex-col justify-center items-center gap-4"
+			className="flex flex-col items-center justify-center gap-4"
 			action={formAction}
 		>
 			<div>
 				<p>Please sign in</p>
 			</div>
-			<div className="flex gap-2 items-end">
+			<div className="flex items-end gap-2">
 				<Label>
 					Password: <Input type="password" name="password" />
 				</Label>

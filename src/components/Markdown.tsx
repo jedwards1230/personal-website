@@ -52,7 +52,7 @@ export default function Markdown({ children }: { children: string }) {
 				pre: ({ node, children, ...props }) => (
 					<pre
 						{...props}
-						className="border border-border rounded rounded-rounded p-1 bg-secondary overflow-x-scroll"
+						className="rounded-rounded overflow-x-scroll rounded border border-border bg-secondary p-1"
 					>
 						{children}
 					</pre>

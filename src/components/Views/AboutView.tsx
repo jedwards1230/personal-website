@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 
 export default function AboutView({ data }: { data: About }) {
 	return (
-		<div className="flex border border-border rounded-rounded p-4 flex-col gap-2">
+		<div className="rounded-rounded flex flex-col gap-2 border border-border p-4">
 			<div className="flex justify-between gap-4">
 				<div className="w-1/2">
 					<p className="text-2xl font-bold">{data.name}</p>
@@ -24,7 +24,7 @@ export default function AboutView({ data }: { data: About }) {
 			</div>
 			<div className="flex flex-col gap-2">
 				<Label>LinkedIn</Label>
-				<Button className="!w-max !p-0 !h-min" variant="link" asChild>
+				<Button className="!h-min !w-max !p-0" variant="link" asChild>
 					<a href={data.linkedin} target="_blank">
 						{data.linkedin}
 					</a>
@@ -32,7 +32,7 @@ export default function AboutView({ data }: { data: About }) {
 			</div>
 			<div className="flex flex-col gap-2">
 				<Label htmlFor="github">GitHub</Label>
-				<Button className="!w-max !p-0 !h-min" variant="link" asChild>
+				<Button className="!h-min !w-max !p-0" variant="link" asChild>
 					<a href={data.github} target="_blank">
 						{data.github}
 					</a>

@@ -53,7 +53,7 @@ export default function EducationForm({ data }: { data?: Education }) {
 
 	return (
 		<form
-			className="flex border border-border rounded-rounded p-4 flex-col gap-2"
+			className="rounded-rounded flex flex-col gap-2 border border-border p-4"
 			action={formAction}
 		>
 			<div className="grid gap-2 pb-4 sm:gap-4">

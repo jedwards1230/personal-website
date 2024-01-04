@@ -15,11 +15,11 @@ export default async function Contact() {
 	return (
 		<section
 			id={ID}
-			className="flex min-h-screen py-2 flex-col gap-4 sm:py-16 md:gap-8"
+			className="flex min-h-screen flex-col gap-4 py-2 sm:py-16 md:gap-8"
 		>
 			<SectionTitle id={ID} />
-			<div className="flex flex-col gap-4 md:gap-8 md:justify-between md:mt-4 md:flex-row">
-				<div className="pb-8 space-y-12">
+			<div className="flex flex-col gap-4 md:mt-4 md:flex-row md:justify-between md:gap-8">
+				<div className="space-y-12 pb-8">
 					<div className="space-y-4">
 						<p>I am currently looking for new opportunities.</p>
 						<p>Feel free to reach out!</p>
@@ -62,7 +62,7 @@ export default async function Contact() {
 						</p>
 					</div>
 					<Button
-						className="!px-0 !py-0 !h-6 mr-auto font-semibold"
+						className="mr-auto !h-6 !px-0 !py-0 font-semibold"
 						asChild
 						size="sm"
 						variant="link"

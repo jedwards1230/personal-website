@@ -25,7 +25,7 @@ export default function ImageHandler({ imageData }: { imageData: string[] }) {
 			<Label>Images</Label>
 			<div
 				className={clsx(
-					"flex gap-4 justify-between",
+					"flex justify-between gap-4",
 					imagesAvailable ?? "items-end"
 				)}
 			>
@@ -34,11 +34,11 @@ export default function ImageHandler({ imageData }: { imageData: string[] }) {
 					name="images"
 					defaultValue={images.join(", ")}
 				/>
-				<div className="py-1 space-y-4">
+				<div className="space-y-4 py-1">
 					{imagesAvailable ? (
 						images.map((image, index) => (
 							<button
-								className="flex group items-center justify-between gap-4"
+								className="group flex items-center justify-between gap-4"
 								key={index}
 								type="button"
 								onClick={() => {
@@ -48,7 +48,7 @@ export default function ImageHandler({ imageData }: { imageData: string[] }) {
 									deleteBlob(image);
 								}}
 							>
-								<span className="w-48 whitespace-nowrap overflow-x-scroll group-hover:bg-secondary text-left px-2 py-1 border border-border rounded rounded-rounded">
+								<span className="rounded-rounded w-48 overflow-x-scroll whitespace-nowrap rounded border border-border px-2 py-1 text-left group-hover:bg-secondary">
 									{image}
 								</span>
 								<X size={16} />

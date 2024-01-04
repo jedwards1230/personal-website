@@ -9,15 +9,15 @@ import { Textarea } from "@/components/ui/textarea";
 export default function Page() {
 	const { messages, input, handleInputChange, handleSubmit } = useChat();
 	return (
-		<div className="flex col-span-12 gap-4 lg:col-span-10 overflow-hidden h-full p-4 flex-col justify-between">
-			<div className="flex overflow-y-scroll flex-col gap-4">
+		<div className="col-span-12 flex h-full flex-col justify-between gap-4 overflow-hidden p-4 lg:col-span-10">
+			<div className="flex flex-col gap-4 overflow-y-scroll">
 				{messages.length > 0
 					? messages.map((m, i) => (
 							<div
 								key={m.content + i}
-								className="border border-border rounded-md p-4"
+								className="rounded-md border border-border p-4"
 							>
-								<div className="capitalize font-semibold text-sm">
+								<div className="text-sm font-semibold capitalize">
 									{m.role}
 								</div>
 								<div className="pl-2">
@@ -28,7 +28,7 @@ export default function Page() {
 					: null}
 			</div>
 			<form
-				className="flex gap-4 justify-between items-center"
+				className="flex items-center justify-between gap-4"
 				onSubmit={handleSubmit}
 			>
 				<Textarea

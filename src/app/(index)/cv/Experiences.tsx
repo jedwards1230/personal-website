@@ -14,8 +14,8 @@ export default async function Experiences() {
 
 					return (
 						<div key={experience.id}>
-							<div className="flex gap-1 sm:gap-2 flex-col sm:flex-row md:pb-2 sm:justify-between">
-								<div className="flex flex-col sm:flex-row gap-1 sm:gap-2 sm:items-end">
+							<div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-2 md:pb-2">
+								<div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:gap-2">
 									<div className="font-medium">
 										{experience.company}
 									</div>
@@ -46,7 +46,7 @@ export default async function Experiences() {
 									</p>
 								</div>
 							</div>
-							<div className="text-sm px-2">
+							<div className="px-2 text-sm">
 								{experience.description.map(d => (
 									<div key={d}>{d}</div>
 								))}

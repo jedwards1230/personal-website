@@ -68,7 +68,7 @@ export default function ProjectForm({ data }: { data?: Project | null }) {
 					<Label>Title</Label>
 					<Input required name="title" defaultValue={data?.title} />
 				</div>
-				<div className="flex gap-4 justify-between">
+				<div className="flex justify-between gap-4">
 					<div className="w-full">
 						<Label>Company</Label>
 						<Input
@@ -89,7 +89,7 @@ export default function ProjectForm({ data }: { data?: Project | null }) {
 					<Label>Link</Label>
 					<Input name="href" defaultValue={data?.href ?? ""} />
 				</div>
-				<div className="flex gap-4 justify-between">
+				<div className="flex justify-between gap-4">
 					<div className="w-full">
 						<Label>Month</Label>
 						<Input

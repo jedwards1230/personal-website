@@ -8,22 +8,22 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="mx-auto h-full flex flex-col gap-4 p-4">
-			<div className="flex flex-col gap-2 border border-border rounded-md h-full p-2">
+		<div className="mx-auto flex h-full flex-col gap-4 p-4">
+			<div className="flex h-full flex-col gap-2 rounded-md border border-border p-2">
 				<Header />
 
-				<div className="rounded-sm grid grid-cols-12 overflow-hidden border border-border h-full w-full">
-					<div className="hidden lg:flex w-full lg:col-span-2 flex-col justify-between gap-2">
-						<div className="w-full transition-all flex flex-col border-r border-border">
+				<div className="grid h-full w-full grid-cols-12 overflow-hidden rounded-sm border border-border">
+					<div className="hidden w-full flex-col justify-between gap-2 border-r border-border lg:col-span-2 lg:flex">
+						<div className="flex w-full flex-col transition-all">
 							<NavItem to={"/admin/about"}>About</NavItem>
 							<NavItem to={"/admin/experience"}>
 								Experience
 							</NavItem>
 							<NavItem to={"/admin/projects"}>Projects</NavItem>
 							<NavItem to={"/admin/resume"}>Resume</NavItem>
-							<div className="h-px bg-border my-2 mx-4"></div>
+							<div className="mx-4 my-2 h-px bg-border"></div>
 							<NavItem to="/admin/chat">Chat</NavItem>
-							<div className="h-px bg-border my-2 mx-4"></div>
+							<div className="mx-4 my-2 h-px bg-border"></div>
 							<NavItem to="/admin/messages">Messages</NavItem>
 						</div>
 						<div className="transition-all">
