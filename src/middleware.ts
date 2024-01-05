@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isAuthenticated } from "./app/session.server";
 
 /* export const config = {
 	matcher: ["/admin/:path*"],
 }; */
 
 export async function middleware(req: NextRequest) {
-	const authenticated = req.cookies.get("admin")?.value === "true";
+	const authenticated = await isAuthenticated();
 
 	if (req.nextUrl.pathname.includes("login")) {
 		if (authenticated) {
