@@ -32,16 +32,16 @@ export default async function Experiences() {
 									className="flex gap-2 text-secondary-foreground"
 								>
 									<p>
-										{startDate.getMonth() + 1}/
-										{startDate.getFullYear()}
+										{startDate.getUTCMonth() + 1}/
+										{startDate.getUTCFullYear()}
 									</p>
 									-
 									<p>
 										{endDate
-											? endDate.getMonth() +
+											? endDate.getUTCMonth() +
 												1 +
 												"/" +
-												endDate.getFullYear()
+												endDate.getUTCFullYear()
 											: "Present"}
 									</p>
 								</div>
@@ -64,8 +64,8 @@ function calculateTimeSpent(startDate: Date, endDate?: Date | null): string {
 		endDate = new Date();
 	}
 
-	let years = endDate.getFullYear() - startDate.getFullYear();
-	let months = endDate.getMonth() - startDate.getMonth() + 1;
+	let years = endDate.getUTCFullYear() - startDate.getUTCFullYear();
+	let months = endDate.getUTCMonth() - startDate.getUTCMonth() + 1;
 
 	if (months <= 0) {
 		years--;

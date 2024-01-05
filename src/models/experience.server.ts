@@ -7,8 +7,8 @@ import { addIdToList, getAllIds } from "./helpers";
 const stringify = (e: Experience): string =>
 	JSON.stringify({
 		...e,
-		startDate: e.startDate.toDateString(),
-		endDate: e.endDate ? e.endDate.toDateString() : null,
+		startDate: e.startDate.toISOString().split("T")[0],
+		endDate: e.endDate ? e.endDate.toISOString().split("T")[0] : null,
 	});
 
 export async function createExperience(data: Experience): Promise<number> {

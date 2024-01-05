@@ -24,8 +24,8 @@ export default async function Projects() {
 								<div className="text-sm">{project.company}</div>
 							</div>
 							<p className="text-sm text-secondary-foreground">
-								{project.date.getMonth() + 1}/
-								{project.date.getFullYear()}
+								{project.date.getUTCMonth() + 1}/
+								{project.date.getUTCFullYear()}
 							</p>
 						</div>
 						<div>

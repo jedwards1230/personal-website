@@ -10,7 +10,10 @@ export default function EducationView({ data }: { data: Education }) {
 				</p>
 				<p>
 					{endDate
-						? endDate.getMonth() + 1 + "/" + endDate.getFullYear()
+						? endDate.getUTCMonth() +
+							1 +
+							"/" +
+							endDate.getUTCFullYear()
 						: "Present"}
 				</p>
 			</div>

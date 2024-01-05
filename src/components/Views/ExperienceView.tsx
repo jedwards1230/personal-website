@@ -14,15 +14,16 @@ export default function ExperienceView({ data }: { data: Experience | null }) {
 				</p>
 				<div className="flex gap-2">
 					<p>
-						{startDate.getMonth() + 1}/{startDate.getFullYear()}
+						{startDate.getUTCMonth() + 1}/
+						{startDate.getUTCFullYear()}
 					</p>
 					-
 					<p>
 						{endDate
-							? endDate.getMonth() +
+							? endDate.getUTCMonth() +
 								1 +
 								"/" +
-								endDate.getFullYear()
+								endDate.getUTCFullYear()
 							: "Present"}
 					</p>
 				</div>
