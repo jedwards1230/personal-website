@@ -5,14 +5,14 @@ import { Label } from "@/components/ui/label";
 export default function AboutView({ data }: { data: About }) {
 	return (
 		<div className="rounded-rounded flex flex-col gap-2 border border-border p-4">
-			<div className="flex justify-between gap-4">
-				<div className="w-1/2">
+			<div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
+				<div className="sm:w-1/2">
 					<p className="text-2xl font-bold">{data.name}</p>
 					<p className="text-lg text-secondary-foreground">
 						{data.title}
 					</p>
 				</div>
-				<div className="text-right">
+				<div className="sm:text-right">
 					<p>{data.location}</p>
 					<p>{data.email}</p>
 					<p>{data.phone}</p>

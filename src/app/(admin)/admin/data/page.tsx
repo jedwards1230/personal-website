@@ -11,7 +11,7 @@ export default async function Page() {
 
 	return (
 		<div className="col-span-12 flex h-full flex-col gap-4 overflow-hidden p-4 lg:col-span-10">
-			<div className="flex justify-between gap-2">
+			<div className="flex flex-col gap-2 md:flex-row md:justify-between">
 				<div className="flex flex-col gap-2">
 					<h2 className="text-xl font-semibold capitalize">Data</h2>
 					<p className="text-sm text-secondary-foreground">
@@ -22,7 +22,7 @@ export default async function Page() {
 						doing.
 					</p>
 				</div>
-				<div className="flex w-96 items-start justify-between gap-2">
+				<div className="flex w-full items-start justify-between gap-2 md:w-96">
 					<Download />
 					<Upload />
 					<RevalidateButton />
