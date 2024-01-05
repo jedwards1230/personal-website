@@ -40,7 +40,7 @@ export default async function Page({
 	const data = params.id !== "new" ? await getData(Number(params.id)) : null;
 
 	return (
-		<div className="relative col-span-9 w-full overflow-y-scroll p-4 lg:col-span-7">
+		<div className="relative col-span-12 w-full overflow-y-scroll p-4 md:col-span-9 lg:col-span-7">
 			{!isEdit && data && (
 				<div className="absolute right-4 top-4">
 					<EditButton isEdit={isEdit} />
