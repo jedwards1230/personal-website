@@ -8,12 +8,13 @@ import { addIdToList, getAllIds, removeIdFromList } from "./helpers";
 const stringify = (p: Project): string =>
 	JSON.stringify({
 		...p,
-		date: p.date.toDateString(),
+		date: p.date.toISOString().split("T")[0],
 	});
 
 export async function createProject(data: Project): Promise<number> {
 	const key = `project-${data.id}`;
-	await kv.set(key, stringify(data));
+	const stringified = stringify(data);
+	await kv.set(key, stringified);
 	const id = await addIdToList("project-ids", data.id);
 	return id;
 }
@@ -41,11 +42,11 @@ export async function getAllProjects(): Promise<Project[]> {
 	}
 	return projects.sort((a, b) => {
 		// sort by year, most recent first
-		if (a.date.getFullYear() > b.date.getFullYear()) return -1;
-		if (a.date.getFullYear() < b.date.getFullYear()) return 1;
+		if (a.date.getUTCFullYear() > b.date.getUTCFullYear()) return -1;
+		if (a.date.getUTCFullYear() < b.date.getUTCFullYear()) return 1;
 		// sort by month, most recent first
-		if (a.date.getMonth() > b.date.getMonth()) return -1;
-		if (a.date.getMonth() < b.date.getMonth()) return 1;
+		if (a.date.getUTCMonth() > b.date.getUTCMonth()) return -1;
+		if (a.date.getUTCMonth() < b.date.getUTCMonth()) return 1;
 		// sort by company
 		if (a.company > b.company) return 1;
 		if (a.company < b.company) return -1;

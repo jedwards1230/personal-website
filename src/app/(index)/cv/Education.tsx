@@ -22,10 +22,10 @@ export default async function Educations() {
 								</div>
 								<p className="text-secondary-foreground">
 									{endDate
-										? endDate.getMonth() +
+										? endDate.getUTCMonth() +
 											1 +
 											"/" +
-											endDate.getFullYear()
+											endDate.getUTCFullYear()
 										: "Present"}
 								</p>
 							</div>

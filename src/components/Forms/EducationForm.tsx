@@ -84,7 +84,7 @@ export default function EducationForm({ data }: { data?: Education }) {
 							type="month"
 							defaultValue={
 								data?.endDate
-									? new Date(data.endDate).getMonth() + 1
+									? new Date(data.endDate).getUTCMonth() + 1
 									: undefined
 							}
 						/>
@@ -94,7 +94,7 @@ export default function EducationForm({ data }: { data?: Education }) {
 							type="year"
 							defaultValue={
 								data?.endDate
-									? new Date(data.endDate).getFullYear()
+									? new Date(data.endDate).getUTCFullYear()
 									: undefined
 							}
 						/>

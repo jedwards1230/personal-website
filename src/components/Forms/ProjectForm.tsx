@@ -97,7 +97,7 @@ export default function ProjectForm({ data }: { data?: Project | null }) {
 							name="month"
 							defaultValue={
 								data?.date
-									? data.date.getMonth() + 1
+									? data.date.getUTCMonth() + 1
 									: undefined
 							}
 						/>
@@ -109,7 +109,7 @@ export default function ProjectForm({ data }: { data?: Project | null }) {
 							name="year"
 							defaultValue={
 								data?.date
-									? data?.date.getFullYear()
+									? data?.date.getUTCFullYear()
 									: undefined
 							}
 						/>

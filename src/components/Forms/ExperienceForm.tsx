@@ -90,7 +90,7 @@ export default function ExperienceForm({ data }: { data?: Experience | null }) {
 							type="month"
 							defaultValue={
 								data?.startDate
-									? data.startDate.getMonth() + 1
+									? data.startDate.getUTCMonth() + 1
 									: undefined
 							}
 						/>
@@ -100,7 +100,7 @@ export default function ExperienceForm({ data }: { data?: Experience | null }) {
 							type="year"
 							defaultValue={
 								data?.startDate
-									? data.startDate.getFullYear()
+									? data.startDate.getUTCFullYear()
 									: undefined
 							}
 						/>
@@ -114,7 +114,7 @@ export default function ExperienceForm({ data }: { data?: Experience | null }) {
 							type="month"
 							defaultValue={
 								data?.endDate
-									? data.endDate.getMonth() + 1
+									? data.endDate.getUTCMonth() + 1
 									: undefined
 							}
 						/>
@@ -123,7 +123,7 @@ export default function ExperienceForm({ data }: { data?: Experience | null }) {
 							type="year"
 							defaultValue={
 								data?.endDate
-									? data.endDate.getFullYear()
+									? data.endDate.getUTCFullYear()
 									: undefined
 							}
 						/>

@@ -5,6 +5,8 @@ import TagList from "../TagList";
 
 export default function ProjectView({ data }: { data: Project | null }) {
 	const date = data?.date ? new Date(data?.date) : new Date();
+	const dateStr = `${date.getUTCMonth() + 1}/${date.getUTCFullYear()}`;
+
 	const images = data?.images
 		? data.images?.map(i => (i.length > 0 ? i : null)).filter(i => i)
 		: [];
@@ -17,9 +19,7 @@ export default function ProjectView({ data }: { data: Project | null }) {
 					{data?.company}
 				</p>
 				<p className="text-secondary-foreground">{data?.client}</p>
-				<p>
-					{date.getMonth() + 1}/{date.getFullYear()}
-				</p>
+				<p>{dateStr}</p>
 			</div>
 			{data?.tags && data?.tags.length > 0 && (
 				<div className="space-y-2">

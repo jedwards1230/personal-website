@@ -43,8 +43,8 @@ export default function ProjectCard({ project }: { project: Project }) {
 							</p>
 						</div>
 						<div className="text-foreground/70">
-							{project.date.getMonth() + 1}/
-							{project.date.getFullYear()}
+							{project.date.getUTCMonth() + 1}/
+							{project.date.getUTCFullYear()}
 						</div>
 					</div>
 

@@ -8,7 +8,7 @@ import { addIdToList, getAllIds } from "./helpers";
 const stringify = (e: Education): string =>
 	JSON.stringify({
 		...e,
-		endDate: e.endDate ? e.endDate.toDateString() : null,
+		endDate: e.endDate ? e.endDate.toISOString().split("T")[0] : null,
 	});
 
 export async function createEducation(data: Education): Promise<number> {
