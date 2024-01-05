@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="mx-auto flex h-full flex-col gap-4 px-1 py-2 md:p-4">
+		<div className="mx-auto flex h-full flex-col gap-4 px-1 py-2 transition-all lg:p-2">
 			<div className="flex h-full flex-col gap-2 rounded-md border-border p-2 lg:border">
 				<div className="flex items-center justify-between px-2">
 					<Button asChild variant="outline" size="icon">

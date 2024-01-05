@@ -52,7 +52,7 @@ export async function getAllExperiences(
 					if (b.endDate === null) return 1;
 					return b.endDate.getTime() - a.endDate.getTime();
 				case "startDate":
-					return a.startDate.getTime() - b.startDate.getTime();
+					return b.startDate.getTime() - a.startDate.getTime();
 				case "company":
 					return a.company.localeCompare(b.company);
 				default:

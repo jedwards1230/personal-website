@@ -1,7 +1,7 @@
 import { getAllExperiences } from "@/models/experience.server";
 
 export default async function Experiences() {
-	const experiences = await getAllExperiences("endDate");
+	const experiences = await getAllExperiences("startDate");
 	return (
 		<div className="space-y-2 print:space-y-1">
 			<div className="text-xl font-semibold">Experience</div>

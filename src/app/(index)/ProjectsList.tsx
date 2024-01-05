@@ -19,7 +19,7 @@ export default async function ProjectsList() {
 				{projects.map((p, i) => (
 					<ProjectDialog
 						project={p}
-						className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3"
+						className="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-3"
 						key={"projects-" + i}
 					>
 						<Project project={p} />
