@@ -24,24 +24,30 @@ export function invariant(
 	throw new Error(value);
 }
 
-export async function getPageViews(): Promise<number> {
+export async function getPageViews(): Promise<number | null> {
 	const url = new URL("https://plausible.io/api/v1/stats/aggregate");
 	url.searchParams.set("site_id", "jedwards.cc");
 	url.searchParams.set("period", "7d");
 	//url.searchParams.set('filters', 'visit:city!=4151316');
 
-	const res: {
-		results: {
-			visitors: {
-				value: number;
+	try {
+		const response = await fetch(url, {
+			headers: {
+				Authorization: "Bearer " + process.env.PLAUSIBLE_API_KEY,
+			},
+		});
+
+		const res = (await response.json()) as {
+			results: {
+				visitors: {
+					value: number;
+				};
 			};
 		};
-	} = await fetch(url, {
-		headers: {
-			Authorization: "Bearer " + process.env.PLAUSIBLE_API_KEY,
-		},
-		// next: { revalidate: 10 },
-	}).then(res => res.json());
 
-	return res.results.visitors.value || 0;
+		return res.results.visitors.value || 0;
+	} catch (e: any) {
+		console.error(`Error fetching page views: ${e}`);
+		return null;
+	}
 }

@@ -25,14 +25,15 @@ export async function POST(request: Request) {
 		experiences
 	)}. And these are my projects: ${JSON.stringify(
 		projects
-	)}. And these are my educations: ${JSON.stringify(educations)}.`;
+	)}. And these are my educations: ${JSON.stringify(educations)}.\n\n`;
 
 	// Insert the data into the system instruction
 	const systemInstruction: SystemMessage = {
 		role: "system",
 		content:
 			`You are a helpful assistant for ${about.name}. Here's some information about them: ${about.description}.\n\n` +
-			dataString,
+			dataString +
+			"Responses should be technical.",
 	};
 
 	// Add the system instruction to the messages
