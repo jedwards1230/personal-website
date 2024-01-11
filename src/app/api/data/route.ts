@@ -1,34 +1,48 @@
+import { getAbout } from "@/models/about.server";
 import { getAllExperiences } from "@/models/experience.server";
 import { getAllProjects } from "@/models/project.server";
+
+function returnError(message: string) {
+	return new Response(message, {
+		status: 401,
+		headers: {
+			"WWW-Authenticate": 'Basic realm="Secure Data"',
+		},
+	});
+}
 
 export async function GET(req: Request) {
 	const authHeader = req.headers.get("Authorization");
 	if (!authHeader) {
-		return new Response("Authorization Required", {
-			status: 401,
-			headers: {
-				"WWW-Authenticate": 'Basic realm="Secure Data"',
-			},
-		});
+		return returnError("Authorization Required");
 	}
 
-	const { password } = decodeBasicAuth(authHeader);
-	if (password !== process.env.ADMIN_PASSWORD) {
-		return new Response("Unauthorized", {
-			status: 401,
-			headers: {
-				"WWW-Authenticate": 'Basic realm="Secure Data"',
-			},
-		});
+	try {
+		const { password } = decodeBasicAuth(authHeader);
+		if (password !== process.env.ADMIN_PASSWORD) {
+			return returnError("Unauthorized");
+		}
+	} catch (e) {
+		return returnError("Unauthorized");
 	}
 
-	const [experiences, projects] = await Promise.all([
+	const [about, experiences, projects] = await Promise.all([
+		getAbout(),
 		getAllExperiences(),
 		getAllProjects(),
 	]);
 
 	return new Response(
 		JSON.stringify({
+			about: {
+				name: about.name,
+				title: about.title,
+				email: about.email,
+				location: about.location,
+				tags: about.tags,
+				linkedin: about.linkedin,
+				github: about.github,
+			},
 			experiences: experiences.map((e: Experience) => ({
 				title: e.title,
 				company: e.company,
@@ -57,6 +71,6 @@ export async function GET(req: Request) {
 }
 
 function decodeBasicAuth(auth: string) {
-	const [username, password] = atob(auth.split(" ")[1]).split(":");
+	const [username, password] = atob(auth).split(":");
 	return { username, password };
 }
