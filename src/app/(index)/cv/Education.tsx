@@ -3,7 +3,7 @@ import { getAllEducations } from "@/models/education.server";
 export default async function Educations() {
 	const educations = await getAllEducations("endDate");
 	return (
-		<div className="space-y-2">
+		<div className="space-y-4">
 			<div className="text-xl font-semibold">Education</div>
 			<div className="space-y-4">
 				{educations.map(education => {
