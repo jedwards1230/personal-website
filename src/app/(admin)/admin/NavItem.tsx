@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -16,21 +17,30 @@ export default function NavItem({
 	className?: string;
 }) {
 	const pathname = usePathname();
-	const checkActive = eq ? pathname === to : pathname.includes(to);
+	const isActive = eq ? pathname === to : pathname.includes(to);
 
 	return (
-		<Link
-			href={to}
-			title={to}
+		<Button
+			autoFocus={isActive}
+			asChild
+			variant="link"
 			className={clsx(
-				checkActive
+				"justify-start rounded-none",
+				isActive
 					? "bg-foreground text-background hover:bg-foreground/70"
-					: "hover:bg-secondary focus:bg-foreground/30",
-				"block w-full cursor-pointer py-2 pl-4 capitalize transition-all duration-100",
-				className
+					: "hover:bg-secondary focus:bg-foreground/30"
 			)}
 		>
-			{children}
-		</Link>
+			<Link
+				href={to}
+				title={to}
+				className={clsx(
+					"block w-full cursor-pointer py-2 pl-4 capitalize transition-all duration-100",
+					className
+				)}
+			>
+				{children}
+			</Link>
+		</Button>
 	);
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { logoutAdminSession } from "@/app/session.server";
+import { logoutAdminSession } from "@/lib/session.server";
 import { Button } from "@/components/ui/button";
 
 export default function Page() {

@@ -4,6 +4,7 @@ import PlausibleProvider from "next-plausible";
 import clsx from "clsx";
 
 import "./styles.css";
+import { CommandMenu } from "@/components/CommandMenu/CommandMenu";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 	description: "Personal Website for Justin Edwards",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
@@ -28,7 +29,7 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			className="h-full w-full scroll-smooth bg-background text-foreground transition-all"
+			className="w-full scroll-smooth bg-background text-foreground transition-all"
 		>
 			<head>
 				<PlausibleProvider
@@ -39,11 +40,12 @@ export default function RootLayout({
 			</head>
 			<body
 				className={clsx(
-					"relative mx-auto h-full w-full max-w-10xl",
+					"relative mx-auto w-full max-w-10xl",
 					inter.className
 				)}
 			>
 				{children}
+				<CommandMenu />
 			</body>
 		</html>
 	);

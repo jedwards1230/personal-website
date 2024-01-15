@@ -28,14 +28,14 @@ export async function createAdminSession(password: string, redirectTo: string) {
 	});
 }
 
-export async function isAuthenticated() {
+export async function checkAuthenticated() {
 	const cookieStore = cookies();
 	const isAdmin = cookieStore.get(ADMIN_SESSION_COOKIE_NAME);
 	return isAdmin?.value === ADMIN_SESSION_COOKIE_VALUE;
 }
 
 export async function requireAdminSession() {
-	if (!isAuthenticated()) {
+	if (!checkAuthenticated()) {
 		throw redirect("/login");
 	}
 }
