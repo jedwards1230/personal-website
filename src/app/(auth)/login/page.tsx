@@ -1,12 +1,12 @@
 "use client";
 
 import { useFormState } from "react-dom";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createAdminSession } from "@/app/session.server";
-import { usePathname, useRouter } from "next/navigation";
+import { createAdminSession } from "@/lib/session.server";
 
 export default function Page() {
 	const router = useRouter();
