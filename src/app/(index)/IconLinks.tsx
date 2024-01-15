@@ -5,7 +5,7 @@ import {
 	HoverCardContent,
 	HoverCardTrigger,
 } from "@radix-ui/react-hover-card";
-import { AtSign, GithubIcon, LinkedinIcon } from "lucide-react";
+import { AtSign, Github, LinkedinIcon } from "lucide-react";
 
 export default function IconLinks({ about }: { about: About }) {
 	const linkedInUsername = about.linkedin.replace(/\/$/, "").split("/").pop();
@@ -16,7 +16,7 @@ export default function IconLinks({ about }: { about: About }) {
 			title: "Github",
 			copy: "@" + githubUsername,
 			href: about.github,
-			icon: <GithubIcon width={30} height={30} />,
+			icon: <Github width={30} height={30} />,
 		},
 		{
 			title: "LinkedIn",
