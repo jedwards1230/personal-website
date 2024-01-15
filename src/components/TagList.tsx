@@ -14,7 +14,7 @@ export default function TagList({
 	onClick?: (tag: string) => void;
 }) {
 	return (
-		<div className={clsx("flex flex-wrap gap-2 pt-1 text-xs", className)}>
+		<div className={clsx("flex flex-wrap gap-2 text-xs", className)}>
 			{tags.map((t, i) =>
 				onClick ? (
 					<Badge

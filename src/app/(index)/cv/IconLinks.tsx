@@ -1,3 +1,6 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
 import { AtSign, Github, LinkedinIcon } from "lucide-react";
 
 export default function IconLinks({ about }: { about: About }) {
@@ -30,16 +33,17 @@ export default function IconLinks({ about }: { about: About }) {
 	return (
 		<div className="flex gap-4 text-xs">
 			{links.map((link, i) => (
-				<a
-					key={i}
-					title={link.title}
-					className="fill-neutral-600 transition-colors hover:fill-neutral-950 dark:fill-neutral-400 dark:hover:fill-neutral-50"
-					href={link.href}
-					target="_blank"
-					rel="noreferrer"
-				>
-					{link.icon}
-				</a>
+				<Button key={i} asChild size="icon" variant="outline">
+					<a
+						title={link.title}
+						className="fill-neutral-600 transition-colors hover:fill-neutral-950 dark:fill-neutral-400 dark:hover:fill-neutral-50"
+						href={link.href}
+						target="_blank"
+						rel="noreferrer"
+					>
+						{link.icon}
+					</a>
+				</Button>
 			))}
 		</div>
 	);

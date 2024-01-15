@@ -30,7 +30,10 @@ export default async function Page() {
 				</div>
 				<IconLinks about={about} />
 			</div>
-			<p className="text-sm">{about.description}</p>
+			<div className="space-y-2">
+				<div className="text-xl font-semibold">About</div>
+				<p className="text-sm">{about.description}</p>
+			</div>
 			<Experiences />
 			<Educations />
 			<Projects />
