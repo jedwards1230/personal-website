@@ -5,10 +5,12 @@ import { Badge } from "./ui/badge";
 export default function TagList({
 	tags,
 	className,
+	size = "default",
 	onClick,
 }: {
 	tags: string[];
 	className?: string;
+	size?: "sm" | "default";
 	onClick?: (tag: string) => void;
 }) {
 	return (
@@ -16,6 +18,7 @@ export default function TagList({
 			{tags.map((t, i) =>
 				onClick ? (
 					<Badge
+						size={size}
 						key={"tag-" + i}
 						variant="outline"
 						onClick={e => {
