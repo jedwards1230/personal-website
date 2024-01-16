@@ -1,13 +1,13 @@
 import TagList from "@/components/TagList";
 import ProjectDialog from "@/components/dialogs/ProjectDialog";
 import { getAllProjects } from "@/models/project.server";
+import Section from "./Section";
 
 export default async function Projects() {
 	const projects = await getAllProjects();
 
 	return (
-		<div className="space-y-4">
-			<div className="text-xl font-semibold">Projects</div>
+		<Section title="Projects">
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 print:flex print:flex-col print:gap-1">
 				{projects.map(project => (
 					<ProjectDialog
@@ -40,6 +40,6 @@ export default async function Projects() {
 					</ProjectDialog>
 				))}
 			</div>
-		</div>
+		</Section>
 	);
 }
