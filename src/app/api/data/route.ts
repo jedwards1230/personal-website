@@ -12,7 +12,7 @@ function returnError(message: string) {
 }
 
 export async function GET(req: Request) {
-	const authHeader = req.headers.get("Authorization");
+	const authHeader = req.headers.get("authorization");
 	if (!authHeader) {
 		return returnError("Authorization Required");
 	}
@@ -71,6 +71,15 @@ export async function GET(req: Request) {
 }
 
 function decodeBasicAuth(auth: string) {
-	const [username, password] = atob(auth).split(":");
+	const decoded = atob(auth.split(" ").pop() || "");
+	const parts = decoded.split(":");
+
+	if (parts.length !== 2) {
+		throw new Error(
+			'Invalid Authorization header format. Expected format is "Basic username:password"'
+		);
+	}
+
+	const [username, password] = parts;
 	return { username, password };
 }

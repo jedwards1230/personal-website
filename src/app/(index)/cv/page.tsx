@@ -23,7 +23,7 @@ export default async function Page() {
 			<div className="flex flex-col justify-between gap-2 md:flex-row print:flex-row print:gap-1">
 				<div>
 					<div className="text-2xl font-bold">{about.name}</div>
-					<div className="pb-1 text-lg font-semibold">
+					<div className="pb-1 text-lg font-medium">
 						{about.title}
 					</div>
 					<div>{about.location}</div>
