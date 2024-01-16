@@ -14,8 +14,8 @@ export default async function Experiences() {
 
 					return (
 						<div key={experience.id}>
-							<div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-2 md:pb-2">
-								<div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:gap-2">
+							<div className="flex flex-col gap-1 pb-1 sm:flex-row sm:justify-between sm:gap-2 md:pb-2">
+								<div className="flex flex-col sm:flex-row sm:items-end sm:gap-2">
 									<div className="font-medium">
 										{experience.company}
 									</div>
@@ -29,7 +29,7 @@ export default async function Experiences() {
 										startDate,
 										endDate
 									)}
-									className="flex gap-2 text-secondary-foreground"
+									className="flex gap-2 text-sm text-secondary-foreground"
 								>
 									<p>
 										{startDate.getUTCMonth() + 1}/
