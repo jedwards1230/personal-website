@@ -15,15 +15,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 		<div className="mx-auto flex h-full flex-col gap-4 px-1 py-2 transition-all lg:p-2">
 			<div className="flex h-full flex-col gap-2 rounded-md border-border p-2 lg:border">
 				<div className="flex items-center justify-between px-2">
-					<Button asChild variant="outline" size="icon">
-						<Link href="/">
-							<Home />
-						</Link>
-					</Button>
 					<h2 className="text-xl font-semibold">Admin</h2>
-					<MenuButton>
-						<AdminNav />
-					</MenuButton>
+					<div className="flex items-center gap-2">
+						<Button asChild variant="outline" size="icon">
+							<Link href="/">
+								<Home />
+							</Link>
+						</Button>
+						<MenuButton>
+							<AdminNav />
+						</MenuButton>
+					</div>
 				</div>
 
 				<div className="grid h-full w-full grid-cols-12 overflow-hidden rounded-sm border border-border">

@@ -1,11 +1,13 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { getAbout } from "@/models/about.server";
-import Link from "next/link";
 import Experiences from "./Experiences";
 import Projects from "./Projects";
 import DownloadResume from "../DownloadResume";
 import Educations from "./Education";
 import IconLinks from "./IconLinks";
+import Section from "./Section";
 
 export const dynamic = "force-dynamic";
 
@@ -30,10 +32,9 @@ export default async function Page() {
 				</div>
 				<IconLinks about={about} />
 			</div>
-			<div className="space-y-2">
-				<div className="text-xl font-semibold">About</div>
+			<Section title="About">
 				<p className="text-sm">{about.description}</p>
-			</div>
+			</Section>
 			<Experiences />
 			<Educations />
 			<Projects />

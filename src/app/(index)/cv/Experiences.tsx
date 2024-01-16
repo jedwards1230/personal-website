@@ -1,10 +1,10 @@
 import { getAllExperiences } from "@/models/experience.server";
+import Section from "./Section";
 
 export default async function Experiences() {
 	const experiences = await getAllExperiences("startDate");
 	return (
-		<div className="space-y-4 print:space-y-1">
-			<div className="text-xl font-semibold">Experience</div>
+		<Section title="Experience" className="print:space-y-1">
 			<div className="space-y-4 print:space-y-2">
 				{experiences.map(experience => {
 					const startDate = new Date(experience.startDate);
@@ -55,7 +55,7 @@ export default async function Experiences() {
 					);
 				})}
 			</div>
-		</div>
+		</Section>
 	);
 }
 
