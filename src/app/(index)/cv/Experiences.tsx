@@ -19,7 +19,7 @@ export default async function Experiences() {
 									<div className="font-medium">
 										{experience.company}
 									</div>
-									<span className="hidden sm:inline-block">
+									<span className="invisible hidden sm:inline-block">
 										{"-"}
 									</span>
 									<div>{experience.title}</div>
