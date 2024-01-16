@@ -2,14 +2,13 @@ import { getAbout } from "@/models/about.server";
 import { getAllExperiences } from "@/models/experience.server";
 import { getAllProjects } from "@/models/project.server";
 
-function returnError(message: string) {
-	return new Response(message, {
+const returnError = (message: string) =>
+	new Response(message, {
 		status: 401,
 		headers: {
 			"WWW-Authenticate": 'Basic realm="Secure Data"',
 		},
 	});
-}
 
 export async function GET(req: Request) {
 	const authHeader = req.headers.get("authorization");

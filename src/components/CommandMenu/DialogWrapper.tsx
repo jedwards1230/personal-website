@@ -37,8 +37,7 @@ export default function DialogWrapper({
 		setOpen(false);
 	}, [pathname]);
 
-	const isMac = navigator.userAgent.toUpperCase().indexOf("MAC") >= 0;
-	console.log(isMac);
+	const isMac = navigator?.userAgent.toUpperCase().indexOf("MAC") >= 0;
 
 	return (
 		<>
