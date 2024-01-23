@@ -3,7 +3,7 @@
 import { Link2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { CommandItem } from "../ui/command";
+import { CommandGroup, CommandItem } from "../ui/command";
 
 export default function PageLinks({
 	isAuthenticated,
@@ -33,10 +33,15 @@ export default function PageLinks({
 		links = links.filter(link => !link.secure);
 	}
 
-	return links.map(({ name, url, secure }) => (
-		<CommandItem onSelect={() => router.push(url)} key={name}>
-			<Link2 className="mr-2 h-4 w-4" />
-			<span>{name}</span>
-		</CommandItem>
-	));
+	if (links.length === 0) return null;
+	return (
+		<CommandGroup heading="Pages">
+			{links.map(({ name, url, secure }) => (
+				<CommandItem onSelect={() => router.push(url)} key={name}>
+					<Link2 className="mr-2 h-4 w-4" />
+					<span>{name}</span>
+				</CommandItem>
+			))}
+		</CommandGroup>
+	);
 }
