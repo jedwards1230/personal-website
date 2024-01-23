@@ -23,17 +23,11 @@ export async function CommandMenu() {
 				<CommandInput placeholder="Type a command or search..." />
 				<CommandList>
 					<CommandEmpty>No results found.</CommandEmpty>
-					<CommandGroup heading="Pages">
-						<PageLinks isAuthenticated={isAuthenticated} />
-					</CommandGroup>
+					<PageLinks isAuthenticated={isAuthenticated} />
 					<CommandSeparator />
-					<CommandGroup heading="Actions">
-						<Actions isAuthenticated={isAuthenticated} />
-					</CommandGroup>
+					<Actions isAuthenticated={isAuthenticated} />
 					<CommandSeparator />
-					<CommandGroup heading="Links">
-						<SocialLinks />
-					</CommandGroup>
+					<SocialLinks />
 				</CommandList>
 			</DialogWrapper>
 		</>
@@ -61,10 +55,15 @@ async function SocialLinks() {
 		},
 	];
 
-	return socialLinks.map(({ name, url, Icon }) => (
-		<CommandItem key={name}>
-			<Icon className="mr-2 h-4 w-4" />
-			<span>{name}</span>
-		</CommandItem>
-	));
+	if (socialLinks.length === 0) return null;
+	return (
+		<CommandGroup heading="Links">
+			{socialLinks.map(({ name, url, Icon }) => (
+				<CommandItem key={name}>
+					<Icon className="mr-2 h-4 w-4" />
+					<span>{name}</span>
+				</CommandItem>
+			))}
+		</CommandGroup>
+	);
 }

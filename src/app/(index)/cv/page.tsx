@@ -15,7 +15,7 @@ export default async function Page() {
 	const about = await getAbout();
 
 	return (
-		<div className="mx-auto max-w-4xl space-y-4 px-4 py-4 md:space-y-8 md:py-8 print:space-y-2 print:px-0 print:py-0">
+		<div className="mx-auto max-w-4xl space-y-4 px-4 py-4 md:space-y-8 md:py-12 print:space-y-2 print:px-0 print:py-0">
 			<div className="flex w-full items-center justify-between print:hidden">
 				<Button className="!px-0" variant="link" asChild>
 					<Link href="/">Home</Link>

@@ -46,7 +46,6 @@ function AdminNav() {
 				<NavItem to={"/admin/about"}>About</NavItem>
 				<NavItem to={"/admin/experience"}>Experience</NavItem>
 				<NavItem to={"/admin/projects"}>Projects</NavItem>
-				<NavItem to={"/admin/resume"}>Resume</NavItem>
 				<div className="mx-4 my-2 h-px bg-border"></div>
 				<NavItem to="/admin/chat">Chat</NavItem>
 				<div className="mx-4 my-2 h-px bg-border"></div>
