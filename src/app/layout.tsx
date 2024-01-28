@@ -18,7 +18,10 @@ export const metadata: Metadata = {
 		template: "%s | J. Edwards",
 		default: "J. Edwards",
 	},
-	description: "Personal Website for Justin Edwards",
+	description:
+		"Discover the professional world of Justin Edwards, a Full Stack Developer based in Clearwater, FL. Explore my portfolio featuring projects in NextJS, TypeScript, SQL, and AWS, and connect with me on LinkedIn and GitHub.",
+	keywords:
+		"Justin Edwards, Full Stack Developer, Software Engineer, NextJS, TypeScript, SQL, AWS, Portfolio, Clearwater, Florida",
 };
 
 export default async function RootLayout({
