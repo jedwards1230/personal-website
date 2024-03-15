@@ -2,6 +2,7 @@
 
 import { useFormState } from "react-dom";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,9 +12,15 @@ import Submit from "../buttons/SubmitButton";
 import { updateExperience } from "@/models/experience.server";
 import { revalidateAction } from "@/lib/action.server";
 
-export default function ExperienceForm({ data }: { data?: Experience | null }) {
+export default function ExperienceForm({
+	data: incData,
+}: {
+	data?: Experience | null;
+}) {
 	const router = useRouter();
 	const pathname = usePathname();
+	const [data, setData] = useState<Experience | undefined | null>(incData);
+	useEffect(() => setData(incData), [incData]);
 
 	async function handleExperienceFormSubmit(
 		p: any,
@@ -87,7 +94,7 @@ export default function ExperienceForm({ data }: { data?: Experience | null }) {
 						<Input
 							required
 							name="startMonth"
-							type="month"
+							type="number"
 							defaultValue={
 								data?.startDate
 									? data.startDate.getUTCMonth() + 1
@@ -111,7 +118,7 @@ export default function ExperienceForm({ data }: { data?: Experience | null }) {
 					<div className="flex gap-2">
 						<Input
 							name="endMonth"
-							type="month"
+							type="number"
 							defaultValue={
 								data?.endDate
 									? data.endDate.getUTCMonth() + 1
