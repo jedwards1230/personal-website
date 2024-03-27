@@ -26,17 +26,13 @@ export default function ImagesDialog({
 
 	return (
 		<Dialog>
-			<DialogTrigger
-				onClick={openImageModal}
-				asChild
-				className="object-cover"
-			>
+			<DialogTrigger onClick={openImageModal} asChild>
 				<Image
 					width={800}
 					height={400}
 					src={src}
 					alt={alt}
-					className="aspect-video w-full cursor-pointer select-none rounded-lg border border-foreground object-cover shadow-sm transition-all hover:sm:scale-[101%]"
+					className="cursor-pointer select-none rounded-lg border border-foreground shadow-sm transition-all hover:sm:scale-[101%]"
 				/>
 			</DialogTrigger>
 			<DialogContent size="full">

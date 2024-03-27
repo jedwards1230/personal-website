@@ -13,13 +13,15 @@ export default function ProjectCard({ project }: { project: Project }) {
 		<div className="flex w-full max-w-7xl flex-col pb-4 sm:px-4">
 			{/* Title - Client - Year */}
 			<div className="mb-4 flex w-full flex-col gap-2 sm:flex-row md:gap-4">
-				{images.length > 0 && (
-					<ImagesDialog
-						project={project}
-						src={images[0]}
-						alt={project.title}
-					/>
-				)}
+				<div className="max-w-[60%]">
+					{images.length > 0 && (
+						<ImagesDialog
+							project={project}
+							src={images[0]}
+							alt={project.title}
+						/>
+					)}
+				</div>
 
 				<div
 					className={clsx(
@@ -47,7 +49,6 @@ export default function ProjectCard({ project }: { project: Project }) {
 							{project.date.getUTCFullYear()}
 						</div>
 					</div>
-
 					{/* Project Link */}
 					{project.href && (
 						<a
@@ -59,7 +60,6 @@ export default function ProjectCard({ project }: { project: Project }) {
 							View Project
 						</a>
 					)}
-
 					{/* Tags */}
 					<TagList tags={project.tags} />
 				</div>

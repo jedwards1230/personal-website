@@ -44,7 +44,7 @@ export default function Markdown({ children }: { children: string }) {
 				li: ({ node, children, ...props }) => (
 					<li
 						{...props}
-						className="text-neutral-700 dark:text-neutral-300 [&>*]:inline-block"
+						className="text-neutral-700 dark:text-neutral-300 [&>*]:block"
 					>
 						{children}
 					</li>
