@@ -13,6 +13,7 @@ export default function DownloadResume() {
 			<Link
 				href="/resume"
 				onClick={() => plausible("Resume Download")}
+				target="_blank"
 				className="group inline-flex select-none gap-4 hover:underline"
 			>
 				Download
