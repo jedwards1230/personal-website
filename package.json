@@ -2,12 +2,15 @@
 	"name": "personal-website",
 	"version": "0.1.0",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
+		"build:cf": "bunx @cloudflare/next-on-pages@1",
 		"start": "next start",
 		"lint": "eslint",
 		"format": "prettier --write . --ignore-path .gitignore",
+		"tsc": "tsc",
 		"test": "playwright test"
 	},
 	"dependencies": {
