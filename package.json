@@ -38,6 +38,7 @@
 		"tailwindcss-animate": "^1.0.7"
 	},
 	"devDependencies": {
+		"@cloudflare/next-on-pages": "^1.11.3",
 		"@playwright/test": "^1.44.1",
 		"@types/eslint-config-prettier": "^6.11.3",
 		"@types/node": "^20",
