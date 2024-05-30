@@ -1,11 +1,11 @@
-import eslint from "@eslint/js";
-import prettierPlugin from "eslint-config-prettier";
-import importPlugin from "eslint-plugin-import";
-import tseslint from "typescript-eslint";
-import nextPlugin from "@next/eslint-plugin-next";
+const eslint = require("@eslint/js");
+const prettierPlugin = require("eslint-config-prettier");
+const importPlugin = require("eslint-plugin-import");
+const tseslint = require("typescript-eslint");
+const nextPlugin = require("@next/eslint-plugin-next");
 
 /** @type {Awaited<import('typescript-eslint').Config>} */
-export default tseslint.config(
+module.exports = tseslint.config(
 	{
 		// Globally ignored files
 		ignores: ["dist", "bun.lockb", ".turbo", ".next", "node_modules"],
