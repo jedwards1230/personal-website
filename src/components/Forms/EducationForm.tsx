@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -49,7 +49,7 @@ export default function EducationForm({ data }: { data?: Education }) {
 		return { success: "Education updated successfully!" };
 	}
 
-	const [state, formAction] = useFormState(handleEducationFormSubmit, {});
+	const [state, formAction] = useActionState(handleEducationFormSubmit, {});
 
 	return (
 		<form

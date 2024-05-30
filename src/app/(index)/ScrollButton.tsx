@@ -6,13 +6,16 @@ import { useEffect } from "react";
 export default function ScrollButton() {
 	useEffect(() => {
 		const handleScroll = () => {
-			const chevron = document.querySelector(".chevron") as HTMLElement;
+			const chevron = document.querySelector(".chevron");
 			if (chevron) {
 				const windowHeight = window.innerHeight;
 				const scrollY = window.scrollY;
 				const offset = -200;
 				const opacity = 1 - scrollY / (windowHeight + offset);
-				chevron.style.opacity = Math.max(opacity, 0).toString();
+				(chevron as any).style.opacity = Math.max(
+					opacity,
+					0
+				).toString();
 			}
 		};
 

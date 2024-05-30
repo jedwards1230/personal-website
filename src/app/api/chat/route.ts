@@ -2,16 +2,13 @@ import type OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 
 import openai from "@/lib/openai";
-import { getAbout } from "@/models/about.server";
-import { getAllExperiences } from "@/models/experience.server";
-import { getAllProjects } from "@/models/project.server";
 import { getAllData } from "@/models/data.server";
 
 export const runtime = "edge";
 
-type ResponseMessages = {
+interface ResponseMessages {
 	messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[];
-};
+}
 
 type SystemMessage = OpenAI.Chat.Completions.ChatCompletionSystemMessageParam;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -59,7 +59,7 @@ export default function ProjectForm({ data }: { data?: Project | null }) {
 		return { success: "Project updated successfully!" };
 	};
 
-	const [state, formAction] = useFormState(handleProjectFormSubmit, {});
+	const [state, formAction] = useActionState(handleProjectFormSubmit, {});
 
 	return (
 		<form action={formAction}>

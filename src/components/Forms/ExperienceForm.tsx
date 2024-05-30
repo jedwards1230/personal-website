@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -65,7 +65,7 @@ export default function ExperienceForm({
 		return { success: "Experience updated successfully!" };
 	}
 
-	const [state, formAction] = useFormState(handleExperienceFormSubmit, {});
+	const [state, formAction] = useActionState(handleExperienceFormSubmit, {});
 
 	return (
 		<form action={formAction}>

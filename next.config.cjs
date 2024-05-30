@@ -5,11 +5,9 @@ const isProd = process.env.NODE_ENV === PHASE_PRODUCTION_BUILD;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	...(isProd && {
-		compiler: {
-			removeDebugger: true,
-		},
-	}),
+	...(isProd && { compiler: { removeDebugger: true } }),
+	experimental: { reactCompiler: true },
+	eslint: { ignoreDuringBuilds: true },
 	images: {
 		remotePatterns: [
 			{

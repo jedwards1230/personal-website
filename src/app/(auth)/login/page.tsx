@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,7 @@ export default function Page() {
 		return { success: "Login successful" };
 	}
 
-	const [state, formAction] = useFormState(loginAction, {});
+	const [state, formAction] = useActionState(loginAction, {});
 
 	return (
 		<form

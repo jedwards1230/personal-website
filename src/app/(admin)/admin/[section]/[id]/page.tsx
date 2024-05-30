@@ -8,13 +8,11 @@ import { getProjectById } from "@/models/project.server";
 
 export const dynamic = "force-dynamic";
 
-const SECTIONS: {
-	[section: string]: {
+const SECTIONS: Record<string, {
 		getData: (id: number) => Promise<any>;
 		View: React.FC<{ data: any }>;
 		Form: React.FC<{ data: any }>;
-	};
-} = {
+	}> = {
 	projects: {
 		getData: getProjectById,
 		View: ProjectView,

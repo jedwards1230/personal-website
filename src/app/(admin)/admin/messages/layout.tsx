@@ -31,9 +31,8 @@ export default async function Layout({
 						<Link
 							href={`${path}/${d.id}`}
 							className={clsx(
-								false
-									? "bg-foreground text-background hover:bg-foreground/70"
-									: "hover:bg-secondary focus:bg-foreground/30",
+								//"bg-foreground text-background hover:bg-foreground/70"
+								"hover:bg-secondary focus:bg-foreground/30",
 								"block w-full cursor-pointer py-2 pl-4 capitalize transition-all duration-100"
 							)}
 						>

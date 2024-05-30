@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -39,7 +39,7 @@ export async function handleAboutFormSubmit(
 }
 
 export default function AboutForm({ data }: { data: About }) {
-	const [state, formAction] = useFormState(handleAboutFormSubmit, {});
+	const [state, formAction] = useActionState(handleAboutFormSubmit, {});
 
 	return (
 		<form action={formAction} className="space-y-2 sm:space-y-4">

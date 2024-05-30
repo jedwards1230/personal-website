@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { revalidateAction } from "@/lib/action.server";
 import { uploadData } from "@/models/data.server";
 import { UploadCloudIcon } from "lucide-react";
-import { ChangeEvent, useState } from "react";
+import type { ChangeEvent} from "react";
+import { useState } from "react";
 
 export default function Upload() {
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);

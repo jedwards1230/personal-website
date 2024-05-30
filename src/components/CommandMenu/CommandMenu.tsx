@@ -58,7 +58,7 @@ async function SocialLinks() {
 	if (socialLinks.length === 0) return null;
 	return (
 		<CommandGroup heading="Links">
-			{socialLinks.map(({ name, url, Icon }) => (
+			{socialLinks.map(({ name, Icon }) => (
 				<CommandItem key={name}>
 					<Icon className="mr-2 h-4 w-4" />
 					<span>{name}</span>

@@ -7,11 +7,8 @@ import "./styles.css";
 import { CommandMenu } from "@/components/CommandMenu/CommandMenu";
 
 export const runtime = "edge";
-export const dynamic = "force-dynamic";
 
-const inter = Inter({
-	subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
 	title: {

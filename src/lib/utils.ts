@@ -19,8 +19,8 @@ export function invariant(
 	if (isProduction) {
 		throw new Error(prefix);
 	}
-	var provided = typeof message === "function" ? message() : message;
-	var value = provided ? "".concat(prefix, ": ").concat(provided) : prefix;
+	const provided = typeof message === "function" ? message() : message;
+	const value = provided ? "".concat(prefix, ": ").concat(provided) : prefix;
 	throw new Error(value);
 }
 

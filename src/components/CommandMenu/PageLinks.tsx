@@ -36,7 +36,7 @@ export default function PageLinks({
 	if (links.length === 0) return null;
 	return (
 		<CommandGroup heading="Pages">
-			{links.map(({ name, url, secure }) => (
+			{links.map(({ name, url }) => (
 				<CommandItem onSelect={() => router.push(url)} key={name}>
 					<Link2 className="mr-2 h-4 w-4" />
 					<span>{name}</span>

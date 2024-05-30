@@ -21,7 +21,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
 		document.addEventListener("keydown", toggleAdmin);
 		return () => document.removeEventListener("keydown", toggleAdmin);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return children;

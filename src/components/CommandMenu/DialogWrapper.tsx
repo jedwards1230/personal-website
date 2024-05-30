@@ -37,10 +37,8 @@ export default function DialogWrapper({
 		setOpen(false);
 	}, [pathname]);
 
-	let isMac = false;
-	if (navigator)
-		isMac = navigator.userAgent.toUpperCase().indexOf("MAC") >= 0;
-
+	//const isMac = navigator?.userAgent.toUpperCase().indexOf("MAC") >= 0;
+	const isMac = true;
 	return (
 		<>
 			<p className="fixed bottom-0 hidden w-screen border-t border-border bg-secondary py-0.5 text-center text-sm text-muted-foreground lg:block">
@@ -66,9 +64,9 @@ export default function DialogWrapper({
 				<Command size={16} />
 			</Button>
 			<CommandDialog open={open} onOpenChange={setOpen}>
-				<DialogContext.Provider value={{ closeDialog }}>
+				<DialogContext value={{ closeDialog }}>
 					{children}
-				</DialogContext.Provider>
+				</DialogContext>
 			</CommandDialog>
 		</>
 	);

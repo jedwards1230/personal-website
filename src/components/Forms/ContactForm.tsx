@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 
 import { createContact } from "@/models/contact.server";
 import Submit from "../buttons/SubmitButton";
@@ -30,7 +30,7 @@ async function submitMessage(
 }
 
 export default function ContactForm() {
-	const [state, formAction] = useFormState(submitMessage, {});
+	const [state, formAction] = useActionState(submitMessage, {});
 
 	return (
 		<form

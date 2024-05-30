@@ -1,6 +1,6 @@
 type Section = "intro" | "projects" | "contact";
 
-type Experience = {
+interface Experience {
 	id: number;
 	title: string;
 	company: string;
@@ -10,9 +10,9 @@ type Experience = {
 	description: string[];
 	tags: string[];
 	extraTags?: string[];
-};
+}
 
-type Project = {
+interface Project {
 	id: number;
 	date: Date;
 	/** Where I worked when I built the project */
@@ -31,18 +31,18 @@ type Project = {
 	tags: string[];
 	/** List of images to display for the project */
 	images: string[];
-};
+}
 
-type Contact = {
+interface Contact {
 	id: number;
 	name: string;
 	email: string;
 	message: string;
 	createdAt: Date;
 	readAt: Date | null;
-};
+}
 
-type About = {
+interface About {
 	id: number;
 	title: string;
 	description: string;
@@ -53,16 +53,16 @@ type About = {
 	location: string;
 	linkedin: string;
 	github: string;
-};
+}
 
-type Education = {
+interface Education {
 	id: number;
 	school: string;
 	degree: string;
 	endDate: Date;
-};
+}
 
-type Job = {
+interface Job {
 	id: number;
 	createdAt: Date;
 	company: string;
@@ -70,9 +70,9 @@ type Job = {
 	pay: string | null;
 	description: string;
 	href: string;
-};
+}
 
-type FormResponse = {
+interface FormResponse {
 	success?: string;
 	error?: string;
-};
+}

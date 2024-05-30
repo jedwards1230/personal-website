@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import ReactMarkdown from "react-markdown";
 
 export default function Markdown({ children }: { children: string }) {

@@ -70,7 +70,7 @@ export async function GET(req: Request) {
 }
 
 function decodeBasicAuth(auth: string) {
-	const decoded = atob(auth.split(" ").pop() || "");
+	const decoded = atob(auth.split(" ").pop() ?? "");
 	const parts = decoded.split(":");
 
 	if (parts.length !== 2) {

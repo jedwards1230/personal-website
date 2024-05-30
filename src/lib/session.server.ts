@@ -18,6 +18,8 @@ export async function createAdminSession(password: string, redirectTo: string) {
 		throw new Error("Invalid password");
 	}
 
+	if (redirectTo) console.log({ redirectTo });
+
 	cookies().set({
 		name: ADMIN_SESSION_COOKIE_NAME,
 		value: ADMIN_SESSION_COOKIE_VALUE,
