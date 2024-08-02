@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+.vercel
 
 .github/
 
@@ -28,24 +29,12 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env
-.env*.local
-
-# vercel
-.vercel
+!.env
+.env*
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
-
 data.json
 script.ts
-
-terraform/**/*.terraform*
-terraform/**/terraform.tfstate*
-**/*.tfvars
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
