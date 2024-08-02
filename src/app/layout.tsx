@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import PlausibleProvider from "next-plausible";
-import clsx from "clsx";
+import "./globals.css";
 
-import "./styles.css";
-import { CommandMenu } from "@/components/CommandMenu/CommandMenu";
-
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
-const inter = Inter({
-	subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
 	title: {
@@ -24,16 +16,13 @@ export const metadata: Metadata = {
 		"Justin Edwards, Full Stack Developer, Software Engineer, NextJS, TypeScript, SQL, AWS, Portfolio, Clearwater, Florida",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
 	children,
-}: {
+}: Readonly<{
 	children: React.ReactNode;
-}) {
+}>) {
 	return (
-		<html
-			lang="en"
-			className="w-full scroll-smooth bg-background text-foreground transition-all"
-		>
+		<html lang="en">
 			<head>
 				<PlausibleProvider
 					domain="jedwards.cc"
@@ -41,15 +30,7 @@ export default async function RootLayout({
 					trackFileDownloads={true}
 				/>
 			</head>
-			<body
-				className={clsx(
-					"relative mx-auto w-full max-w-10xl",
-					inter.className
-				)}
-			>
-				{children}
-				<CommandMenu />
-			</body>
+			<body className={inter.className}>{children}</body>
 		</html>
 	);
 }
