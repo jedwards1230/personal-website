@@ -12,8 +12,8 @@ Landing page with all my links
 
 The website is built using the following technologies:
 
--   [Remix](https://remix.run/): A full-stack JavaScript framework for the modern web
--   [TypeScript](https://www.typescriptlang.org/): A strongly-typed superset of JavaScript
--   [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework
--   [Vercel KV](https://vercel.com/docs/storage/vercel-kv): A key-value store for serverless functions
--   [Plausible](https://plausible.io/): A simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics system
+- [Remix](https://remix.run/): A full-stack JavaScript framework for the modern web
+- [TypeScript](https://www.typescriptlang.org/): A strongly-typed superset of JavaScript
+- [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework
+- [Vercel KV](https://vercel.com/docs/storage/vercel-kv): A key-value store for serverless functions
+- [Plausible](https://plausible.io/): A simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics system
