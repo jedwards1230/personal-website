@@ -31,12 +31,13 @@ test.describe("homepage", () => {
 	});
 
 	test("404 page renders for unknown route", async ({ page }) => {
-		// Vite preview serves 404.html on unmatched routes.
+		// `wrangler pages dev` (see playwright.config.ts webServer) serves
+		// 404.html with HTTP 404 on unmatched routes — matching production
+		// Cloudflare Pages behavior. `vite preview` would return 200 + the
+		// SPA shell here, which is why we don't use it for the smoke test.
 		const resp = await page.goto("/does-not-exist", {
 			waitUntil: "domcontentloaded",
 		});
-		// CF Pages returns 404; vite preview also returns 404 with 404.html body
-		// when the file exists.
 		await expect(page.locator("h1")).toHaveText("404");
 		await expect(page.locator("h2")).toHaveText(
 			"This page could not be found."
