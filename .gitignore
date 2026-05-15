@@ -5,19 +5,17 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-.vercel
-
-.github/
 
 # testing
 /coverage
+/test-results
+/playwright-report
 
-# next.js
-/.next/
-/out/
-
-# production
+# build
+/dist
+/out
 /build
+/.wrangler
 
 # misc
 .DS_Store
@@ -34,7 +32,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 data.json
 script.ts

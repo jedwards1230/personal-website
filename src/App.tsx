@@ -1,4 +1,4 @@
-export default function Home() {
+export default function App() {
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-center p-4 text-center sm:p-12 md:p-24">
 			<p className="text-4xl transition-all md:text-5xl">
