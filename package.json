@@ -1,29 +1,39 @@
 {
 	"name": "personal-website",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"private": true,
+	"type": "module",
 	"scripts": {
-		"dev": "next dev --turbo",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint",
-		"format": "prettier --write . --ignore-path .gitignore"
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"preview": "vite preview",
+		"lint": "eslint .",
+		"typecheck": "tsc -b --noEmit",
+		"format": "prettier --write . --ignore-path .gitignore",
+		"test:e2e": "playwright test",
+		"deploy": "bun run build && wrangler pages deploy dist"
 	},
 	"dependencies": {
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1"
+		"react": "^19.2.6",
+		"react-dom": "^19.2.6"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20240806.0",
-		"@types/node": "^22.2.0",
-		"@types/react": "^18.3.3",
-		"@types/react-dom": "^18.3.0",
-		"eslint": "^8.57.0",
-		"postcss": "^8.4.41",
-		"prettier": "^3.3.3",
-		"prettier-plugin-tailwindcss": "^0.6.6",
-		"tailwindcss": "^3.4.9",
-		"typescript": "^5.5.4",
-		"wrangler": "^3.70.0"
+		"@playwright/test": "^1.60.0",
+		"@tailwindcss/vite": "^4.3.0",
+		"@types/node": "^24.0.0",
+		"@types/react": "^19.0.0",
+		"@types/react-dom": "^19.0.0",
+		"@vitejs/plugin-react": "^6.0.2",
+		"eslint": "^10.4.0",
+		"eslint-plugin-react-hooks": "^7.1.1",
+		"eslint-plugin-react-refresh": "^0.5.2",
+		"globals": "^17.6.0",
+		"prettier": "^3.8.3",
+		"prettier-plugin-tailwindcss": "^0.8.0",
+		"tailwindcss": "^4.3.0",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.59.3",
+		"vite": "^8.0.13",
+		"wrangler": "^4.92.0"
 	}
 }
