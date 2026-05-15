@@ -1,19 +1,29 @@
 # Personal Website
 
-Landing page with all my links
+Single-page landing site for [jedwards.cc](https://jedwards.cc).
 
-![Screenshot - Home Page](./public/screenshot1.png)
+## Stack
 
-![Screenshot - Admin - Home Page](./public/screenshot2.png)
+- [Vite](https://vite.dev/) + [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first config)
+- [Plausible](https://plausible.io/) analytics (no JS package, just a `<script>` tag)
+- [Cloudflare Pages](https://pages.cloudflare.com/) hosting
 
-![Screenshot - Admin - Edit Experience](./public/screenshot3.png)
+## Scripts
 
-## Technologies
+| Command | What it does |
+|---|---|
+| `bun run dev` | Vite dev server on http://localhost:3000 |
+| `bun run build` | Type-check + production build to `dist/` |
+| `bun run preview` | Serve the built `dist/` on http://localhost:4173 |
+| `bun run lint` | ESLint (flat config) |
+| `bun run typecheck` | `tsc -b --noEmit` |
+| `bun run format` | Prettier (with Tailwind class sorting) |
+| `bun run test:e2e` | Playwright smoke tests |
+| `bun run deploy` | Build + `wrangler pages deploy dist` |
 
-The website is built using the following technologies:
+## Cloudflare Pages
 
-- [Remix](https://remix.run/): A full-stack JavaScript framework for the modern web
-- [TypeScript](https://www.typescriptlang.org/): A strongly-typed superset of JavaScript
-- [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework
-- [Vercel KV](https://vercel.com/docs/storage/vercel-kv): A key-value store for serverless functions
-- [Plausible](https://plausible.io/): A simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics system
+`wrangler.toml` points at `dist/`. The dashboard build command should be `bun run build`. Framework preset: **None** (or "Vite"). Output directory: `dist`.
+
+The static `public/404.html` is served automatically on unmatched routes.
