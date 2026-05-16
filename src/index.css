@@ -1,31 +1,103 @@
-@import "tailwindcss";
-
-@theme {
-	--font-sans:
-		"Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-		"Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-}
-
 :root {
-	--foreground-rgb: 0, 0, 0;
-	--background-start-rgb: 214, 219, 220;
-	--background-end-rgb: 255, 255, 255;
+	color-scheme: light dark;
+	--bg: #ffffff;
+	--fg: #0a0a0a;
+	--muted: #525252;
+	--link-hover: #1d4ed8;
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--foreground-rgb: 255, 255, 255;
-		--background-start-rgb: 0, 0, 0;
-		--background-end-rgb: 0, 0, 0;
+		--bg: #0a0a0a;
+		--fg: #fafafa;
+		--muted: #a3a3a3;
+		--link-hover: #60a5fa;
 	}
 }
 
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
 body {
-	color: rgb(var(--foreground-rgb));
-	background: linear-gradient(
-			to bottom,
-			transparent,
-			rgb(var(--background-end-rgb))
-		)
-		rgb(var(--background-start-rgb));
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family:
+		"Inter",
+		ui-sans-serif,
+		system-ui,
+		-apple-system,
+		"Segoe UI",
+		Roboto,
+		"Helvetica Neue",
+		Arial,
+		"Apple Color Emoji",
+		"Segoe UI Emoji";
+	background: var(--bg);
+	color: var(--fg);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.page {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	text-align: center;
+}
+
+@media (min-width: 640px) {
+	.page {
+		padding: 3rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.page {
+		padding: 6rem;
+	}
+}
+
+.name {
+	margin: 0;
+	font-size: 2.25rem;
+}
+
+.role {
+	margin: 0;
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
+@media (min-width: 768px) {
+	.name {
+		font-size: 3rem;
+	}
+	.role {
+		font-size: 1.5rem;
+	}
+}
+
+.email-wrap {
+	margin: 0;
+}
+
+.email {
+	color: var(--muted);
+	text-decoration: none;
+	transition: color 150ms;
+}
+
+.email:hover,
+.email:focus-visible {
+	color: var(--link-hover);
 }

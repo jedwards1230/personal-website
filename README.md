@@ -5,22 +5,22 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc).
 ## Stack
 
 - [Vite](https://vite.dev/) + [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first config)
+- Plain CSS — light/dark via `prefers-color-scheme`
 - [Plausible](https://plausible.io/) analytics (no JS package, just a `<script>` tag)
 - [Cloudflare Pages](https://pages.cloudflare.com/) hosting
 
 ## Scripts
 
-| Command | What it does |
-|---|---|
-| `bun run dev` | Vite dev server on http://localhost:3000 |
-| `bun run build` | Type-check + production build to `dist/` |
-| `bun run preview` | Serve the built `dist/` on http://localhost:4173 |
-| `bun run lint` | ESLint (flat config) |
-| `bun run typecheck` | `tsc -b --noEmit` |
-| `bun run format` | Prettier (with Tailwind class sorting) |
-| `bun run test:e2e` | Playwright smoke tests |
-| `bun run deploy` | Build + `wrangler pages deploy dist` |
+| Command             | What it does                                     |
+| ------------------- | ------------------------------------------------ |
+| `bun run dev`       | Vite dev server on http://localhost:3000         |
+| `bun run build`     | Type-check + production build to `dist/`         |
+| `bun run preview`   | Serve the built `dist/` on http://localhost:4173 |
+| `bun run lint`      | ESLint (flat config)                             |
+| `bun run typecheck` | `tsc -b --noEmit`                                |
+| `bun run format`    | Prettier (tabs, width 4)                         |
+| `bun run test:e2e`  | Playwright smoke tests                           |
+| `bun run deploy`    | Build + `wrangler pages deploy dist`             |
 
 ## Cloudflare Pages
 
