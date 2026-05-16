@@ -6,7 +6,7 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no
 
 - Vite 8 + React 19 + TypeScript 6
 - Tailwind CSS v4 (CSS-first config in `src/index.css`)
-- Bun for installs (`bun.lockb`)
+- Bun for installs (`bun.lock`, text format since Bun 1.2)
 - Plausible analytics via plain `<script>` tag in `index.html`
 - Cloudflare Pages hosting (V3 build image required — V2 is pinned to Node 18)
 
@@ -22,7 +22,7 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no
 | `bun run typecheck` | `tsc -b --noEmit` |
 | `bun run format` | Prettier with Tailwind class sorting |
 | `bun run test:e2e` | Playwright smoke tests |
-| `bun run deploy` | Manual deploy via `wrangler pages deploy dist` |
+| `bun run deploy` | Build + manual deploy via `wrangler pages deploy dist` |
 
 ## Layout
 
