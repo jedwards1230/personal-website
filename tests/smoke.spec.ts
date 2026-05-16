@@ -11,7 +11,7 @@ test.describe("homepage", () => {
 		await page.goto("/");
 
 		await expect(page.getByText("Justin Edwards")).toBeVisible();
-		await expect(page.getByText("Site Reliability Engineer")).toBeVisible();
+		await expect(page.getByText("Platform Engineer")).toBeVisible();
 
 		const email = page.getByRole("link", { name: "justin@jedwards.cc" });
 		await expect(email).toBeVisible();
