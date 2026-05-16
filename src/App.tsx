@@ -5,7 +5,7 @@ export default function App() {
 				Justin Edwards
 			</p>
 			<p className="text-xl font-semibold transition-all md:text-2xl">
-				Site Reliability Engineer
+				Platform Engineer
 			</p>
 			<p className="text-neutral-400 transition-colors hover:text-blue-400">
 				<a href="mailto:justin@jedwards.cc">justin@jedwards.cc</a>
