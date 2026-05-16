@@ -20,13 +20,6 @@ test.describe("homepage", () => {
 			"mailto:justin@jedwards.cc"
 		);
 
-		// Hover state: parent <p> should have hover:text-blue-400. We confirm
-		// the baseline neutral-400 class is present and that hover doesn't
-		// throw — full color assertion is brittle across browsers.
-		const linkParent = email.locator("xpath=..");
-		await expect(linkParent).toHaveClass(/text-neutral-400/);
-		await expect(linkParent).toHaveClass(/hover:text-blue-400/);
-
 		expect(consoleErrors).toEqual([]);
 	});
 

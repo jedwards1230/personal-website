@@ -5,24 +5,24 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no
 ## Stack
 
 - Vite 8 + React 19 + TypeScript 6
-- Tailwind CSS v4 (CSS-first config in `src/index.css`)
+- Plain CSS (no framework) — variables + media query for light/dark in `src/index.css`
 - Bun for installs (`bun.lock`, text format since Bun 1.2)
 - Plausible analytics via plain `<script>` tag in `index.html`
 - Cloudflare Pages hosting (V3 build image required — V2 is pinned to Node 18)
 
 ## Commands
 
-| Command | Description |
-|---|---|
-| `bun install --frozen-lockfile` | Install deps |
-| `bun run dev` | Vite dev server on http://localhost:3000 |
-| `bun run build` | `tsc -b` + Vite production build to `dist/` |
-| `bun run preview` | Serve built `dist/` on http://localhost:4173 |
-| `bun run lint` | ESLint (flat config) |
-| `bun run typecheck` | `tsc -b --noEmit` |
-| `bun run format` | Prettier with Tailwind class sorting |
-| `bun run test:e2e` | Playwright smoke tests |
-| `bun run deploy` | Build + manual deploy via `wrangler pages deploy dist` |
+| Command                         | Description                                            |
+| ------------------------------- | ------------------------------------------------------ |
+| `bun install --frozen-lockfile` | Install deps                                           |
+| `bun run dev`                   | Vite dev server on http://localhost:3000               |
+| `bun run build`                 | `tsc -b` + Vite production build to `dist/`            |
+| `bun run preview`               | Serve built `dist/` on http://localhost:4173           |
+| `bun run lint`                  | ESLint (flat config)                                   |
+| `bun run typecheck`             | `tsc -b --noEmit`                                      |
+| `bun run format`                | Prettier (tabs, width 4)                               |
+| `bun run test:e2e`              | Playwright smoke tests                                 |
+| `bun run deploy`                | Build + manual deploy via `wrangler pages deploy dist` |
 
 ## Layout
 
@@ -31,7 +31,7 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no
 ├── src/
 │   ├── App.tsx        # the homepage (everything renders here)
 │   ├── main.tsx       # React entry
-│   └── index.css      # Tailwind v4 directives + CSS-first config
+│   └── index.css      # Plain CSS (variables + prefers-color-scheme)
 ├── public/            # static assets (resume PDF, screenshots)
 │   └── 404.html       # CF Pages 404 fallback
 ├── tests/
@@ -58,4 +58,4 @@ job, on every PR. Both jobs must be green before merging.
 
 - **Indentation**: tabs (see `.prettierrc` — `useTabs: true`, `tabWidth: 4`)
 - **Linting**: ESLint flat config (`eslint.config.js`)
-- **Class sorting**: `prettier-plugin-tailwindcss` — run `bun run format` before committing
+- **Formatting**: run `bun run format` before committing
