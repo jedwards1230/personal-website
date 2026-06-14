@@ -22,8 +22,10 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc).
 | `bun run test:e2e`  | Playwright smoke tests                           |
 | `bun run deploy`    | Build + `wrangler pages deploy dist`             |
 
-## Cloudflare Pages
+## Deploy
 
-`wrangler.toml` points at `dist/`. The dashboard build command should be `bun run build`. Framework preset: **None** (or "Vite"). Output directory: `dist`.
+Auto-deploys on push to `main` via Cloudflare Pages. The Pages project is provisioned
+via Terraform — see [CLAUDE.md](./CLAUDE.md) for build image requirements and the
+Terraform module location.
 
 The static `public/404.html` is served automatically on unmatched routes.
