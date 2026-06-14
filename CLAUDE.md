@@ -8,6 +8,7 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no
 - Plain CSS (no framework) — variables + media query for light/dark in `src/index.css`
 - Bun for installs (`bun.lock`, text format since Bun 1.2)
 - Plausible analytics via plain `<script>` tag in `index.html`
+- Inter font loaded from Google Fonts (`index.html`)
 - Cloudflare Pages hosting (V3 build image required — V2 is pinned to Node 18)
 
 ## Commands
@@ -32,7 +33,7 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no
 │   ├── App.tsx        # the homepage (everything renders here)
 │   ├── main.tsx       # React entry
 │   └── index.css      # Plain CSS (variables + prefers-color-scheme)
-├── public/            # static assets (resume PDF, screenshots)
+├── public/            # static assets (resume PDF, favicon, portfolio preview images)
 │   └── 404.html       # CF Pages 404 fallback
 ├── tests/
 │   └── smoke.spec.ts  # Playwright smoke
@@ -51,8 +52,8 @@ provisioned in [lilbro-tf](https://github.com/jedwards1230/lilbro-tf) at
 
 ## CI
 
-`.github/workflows/ci.yml` runs lint → typecheck → build, then a Playwright e2e
-job, on every PR. Both jobs must be green before merging.
+`.github/workflows/ci.yml` runs lint, typecheck, build, and Playwright e2e on every
+PR (both jobs install and build independently). Both must be green before merging.
 
 ## Conventions
 
