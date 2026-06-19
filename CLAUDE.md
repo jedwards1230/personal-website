@@ -55,6 +55,42 @@ provisioned in [lilbro-tf](https://github.com/jedwards1230/lilbro-tf) at
 `.github/workflows/ci.yml` runs lint, typecheck, build, and Playwright e2e on every
 PR (both jobs install and build independently). Both must be green before merging.
 
+## Visual Verification
+
+For CSS/layout/rendered-output changes, verify visually before a PR (skip for
+config/tooling-only changes):
+
+```bash
+bun install --frozen-lockfile
+# Run the Vite dev server (it renders the full UI — see note below).
+bun run dev -- --port 9875
+# Use Playwright (MCP): navigate to http://localhost:9875/ and screenshot the
+# homepage in both light and dark mode. Save under .playwright-mcp/ (gitignored)
+# so screenshots are never committed.
+```
+
+This site is a **static SPA** — `src/App.tsx` renders the entire homepage (name,
+role, email) with no data fetching or backend. The Vite dev server renders the
+full UI on its own, so **no seeded fixtures or mock data are required**. The
+only route is `/`.
+
+**Dark mode** is driven purely by `prefers-color-scheme` in `src/index.css`
+(there is no `data-theme` toggle). To screenshot dark mode via Playwright MCP,
+emulate the color scheme (`browser_resize`/`browser_run_code_unsafe` with the
+emulation API, or launch with the dark scheme) rather than setting an attribute.
+
+The Playwright MCP server is declared in `.mcp.json` (`--browser firefox`). On
+Claude Code on the web, `.claude/hooks/session-start.sh` installs the firefox
+browser binary (for the MCP server) and chromium (for the automated suite below)
+so `browser_navigate` and `test:e2e` both work without manual setup; locally,
+run `bunx playwright install firefox chromium` once.
+
+This interactive visual check is **separate from the automated `test:e2e`
+suite**: `bun run test:e2e` runs `tests/smoke.spec.ts` against `chromium` via
+`wrangler pages dev` on the built `dist/` (to exercise the production 404.html
+fallback), while visual verification drives the live Vite dev server in firefox
+for ad-hoc screenshots. They complement each other — neither replaces the other.
+
 ## Conventions
 
 - **Indentation**: tabs (see `.prettierrc` — `useTabs: true`, `tabWidth: 4`)

@@ -10,6 +10,7 @@
 /coverage
 /test-results
 /playwright-report
+.playwright-mcp/
 
 # build
 /dist
@@ -20,6 +21,9 @@
 # misc
 .DS_Store
 *.pem
+
+# claude code (machine-local overrides)
+.claude/settings.local.json
 
 # debug
 npm-debug.log*
