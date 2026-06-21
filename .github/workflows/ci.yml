@@ -53,3 +53,20 @@ jobs:
           name: playwright-report
           path: playwright-report
           retention-days: 7
+
+  ci:
+    name: CI
+    if: always()
+    needs: [build, e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check results
+        run: |
+          results=("${{ needs.build.result }}" "${{ needs.e2e.result }}")
+          for r in "${results[@]}"; do
+            if [[ "$r" == "failure" || "$r" == "cancelled" ]]; then
+              echo "CI failed"
+              exit 1
+            fi
+          done
+          echo "All checks passed"
