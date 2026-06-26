@@ -29,3 +29,7 @@ via Terraform — see [CLAUDE.md](./CLAUDE.md) for build image requirements and 
 Terraform module location.
 
 The static `public/404.html` is served automatically on unmatched routes.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
