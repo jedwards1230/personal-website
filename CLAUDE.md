@@ -1,5 +1,7 @@
 # personal-website
 
+@CONTRIBUTING.md
+
 Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no SSR.
 
 ## Stack
@@ -13,17 +15,11 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no
 
 ## Commands
 
-| Command                         | Description                                            |
-| ------------------------------- | ------------------------------------------------------ |
-| `bun install --frozen-lockfile` | Install deps                                           |
-| `bun run dev`                   | Vite dev server on http://localhost:3000               |
-| `bun run build`                 | `tsc -b` + Vite production build to `dist/`            |
-| `bun run preview`               | Serve built `dist/` on http://localhost:4173           |
-| `bun run lint`                  | ESLint (flat config)                                   |
-| `bun run typecheck`             | `tsc -b --noEmit`                                      |
-| `bun run format`                | Prettier (tabs, width 4)                               |
-| `bun run test:e2e`              | Playwright smoke tests                                 |
-| `bun run deploy`                | Build + manual deploy via `wrangler pages deploy dist` |
+| Command               | Description                                            |
+| --------------------- | ------------------------------------------------------ |
+| `bun run dev`         | Vite dev server on http://localhost:3000               |
+| `bun run preview`     | Serve built `dist/` on http://localhost:4173           |
+| `bun run deploy`      | Build + manual deploy via `wrangler pages deploy dist` |
 
 ## Layout
 
