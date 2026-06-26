@@ -11,24 +11,24 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc).
 
 ## Scripts
 
-| Command             | What it does                                     |
-| ------------------- | ------------------------------------------------ |
-| `bun run dev`       | Vite dev server on http://localhost:3000         |
-| `bun run build`     | Type-check + production build to `dist/`         |
-| `bun run preview`   | Serve the built `dist/` on http://localhost:4173 |
-| `bun run lint`      | ESLint (flat config)                             |
-| `bun run typecheck` | `tsc -b --noEmit`                                |
-| `bun run format`    | Prettier (tabs, width 4)                         |
-| `bun run test:e2e`  | Playwright smoke tests                           |
-| `bun run deploy`    | Build + `wrangler pages deploy dist`             |
+| Command           | What it does                                     |
+| ----------------- | ------------------------------------------------ |
+| `bun run dev`     | Vite dev server on http://localhost:3000         |
+| `bun run build`   | Type-check + production build to `dist/`         |
+| `bun run preview` | Serve the built `dist/` on http://localhost:4173 |
+| `bun run deploy`  | Build + `wrangler pages deploy dist`             |
 
 ## Deploy
 
 Auto-deploys on push to `main` via Cloudflare Pages. The Pages project is provisioned
-via Terraform — see [CLAUDE.md](./CLAUDE.md) for build image requirements and the
-Terraform module location.
+via Terraform at `modules/cloudflare/main.tf` in
+[lilbro-tf](https://github.com/jedwards1230/lilbro-tf).
 
 The static `public/404.html` is served automatically on unmatched routes.
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for build, test, lint, and PR workflow.
 
 ## License
 
