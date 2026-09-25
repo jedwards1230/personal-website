@@ -25,3 +25,9 @@ updates:
     groups:
       npm:
         patterns: ["*"]
+    ignore:
+      # TypeScript 7 is the native (Go) compiler and ships no JS compiler API;
+      # typescript-eslint (peer: typescript <6.1) crashes on load against it.
+      # Drop this once typescript-eslint supports TS 7.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
