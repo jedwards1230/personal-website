@@ -28,10 +28,13 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no
 │   ├── App.tsx        # the homepage (everything renders here)
 │   ├── main.tsx       # React entry
 │   └── index.css      # Plain CSS (variables + prefers-color-scheme)
+├── functions/
+│   └── api/collect.ts # Pages Function: analytics beacon → homelab OTLP logs
 ├── public/            # static assets (favicon)
 │   └── 404.html       # CF Pages 404 fallback
 ├── tests/
-│   └── smoke.spec.ts  # Playwright smoke
+│   ├── smoke.spec.ts  # Playwright smoke
+│   └── unit/          # `bun run test:unit` (collector logic)
 ├── index.html         # Vite entry
 ├── vite.config.ts
 ├── wrangler.toml

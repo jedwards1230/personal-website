@@ -7,6 +7,7 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc).
 - [Vite](https://vite.dev/) + [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
 - Plain CSS — light/dark via `prefers-color-scheme`
 - [Cloudflare Pages](https://pages.cloudflare.com/) hosting
+- Self-hosted analytics: beacon (`src/analytics.ts`) → Pages Function (`functions/api/collect.ts`) → homelab OTLP (Loki/Grafana). Cookieless; honours GPC/DNT. Set `OTLP_INGEST_URL` and `OTLP_INGEST_TOKEN` on the Pages project — unset, the function no-ops.
 
 ## Scripts
 
