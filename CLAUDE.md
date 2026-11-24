@@ -9,7 +9,6 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no
 - Vite 8 + React 19 + TypeScript 6
 - Plain CSS (no framework) — variables + media query for light/dark in `src/index.css`
 - Bun for installs (`bun.lock`, text format since Bun 1.2)
-- Plausible analytics via plain `<script>` tag in `index.html`
 - Inter font loaded from Google Fonts (`index.html`)
 - Cloudflare Pages hosting (V3 build image required — V2 is pinned to Node 18)
 
@@ -29,11 +28,11 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc) — pure SPA, no
 │   ├── App.tsx        # the homepage (everything renders here)
 │   ├── main.tsx       # React entry
 │   └── index.css      # Plain CSS (variables + prefers-color-scheme)
-├── public/            # static assets (resume PDF, favicon, portfolio preview images)
+├── public/            # static assets (favicon)
 │   └── 404.html       # CF Pages 404 fallback
 ├── tests/
 │   └── smoke.spec.ts  # Playwright smoke
-├── index.html         # Vite entry + Plausible <script>
+├── index.html         # Vite entry
 ├── vite.config.ts
 ├── wrangler.toml
 └── .github/workflows/ci.yml
