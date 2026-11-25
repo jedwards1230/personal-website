@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import {
 	buildOtlpPayload,
 	classifyUserAgent,
+	isSameOrigin,
 	parseEvent,
 	referrerHost,
 } from "../../functions/api/collect";
@@ -150,5 +151,66 @@ describe("buildOtlpPayload", () => {
 			)
 		);
 		expect(json).not.toContain("secret");
+	});
+});
+
+describe("isSameOrigin", () => {
+	const req = (
+		headers: Record<string, string>,
+		url = "https://jedwards.cc/api/collect"
+	) => new Request(url, { method: "POST", headers });
+
+	test.each([
+		["matching Origin", { origin: "https://jedwards.cc" }, true],
+		[
+			"www Origin on apex request",
+			{ origin: "https://www.jedwards.cc" },
+			false,
+		],
+		["foreign Origin", { origin: "https://evil.example" }, false],
+		["Origin: null", { origin: "null" }, false],
+		[
+			"no Origin, same-origin fetch",
+			{ "sec-fetch-site": "same-origin" },
+			true,
+		],
+		[
+			"no Origin, cross-site fetch",
+			{ "sec-fetch-site": "cross-site" },
+			false,
+		],
+		["neither header", {}, false],
+	] as const)("%s → %p", (_name, headers, expected) => {
+		expect(isSameOrigin(req(headers))).toBe(expected);
+	});
+
+	test("foreign Origin wins over a same-origin Sec-Fetch-Site", () => {
+		expect(
+			isSameOrigin(
+				req({
+					origin: "https://evil.example",
+					"sec-fetch-site": "same-origin",
+				})
+			)
+		).toBe(false);
+	});
+
+	test("matches the request's own host, port included", () => {
+		expect(
+			isSameOrigin(
+				req(
+					{ origin: "http://127.0.0.1:8788" },
+					"http://127.0.0.1:8788/api/collect"
+				)
+			)
+		).toBe(true);
+		expect(
+			isSameOrigin(
+				req(
+					{ origin: "http://127.0.0.1:9999" },
+					"http://127.0.0.1:8788/api/collect"
+				)
+			)
+		).toBe(false);
 	});
 });

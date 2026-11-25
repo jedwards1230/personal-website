@@ -44,6 +44,10 @@ test.describe("homepage", () => {
 		await page.route("**/api/collect", async route => {
 			const req = route.request();
 			expect(req.method()).toBe("POST");
+			// The collector rejects beacons without a same-origin Origin header.
+			expect(await req.headerValue("origin")).toBe(
+				new URL(req.url()).origin
+			);
 			events.push(JSON.parse(req.postData() ?? "{}"));
 			await route.fulfill({ status: 204 });
 		});

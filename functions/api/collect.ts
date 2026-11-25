@@ -105,6 +105,20 @@ export function referrerHost(referrer: string, siteHost = SITE_HOST): string {
 	return host;
 }
 
+/**
+ * Whether a beacon came from this site's own pages. An Origin header must match
+ * the origin of the request URL (so apex, www, Pages preview hosts and local
+ * `wrangler pages dev` all work without a hardcoded list); without one, the
+ * browser must vouch via `Sec-Fetch-Site: same-origin`. Anything else, including
+ * `Origin: null`, is rejected. This only stops casual cross-site or scripted
+ * submissions: a non-browser client can forge either header.
+ */
+export function isSameOrigin(request: Request): boolean {
+	const origin = request.headers.get("origin");
+	if (origin !== null) return origin === new URL(request.url).origin;
+	return request.headers.get("sec-fetch-site") === "same-origin";
+}
+
 const str = (key: string, value: string) => ({
 	key,
 	value: { stringValue: value },
@@ -160,6 +174,7 @@ export function buildOtlpPayload(
 
 export const onRequestPost: PagesFunction<Env> = async context => {
 	const { request, env } = context;
+	if (!isSameOrigin(request)) return new Response(null, { status: 403 });
 
 	const declared = Number(request.headers.get("content-length") ?? "0");
 	if (declared > MAX_BODY_BYTES) {
