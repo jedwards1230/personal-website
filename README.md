@@ -6,7 +6,6 @@ Single-page landing site for [jedwards.cc](https://jedwards.cc).
 
 - [Vite](https://vite.dev/) + [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
 - Plain CSS — light/dark via `prefers-color-scheme`
-- [Plausible](https://plausible.io/) analytics (no JS package, just a `<script>` tag)
 - [Cloudflare Pages](https://pages.cloudflare.com/) hosting
 
 ## Scripts
