@@ -37,4 +37,39 @@ test.describe("homepage", () => {
 		);
 		expect(resp?.status()).toBe(404);
 	});
+
+	test("sends pageview and email_click beacons", async ({ page }) => {
+		const events: Array<{ type: string; path: string; referrer: string }> =
+			[];
+		await page.route("**/api/collect", async route => {
+			const req = route.request();
+			expect(req.method()).toBe("POST");
+			// The collector rejects beacons without a same-origin Origin header.
+			expect(await req.headerValue("origin")).toBe(
+				new URL(req.url()).origin
+			);
+			events.push(JSON.parse(req.postData() ?? "{}"));
+			await route.fulfill({ status: 204 });
+		});
+
+		await page.goto("/");
+		await expect.poll(() => events.map(e => e.type)).toEqual(["pageview"]);
+		expect(events[0]).toEqual({
+			type: "pageview",
+			path: "/",
+			referrer: "",
+		});
+
+		// Keep the mailto: link from navigating away (or opening a mail app);
+		// preventDefault does not stop the beacon's click listener.
+		await page.evaluate(() => {
+			window.addEventListener("click", e => e.preventDefault(), {
+				capture: true,
+			});
+		});
+		await page.getByRole("link", { name: "justin@jedwards.cc" }).click();
+		await expect
+			.poll(() => events.map(e => e.type))
+			.toEqual(["pageview", "email_click"]);
+	});
 });
